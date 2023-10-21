@@ -1,0 +1,1 @@
+export { plugin as GcpProjects } from '@backstage/plugin-gcp-projects';

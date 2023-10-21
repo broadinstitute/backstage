@@ -67,11 +67,11 @@ export default async function createPlugin(
 
             // Next we verify the email domain. It is recommended to include this
             // kind of check if you don't look up the user in an external service.
-            // if (domain !== 'acme.org') {
-            //   throw new Error(
-            //     `Login failed, this email ${profile.email} does not belong to the expected domain`,
-            //   );
-            // }
+            if (domain !== 'broadinstitute.org') {
+              throw new Error(
+                `Login failed, this email ${profile.email} does not belong to the expected domain`,
+              );
+            }
 
             // By using `stringifyEntityRef` we ensure that the reference is formatted correctly
             const userEntity = stringifyEntityRef({
@@ -88,6 +88,11 @@ export default async function createPlugin(
           },
         },
       }),
+      // google: providers.google.create({
+      //   signIn: {
+      //     resolver: providers.google.resolvers.emailLocalPartMatchingUserEntityName(),
+      //   },
+      //}),
     },
   });
 }

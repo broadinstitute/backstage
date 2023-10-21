@@ -35,6 +35,16 @@ import { RequirePermission } from '@backstage/plugin-permission-react';
 import { catalogEntityCreatePermission } from '@backstage/plugin-catalog-common/alpha';
 import { googleAuthApiRef } from '@backstage/core-plugin-api';
 import { SignInPage } from '@backstage/core-components';
+import { GcpProjectsPage } from '@backstage/plugin-gcp-projects';
+import { githubAuthApiRef } from '@backstage/core-plugin-api';
+
+
+interface SignInProviderConfig {
+  id: string;
+  title: string;
+  message: string;
+  apiRef: any;
+}
 
 const googleProvider: SignInProviderConfig = {
   id: 'google-auth-provider',
@@ -99,6 +109,7 @@ const routes = (
     </Route>
     <Route path="/create" element={<ScaffolderPage />} />
     <Route path="/api-docs" element={<ApiExplorerPage />} />
+    <Route path="/gcp-projects" element={<GcpProjectsPage />} />
     <Route
       path="/tech-radar"
       element={<TechRadarPage width={1500} height={800} />}
