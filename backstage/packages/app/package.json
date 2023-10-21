@@ -31,7 +31,7 @@
     "@backstage/plugin-catalog-graph": "^0.2.36",
     "@backstage/plugin-catalog-import": "^0.10.0",
     "@backstage/plugin-catalog-react": "^1.8.4",
-    "@backstage/plugin-cloudbuild": "^0.3.24",
+    "@backstage/plugin-cloudbuild": "^0.3.25",
     "@backstage/plugin-gcp-projects": "^0.3.41",
     "@backstage/plugin-github-actions": "^0.6.5",
     "@backstage/plugin-kubernetes": "^0.10.3",
