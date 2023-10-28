@@ -58,7 +58,10 @@ import {
 import { TechDocsAddons } from '@backstage/plugin-techdocs-react';
 import { ReportIssue } from '@backstage/plugin-techdocs-module-addons-contrib';
 import { EntityKubernetesContent } from '@backstage/plugin-kubernetes';
-import { EntityCloudbuildContent, isCloudbuildAvailable } from '@backstage/plugin-cloudbuild';  
+import { EntityCloudbuildContent, isCloudbuildAvailable } from '@backstage/plugin-cloudbuild';
+import { EntityGithubPullRequestsContent } from '@roadiehq/backstage-plugin-github-pull-requests';
+import { EntityGithubPullRequestsOverviewCard } from '@roadiehq/backstage-plugin-github-pull-requests';
+
 
 const techdocsContent = (
   <EntityTechdocsContent>
@@ -143,7 +146,13 @@ const overviewContent = (
     <Grid item md={8} xs={12}>
       <EntityHasSubcomponentsCard variant="gridItem" />
     </Grid>
+    <Grid container spacing={3}>
+      <Grid item md={6}>
+        <EntityGithubPullRequestsOverviewCard />
+      </Grid>
+    </Grid>
   </Grid>
+  
 );
 
 const serviceEntityPage = (
@@ -184,6 +193,11 @@ const serviceEntityPage = (
     <EntityLayout.Route path="/kubernetes" title="Kubernetes">
       <EntityKubernetesContent refreshIntervalMs={30000} />
     </EntityLayout.Route>
+
+    <EntityLayout.Route path="/pull-requests" title="Pull Requests">
+      <EntityGithubPullRequestsContent />
+    </EntityLayout.Route>
+
   </EntityLayout>
 );
 

@@ -124,7 +124,6 @@ kubernetes:
   clusterLocatorMethods:
     - type: 'gke'
       projectId: 'bits-gke-clusters'
-      region: 'us-east4'
-      skipTLSVerify: true
-      skipMetricsLookup: true
+      region: 'us-east4' 
+      skipMetricsLookup: false
       exposeDashboard: true
