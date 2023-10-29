@@ -123,7 +123,14 @@ kubernetes:
     type: 'multiTenant'
   clusterLocatorMethods:
     - type: 'gke'
-      projectId: 'bits-gke-clusters'
-      region: 'us-east4' 
+      projectId: 'bits-gke-clusters' 
+      region: 'us-east4'
+      skipTLSVerify: true
+      skipMetricsLookup: false
+      exposeDashboard: true
+    - type: 'gke'
+      projectId: 'bits-gke-clusters-dev'
+      region: 'us-east4'
+      skipTLSVerify: true
       skipMetricsLookup: false
       exposeDashboard: true
