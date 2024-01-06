@@ -87,6 +87,33 @@ scaffolder:
   # see https://backstage.io/docs/features/software-templates/configuration for software template options
 
 catalog:
+  providers:
+    github:
+      # the provider ID can be any camelCase string
+      providerId:
+        organization: 'broadinstitute' # string
+        catalogPath: '/catalog-info.yaml' # string
+        validateLocationsExist: true
+        filters:
+          branch: 'main' # string
+          repository: '.*' # Regex
+        schedule: # same options as in TaskScheduleDefinition
+          # supports cron, ISO duration, "human duration" as used in code
+          frequency: { minutes: 35 }
+          # supports ISO duration, "human duration" as used in code
+          timeout: { minutes: 3 }
+      importDSP:
+        organization: 'broadinstitute' # string
+        catalogPath: '/foundation.yaml' # string
+        validateLocationsExist: true
+        filters:
+          branch: 'main' # string
+          repository: '.*' # Regex
+        schedule: # same options as in TaskScheduleDefinition
+          # supports cron, ISO duration, "human duration" as used in code
+          frequency: { minutes: 65 }
+          # supports ISO duration, "human duration" as used in code
+          timeout: { minutes: 3 }
   import:
     entityFilename: catalog-info.yaml
     pullRequestBranchName: backstage-integration
