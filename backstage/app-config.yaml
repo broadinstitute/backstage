@@ -1,9 +1,9 @@
 app:
-  title: Scaffolded Backstage App
+  title: Broad Institute Engineering Portal
   baseUrl: http://localhost:3000
 
 organization:
-  name: Broad Backstage
+  name: Broad Institute
 
 backend:
   # Used for enabling authentication, secret is shared by all backend plugins
@@ -27,15 +27,15 @@ backend:
     credentials: true
   # This is for local development only, it is not recommended to use this in production
   # The production database configuration is stored in app-config.production.yaml
-  database:
-    # client: better-sqlite3
-    # connection: ':memory:'
-    client: pg
-    connection:
-      host: ${POSTGRES_HOST}
-      port: ${POSTGRES_PORT}
-      user: ${POSTGRES_USER}
-      password: ${POSTGRES_PASSWORD}
+  # database:
+  #   # client: better-sqlite3
+  #   # connection: ':memory:'
+  #   client: pg
+  #   connection:
+  #     host: ${POSTGRES_HOST}
+  #     port: ${POSTGRES_PORT}
+  #     user: ${POSTGRES_USER}
+  #     password: ${POSTGRES_PASSWORD}
   # workingDirectory: /tmp # Use this to configure a working directory for the scaffolder, defaults to the OS temp-dir
 
 integrations:
@@ -102,18 +102,18 @@ catalog:
           frequency: { minutes: 35 }
           # supports ISO duration, "human duration" as used in code
           timeout: { minutes: 3 }
-      importDSP:
-        organization: 'broadinstitute' # string
-        catalogPath: '/foundation.yaml' # string
-        validateLocationsExist: true
-        filters:
-          branch: 'main' # string
-          repository: '.*' # Regex
-        schedule: # same options as in TaskScheduleDefinition
-          # supports cron, ISO duration, "human duration" as used in code
-          frequency: { minutes: 65 }
-          # supports ISO duration, "human duration" as used in code
-          timeout: { minutes: 3 }
+      # importDSP:
+      #   organization: 'broadinstitute' # string
+      #   catalogPath: '/foundation.yaml' # string
+      #   validateLocationsExist: true
+      #   filters:
+      #     branch: 'main' # string
+      #     repository: '.*' # Regex
+      #   schedule: # same options as in TaskScheduleDefinition
+      #     # supports cron, ISO duration, "human duration" as used in code
+      #     frequency: { minutes: 65 }
+      #     # supports ISO duration, "human duration" as used in code
+      #     timeout: { minutes: 3 }
   import:
     entityFilename: catalog-info.yaml
     pullRequestBranchName: backstage-integration

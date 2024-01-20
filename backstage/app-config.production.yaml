@@ -33,3 +33,18 @@ catalog:
   # See https://backstage.io/docs/features/software-catalog/#adding-components-to-the-catalog for more details
   # on how to get entities into the catalog.
   locations: []
+
+  providers:
+    github:
+      importDSP:
+        organization: 'broadinstitute' # string
+        catalogPath: '/foundation.yaml' # string
+        validateLocationsExist: true
+        filters:
+          branch: 'main' # string
+          repository: '.*' # Regex
+        schedule: # same options as in TaskScheduleDefinition
+          # supports cron, ISO duration, "human duration" as used in code
+          frequency: { minutes: 65 }
+          # supports ISO duration, "human duration" as used in code
+          timeout: { minutes: 3 }
