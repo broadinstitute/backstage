@@ -14,7 +14,7 @@ metadata:
 spec:
   type: website
   system: backstage
-  domain: bits-platforms
+  #domain: bits-platforms
   owner: devnull
   lifecycle: experimental
 
@@ -29,19 +29,5 @@ metadata:
     - bits
     - kubernetes
     - bits-tools
-spec:
-  owner: devnull
-
----
-apiVersion: backstage.io/v1alpha1
-kind: Domain
-metadata:
-  name: bits-platforms
-  description: |
-    Platforms offered by BITS
-  tags:
-    - bits
-    - bits-tools
-    - bits-platforms
 spec:
   owner: devnull
