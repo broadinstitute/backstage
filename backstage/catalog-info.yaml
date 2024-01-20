@@ -2,12 +2,18 @@ apiVersion: backstage.io/v1alpha1
 kind: Component
 metadata:
   name: backstage
-  description: An example of a Backstage application.
-  # Example for optional annotations
-  # annotations:
-  #   github.com/project-slug: backstage/backstage
-  #   backstage.io/techdocs-ref: dir:.
+  links:
+    - url: https://backstage.broadinstitute.org
+      title: Backstage
+      icon: dashboard
+  description: Broad Institute Engineering Portal is an Internal Developer Platform (Spotify Backstage by another name)
+  annotations:
+    github.com/project-slug: broadinstitute/backstage
+    google.com/cloudbuild-project-slug: bits-gke-clusters
+    backstage.io/techdocs-ref: dir:.
 spec:
   type: website
-  owner: john@example.com
+  system: backstage
+  domain: bits-platforms
+  owner: devnull
   lifecycle: experimental
