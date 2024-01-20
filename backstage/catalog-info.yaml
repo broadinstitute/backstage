@@ -17,3 +17,31 @@ spec:
   domain: bits-platforms
   owner: devnull
   lifecycle: experimental
+
+---
+apiVersion: backstage.io/v1alpha1
+kind: System
+metadata:
+  name: backstage
+  description: |
+    The Backstage Internal Developer Platform
+  tags:
+    - bits
+    - kubernetes
+    - bits-tools
+spec:
+  owner: devnull
+
+---
+apiVersion: backstage.io/v1alpha1
+kind: Domain
+metadata:
+  name: bits-platforms
+  description: |
+    Platforms offered by BITS
+  tags:
+    - bits
+    - bits-tools
+    - bits-platforms
+spec:
+  owner: devnull
