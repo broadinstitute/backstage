@@ -1,0 +1,8 @@
+---
+version: 3
+projects:
+  - name: development
+    dir: deployment/dev/terraform
+  - name: production
+    dir: deployment/prod/terraform
+    apply_requirements: [approved]

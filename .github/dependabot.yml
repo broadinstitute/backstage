@@ -1,0 +1,30 @@
+---
+version: 2
+updates:
+  - package-ecosystem: 'github-actions'
+    directory: '/'
+    groups:
+      actions:
+        patterns:
+          - '*'
+    schedule:
+      # Check for updates to GitHub Actions every week
+      interval: 'weekly'
+  - package-ecosystem: 'terraform'
+    directory: '/deployment/dev/terraform'
+    groups:
+      actions:
+        patterns:
+          - '*'
+    schedule:
+      # Check for updates to Terraform every week
+      interval: 'weekly'
+  - package-ecosystem: 'terraform'
+    directory: '/deployment/prod/terraform'
+    groups:
+      actions:
+        patterns:
+          - '*'
+    schedule:
+      # Check for updates to Terraform every week
+      interval: 'weekly'
