@@ -10,4 +10,4 @@ noInlineConfig: true
 noProgress: true
 # Define glob expressions to ignore
 ignores:
-  - "pull_request_template.md"
+  - "pull_request_template*.md"
