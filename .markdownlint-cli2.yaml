@@ -8,3 +8,6 @@ fix: true
 noInlineConfig: true
 # Disable progress on stdout (only valid at root)
 noProgress: true
+# Define glob expressions to ignore
+ignores:
+  - "pull_request_template.md"
