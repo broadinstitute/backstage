@@ -61,7 +61,7 @@ import { EntityKubernetesContent } from '@backstage/plugin-kubernetes';
 import { EntityCloudbuildContent, isCloudbuildAvailable } from '@backstage/plugin-cloudbuild';
 import { EntityGithubPullRequestsContent } from '@roadiehq/backstage-plugin-github-pull-requests';
 import { EntityGithubPullRequestsOverviewCard } from '@roadiehq/backstage-plugin-github-pull-requests';
-
+import { EntityTeamPullRequestsContent } from '@backstage/plugin-github-pull-requests-board';
 
 const techdocsContent = (
   <EntityTechdocsContent>
@@ -152,7 +152,7 @@ const overviewContent = (
       </Grid>
     </Grid>
   </Grid>
-  
+
 );
 
 const serviceEntityPage = (
@@ -328,6 +328,9 @@ const groupPage = (
         </Grid>
       </Grid>
     </EntityLayout.Route>
+    <EntityLayout.Route path="/pull-requests" title="Pull Requests">
+            <EntityTeamPullRequestsContent />
+        </EntityLayout.Route>
   </EntityLayout>
 );
 
