@@ -1,5 +1,5 @@
 # Create a service account for App to use to connect to the CloudSQL instance
-module "db-service-accounts" {
+module "db_service_accounts" {
   source      = "terraform-google-modules/service-accounts/google"
   version     = "4.2.2"
   project_id  = var.core_project
@@ -14,10 +14,10 @@ module "db-service-accounts" {
   ]
 }
 
-resource "google_service_account_iam_member" "db-workload-identity" {
-  service_account_id = module.db-service-accounts.service_accounts_map["${local.application_name}"]["name"]
+resource "google_service_account_iam_member" "db_workload_identity" {
+  service_account_id = module.db_service_accounts.service_accounts_map["${local.application_name}"]["name"]
   role               = "roles/iam.workloadIdentityUser"
-  member             = "serviceAccount:${var.gke_project}.svc.id.goog[${local.application_name}/${local.application_name}]" #todo: fix this
+  member             = "serviceAccount:${var.gke_project}.svc.id.goog[${local.application_name}/${local.application_name}]" 
 }
 
 # Create a CloudSQL instance for App to use
@@ -50,7 +50,7 @@ module "postgres" {
   iam_users = [
     {
       id    = "${local.application_name}",
-      email = module.db-service-accounts.service_accounts_map["${local.application_name}"]["email"]
+      email = module.db_service_accounts.service_accounts_map["${local.application_name}"]["email"]
     },
   ]
 }
