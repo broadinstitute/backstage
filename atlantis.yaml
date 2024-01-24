@@ -5,4 +5,4 @@ projects:
     dir: deployment/dev/terraform
   - name: production
     dir: deployment/prod/terraform
-    apply_requirements: [approved]
+    #apply_requirements: [approved]
