@@ -5,3 +5,4 @@
 
 core_project = "bits-backstage-dev"
 env          = "dev"
+gke_project  = "bits-gke-clusters-dev"

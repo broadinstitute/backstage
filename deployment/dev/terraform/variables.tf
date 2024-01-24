@@ -17,6 +17,12 @@ variable "api_services" {
   ]
 }
 
+variable "cloudsql_tier" {
+  description = "CloudSQL tier to use"
+  type        = string
+  default     = "db-f1-micro"
+}
+
 variable "core_project" {
   description = "GCP project to use for the default/primary provider"
   type        = string
@@ -25,5 +31,10 @@ variable "core_project" {
 
 variable "env" {
   description = "Label for the environment or tier you are working in. Typically dev, staging, or prod"
+  type        = string
+}
+
+variable "gke_project" {
+  description = "GCP project Where GKE clusters are running"
   type        = string
 }
