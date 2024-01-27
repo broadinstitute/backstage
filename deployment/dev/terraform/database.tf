@@ -4,8 +4,9 @@ module "db_service_accounts" {
   version     = "4.2.2"
   project_id  = var.core_project
   names       = ["${local.application_name}"]
-  description = "service account for CloudSQL access"
+  description = "service account for ${local.application_name}"
   project_roles = [
+    "${var.core_project}=>roles/secretmanager.secretAccessor",
     "${var.core_project}=>roles/cloudsql.instanceUser",
     "${var.core_project}=>roles/cloudsql.client",
     "${var.core_project}=>roles/monitoring.viewer",
@@ -17,7 +18,7 @@ module "db_service_accounts" {
 resource "google_service_account_iam_member" "db_workload_identity" {
   service_account_id = module.db_service_accounts.service_accounts_map["${local.application_name}"]["name"]
   role               = "roles/iam.workloadIdentityUser"
-  member             = "serviceAccount:${var.gke_project}.svc.id.goog[${local.application_name}/${local.application_name}]" 
+  member             = "serviceAccount:${var.gke_project}.svc.id.goog[${local.application_name}/${local.application_name}]"
 }
 
 # Create a CloudSQL instance for App to use
