@@ -7,7 +7,7 @@
     - id: 'populate-github-app-credentials-file'
       name: 'alpine'
       dir: ${_APP}
-      entrypoint: '/bin/bash'
+      entrypoint: '/bin/sh'
       args:
         - '-c'
         - 'echo'
