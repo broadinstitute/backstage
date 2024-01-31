@@ -129,8 +129,8 @@
   #       - '--project=${PROJECT_ID}'
   #       - '--cluster=gke-autopilot-01-prod'
   #       # - '--verbose'
-  # images:
-  #   - '${LOCATION}-docker.pkg.dev/${PROJECT_ID}/bits/${_APP}:${SHORT_SHA}'
-  #   - '${LOCATION}-docker.pkg.dev/${PROJECT_ID}-dev/bits/${_APP}:${SHORT_SHA}'
-  #   - '${LOCATION}-docker.pkg.dev/${PROJECT_ID}-dev/bits/${_APP}:${_PR_NUMBER}'
-  #   - '${LOCATION}-docker.pkg.dev/${PROJECT_ID}-dev/bits/${_APP}:latest'
+  images:
+    - '${LOCATION}-docker.pkg.dev/${PROJECT_ID}/bits/${_APP}:${SHORT_SHA}'
+    - '${LOCATION}-docker.pkg.dev/${PROJECT_ID}-dev/bits/${_APP}:${SHORT_SHA}'
+    - '${LOCATION}-docker.pkg.dev/${PROJECT_ID}-dev/bits/${_APP}:${_PR_NUMBER}'
+    - '${LOCATION}-docker.pkg.dev/${PROJECT_ID}-dev/bits/${_APP}:latest'
