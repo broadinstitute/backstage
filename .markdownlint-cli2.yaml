@@ -2,6 +2,7 @@
 # Disable some built-in rules
 config:
   line-length: false
+  no-inline-html: false
 # Fix any fixable errors
 fix: true
 # Disable inline config comments
