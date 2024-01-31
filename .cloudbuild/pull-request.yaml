@@ -42,6 +42,7 @@
     - id: build-docker-image
       name: 'gcr.io/cloud-builders/docker'
       dir: ${_APP}
+      env: 'DOCKER_BUILDKIT=1'
       args:
         - 'image'
         - 'build'
