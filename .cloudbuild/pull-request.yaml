@@ -12,7 +12,7 @@
 
     # yarn install --frozen-lockfile
     - id: 'yarn-install'
-      name: 'node:18.19.0-alpine'
+      name: 'node:18.19.0-bookworm'
       dir: ${_APP}
       entrypoint: 'yarn'
       args:
@@ -23,7 +23,7 @@
 
     # yarn build:backend --config ../../app-config.yaml
     - id: 'build-backend'
-      name: 'node:18.19.0-alpine'
+      name: 'node:18.19.0-bookworm'
       dir: ${_APP}
       entrypoint: 'yarn'
       args:
@@ -33,7 +33,7 @@
 
     # yarn tsc TypeScript Compiler
     - id: 'yarn-tsc'
-      name: 'node:18.19.0-alpine'
+      name: 'node:18.19.0-bookworm'
       dir: ${_APP}
       entrypoint: 'yarn'
       args:
