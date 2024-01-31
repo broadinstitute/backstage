@@ -4,8 +4,8 @@
 
   steps:
     # echo 'test: do not delete' > github-app-backstage-bits-credentials.yaml
-    - id: 'alpine'
-      name: 'gcr.io/cloud-builders/echo'
+    - id: 'populate-github-app-credentials-file'
+      name: 'alpine'
       entrypoint: 'echo'
       args:
         - 'test: do not delete'
