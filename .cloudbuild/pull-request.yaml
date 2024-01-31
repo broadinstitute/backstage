@@ -1,0 +1,98 @@
+---
+  substitutions:
+    _APP: backstage
+
+  steps:
+    - id: build-docker-image
+      name: 'gcr.io/cloud-builders/docker'
+      dir: ${_APP}
+      args:
+        - 'image'
+        - 'build'
+        - '-f'
+        - 'packages/backend/Dockerfile'
+        - '-t'
+        - '${LOCATION}-docker.pkg.dev/${PROJECT_ID}/bits/${_APP}:${SHORT_SHA}'
+        - '-t'
+        - '${LOCATION}-docker.pkg.dev/${PROJECT_ID}-dev/bits/${_APP}:latest'
+        - '-t'
+        - '${LOCATION}-docker.pkg.dev/${PROJECT_ID}-dev/bits/${_APP}:${_PR_NUMBER}'
+        - '-t'
+        - '${LOCATION}-docker.pkg.dev/${PROJECT_ID}-dev/bits/${_APP}:${SHORT_SHA}'
+        - '.'
+
+    # Test the image.
+    - id: test-docker-image
+      name: 'gcr.io/gcp-runtimes/container-structure-test'
+      args:
+        - 'test'
+        - '--image'
+        - '${LOCATION}-docker.pkg.dev/${PROJECT_ID}/bits/${_APP}:${SHORT_SHA}'
+        - '--config'
+        - 'container-image-tests.yaml'
+
+    # Push the image to the container registry.
+    - id: push-image-to-dev
+      name: 'gcr.io/cloud-builders/docker'
+      args:
+        - 'push'
+        - '${LOCATION}-docker.pkg.dev/${PROJECT_ID}-dev/bits/${_APP}:${SHORT_SHA}'
+
+  #   # kpt fn eval deployment/dev/app --image gcr.io/kpt-fn/set-labels:v0.2.0 --exclude-kind=StatefulSet -- environment=dev
+  #   - id: kpt-set-labels
+  #     name: 'gcr.io/kpt-dev/kpt:v1.0.0-beta.48'
+  #     args:
+  #       - 'fn'
+  #       - 'eval'
+  #       - 'deployment/dev/${_APP}'
+  #       - '--image'
+  #       - 'gcr.io/kpt-fn/set-labels:v0.2.0'
+  #       - '--'
+  #       - 'environment=dev'
+
+  #   # gke-deploy server side Dry Run on the dev cluster.
+  #   - id: gke-deploy-dry-run
+  #     name: "gcr.io/cloud-builders/gke-deploy"
+  #     args:
+  #       - 'run'
+  #       - '--server-dry-run'
+  #       - '--output=dry-run'
+  #       - '--recursive'
+  #       - '--filename=deployment/dev/${_APP}'
+  #       - '--location=${LOCATION}'
+  #       - '--project=${PROJECT_ID}-dev'
+  #       - '--cluster=gke-autopilot-01-dev'
+  #       # - '--verbose'
+
+  #   # Deploy to the dev cluster.
+  #   - id: gke-deploy-dev
+  #     name: "gcr.io/cloud-builders/gke-deploy"
+  #     args:
+  #       - 'run'
+  #       - '--recursive'
+  #       - '--filename=deployment/dev/${_APP}'
+  #       - '--location=${LOCATION}'
+  #       - '--project=${PROJECT_ID}-dev'
+  #       - '--cluster=gke-autopilot-01-dev'
+  #       # - '--verbose'
+
+  #   # gke-deploy server side Dry Run on the Prod cluster.
+  #   # This is the only step run against the prod cluster.
+  #   # It sources the manifests from the prod directory as a validation step.
+  #   - id: gke-deploy-dry-run-prod
+  #     name: "gcr.io/cloud-builders/gke-deploy"
+  #     args:
+  #       - 'run'
+  #       - '--server-dry-run'
+  #       - '--output=dry-run-prod'
+  #       - '--recursive'
+  #       - '--filename=deployment/prod/${_APP}'
+  #       - '--location=${LOCATION}'
+  #       - '--project=${PROJECT_ID}'
+  #       - '--cluster=gke-autopilot-01-prod'
+  #       # - '--verbose'
+  # images:
+  #   - '${LOCATION}-docker.pkg.dev/${PROJECT_ID}/bits/${_APP}:${SHORT_SHA}'
+  #   - '${LOCATION}-docker.pkg.dev/${PROJECT_ID}-dev/bits/${_APP}:${SHORT_SHA}'
+  #   - '${LOCATION}-docker.pkg.dev/${PROJECT_ID}-dev/bits/${_APP}:${_PR_NUMBER}'
+  #   - '${LOCATION}-docker.pkg.dev/${PROJECT_ID}-dev/bits/${_APP}:latest'
