@@ -3,6 +3,30 @@
     _APP: backstage
 
   steps:
+    # yarn install --frozen-lockfile
+    - name: 'Build Backend'
+      dir: ${_APP}
+      entrypoint: 'yarn'
+      args:
+        - 'install'
+        - '--frozen-lockfile'
+
+    # yarn build:backend --config ../../app-config.yaml
+    - name: 'Build Backend'
+      dir: ${_APP}
+      entrypoint: 'yarn'
+      args:
+        - 'build:backend'
+        - '--config'
+        - '../../app-config.yaml'
+
+    # yarn tsc TypeScript Compiler
+    - name: 'TypeScript Compiler (yarn tsc)'
+      dir: ${_APP}
+      entrypoint: 'yarn'
+      args:
+        - 'tsc'
+
     - id: build-docker-image
       name: 'gcr.io/cloud-builders/docker'
       dir: ${_APP}
