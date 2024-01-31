@@ -4,7 +4,8 @@
 
   steps:
     # yarn install --frozen-lockfile
-    - name: 'Build Backend'
+    - id: 'yarn-install'
+      name: 'node'
       dir: ${_APP}
       entrypoint: 'yarn'
       args:
@@ -12,7 +13,8 @@
         - '--frozen-lockfile'
 
     # yarn build:backend --config ../../app-config.yaml
-    - name: 'Build Backend'
+    - id: 'build-backend'
+      name: 'node'
       dir: ${_APP}
       entrypoint: 'yarn'
       args:
@@ -21,7 +23,8 @@
         - '../../app-config.yaml'
 
     # yarn tsc TypeScript Compiler
-    - name: 'TypeScript Compiler (yarn tsc)'
+    - id: 'yarn-tsc'
+      name: 'node'
       dir: ${_APP}
       entrypoint: 'yarn'
       args:
