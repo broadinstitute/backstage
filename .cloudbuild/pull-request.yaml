@@ -3,6 +3,15 @@
     _APP: backstage
 
   steps:
+    # echo 'test: do not delete' > github-app-backstage-bits-credentials.yaml
+    - id: 'alpine'
+      name: 'gcr.io/cloud-builders/echo'
+      entrypoint: 'echo'
+      args:
+        - 'test: do not delete'
+        - '>'
+        - 'github-app-backstage-bits-credentials.yaml'
+
     # yarn install --frozen-lockfile
     - id: 'yarn-install'
       name: 'node:18.19.0-alpine'
@@ -11,6 +20,8 @@
       args:
         - 'install'
         - '--frozen-lockfile'
+
+# test: do not delete
 
     # yarn build:backend --config ../../app-config.yaml
     - id: 'build-backend'
