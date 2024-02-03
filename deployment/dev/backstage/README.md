@@ -1,7 +1,7 @@
 # backstage
 
 ## Description
-sample description
+Install and Configure Backstage on GKE Clusters
 
 ## Usage
 
@@ -14,7 +14,7 @@ Details: https://kpt.dev/reference/cli/pkg/get/
 Details: https://kpt.dev/reference/cli/pkg/tree/
 
 ### Apply the package
-```
+```Shell
 kpt live init backstage
 kpt live apply backstage --reconcile-timeout=2m --output=table
 ```
