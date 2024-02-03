@@ -24,7 +24,7 @@ spec:
       serviceAccountName: backstage
       containers:
         - name: backstage
-          image: us-east4-docker.pkg.dev/bits-gke-clusters/bits/backstage:0fb8278
+          image: us-east4-docker.pkg.dev/bits-gke-clusters/bits/backstage:latest
           imagePullPolicy: IfNotPresent
           env:
             - name: NODE_ENV
@@ -53,16 +53,16 @@ spec:
           ports:
             - name: http
               containerPort: 7007
-                # Uncomment if health checks are enabled in your app:
-                # https://backstage.io/docs/plugins/observability#health-checks
-                #          readinessProbe:
-                #            httpGet:
-                #              port: 7007
-                #              path: /healthcheck
-                #          livenessProbe:
-                #            httpGet:
-                #              port: 7007
-                #              path: /healthcheck
+              # Uncomment if health checks are enabled in your app:
+              # https://backstage.io/docs/plugins/observability#health-checks
+              #          readinessProbe:
+              #            httpGet:
+              #              port: 7007
+              #              path: /healthcheck
+              #          livenessProbe:
+              #            httpGet:
+              #              port: 7007
+              #              path: /healthcheck
         - name: cloud-sql-proxy
           # It is recommended to use the latest version of the Cloud SQL Auth Proxy
           # Make sure to update on a regular schedule!
@@ -73,12 +73,12 @@ spec:
             # - "--private-ip"
 
             # Enable structured logging with LogEntry format:
-            - "--structured-logs"
+            - --structured-logs
             # Replace DB_PORT with the port the proxy should listen on
-            - "--port=5432"
+            - --port=5432
             # Use auto iam authn to authenticate with the Cloud SQL instance
-            - "--auto-iam-authn"
-            - "bits-backstage-dev:us-east4:backstage-dev" # kpt-set: ${instance_connection_name}
+            - --auto-iam-authn
+            - bits-backstage-dev:us-east4:backstage-dev # kpt-set: ${instance_connection_name}
           securityContext:
             # The default Cloud SQL Auth Proxy image runs as the
             # "nonroot" user and group (uid: 65532) by default.
@@ -93,7 +93,7 @@ spec:
               # The proxy's memory use scales linearly with the number of active
               # connections. Fewer open connections will use less memory. Adjust
               # this value based on your application's requirements.
-              memory: "2Gi"
+              memory: 2Gi
               # The proxy's CPU use scales linearly with the amount of IO between
               # the database and the application. Adjust this value based on your
               # application's requirements.

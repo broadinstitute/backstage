@@ -76,6 +76,19 @@
         - 'push'
         - '${LOCATION}-docker.pkg.dev/${PROJECT_ID}-dev/bits/${_APP}:${SHORT_SHA}'
 
+    # kpt fn eval backstage --image gcr.io/kpt-fn/set-image:v0.1.1 -- name=us-east4-docker.pkg.dev/bits-gke-clusters/bits/backstage:latest  newTag=0fb8278
+    - id: kpt-set-image
+      name: 'gcr.io/kpt-dev/kpt:v1.0.0-beta.48'
+      args:
+        - 'fn'
+        - 'eval'
+        - 'deployment/dev/${_APP}'
+        - '--image'
+        - 'gcr.io/kpt-fn/set-image:v0.1.1'
+        - '--'
+        - 'name=${LOCATION}-docker.pkg.dev/${PROJECT_ID}/bits/${_APP}:latest'
+        - 'newTag=${SHORT_SHA}'
+
     # kpt fn eval deployment/dev/app --image gcr.io/kpt-fn/set-labels:v0.2.0 --exclude-kind=StatefulSet -- environment=dev
     - id: kpt-set-labels
       name: 'gcr.io/kpt-dev/kpt:v1.0.0-beta.48'
