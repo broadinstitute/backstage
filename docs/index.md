@@ -4,9 +4,9 @@ Backstage is an open platform for building developer portals. Powered by a centr
 
 "backstage root" is the backstage folder in the root of the repository. In this repo, the backstage root folder is `backstage/backstage`
 
-
 Build Docker Image for Backstage (From backstage root)
-```bash
+
+```Bash
 yarn build:backend --config ../../app-config.yaml
 yarn tsc
 docker image build . -f packages/backend/Dockerfile --tag backstage
@@ -16,11 +16,11 @@ docker image build . -f packages/backend/Dockerfile --tag backstage
 
 To create secrets for backstage in kubernetes you can use the .envrc files in the dev/prod folders in deployments. The .envrc files are used to set the environment variables, and a local file,  from 1Password.
 
-    github-app-backstage-bits-credential
-    auth-github-client-id
-    auth-github-client-secret
-    auth-google-client-id
-    auth-google-client-secret
+github-app-backstage-bits-credential
+auth-github-client-id
+auth-github-client-secret
+auth-google-client-id
+auth-google-client-secret
 
 ```Bash
 kubectl -n backstage create secret generic github-app-backstage-bits-credential --from-file=github-app-backstage-bits-credentials.yaml
