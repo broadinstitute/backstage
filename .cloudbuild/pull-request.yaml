@@ -76,31 +76,31 @@
         - 'push'
         - '${LOCATION}-docker.pkg.dev/${PROJECT_ID}-dev/bits/${_APP}:${SHORT_SHA}'
 
-  #   # kpt fn eval deployment/dev/app --image gcr.io/kpt-fn/set-labels:v0.2.0 --exclude-kind=StatefulSet -- environment=dev
-  #   - id: kpt-set-labels
-  #     name: 'gcr.io/kpt-dev/kpt:v1.0.0-beta.48'
-  #     args:
-  #       - 'fn'
-  #       - 'eval'
-  #       - 'deployment/dev/${_APP}'
-  #       - '--image'
-  #       - 'gcr.io/kpt-fn/set-labels:v0.2.0'
-  #       - '--'
-  #       - 'environment=dev'
+    # kpt fn eval deployment/dev/app --image gcr.io/kpt-fn/set-labels:v0.2.0 --exclude-kind=StatefulSet -- environment=dev
+    - id: kpt-set-labels
+      name: 'gcr.io/kpt-dev/kpt:v1.0.0-beta.48'
+      args:
+        - 'fn'
+        - 'eval'
+        - 'deployment/dev/${_APP}'
+        - '--image'
+        - 'gcr.io/kpt-fn/set-labels:v0.2.0'
+        - '--'
+        - 'environment=dev'
 
-  #   # gke-deploy server side Dry Run on the dev cluster.
-  #   - id: gke-deploy-dry-run
-  #     name: "gcr.io/cloud-builders/gke-deploy"
-  #     args:
-  #       - 'run'
-  #       - '--server-dry-run'
-  #       - '--output=dry-run'
-  #       - '--recursive'
-  #       - '--filename=deployment/dev/${_APP}'
-  #       - '--location=${LOCATION}'
-  #       - '--project=${PROJECT_ID}-dev'
-  #       - '--cluster=gke-autopilot-01-dev'
-  #       # - '--verbose'
+    # gke-deploy server side Dry Run on the dev cluster.
+    - id: gke-deploy-dry-run
+      name: "gcr.io/cloud-builders/gke-deploy"
+      args:
+        - 'run'
+        - '--server-dry-run'
+        - '--output=dry-run'
+        - '--recursive'
+        - '--filename=deployment/dev/${_APP}'
+        - '--location=${LOCATION}'
+        - '--project=${PROJECT_ID}-dev'
+        - '--cluster=gke-autopilot-01-dev'
+        - '--verbose'
 
   #   # Deploy to the dev cluster.
   #   - id: gke-deploy-dev
