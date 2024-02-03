@@ -36,14 +36,14 @@ spec:
             - name: POSTGRES_USER
               value: backstage@bits-backstage-dev.iam # kpt-set: ${db_user}
           envFrom:
-            - secretKeyRef:
-                name: auth-google-client-id
-            - secretKeyRef:
-                name: auth-google-client-secret
-            - secretKeyRef:
-                name: auth-github-client-id
-            - secretKeyRef:
-                name: auth-github-client-secret
+          - secretRef:
+              name: auth-google-client-id
+          - secretRef:
+              name: auth-google-client-secret
+          - secretRef:
+              name: auth-github-client-id
+          - secretRef:
+              name: auth-github-client-secret
           volumeMounts:
             - name: github-app-credentials
               mountPath: /app

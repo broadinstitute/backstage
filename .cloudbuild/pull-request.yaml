@@ -74,7 +74,7 @@
       name: 'gcr.io/cloud-builders/docker'
       args:
         - 'push'
-        - '${LOCATION}-docker.pkg.dev/${PROJECT_ID}-dev/bits/${_APP}:${SHORT_SHA}'
+        - '${LOCATION}-docker.pkg.dev/${PROJECT_ID}/bits/${_APP}:${SHORT_SHA}'
 
     # kpt fn eval backstage --image gcr.io/kpt-fn/set-image:v0.1.1 -- name=us-east4-docker.pkg.dev/bits-gke-clusters/bits/backstage:latest  newTag=0fb8278
     - id: kpt-set-image
