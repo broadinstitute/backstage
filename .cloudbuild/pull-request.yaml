@@ -4,7 +4,7 @@
 
   steps:
     # todo: Load cache from previous builds. /usr/local/share/.cache/yarn/v6
-    # todo: check ways to load a different "app-config.production.yaml" file for dev builds.
+    # todo: check ways to load a different "app-config.production.yaml" file for dev builds. probably pass an envvar to the build step.
 
     # echo 'test: do not delete' > github-app-backstage-bits-credentials.yaml
     - id: 'populate-github-app-credentials-file'
@@ -76,7 +76,7 @@
       name: 'gcr.io/cloud-builders/docker'
       args:
         - 'push'
-        - '${LOCATION}-docker.pkg.dev/${PROJECT_ID}/bits/${_APP}:${SHORT_SHA}'
+        - '${LOCATION}-docker.pkg.dev/${PROJECT_ID}-dev/bits/${_APP}:${SHORT_SHA}'
 
     # kpt fn eval backstage --image gcr.io/kpt-fn/set-image:v0.1.1 -- name=us-east4-docker.pkg.dev/bits-gke-clusters/bits/backstage:latest  newTag=0fb8278
     - id: kpt-set-image
