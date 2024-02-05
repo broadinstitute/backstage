@@ -24,7 +24,7 @@ spec:
       serviceAccountName: backstage
       containers:
         - name: backstage
-          image: us-east4-docker.pkg.dev/bits-gke-clusters/bits/backstage:latest
+          image: us-east4-docker.pkg.dev/bits-gke-clusters-dev/bits/backstage:b4f6190
           imagePullPolicy: IfNotPresent
           env:
             - name: NODE_ENV
