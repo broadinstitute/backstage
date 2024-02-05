@@ -44,6 +44,7 @@
       name: 'gcr.io/kaniko-project/executor:latest'
       dir: ${_APP}
       args:
+      - '--dockerfile=packages/backend/Dockerfile'
       - '--destination=${LOCATION}-docker.pkg.dev/${PROJECT_ID}/bits/${_APP}:${SHORT_SHA}'
       - '--destination=${LOCATION}-docker.pkg.dev/${PROJECT_ID}-dev/bits/${_APP}:latest'
       - '--destination=${LOCATION}-docker.pkg.dev/${PROJECT_ID}-dev/bits/${_APP}:${_PR_NUMBER}'
