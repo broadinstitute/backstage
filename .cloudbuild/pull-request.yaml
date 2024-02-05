@@ -87,6 +87,7 @@
         - 'gcr.io/kpt-fn/set-image:v0.1.1'
         - '--'
         - 'name=${LOCATION}-docker.pkg.dev/${PROJECT_ID}/bits/${_APP}:latest'
+        - 'newName=${LOCATION}-docker.pkg.dev/${PROJECT_ID}-dev/bits/${_APP}'
         - 'newTag=${SHORT_SHA}'
 
     # kpt fn eval deployment/dev/app --image gcr.io/kpt-fn/set-labels:v0.2.0 --exclude-kind=StatefulSet -- environment=dev
