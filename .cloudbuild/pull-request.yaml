@@ -25,7 +25,7 @@
     # yarn build:backend --config ../../app-config.yaml
     - id: 'build-backend'
       name: 'node:18.19.0-bookworm'
-      dir: ${_APP}/packages/backend/dist
+      dir: ${_APP}
       entrypoint: 'yarn'
       args:
         - 'build:backend'
