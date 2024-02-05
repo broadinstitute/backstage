@@ -1,0 +1,68 @@
+# ---
+#   substitutions:
+#     _APP: atlantis
+
+#   steps:
+#     - id: build-docker-image
+#       name: 'gcr.io/cloud-builders/docker'
+#       args:
+#         - 'build'
+#         - '-t'
+#         - '${LOCATION}-docker.pkg.dev/${PROJECT_ID}/bits/${_APP}:${SHORT_SHA}'
+#         - '-t'
+#         - '${LOCATION}-docker.pkg.dev/${PROJECT_ID}/bits/${_APP}:latest'
+#         - '.'
+#     # Test the image.
+#     - id: test-docker-image
+#       name: 'gcr.io/gcp-runtimes/container-structure-test'
+#       args:
+#         - 'test'
+#         - '--image'
+#         - '${LOCATION}-docker.pkg.dev/${PROJECT_ID}/bits/${_APP}:${SHORT_SHA}'
+#         - '--config'
+#         - 'container-image-tests.yaml'
+
+#     # Push the image to the container registry.
+#     - id: push-image-to-prod
+#       name: 'gcr.io/cloud-builders/docker'
+#       args:
+#         - 'push'
+#         - '${LOCATION}-docker.pkg.dev/${PROJECT_ID}/bits/${_APP}:${SHORT_SHA}'
+
+#   # kpt fn render prod/atlantis
+#     - id: kpt-render
+#       name: 'gcr.io/kpt-dev/kpt:v1.0.0-beta.44'
+#       args:
+#         - 'fn'
+#         - 'render'
+#         - '${_APP}'
+
+#     # Set Image
+#     # kpt fn eval atlantis --image gcr.io/kpt-fn/set-image:v0.1.1 -- name=us-east4-docker.pkg.dev/bits-gke-clusters/bits/atlantis:latest newName=us-east4-docker.pkg.dev/bits-gke-clusters/bits/atlantis newTag=foo
+#     - id: kpt-set-image
+#       name: 'gcr.io/kpt-dev/kpt:v1.0.0-beta.44'
+#       args:
+#         - 'fn'
+#         - 'eval'
+#         - '${_APP}'
+#         - '--image'
+#         - 'gcr.io/kpt-fn/set-image:v0.1.1'
+#         - '--'
+#         - 'name=us-east4-docker.pkg.dev/bits-gke-clusters/bits/atlantis:latest'
+#         - 'newName=${LOCATION}-docker.pkg.dev/${PROJECT_ID}/bits/${_APP}'
+#         - 'newTag=${SHORT_SHA}'
+
+#     - name: "gcr.io/cloud-builders/gke-deploy"
+#       args:
+#         - 'run'
+#         - '--filename=${_APP}'
+#         - '--image=${LOCATION}-docker.pkg.dev/${PROJECT_ID}/bits/${_APP}:${SHORT_SHA}'
+#         - '--location=${LOCATION}'
+#         - '--project=${PROJECT_ID}'
+#         - '--cluster=gke-autopilot-01-prod'
+#         # - '--verbose'
+
+
+#   images:
+#     - '${LOCATION}-docker.pkg.dev/${PROJECT_ID}/bits/${_APP}:${SHORT_SHA}'
+#     - '${LOCATION}-docker.pkg.dev/${PROJECT_ID}/bits/${_APP}:latest'
