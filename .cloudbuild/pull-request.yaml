@@ -3,6 +3,9 @@
     _APP: backstage
 
   steps:
+    # todo: Load cache from previous builds. /usr/local/share/.cache/yarn/v6
+    # todo: check ways to load a different "app-config.production.yaml" file for dev builds.
+
     # echo 'test: do not delete' > github-app-backstage-bits-credentials.yaml
     - id: 'populate-github-app-credentials-file'
       name: 'alpine'
@@ -18,8 +21,6 @@
       args:
         - 'install'
         - '--frozen-lockfile'
-
-# test: do not delete
 
     # yarn build:backend --config ../../app-config.yaml
     - id: 'build-backend'
@@ -115,19 +116,19 @@
         - '--location=${LOCATION}'
         - '--project=${PROJECT_ID}-dev'
         - '--cluster=gke-autopilot-01-dev'
-        - '--verbose'
+        #- '--verbose'
 
-  #   # Deploy to the dev cluster.
-  #   - id: gke-deploy-dev
-  #     name: "gcr.io/cloud-builders/gke-deploy"
-  #     args:
-  #       - 'run'
-  #       - '--recursive'
-  #       - '--filename=deployment/dev/${_APP}'
-  #       - '--location=${LOCATION}'
-  #       - '--project=${PROJECT_ID}-dev'
-  #       - '--cluster=gke-autopilot-01-dev'
-  #       # - '--verbose'
+    # Deploy to the dev cluster.
+    - id: gke-deploy-dev
+      name: "gcr.io/cloud-builders/gke-deploy"
+      args:
+        - 'run'
+        - '--recursive'
+        - '--filename=deployment/dev/${_APP}'
+        - '--location=${LOCATION}'
+        - '--project=${PROJECT_ID}-dev'
+        - '--cluster=gke-autopilot-01-dev'
+        # - '--verbose'
 
   #   # gke-deploy server side Dry Run on the Prod cluster.
   #   # This is the only step run against the prod cluster.
