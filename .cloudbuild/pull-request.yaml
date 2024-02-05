@@ -42,6 +42,7 @@
     # Build the Docker image.
     - id: build-docker-image
       name: 'gcr.io/kaniko-project/executor:latest'
+      dir: ${_APP}
       args:
       - '--destination=${LOCATION}-docker.pkg.dev/${PROJECT_ID}/bits/${_APP}:${SHORT_SHA}'
       - '--destination=${LOCATION}-docker.pkg.dev/${PROJECT_ID}-dev/bits/${_APP}:latest'
