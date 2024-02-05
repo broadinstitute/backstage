@@ -41,35 +41,24 @@
 
     # Build the Docker image.
     - id: build-docker-image
-      name: 'gcr.io/kaniko-project/executor:latest'
+      name: 'gcr.io/cloud-builders/docker'
       dir: ${_APP}
+      env:
+        - 'DOCKER_BUILDKIT=1'
       args:
-      - '--dockerfile=packages/backend/Dockerfile'
-      - '--destination=${LOCATION}-docker.pkg.dev/${PROJECT_ID}/bits/${_APP}:${SHORT_SHA}'
-      - '--destination=${LOCATION}-docker.pkg.dev/${PROJECT_ID}-dev/bits/${_APP}:latest'
-      - '--destination=${LOCATION}-docker.pkg.dev/${PROJECT_ID}-dev/bits/${_APP}:${_PR_NUMBER}'
-      - '--destination=${LOCATION}-docker.pkg.dev/${PROJECT_ID}-dev/bits/${_APP}:${SHORT_SHA}'
-      - '--cache=true'
-
-    # - id: build-docker-image
-    #   name: 'gcr.io/cloud-builders/docker'
-    #   dir: ${_APP}
-    #   env:
-    #     - 'DOCKER_BUILDKIT=1'
-    #   args:
-    #     - 'image'
-    #     - 'build'
-    #     - '-f'
-    #     - 'packages/backend/Dockerfile'
-    #     - '-t'
-    #     - '${LOCATION}-docker.pkg.dev/${PROJECT_ID}/bits/${_APP}:${SHORT_SHA}'
-    #     - '-t'
-    #     - '${LOCATION}-docker.pkg.dev/${PROJECT_ID}-dev/bits/${_APP}:latest'
-    #     - '-t'
-    #     - '${LOCATION}-docker.pkg.dev/${PROJECT_ID}-dev/bits/${_APP}:${_PR_NUMBER}'
-    #     - '-t'
-    #     - '${LOCATION}-docker.pkg.dev/${PROJECT_ID}-dev/bits/${_APP}:${SHORT_SHA}'
-    #     - '.'
+        - 'image'
+        - 'build'
+        - '-f'
+        - 'packages/backend/Dockerfile'
+        - '-t'
+        - '${LOCATION}-docker.pkg.dev/${PROJECT_ID}/bits/${_APP}:${SHORT_SHA}'
+        - '-t'
+        - '${LOCATION}-docker.pkg.dev/${PROJECT_ID}-dev/bits/${_APP}:latest'
+        - '-t'
+        - '${LOCATION}-docker.pkg.dev/${PROJECT_ID}-dev/bits/${_APP}:${_PR_NUMBER}'
+        - '-t'
+        - '${LOCATION}-docker.pkg.dev/${PROJECT_ID}-dev/bits/${_APP}:${SHORT_SHA}'
+        - '.'
 
     # Test the image.
     - id: test-docker-image
