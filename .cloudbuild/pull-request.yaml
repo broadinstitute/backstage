@@ -15,7 +15,7 @@
 
     # yarn install --frozen-lockfile
     - id: 'yarn-install'
-      name: 'node:18-bookworm-slim'
+      name: 'node:18-bookworm'
       dir: ${_APP}
       entrypoint: 'yarn'
       args:
@@ -24,7 +24,7 @@
 
     # yarn build:backend --config ../../app-config.yaml
     - id: 'build-backend'
-      name: 'node:18-bookworm-slim'
+      name: 'node:18-bookworm'
       dir: ${_APP}
       entrypoint: 'yarn'
       args:
