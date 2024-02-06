@@ -103,6 +103,7 @@ resource "postgresql_grant" "table_permissions" {
 }
 
 resource "postgresql_grant_role" "grant_super_user" {
+  provider   = postgresql.database
   role       = trimsuffix(module.postgres.iam_users[0].email, ".gserviceaccount.com")
   grant_role = "postgres"
 }
