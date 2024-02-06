@@ -26,31 +26,6 @@ provider "registry.terraform.io/cyrilgdn/postgresql" {
   ]
 }
 
-provider "registry.terraform.io/doctolib/postgresql" {
-  version     = "2.22.0"
-  constraints = "2.22.0"
-  hashes = [
-    "h1:7p1NIZ3Byj/HQUNnqOABqUyLu8ONTWm0bIN3bz4PaXk=",
-    "h1:R2ArSz4PLzm7w3a1PLK1M18UUMOhnDeyrxv6gZaTK8o=",
-    "h1:cTw3PfVOvnylaX8Y98YNyTNBP3Xq9GwXW9LRHUhsMyI=",
-    "h1:eKcJUIzzz49Og0cOnLgOOtZpNV6fB0kmYJYCYJ47n/E=",
-    "zh:071619aaa4aec22436a0335620785232aeabdaa060e65806415ceb6d01cf8666",
-    "zh:0b0787c41abf3ca2ed9eb9d3f7da8cef02703ce1cb3273f83c2db239edd0ef77",
-    "zh:0d183eb5cbf0bc1e13010dd6c9a95df9544643c84dd0b8577167fab502ba7b60",
-    "zh:3386bae6391d9783e5257ac672e3f154df0d8b13258c234f83992a4b0467b03d",
-    "zh:4df2ea465f24b5945e207859bc147b466ac67e26cf7eeff32d452314c5764f2b",
-    "zh:4f099b3c456edaff5720d0e7242fa713e774e37d3aa11e07385a7aef79a62aff",
-    "zh:84eda80cc553e03bef048dca2274b7e29f38a3a17b64a958fd63e63954c4b924",
-    "zh:8b9ed9bd26b9c60b7fb69935b933be972c8bbcfd35338a004797f01c288102ba",
-    "zh:a40a08d8d04c55beca076b575db823d9ef09febb681d176a9cd59150bd5180ff",
-    "zh:a5ea15525513339fa112d886bbf20c23db89d642ac020d0a273f926fa8672704",
-    "zh:b0d75e469662a0a2b3d46f1f74979893ac6b2e4a868076b03c4b04dd551bbdd7",
-    "zh:bb758eeb80c23e5e9f6742341fc1b1f3ad798c807fb228731e12ea37595e0ffa",
-    "zh:d238a9ffbb735c5c580894291873d8952f9dbfab8b863dd149f2625b21b8b207",
-    "zh:d72808dc67545a6006d995a0db1c8677b246f8deacc184f32f82632ea3a65ba2",
-  ]
-}
-
 provider "registry.terraform.io/hashicorp/google" {
   version     = "5.14.0"
   constraints = ">= 3.53.0, >= 4.80.0, 5.14.0, < 6.0.0"
