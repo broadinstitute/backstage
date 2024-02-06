@@ -80,7 +80,7 @@ resource "postgresql_grant" "database_connect" {
   database    = local.application_name
   object_type = "database"
   role        = trimsuffix(module.postgres.iam_users[0].email, ".gserviceaccount.com")
-  privileges  = ["CONNECT"]
+  privileges  = ["CONNECT", "CREATE"]
   schema      = "public"
 }
 
