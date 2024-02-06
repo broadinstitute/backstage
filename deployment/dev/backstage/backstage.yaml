@@ -24,7 +24,7 @@ spec:
       serviceAccountName: backstage
       containers:
         - name: backstage
-          image: us-east4-docker.pkg.dev/bits-gke-clusters-dev/bits/backstage:b4f6190
+          image: us-east4-docker.pkg.dev/bits-gke-clusters/bits/backstage:latest
           imagePullPolicy: IfNotPresent
           env:
             - name: NODE_ENV
@@ -46,7 +46,7 @@ spec:
                 name: auth-github-client-secret
           volumeMounts:
             - name: github-app-credentials
-              mountPath: /app
+              mountPath: /app/github-app-backstage-bits-credentials.yaml
               readOnly: true
               # github-app-backstage-bits-credentials secret mounted in backstage app root as github-app-backstage-bits-credentials.yaml
               # kubectl -n backstage create secret generic backstage-secrets --from-file=github-app-backstage-bits-credentials.yaml --from-literal=AUTH_GOOGLE_CLIENT_ID=$AUTH_GOOGLE_CLIENT_ID --from-literal=AUTH_GOOGLE_CLIENT_SECRET=$AUTH_GOOGLE_CLIENT_SECRET --from-literal=AUTH_GITHUB_CLIENT_ID=$AUTH_GITHUB_CLIENT_ID --from-literal=AUTH_GITHUB_CLIENT_SECRET=$AUTH_GITHUB_CLIENT_SECRET
