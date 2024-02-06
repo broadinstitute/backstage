@@ -10,8 +10,8 @@ terraform {
       version = "5.14.0"
     }
     postgresql = {
-      source  = "cyrilgdn/postgresql"
-      version = "1.21.0"
+      source  = "doctolib/postgresql"
+      version = "2.22.0"
     }
   }
 }
