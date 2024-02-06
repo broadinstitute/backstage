@@ -55,3 +55,49 @@ module "postgres" {
     },
   ]
 }
+
+provider "postgresql" {
+  alias     = "database"
+  scheme    = "gcppostgres"
+  username  = local.application_name
+  password  = module.postgres.generated_user_password
+  host      = module.postgres.instance_connection_name
+  superuser = false
+}
+
+# GRANT SELECT ON pg_database TO backstage;
+# resource "postgresql_grant" "select" {
+#   provider    = postgresql.database
+#   database    = local.application_name
+#   object_type = "database"
+#   role        = trimsuffix(module.postgres.iam_users[0].email, ".gserviceaccount.com")
+#   privileges  = ["SELECT"]
+#   schema      = "public"
+# }
+
+resource "postgresql_grant" "database_connect" {
+  provider    = postgresql.database
+  database    = local.application_name
+  object_type = "database"
+  role        = trimsuffix(module.postgres.iam_users[0].email, ".gserviceaccount.com")
+  privileges  = ["CONNECT"]
+  schema      = "public"
+}
+
+resource "postgresql_grant" "schema_usage_create" {
+  provider    = postgresql.database
+  database    = local.application_name
+  object_type = "schema"
+  role        = trimsuffix(module.postgres.iam_users[0].email, ".gserviceaccount.com")
+  privileges  = ["USAGE", "CREATE"]
+  schema      = "public"
+}
+
+resource "postgresql_grant" "table_permissions" {
+  provider    = postgresql.database
+  database    = local.application_name
+  object_type = "table"
+  role        = trimsuffix(module.postgres.iam_users[0].email, ".gserviceaccount.com")
+  privileges  = ["SELECT", "INSERT", "UPDATE", "DELETE"]
+  schema      = "public"
+}

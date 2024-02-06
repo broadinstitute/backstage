@@ -1,6 +1,31 @@
 # This file is maintained automatically by "terraform init".
 # Manual edits may be lost in future updates.
 
+provider "registry.terraform.io/cyrilgdn/postgresql" {
+  version     = "1.21.0"
+  constraints = "1.21.0"
+  hashes = [
+    "h1:6aDLfQNJxcpUdoQwa8k00VaNUCy8qQn1J8UsjuKY5Eo=",
+    "h1:Jiy9o0rCL6SIcYAkptqQfpYikMWSNG0q/cmleVrGT+I=",
+    "h1:i0ihJjt71AnT5Yh2h1kZA4su7uuyR2R92Z/zT/SI4H8=",
+    "h1:v7X6z6j8Uo07+QJPuO3EVM8N1uy6t2k+1GiRGioOPGc=",
+    "zh:17e3d204dabc116276c763bb0cd159aa315789d3b0bcd3b8aede935509960ab6",
+    "zh:1a7e5ac1921afdb3b12a49714c5f446a7604bfa1eb7bd9c123d607f8cbda45e4",
+    "zh:24a880623e30928ee866c84016b1db4e0458764c7a547b808e2d398e90456d42",
+    "zh:255c6162d35ace6a313a50c4ceb5452bd5582d7bb097a44e75ac4901e635ca13",
+    "zh:281ab48b69d0852b5138fe5ea2301ff7fdff30748f1f7878ac837c71622d3f7b",
+    "zh:3d4e0ae2809e743272e5d2640b64354c48140e225c2ba6f1a211700ea70e0754",
+    "zh:4f4df290e3ff626d8b274c624852d21d194a397a7f580ebe0cbf0ff64dd8fa31",
+    "zh:5997ce8f7cbcd7ff5a443d037b83857b17b64be928e9d9338dd494466733df60",
+    "zh:a05f0b65b0abf4488cdaf7b239206940940be77fd51f458f2a0986c6a17436aa",
+    "zh:aeb6c6da639abb6126f38be90a7bc428f925461bf599388ff092e059e0bb1a94",
+    "zh:d30bb053b6000c32cc8d03da231c30eaecddd926200adf2e9ad9c0186c2ad1ad",
+    "zh:d978827683b324c75141fa80ebc28dcaf181acd0be0a47b1e5f9579a72a08151",
+    "zh:f51fae9206361cbe865e30b06d106270d6acf7ece0550953b0d6b55afe6be9ba",
+    "zh:fa49a2702c529865c20f57185d6dd41072fdd9a13ac1a49e30eb88605c31af7a",
+  ]
+}
+
 provider "registry.terraform.io/hashicorp/google" {
   version     = "5.14.0"
   constraints = ">= 3.53.0, >= 4.80.0, 5.14.0, < 6.0.0"
@@ -25,25 +50,25 @@ provider "registry.terraform.io/hashicorp/google" {
 }
 
 provider "registry.terraform.io/hashicorp/google-beta" {
-  version     = "5.14.0"
+  version     = "5.15.0"
   constraints = ">= 4.80.0, < 6.0.0"
   hashes = [
-    "h1:60u6lD77t4mjt3Ft8Lz7BWKNFQpaH96dlf/U7uNVbbQ=",
-    "h1:DnzCevNKIci+oXY2/UgGV5Op5T1nMeRKuMuMNjRpKFk=",
-    "h1:WDAV8pVXku6w3MIQQpqcCGVyEpWUIC3m+6wg/klZBuo=",
-    "h1:nDRP/lSVK+rEZc4k+be7U+GZmvkFtTqK/MkVFrH54pY=",
-    "zh:04fc82cc77d944d6e636bd43dcd77c59030920e2b51d404290439bf26e8418cc",
-    "zh:22a2c9c8b95313c302a4e82bc785d7db2775e199ff0a006c21352d1f4bdb43ea",
-    "zh:3b65e6135ecdf0e93f431d1ced843caaf569b9c74fcc36ffbc3d100334f0745d",
-    "zh:56ad10bbc239758ac500afa24cd5948241c4441d6eb6b8450ae3e5e834f73b08",
-    "zh:612e22f969cd9f6a01a109b81ecbccfec6f9dec812eb5e78810b695a0fce4df0",
-    "zh:688282d0dade872542dbc1e5eba4e9f3e279a27b6c5a1c2970a86fc526f8d4f0",
-    "zh:78158d2af1b3e94531bccc91858e002ddd7f6d12f391b7e872c9eeffc9457611",
-    "zh:7c80aa9c1a4e5009dc8e39aa43abca3dd589005137424377f38848e3b088daff",
-    "zh:989eedca70db644d94bfbd713e8d746d001fac5002e6ab8a0b10358ce2881276",
-    "zh:9fd531998aae684bd49b650a40d2d72ef5235002670af90d716bf909564c29ab",
-    "zh:c51551923f4227c5efc0795528ed21a1b9184e18c05007168b02e0ffb8102187",
+    "h1:0JvbG3Ak0DNpVFISCi0cDz9h0EdaXuLu6rsgQTohl9c=",
+    "h1:gbtE5e2cVhJ4hBMIUhElm2JDEW5ynykQt5CWcWyQpqI=",
+    "h1:gmE1wKo0kzMYFgBNkcw7a8hO40BOvwJzNt2snsu4mOE=",
+    "h1:xMbzlS2xmBhuip9B6KTo5TeaonTJNOV422Lza/AsGX4=",
+    "zh:0d06bd1799cacd09ef70cdda24339d29b14aae4e8bac5ca468260003f53cf12a",
+    "zh:0e73b1efd7b358f33c46e600e5babdd4be847848f287729c0bdccdae1bc074ef",
+    "zh:199e5a82d8e6b0ba6a916f03e140b118ced55f1c02c888881aa0b6490bddc04c",
+    "zh:220f524b43d79fc728a84175872f229fe41c6dbab0845a020f3fa0f4b4115ff8",
+    "zh:6172f6db7651f95b2746afb6a120578cec77e812641ef178221f3bbb59441b73",
+    "zh:9c8c2d245d8247ca1382b4e6a6a8fd73954856e82791183c38e1e288e1e8f301",
+    "zh:ca681248642c0ae332553426ee0ff6b3fd585ac7f3705ca7d3709d5d8ccdcb78",
+    "zh:cc9cf22970bbccbba05c10c1e3c7ee4f1b8ad28e03ae948e8fbc923d0b87734f",
+    "zh:e1fd2294f36eddade50734891523de99180ffc7218fcd58fab7a140b57a6e04c",
+    "zh:efbcb10431afd466701dfe63991caa23d26184c494a06ce44d00b10a6dae7dc3",
     "zh:f569b65999264a9416862bca5cd2a6177d94ccb0424f3a4ef424428912b9cb3c",
+    "zh:ff2fe28b37d88bac239b0f9ca7b41bf7923a99c4af82ae800668c3945902d68a",
   ]
 }
 
