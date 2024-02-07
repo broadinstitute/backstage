@@ -107,3 +107,8 @@ resource "postgresql_grant_role" "grant_super_user" {
   role       = trimsuffix(module.postgres.iam_users[0].email, ".gserviceaccount.com")
   grant_role = "postgres"
 }
+
+output db_passsword {
+  value     = module.postgres.generated_user_password
+  sensitive = true
+}
