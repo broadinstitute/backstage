@@ -21,13 +21,28 @@ resource "google_service_account_iam_member" "db_workload_identity" {
   member             = "serviceAccount:${var.gke_project}.svc.id.goog[${local.application_name}/${local.application_name}]"
 }
 
-locals {
+locals { #todo the data heere should probably be a variable
   additional_databases = [
-    { name = "backstage_plugin_app", },
-    { name = "backstage_plugin_auth", },
-    { name = "backstage_plugin_catalog", },
-    { name = "backstage_plugin_scaffolder", },
-    { name = "backstage_plugin_search", },
+    { name      = "backstage_plugin_app",
+      charset   = "",
+      collation = "",
+    },
+    { name      = "backstage_plugin_auth",
+      charset   = "",
+      collation = "",
+    },
+    { name      = "backstage_plugin_catalog",
+      charset   = "",
+      collation = "",
+    },
+    { name      = "backstage_plugin_scaffolder",
+      charset   = "",
+      collation = "",
+    },
+    { name      = "backstage_plugin_search",
+      charset   = "",
+      collation = "",
+    },
   ]
   all_databases = concat([local.application_name], [for db in local.additional_databases : db.name])
 }
