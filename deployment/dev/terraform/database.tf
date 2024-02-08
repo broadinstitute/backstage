@@ -108,7 +108,7 @@ provider "postgresql" {
 # }
 
 resource "postgresql_grant" "database_connect" {
-  for_each    = to_set(local.all_databases)
+  for_each    = toset(local.all_databases)
   provider    = postgresql.database
   database    = each.value
   object_type = "database"
@@ -118,7 +118,7 @@ resource "postgresql_grant" "database_connect" {
 }
 
 resource "postgresql_grant" "schema_usage_create" {
-  for_each    = to_set(local.all_databases)
+  for_each    = toset(local.all_databases)
   provider    = postgresql.database
   database    = each.value
   object_type = "schema"
@@ -128,7 +128,7 @@ resource "postgresql_grant" "schema_usage_create" {
 }
 
 resource "postgresql_grant" "table_permissions" {
-  for_each    = to_set(local.all_databases)
+  for_each    = toset(local.all_databases)
   provider    = postgresql.database
   database    = each.value
   object_type = "table"
