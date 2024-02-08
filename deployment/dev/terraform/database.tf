@@ -108,8 +108,9 @@ provider "postgresql" {
 # }
 
 resource "postgresql_grant" "database_connect" {
+  for_each    = local.all_databases
   provider    = postgresql.database
-  database    = local.application_name
+  database    = each.value
   object_type = "database"
   role        = trimsuffix(module.postgres.iam_users[0].email, ".gserviceaccount.com")
   privileges  = ["CONNECT", "CREATE"]
@@ -117,8 +118,9 @@ resource "postgresql_grant" "database_connect" {
 }
 
 resource "postgresql_grant" "schema_usage_create" {
+  for_each    = local.all_databases
   provider    = postgresql.database
-  database    = local.application_name
+  database    = each.value
   object_type = "schema"
   role        = trimsuffix(module.postgres.iam_users[0].email, ".gserviceaccount.com")
   privileges  = ["USAGE", "CREATE"]
@@ -126,8 +128,9 @@ resource "postgresql_grant" "schema_usage_create" {
 }
 
 resource "postgresql_grant" "table_permissions" {
+  for_each    = local.all_databases
   provider    = postgresql.database
-  database    = local.application_name
+  database    = each.value
   object_type = "table"
   role        = trimsuffix(module.postgres.iam_users[0].email, ".gserviceaccount.com")
   privileges  = ["SELECT", "INSERT", "UPDATE", "DELETE"]
