@@ -20,12 +20,14 @@ terraform providers lock -platform=linux_amd64 -platform=darwin_amd64 -platform=
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | 1.7.0 |
 | <a name="requirement_google"></a> [google](#requirement\_google) | 5.14.0 |
+| <a name="requirement_postgresql"></a> [postgresql](#requirement\_postgresql) | 1.21.0 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
 | <a name="provider_google"></a> [google](#provider\_google) | 5.14.0 |
+| <a name="provider_postgresql.database"></a> [postgresql.database](#provider\_postgresql.database) | 1.21.0 |
 
 ## Modules
 
@@ -43,6 +45,10 @@ terraform providers lock -platform=linux_amd64 -platform=darwin_amd64 -platform=
 | [google_project_service.api_services](https://registry.terraform.io/providers/hashicorp/google/5.14.0/docs/resources/project_service) | resource |
 | [google_secret_manager_secret.backstage-bits-credentials](https://registry.terraform.io/providers/hashicorp/google/5.14.0/docs/resources/secret_manager_secret) | resource |
 | [google_service_account_iam_member.db_workload_identity](https://registry.terraform.io/providers/hashicorp/google/5.14.0/docs/resources/service_account_iam_member) | resource |
+| [postgresql_grant.database_connect](https://registry.terraform.io/providers/cyrilgdn/postgresql/1.21.0/docs/resources/grant) | resource |
+| [postgresql_grant.schema_usage_create](https://registry.terraform.io/providers/cyrilgdn/postgresql/1.21.0/docs/resources/grant) | resource |
+| [postgresql_grant.select](https://registry.terraform.io/providers/cyrilgdn/postgresql/1.21.0/docs/resources/grant) | resource |
+| [postgresql_grant.table_permissions](https://registry.terraform.io/providers/cyrilgdn/postgresql/1.21.0/docs/resources/grant) | resource |
 | [google_client_config.current](https://registry.terraform.io/providers/hashicorp/google/5.14.0/docs/data-sources/client_config) | data source |
 | [google_project.current](https://registry.terraform.io/providers/hashicorp/google/5.14.0/docs/data-sources/project) | data source |
 
@@ -53,6 +59,8 @@ terraform providers lock -platform=linux_amd64 -platform=darwin_amd64 -platform=
 | <a name="input_core_project"></a> [core\_project](#input\_core\_project) | GCP project to use for the default/primary provider | `string` | n/a | yes |
 | <a name="input_env"></a> [env](#input\_env) | Label for the environment or tier you are working in. Typically dev, staging, or prod | `string` | n/a | yes |
 | <a name="input_gke_project"></a> [gke\_project](#input\_gke\_project) | GCP project Where GKE clusters are running | `string` | n/a | yes |
+| <a name="input_google_secret_manager_secrets"></a> [google\_secret\_manager\_secrets](#input\_google\_secret\_manager\_secrets) | Map of secrets to create in Google Secret Manager in the format of { secret\_name = {  service = string, type = string } } | <pre>map(object({<br>    service = string<br>    type    = string<br>  }))</pre> | n/a | yes |
+| <a name="input_additional_databases"></a> [additional\_databases](#input\_additional\_databases) | A list of databases to be created in your cluster | <pre>list(object({<br>    name      = string<br>    charset   = string<br>    collation = string<br>  }))</pre> | <pre>[<br>  {<br>    "charset": "",<br>    "collation": "",<br>    "name": "backstage_plugin_app"<br>  },<br>  {<br>    "charset": "",<br>    "collation": "",<br>    "name": "backstage_plugin_auth"<br>  },<br>  {<br>    "charset": "",<br>    "collation": "",<br>    "name": "backstage_plugin_catalog"<br>  },<br>  {<br>    "charset": "",<br>    "collation": "",<br>    "name": "backstage_plugin_scaffolder"<br>  },<br>  {<br>    "charset": "",<br>    "collation": "",<br>    "name": "backstage_plugin_search"<br>  }<br>]</pre> | no |
 | <a name="input_api_services"></a> [api\_services](#input\_api\_services) | List of API services to enable | `list(string)` | <pre>[<br>  "compute.googleapis.com",<br>  "monitoring.googleapis.com",<br>  "cloudidentity.googleapis.com",<br>  "iam.googleapis.com",<br>  "iap.googleapis.com",<br>  "iamcredentials.googleapis.com",<br>  "sts.googleapis.com",<br>  "secretmanager.googleapis.com",<br>  "sqladmin.googleapis.com"<br>]</pre> | no |
 | <a name="input_cloudsql_tier"></a> [cloudsql\_tier](#input\_cloudsql\_tier) | CloudSQL tier to use | `string` | `"db-f1-micro"` | no |
 
