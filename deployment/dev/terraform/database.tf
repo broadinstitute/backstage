@@ -21,6 +21,22 @@ resource "google_service_account_iam_member" "db_workload_identity" {
   member             = "serviceAccount:${var.gke_project}.svc.id.goog[${local.application_name}/${local.application_name}]"
 }
 
+locals {
+  additional_databases = [
+    { name = "backstage_plugin_app", },
+    { name = "backstage_plugin_auth", },
+    { name = "backstage_plugin_catalog", },
+    { name = "backstage_plugin_scaffolder", },
+    { name = "backstage_plugin_search", },
+  ]
+  all_databases = concat([local.application_name], [for db in local.additional_databases : db.name])
+}
+
+output "test" {
+  value = local.all_databases
+
+}
+
 # Create a CloudSQL instance for App to use
 module "postgres" {
   source                      = "GoogleCloudPlatform/sql-db/google//modules/postgresql"
@@ -30,6 +46,7 @@ module "postgres" {
   project_id                  = var.core_project
   user_name                   = local.application_name
   db_name                     = local.application_name
+  additional_databases        = local.additional_databases
   deletion_protection         = false # todo: Used to block Terraform from deleting a SQL Instance. - Set to false for now
   deletion_protection_enabled = false # todo: Enables protection of an instance from accidental deletion across all surfaces (API, gcloud, Cloud Console and Terraform). - Set to false for now
   enable_default_db           = true
