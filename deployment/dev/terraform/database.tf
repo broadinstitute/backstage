@@ -62,12 +62,13 @@ module "postgres" {
 }
 
 provider "postgresql" {
-  alias     = "database"
-  scheme    = "gcppostgres"
-  username  = local.application_name
-  password  = module.postgres.generated_user_password
-  host      = module.postgres.instance_connection_name
-  superuser = false
+  alias           = "database"
+  scheme          = "gcppostgres"
+  username        = local.application_name
+  password        = module.postgres.generated_user_password
+  host            = module.postgres.instance_connection_name
+  superuser       = false
+  max_connections = 10
 }
 
 # GRANT SELECT ON pg_database TO backstage;
