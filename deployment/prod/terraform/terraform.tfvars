@@ -7,6 +7,7 @@ core_project = "bits-backstage-prod"
 env          = "prod"
 gke_project  = "bits-gke-clusters"
 
+cloudsql_tier = "db-custom-8-32768" # 8 CPU and 32GB RAM"
 google_secret_manager_secrets = {
   github-app-backstage-bits-credentials = {
     service = "github"
