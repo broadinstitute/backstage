@@ -1,3 +1,7 @@
+locals { #todo the data heere should probably be a variable
+  all_databases = concat([local.application_name], [for db in var.additional_databases : db.name])
+}
+
 # Create a service account for App to use to connect to the CloudSQL instance
 module "db_service_accounts" {
   source      = "terraform-google-modules/service-accounts/google"
@@ -21,37 +25,6 @@ resource "google_service_account_iam_member" "db_workload_identity" {
   member             = "serviceAccount:${var.gke_project}.svc.id.goog[${local.application_name}/${local.application_name}]"
 }
 
-locals { #todo the data heere should probably be a variable
-  additional_databases = [
-    { name      = "backstage_plugin_app",
-      charset   = "",
-      collation = "",
-    },
-    { name      = "backstage_plugin_auth",
-      charset   = "",
-      collation = "",
-    },
-    { name      = "backstage_plugin_catalog",
-      charset   = "",
-      collation = "",
-    },
-    { name      = "backstage_plugin_scaffolder",
-      charset   = "",
-      collation = "",
-    },
-    { name      = "backstage_plugin_search",
-      charset   = "",
-      collation = "",
-    },
-  ]
-  all_databases = concat([local.application_name], [for db in local.additional_databases : db.name])
-}
-
-output "test" {
-  value = local.all_databases
-
-}
-
 # Create a CloudSQL instance for App to use
 module "postgres" {
   source                      = "GoogleCloudPlatform/sql-db/google//modules/postgresql"
@@ -61,7 +34,7 @@ module "postgres" {
   project_id                  = var.core_project
   user_name                   = local.application_name
   db_name                     = local.application_name
-  additional_databases        = local.additional_databases
+  additional_databases        = var.additional_databases
   deletion_protection         = false # todo: Used to block Terraform from deleting a SQL Instance. - Set to false for now
   deletion_protection_enabled = false # todo: Enables protection of an instance from accidental deletion across all surfaces (API, gcloud, Cloud Console and Terraform). - Set to false for now
   enable_default_db           = true
@@ -98,14 +71,15 @@ provider "postgresql" {
 }
 
 # GRANT SELECT ON pg_database TO backstage;
-# resource "postgresql_grant" "select" {
-#   provider    = postgresql.database
-#   database    = local.application_name
-#   object_type = "database"
-#   role        = trimsuffix(module.postgres.iam_users[0].email, ".gserviceaccount.com")
-#   privileges  = ["SELECT"]
-#   schema      = "public"
-# }
+resource "postgresql_grant" "select" {
+  for_each    = toset(local.all_databases)
+  provider    = postgresql.database
+  database    = each.value
+  object_type = "database"
+  role        = trimsuffix(module.postgres.iam_users[0].email, ".gserviceaccount.com")
+  privileges  = ["SELECT"]
+  schema      = "public"
+}
 
 resource "postgresql_grant" "database_connect" {
   for_each    = toset(local.all_databases)

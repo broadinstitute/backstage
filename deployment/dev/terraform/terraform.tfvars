@@ -6,3 +6,26 @@
 core_project = "bits-backstage-dev"
 env          = "dev"
 gke_project  = "bits-gke-clusters-dev"
+
+google_secret_manager_secrets = {
+  github-app-backstage-bits-credentials = {
+    service = "github"
+    type    = "yaml-file"
+  },
+  auth-github-client-id = {
+    service = "github"
+    type    = "string"
+  },
+  auth-github-client-secret = {
+    service = "github"
+    type    = "string"
+  },
+  auth-google-client-id = {
+    service = "google"
+    type    = "string"
+  },
+  auth-google-client-secret = {
+    service = "google"
+    type    = "string"
+  },
+}
