@@ -41,3 +41,10 @@ gcloud secrets versions add auth-github-client-secret --data-file=<(echo -n $AUT
 gcloud secrets versions add auth-google-client-id --data-file=<(echo -n $AUTH_GOOGLE_CLIENT_ID)
 gcloud secrets versions add auth-google-client-secret --data-file=<(echo -n $AUTH_GOOGLE_CLIENT_SECRET)
 ```
+
+### Terraform
+
+Terraform is used to create a number of GCP resources for backstage. The terraform files are in the `deployment/<env>/terraform` folder.  When creating the CloudSQL Database for the first time, there can be a race condition, where the database is not created before Terraform tries to connect to it in order to update the permissions on the databases for the backstage IAM user that the application uses. This can be resolved by running the terraform apply command twice. The first time will create the database, and the second time will update the permissions on the database.
+
+It's also worth noting, that because of limitations in the Terraform Postgres provider, the database user can't get the CREATEDB permission, so the databases must be created by Terraform, rather then from the backstage application (backstage wants to create it's own DB's). This is not ideal, and will be resolved in the future.
+For now, if you add a Backstage plugin that requires a database, you will need to add the database to the terraform file, and run terraform apply in a PR. 
