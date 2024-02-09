@@ -31,13 +31,13 @@ pipeline:
     - image: gcr.io/kpt-fn/set-namespace:v0.4.1
       configMap:
         namespace: gcp-load-balancer
-    - image: gcr.io/kpt-fn/set-labels:v0.2.0
-      configMap:
-        backstage.io/kubernetes-id: backstage-component-id
+    # - image: gcr.io/kpt-fn/set-labels:v0.2.0
+    #   configMap:
+    #     backstage.io/kubernetes-id: backstage-component-id
     - image: gcr.io/kpt-fn/apply-setters:v0.2.0
       configMap:
         cert-name: host.example.com
-        name: gcp-load-balancer
+        name: backstage
         project-id: monitoring-scope-project-id
   validators:
     - image: gcr.io/kpt-fn/kubeval:v0.3
