@@ -68,7 +68,7 @@ provider "postgresql" {
   password        = module.postgres.generated_user_password
   host            = module.postgres.instance_connection_name
   superuser       = false
-  max_connections = 10
+  max_connections = 5
 }
 
 # GRANT SELECT ON pg_database TO backstage;
