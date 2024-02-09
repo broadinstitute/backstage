@@ -1,0 +1,20 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata: # kpt-merge: gcp-load-balancer/gcp-load-balancer
+  name: gcp-load-balancer # kpt-set: ${name}
+  annotations:
+    #kubernetes.io/ingress.global-static-ip-name: ADDRESS_NAME # TODO config connecter to get static IP
+    networking.gke.io/v1beta1.FrontendConfig: http-to-https
+    networking.gke.io/managed-certificates: gcp-load-balancer-managed-cert # kpt-set: ${name}-managed-cert
+    kubernetes.io/ingress.class: gce
+    internal.kpt.dev/upstream-identifier: 'networking.k8s.io|Ingress|gcp-load-balancer|gcp-load-balancer'
+  namespace: gcp-load-balancer
+  labels:
+    backstage.io/kubernetes-id: backstage-component-id
+    app: gcp-load-balancer # kpt-set: ${name}
+spec:
+  defaultBackend:
+    service:
+      name: gcp-load-balancer # kpt-set: ${name}
+      port:
+        number: 80

@@ -1,0 +1,14 @@
+apiVersion: networking.gke.io/v1beta1
+kind: FrontendConfig
+metadata: # kpt-merge: gcp-load-balancer/http-to-https
+  name: http-to-https
+  namespace: gcp-load-balancer
+  labels:
+    backstage.io/kubernetes-id: backstage-component-id
+    app: gcp-load-balancer # kpt-set: ${name}
+  annotations:
+    internal.kpt.dev/upstream-identifier: 'networking.gke.io|FrontendConfig|gcp-load-balancer|http-to-https'
+spec:
+  redirectToHttps:
+    enabled: true
+    responseCodeName: MOVED_PERMANENTLY_DEFAULT

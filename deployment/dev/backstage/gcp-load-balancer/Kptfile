@@ -1,0 +1,45 @@
+apiVersion: kpt.dev/v1
+kind: Kptfile
+metadata:
+  name: gcp-load-balancer
+  annotations:
+    config.kubernetes.io/local-config: "true"
+upstream:
+  type: git
+  git:
+    repo: https://github.com/broadinstitute/kpt-packages
+    directory: /gcp-load-balancer
+    ref: v0
+  updateStrategy: resource-merge
+upstreamLock:
+  type: git
+  git:
+    repo: https://github.com/broadinstitute/kpt-packages
+    directory: /gcp-load-balancer
+    ref: gcp-load-balancer/v0
+    commit: ff9860541fec4e66df0ae3115be099108db01f7c
+info:
+  emails:
+    - devnull@broadinstitute.org
+  description: Package for GCP Application Load Balancer (ALB) and Cloud DNS for use in GCP
+  keywords:
+    - GKE
+    - GCP
+    - Load Balancer
+pipeline:
+  mutators:
+    - image: gcr.io/kpt-fn/set-namespace:v0.4.1
+      configMap:
+        namespace: gcp-load-balancer
+    - image: gcr.io/kpt-fn/set-labels:v0.2.0
+      configMap:
+        backstage.io/kubernetes-id: backstage-component-id
+    - image: gcr.io/kpt-fn/apply-setters:v0.2.0
+      configMap:
+        cert-name: host.example.com
+        name: gcp-load-balancer
+        project-id: monitoring-scope-project-id
+  validators:
+    - image: gcr.io/kpt-fn/kubeval:v0.3
+      configMap:
+        ignore_missing_schemas: "true"
