@@ -21,6 +21,7 @@ pipeline:
     - image: gcr.io/kpt-fn/apply-setters:v0.2.0
       configMap:
         cert-name: backstage-dev.broadinstitute.org
+        backstage_application_base_url: https://backstage-dev.broadinstitute.org
         db_user: backstage@bits-backstage-dev.iam
         instance_connection_name: bits-backstage-dev:us-east4:backstage-dev
         project-id: bits-backstage-dev

@@ -8,6 +8,7 @@ metadata:
       icon: dashboard
   description: Broad Institute Engineering Portal is an Internal Developer Platform (Spotify Backstage by another name)
   annotations:
+    backstage.io/kubernetes-id: backstage
     github.com/project-slug: broadinstitute/backstage
     google.com/cloudbuild-project-slug: bits-gke-clusters
     backstage.io/techdocs-ref: dir:.

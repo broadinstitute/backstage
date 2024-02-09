@@ -35,6 +35,8 @@ spec:
               value: "5432"
             - name: POSTGRES_USER
               value: backstage@bits-backstage-dev.iam # kpt-set: ${db_user}
+            - name: BACKSTAGE_APPLICATION_BASE_URL
+              value: https://backstage-dev.broadinstitute.org # kpt-set: ${backstage_application_base_url}
           envFrom:
             - secretRef:
                 name: auth-google-client-id
