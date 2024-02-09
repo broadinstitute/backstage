@@ -70,21 +70,6 @@ provider "postgresql" {
   superuser = false
 }
 
-# GRANT SELECT ON pg_database TO backstage;
-resource "postgresql_grant" "select" {
-  for_each    = toset(local.all_databases)
-  provider    = postgresql.database
-  database    = each.value
-  object_type = "database"
-  role        = trimsuffix(module.postgres.iam_users[0].email, ".gserviceaccount.com")
-  privileges  = ["SELECT"]
-  schema      = "public"
-  lifecycle {
-    ignore_changes = all
-  }
-  depends_on = ["module.postgres"]
-}
-
 resource "postgresql_grant" "database_connect" {
   for_each    = toset(local.all_databases)
   provider    = postgresql.database
