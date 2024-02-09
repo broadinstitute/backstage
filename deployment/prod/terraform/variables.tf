@@ -51,7 +51,7 @@ variable "api_services" {
 variable "cloudsql_tier" {
   description = "CloudSQL tier to use"
   type        = string
-  default     = "db-f1-micro"
+  default     = "db-g1-small"
 }
 
 variable "core_project" {
