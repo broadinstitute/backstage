@@ -34,8 +34,3 @@ resource "google_secret_manager_secret" "backstage-bits-credentials" {
     auto {}
   }
 }
-
-#AUTH_GOOGLE_CLIENT_ID
-#AUTH_GOOGLE_CLIENT_SECRET
-#AUTH_GITHUB_CLIENT_ID
-#AUTH_GITHUB_CLIENT_SECRET

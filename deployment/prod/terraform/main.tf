@@ -34,4 +34,3 @@ resource "google_secret_manager_secret" "backstage-bits-credentials" {
     auto {}
   }
 }
-
