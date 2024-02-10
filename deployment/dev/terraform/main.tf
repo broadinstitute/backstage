@@ -58,7 +58,7 @@ resource "google_storage_bucket" "tech-docs" {
   }
 
   lifecycle {
-    prevent_destroy = true
+    prevent_destroy = false
   }
 }
 
