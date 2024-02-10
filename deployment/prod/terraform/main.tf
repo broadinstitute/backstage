@@ -36,7 +36,7 @@ resource "google_secret_manager_secret" "backstage-bits-credentials" {
 }
 
 resource "google_storage_bucket" "tech-docs" {
-  name                        = "${var.core_project}-tech-docs"
+  name                        = "${var.core_project}-techdocs"
   project                     = var.core_project
   location                    = "US"
   storage_class               = "STANDARD"

@@ -45,9 +45,10 @@ terraform providers lock -platform=linux_amd64 -platform=darwin_amd64 -platform=
 | [google_project_service.api_services](https://registry.terraform.io/providers/hashicorp/google/5.14.0/docs/resources/project_service) | resource |
 | [google_secret_manager_secret.backstage-bits-credentials](https://registry.terraform.io/providers/hashicorp/google/5.14.0/docs/resources/secret_manager_secret) | resource |
 | [google_service_account_iam_member.db_workload_identity](https://registry.terraform.io/providers/hashicorp/google/5.14.0/docs/resources/service_account_iam_member) | resource |
+| [google_storage_bucket.tech-docs](https://registry.terraform.io/providers/hashicorp/google/5.14.0/docs/resources/storage_bucket) | resource |
+| [google_storage_bucket_iam_member.service-account](https://registry.terraform.io/providers/hashicorp/google/5.14.0/docs/resources/storage_bucket_iam_member) | resource |
 | [postgresql_grant.database_connect](https://registry.terraform.io/providers/cyrilgdn/postgresql/1.21.0/docs/resources/grant) | resource |
 | [postgresql_grant.schema_usage_create](https://registry.terraform.io/providers/cyrilgdn/postgresql/1.21.0/docs/resources/grant) | resource |
-| [postgresql_grant.select](https://registry.terraform.io/providers/cyrilgdn/postgresql/1.21.0/docs/resources/grant) | resource |
 | [postgresql_grant.table_permissions](https://registry.terraform.io/providers/cyrilgdn/postgresql/1.21.0/docs/resources/grant) | resource |
 | [google_client_config.current](https://registry.terraform.io/providers/hashicorp/google/5.14.0/docs/data-sources/client_config) | data source |
 | [google_project.current](https://registry.terraform.io/providers/hashicorp/google/5.14.0/docs/data-sources/project) | data source |
