@@ -16,6 +16,10 @@ module "db_service_accounts" {
     "${var.core_project}=>roles/monitoring.viewer",
     "${var.core_project}=>roles/monitoring.metricWriter",
     "${var.core_project}=>roles/iam.serviceAccountTokenCreator",
+    "bits-gke-clusters=>roles/container.clusterViewer",
+    "bits-gke-clusters=>roles/container.viewer",
+    "bits-gke-clusters-dev=>roles/container.clusterViewer",
+    "bits-gke-clusters-dev=>roles/container.viewer",
   ]
 }
 
