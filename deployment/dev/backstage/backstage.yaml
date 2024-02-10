@@ -30,7 +30,7 @@ spec:
             - name: NODE_ENV
               value: production # In this context production means "running in GKE"
             - name: TECHDOCS_STORAGE_BUCKET
-              value: project-id-techdocs # kpt-set: ${project-id}-techdocs
+              value: bits-backstage-dev-techdocs # kpt-set: ${project-id}-techdocs
             - name: POSTGRES_HOST
               value: localhost
             - name: POSTGRES_PORT
