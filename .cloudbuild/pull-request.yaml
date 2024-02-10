@@ -135,17 +135,17 @@
   #   # gke-deploy server side Dry Run on the Prod cluster.
   #   # This is the only step run against the prod cluster.
   #   # It sources the manifests from the prod directory as a validation step.
-  #   - id: gke-deploy-dry-run-prod
-  #     name: "gcr.io/cloud-builders/gke-deploy"
-  #     args:
-  #       - 'run'
-  #       - '--server-dry-run'
-  #       - '--output=dry-run-prod'
-  #       - '--recursive'
-  #       - '--filename=deployment/prod/${_APP}'
-  #       - '--location=${LOCATION}'
-  #       - '--project=${PROJECT_ID}'
-  #       - '--cluster=gke-autopilot-01-prod'
+    - id: gke-deploy-dry-run-prod
+      name: "gcr.io/cloud-builders/gke-deploy"
+      args:
+        - 'run'
+        - '--server-dry-run'
+        - '--output=dry-run-prod'
+        - '--recursive'
+        - '--filename=deployment/prod/${_APP}'
+        - '--location=${LOCATION}'
+        - '--project=${PROJECT_ID}'
+        - '--cluster=gke-autopilot-01-prod'
   #       # - '--verbose'
   images:
     - '${LOCATION}-docker.pkg.dev/${PROJECT_ID}/bits/${_APP}:${SHORT_SHA}'
