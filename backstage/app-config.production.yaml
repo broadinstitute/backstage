@@ -38,8 +38,9 @@ techdocs:
   generator:
     runIn: 'local' # Alternatives - 'local'
   publisher:
-    type: 'local' # Alternatives - 'googleGcs' or 'awsS3'. Read documentation for using alternatives.
-
+    type: 'googleGcs'
+    googleGcs:
+      bucketName: ${TECHDOCS_STORAGE_BUCKET}
 
 catalog:
   # Overrides the default list locations from app-config.yaml as these contain example data.
