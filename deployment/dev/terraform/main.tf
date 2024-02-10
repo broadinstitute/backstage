@@ -61,3 +61,9 @@ resource "google_storage_bucket" "tech-docs" {
     prevent_destroy = true
   }
 }
+
+resource "google_storage_bucket_iam_member" "service-account" {
+  bucket = google_storage_bucket.tech-docs.name
+  role   = "roles/storage.admin"
+  member = "serviceAccount:${module.db_service_accounts.service_accounts_map["${local.application_name}"]["email"]}"
+}
