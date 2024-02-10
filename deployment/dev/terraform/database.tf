@@ -81,7 +81,7 @@ resource "postgresql_grant" "database_connect" {
   lifecycle {
     ignore_changes = all
   }
-  depends_on = ["module.postgres"]
+  depends_on = [module.postgres]
 }
 
 resource "postgresql_grant" "schema_usage_create" {
@@ -95,7 +95,7 @@ resource "postgresql_grant" "schema_usage_create" {
   lifecycle {
     ignore_changes = all
   }
-  depends_on = ["module.postgres"]
+  depends_on = [module.postgres]
 }
 
 resource "postgresql_grant" "table_permissions" {
@@ -109,6 +109,6 @@ resource "postgresql_grant" "table_permissions" {
   lifecycle {
     ignore_changes = all
   }
-  depends_on = ["module.postgres"]
+  depends_on = [module.postgres]
 }
 

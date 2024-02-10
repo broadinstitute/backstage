@@ -16,10 +16,6 @@ module "db_service_accounts" {
     "${var.core_project}=>roles/monitoring.viewer",
     "${var.core_project}=>roles/monitoring.metricWriter",
     "${var.core_project}=>roles/iam.serviceAccountTokenCreator",
-    "bits-gke-clusters=>roles/container.clusterViewer",
-    "bits-gke-clusters=>roles/container.viewer",
-    "bits-gke-clusters-dev=>roles/container.clusterViewer",
-    "bits-gke-clusters-dev=>roles/container.viewer",
   ]
 }
 
@@ -85,7 +81,7 @@ resource "postgresql_grant" "database_connect" {
   lifecycle {
     ignore_changes = all
   }
-  depends_on = ["module.postgres"]
+  depends_on = [module.postgres]
 }
 
 resource "postgresql_grant" "schema_usage_create" {
@@ -99,7 +95,7 @@ resource "postgresql_grant" "schema_usage_create" {
   lifecycle {
     ignore_changes = all
   }
-  depends_on = ["module.postgres"]
+  depends_on = [module.postgres]
 }
 
 resource "postgresql_grant" "table_permissions" {
@@ -113,6 +109,6 @@ resource "postgresql_grant" "table_permissions" {
   lifecycle {
     ignore_changes = all
   }
-  depends_on = ["module.postgres"]
+  depends_on = [module.postgres]
 }
 
