@@ -9,6 +9,7 @@ provider "registry.terraform.io/cyrilgdn/postgresql" {
     "h1:Jiy9o0rCL6SIcYAkptqQfpYikMWSNG0q/cmleVrGT+I=",
     "h1:i0ihJjt71AnT5Yh2h1kZA4su7uuyR2R92Z/zT/SI4H8=",
     "h1:v7X6z6j8Uo07+QJPuO3EVM8N1uy6t2k+1GiRGioOPGc=",
+    "h1:yLrAmJujDYnlo4H+okLX4WVFxnZqCCDjleH/EU9oEWo=",
     "zh:17e3d204dabc116276c763bb0cd159aa315789d3b0bcd3b8aede935509960ab6",
     "zh:1a7e5ac1921afdb3b12a49714c5f446a7604bfa1eb7bd9c123d607f8cbda45e4",
     "zh:24a880623e30928ee866c84016b1db4e0458764c7a547b808e2d398e90456d42",
@@ -34,6 +35,7 @@ provider "registry.terraform.io/hashicorp/google" {
     "h1:T6EW5HOI1IrE4zHzQ/5kLyul+U2ByEaIgqMu4Ja7JFI=",
     "h1:TF5P400fC1SLtt2trMWaXaXDxarkdtY4fIvYmJmtOzk=",
     "h1:dE1f7V0ItKCHGzrZer4KfQkNV3L1N3dPi7pc8RFWGak=",
+    "h1:iyUAcDPo1YouZvsjO3hXUsSLf3KPJZ7fZagUGmm6rRs=",
     "zh:3927ef7417d9d8a56077e6655d76c99f4175f9746e39226a00ee0555f8c63f8f",
     "zh:4b4f521f0779a1797047a8c531afda093aade934b4a49c080fe8d38680b3a52f",
     "zh:7e880c5b72684fc8342e03180a1fbbec65c6afeb70511b9c16181d5e168269e6",
@@ -50,25 +52,26 @@ provider "registry.terraform.io/hashicorp/google" {
 }
 
 provider "registry.terraform.io/hashicorp/google-beta" {
-  version     = "5.15.0"
+  version     = "5.16.0"
   constraints = ">= 4.80.0, < 6.0.0"
   hashes = [
-    "h1:0JvbG3Ak0DNpVFISCi0cDz9h0EdaXuLu6rsgQTohl9c=",
-    "h1:gbtE5e2cVhJ4hBMIUhElm2JDEW5ynykQt5CWcWyQpqI=",
-    "h1:gmE1wKo0kzMYFgBNkcw7a8hO40BOvwJzNt2snsu4mOE=",
-    "h1:xMbzlS2xmBhuip9B6KTo5TeaonTJNOV422Lza/AsGX4=",
-    "zh:0d06bd1799cacd09ef70cdda24339d29b14aae4e8bac5ca468260003f53cf12a",
-    "zh:0e73b1efd7b358f33c46e600e5babdd4be847848f287729c0bdccdae1bc074ef",
-    "zh:199e5a82d8e6b0ba6a916f03e140b118ced55f1c02c888881aa0b6490bddc04c",
-    "zh:220f524b43d79fc728a84175872f229fe41c6dbab0845a020f3fa0f4b4115ff8",
-    "zh:6172f6db7651f95b2746afb6a120578cec77e812641ef178221f3bbb59441b73",
-    "zh:9c8c2d245d8247ca1382b4e6a6a8fd73954856e82791183c38e1e288e1e8f301",
-    "zh:ca681248642c0ae332553426ee0ff6b3fd585ac7f3705ca7d3709d5d8ccdcb78",
-    "zh:cc9cf22970bbccbba05c10c1e3c7ee4f1b8ad28e03ae948e8fbc923d0b87734f",
-    "zh:e1fd2294f36eddade50734891523de99180ffc7218fcd58fab7a140b57a6e04c",
-    "zh:efbcb10431afd466701dfe63991caa23d26184c494a06ce44d00b10a6dae7dc3",
+    "h1:3QkyE7Oo8KWA2lSC0eoV2mV8khLaYkM5ZIugFb1y3aA=",
+    "h1:8Os9TMpUZrCGWznAZ5RHPOVK4aQXdeezzUmWD+gCtUM=",
+    "h1:kOTpf0fYAAnITvwbAMwpl7dMNlJV0HMoTfQAiVBYVkE=",
+    "h1:nVQWxFPUI464cpmUrOCojV82bSBwskTC/ID9WWL/gbw=",
+    "h1:v9tnyyPOAprq1D1dmVGviNellyyheKf1pSV+AiKECHE=",
+    "zh:06c6781dc7847163b63b12a1142587254f78410fa121759a8906edeb7513deab",
+    "zh:0fbb9ddc797fdf78358241fa0fb378d3a7a6876af5a0bc50487bb8ce4f6ba04f",
+    "zh:3c6f35290565b7bdf8392356ec8861262684f026443afcd838d1c8dbfb284930",
+    "zh:6891e6f64d7f5e6068ff55cb3bcb4d7d9484c412d214a6680f1674165daff105",
+    "zh:87f5132dae0c464c04749d4afbb68b841d3271a63cc923f6fa022335033c7f39",
+    "zh:a4fa95b2400a950a624620b652f5431e47a273115307c5335e2b75480d71be0b",
+    "zh:df95e8bc2d987d74e48e4af56fe19845a660927ff068b49531d479a069893480",
     "zh:f569b65999264a9416862bca5cd2a6177d94ccb0424f3a4ef424428912b9cb3c",
-    "zh:ff2fe28b37d88bac239b0f9ca7b41bf7923a99c4af82ae800668c3945902d68a",
+    "zh:f66e6e4d7d802bf69cd6cca32a56e259669bcda6133ad30231c8385cf26b50cd",
+    "zh:f788ba455976e62c3c69e5cae38751016d194ec65fcf9246b8197d130e235683",
+    "zh:fa4189977d29aa45900306426dac8db1e63dc4645b4d1394c82f5976a9fe5a24",
+    "zh:fae3d295cdb595528c5b1db716fb6bd9c33496fce1d5af9a8ff3d6d10ae19fe0",
   ]
 }
 
@@ -76,6 +79,7 @@ provider "registry.terraform.io/hashicorp/null" {
   version     = "3.2.2"
   constraints = "~> 3.1"
   hashes = [
+    "h1:Gef5VGfobY5uokA5nV/zFvWeMNR2Pmq79DH94QnNZPM=",
     "h1:IMVAUHKoydFrlPrl9OzasDnw/8ntZFerCC9iXw1rXQY=",
     "h1:m467k2tZ9cdFFgHW7LPBK2GLPH43LC6wc3ppxr8yvoE=",
     "h1:vWAsYRd7MjYr3adj8BVKRohVfHpWQdvkIwUQ2Jf5FVM=",
@@ -99,6 +103,7 @@ provider "registry.terraform.io/hashicorp/random" {
   version     = "3.6.0"
   constraints = "~> 3.1"
   hashes = [
+    "h1:5KeoKSVKVHJW308uiTgslxFbjQAdWzBGUFK68vgMRWY=",
     "h1:I8MBeauYA8J8yheLJ8oSMWqB0kovn16dF/wKZ1QTdkk=",
     "h1:R5Ucn26riKIEijcsiOMBR3uOAjuOMfI1x7XvH4P6B1w=",
     "h1:p6WG1IPHnqx1fnJVKNjv733FBaArIugqy58HRZnpPCk=",
