@@ -6,6 +6,6 @@
           - main
     jobs:
       conventional-commits:
-        uses: broadinstitute/shared-workflows/.github/workflows/conventional-commit.yaml@v2.0.0
+        uses: broadinstitute/shared-workflows/.github/workflows/conventional-commit.yaml@v2.1.0
       linting:
-        uses: broadinstitute/shared-workflows/.github/workflows/markdownlint.yaml@v2.0.0
+        uses: broadinstitute/shared-workflows/.github/workflows/markdownlint.yaml@v2.1.0
