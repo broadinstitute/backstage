@@ -1,68 +1,130 @@
-# ---
-#   substitutions:
-#     _APP: atlantis
+---
+  substitutions:
+    _APP: backstage
 
-#   steps:
-#     - id: build-docker-image
-#       name: 'gcr.io/cloud-builders/docker'
-#       args:
-#         - 'build'
-#         - '-t'
-#         - '${LOCATION}-docker.pkg.dev/${PROJECT_ID}/bits/${_APP}:${SHORT_SHA}'
-#         - '-t'
-#         - '${LOCATION}-docker.pkg.dev/${PROJECT_ID}/bits/${_APP}:latest'
-#         - '.'
-#     # Test the image.
-#     - id: test-docker-image
-#       name: 'gcr.io/gcp-runtimes/container-structure-test'
-#       args:
-#         - 'test'
-#         - '--image'
-#         - '${LOCATION}-docker.pkg.dev/${PROJECT_ID}/bits/${_APP}:${SHORT_SHA}'
-#         - '--config'
-#         - 'container-image-tests.yaml'
+  steps:
+    # todo: Load cache from previous builds. /usr/local/share/.cache/yarn/v6
+    # todo: check ways to load a different "app-config.production.yaml" file for dev builds. probably pass an envvar to the build step.
 
-#     # Push the image to the container registry.
-#     - id: push-image-to-prod
-#       name: 'gcr.io/cloud-builders/docker'
-#       args:
-#         - 'push'
-#         - '${LOCATION}-docker.pkg.dev/${PROJECT_ID}/bits/${_APP}:${SHORT_SHA}'
+    # echo 'test: do not delete' > github-app-backstage-bits-credentials.yaml
+    - id: 'populate-github-app-credentials-file'
+      name: 'alpine'
+      dir: ${_APP}
+      entrypoint: '/bin/sh'
+      args: [ '-c', 'echo "test: do not delete" > github-app-backstage-bits-credentials.yaml']
 
-#   # kpt fn render prod/atlantis
-#     - id: kpt-render
-#       name: 'gcr.io/kpt-dev/kpt:v1.0.0-beta.44'
-#       args:
-#         - 'fn'
-#         - 'render'
-#         - '${_APP}'
+    # yarn install --frozen-lockfile
+    - id: 'yarn-install'
+      name: 'node:18-bookworm'
+      dir: ${_APP}
+      entrypoint: 'yarn'
+      args:
+        - 'install'
+        - '--frozen-lockfile'
 
-#     # Set Image
-#     # kpt fn eval atlantis --image gcr.io/kpt-fn/set-image:v0.1.1 -- name=us-east4-docker.pkg.dev/bits-gke-clusters/bits/atlantis:latest newName=us-east4-docker.pkg.dev/bits-gke-clusters/bits/atlantis newTag=foo
-#     - id: kpt-set-image
-#       name: 'gcr.io/kpt-dev/kpt:v1.0.0-beta.44'
-#       args:
-#         - 'fn'
-#         - 'eval'
-#         - '${_APP}'
-#         - '--image'
-#         - 'gcr.io/kpt-fn/set-image:v0.1.1'
-#         - '--'
-#         - 'name=us-east4-docker.pkg.dev/bits-gke-clusters/bits/atlantis:latest'
-#         - 'newName=${LOCATION}-docker.pkg.dev/${PROJECT_ID}/bits/${_APP}'
-#         - 'newTag=${SHORT_SHA}'
+    # yarn build:backend --config ../../app-config.yaml
+    - id: 'build-backend'
+      name: 'node:18-bookworm'
+      dir: ${_APP}
+      entrypoint: 'yarn'
+      args:
+        - 'build:backend'
+        - '--config'
+        - '../../app-config.yaml'
+        - '--config'
+        - '../../app-config.production.yaml'
 
-#     - name: "gcr.io/cloud-builders/gke-deploy"
-#       args:
-#         - 'run'
-#         - '--filename=${_APP}'
-#         - '--image=${LOCATION}-docker.pkg.dev/${PROJECT_ID}/bits/${_APP}:${SHORT_SHA}'
-#         - '--location=${LOCATION}'
-#         - '--project=${PROJECT_ID}'
-#         - '--cluster=gke-autopilot-01-prod'
-#         # - '--verbose'
+    # yarn tsc TypeScript Compiler
+    - id: 'yarn-tsc'
+      name: 'node:18-bookworm-slim'
+      dir: ${_APP}
+      entrypoint: 'yarn'
+      args:
+        - 'tsc'
 
+    # Build the Docker image.
+    - id: build-docker-image
+      name: 'gcr.io/cloud-builders/docker'
+      dir: ${_APP}
+      env:
+        - 'DOCKER_BUILDKIT=1'
+      args:
+        - 'image'
+        - 'build'
+        - '-f'
+        - 'packages/backend/Dockerfile'
+        - '-t'
+        - '${LOCATION}-docker.pkg.dev/${PROJECT_ID}/bits/${_APP}:${SHORT_SHA}'
+        - '.'
 
-#   images:
-#     - '${LOCATION}-docker.pkg.dev/${PROJECT_ID}/bits/${_APP}:${SHORT_SHA}'
-#     - '${LOCATION}-docker.pkg.dev/${PROJECT_ID}/bits/${_APP}:latest'
+    # Test the image.
+    - id: test-docker-image
+      name: 'gcr.io/gcp-runtimes/container-structure-test'
+      args:
+        - 'test'
+        - '--image'
+        - '${LOCATION}-docker.pkg.dev/${PROJECT_ID}/bits/${_APP}:${SHORT_SHA}'
+        - '--config'
+        - 'container-image-tests.yaml'
+
+    # Push the image to the container registry.
+    - id: push-image
+      name: 'gcr.io/cloud-builders/docker'
+      args:
+        - 'push'
+        - '${LOCATION}-docker.pkg.dev/${PROJECT_ID}/bits/${_APP}:${SHORT_SHA}'
+
+    # kpt fn eval backstage --image gcr.io/kpt-fn/set-image:v0.1.1 -- name=us-east4-docker.pkg.dev/bits-gke-clusters/bits/backstage:latest  newTag=0fb8278
+    - id: kpt-set-image
+      name: 'gcr.io/kpt-dev/kpt:v1.0.0-beta.48'
+      args:
+        - 'fn'
+        - 'eval'
+        - 'deployment/prod/${_APP}'
+        - '--image'
+        - 'gcr.io/kpt-fn/set-image:v0.1.1'
+        - '--'
+        - 'name=${LOCATION}-docker.pkg.dev/${PROJECT_ID}/bits/${_APP}:latest'
+        - 'newName=${LOCATION}-docker.pkg.dev/${PROJECT_ID}/bits/${_APP}'
+        - 'newTag=${SHORT_SHA}'
+
+    # kpt fn eval deployment/prod/app --image gcr.io/kpt-fn/set-labels:v0.2.0 --exclude-kind=StatefulSet -- environment=prod
+    - id: kpt-set-labels
+      name: 'gcr.io/kpt-dev/kpt:v1.0.0-beta.48'
+      args:
+        - 'fn'
+        - 'eval'
+        - 'deployment/prod/${_APP}'
+        - '--image'
+        - 'gcr.io/kpt-fn/set-labels:v0.2.0'
+        - '--'
+        - 'environment=prod'
+
+    # Prod Dry Run
+    - id: gke-deploy-dry-run-prod
+      name: "gcr.io/cloud-builders/gke-deploy"
+      args:
+        - 'run'
+        - '--server-dry-run'
+        - '--output=dry-run-prod'
+        - '--recursive'
+        - '--filename=deployment/prod/${_APP}'
+        - '--location=${LOCATION}'
+        - '--project=${PROJECT_ID}'
+        - '--cluster=gke-autopilot-01-prod'
+  #       # - '--verbose'
+
+      # Deploy to the prod cluster.
+    - id: gke-deploy-prod
+      name: "gcr.io/cloud-builders/gke-deploy"
+      args:
+        - 'run'
+        - '--recursive'
+        - '--filename=deployment/prod/${_APP}'
+        - '--location=${LOCATION}'
+        - '--project=${PROJECT_ID}'
+        - '--cluster=gke-autopilot-01-prod'
+
+  images:
+    - '${LOCATION}-docker.pkg.dev/${PROJECT_ID}/bits/${_APP}:${SHORT_SHA}'
+    - '${LOCATION}-docker.pkg.dev/${PROJECT_ID}/bits/${_APP}:latest'
