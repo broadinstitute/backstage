@@ -7,11 +7,13 @@ metadata:
   labels:
     environment: prod
     app.kubernetes.io/managed-by: gcp-cloud-build-deploy
+    backstage.io/kubernetes-id: backstage
 spec:
   selector:
     app: backstage
     environment: prod
     app.kubernetes.io/managed-by: gcp-cloud-build-deploy
+    backstage.io/kubernetes-id: backstage
   ports:
     - name: http
       port: 80

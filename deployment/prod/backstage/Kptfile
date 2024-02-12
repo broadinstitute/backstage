@@ -18,6 +18,7 @@ pipeline:
     - image: gcr.io/kpt-fn/set-labels:v0.2.0
       configMap:
         app.kubernetes.io/managed-by: gcp-cloud-build-deploy
+        backstage.io/kubernetes-id: backstage
     - image: gcr.io/kpt-fn/apply-setters:v0.2.0
       configMap:
         cert-name: backstage.broadinstitute.org

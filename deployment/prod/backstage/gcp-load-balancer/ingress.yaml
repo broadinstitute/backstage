@@ -13,6 +13,7 @@ metadata: # kpt-merge: gcp-load-balancer/gcp-load-balancer
     app: backstage # kpt-set: ${name}
     environment: prod
     app.kubernetes.io/managed-by: gcp-cloud-build-deploy
+    backstage.io/kubernetes-id: backstage
 spec:
   defaultBackend:
     service:
