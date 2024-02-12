@@ -67,8 +67,3 @@ resource "google_storage_bucket_iam_member" "service-account" {
   role   = "roles/storage.admin"
   member = "serviceAccount:${module.db_service_accounts.service_accounts_map["${local.application_name}"]["email"]}"
 }
-
-output "bucket_name" {
-  value = google_storage_bucket.tech-docs.name
-  
-}
