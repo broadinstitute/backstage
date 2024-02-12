@@ -1,0 +1,18 @@
+# kubernetes/backstage-service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: backstage
+  namespace: backstage
+  labels:
+    environment: dev
+    app.kubernetes.io/managed-by: gcp-cloud-build-deploy
+spec:
+  selector:
+    app: backstage
+    environment: dev
+    app.kubernetes.io/managed-by: gcp-cloud-build-deploy
+  ports:
+    - name: http
+      port: 80
+      targetPort: http

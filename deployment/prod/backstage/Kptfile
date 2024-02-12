@@ -1,0 +1,38 @@
+apiVersion: kpt.dev/v1
+kind: Kptfile
+metadata:
+  name: backstage
+  annotations:
+    config.kubernetes.io/local-config: "true"
+info:
+  description: Broad Institute Engineering Portal is an Internal Developer Platform (Spotify Backstage by another name)
+  keywords:
+    - GKE
+    - GCP
+    - Backstage
+pipeline:
+  mutators:
+    - image: gcr.io/kpt-fn/set-namespace:v0.4.1
+      configMap:
+        namespace: backstage
+    - image: gcr.io/kpt-fn/set-labels:v0.2.0
+      configMap:
+        app.kubernetes.io/managed-by: gcp-cloud-build-deploy
+    - image: gcr.io/kpt-fn/apply-setters:v0.2.0
+      configMap:
+        cert-name: backstage.broadinstitute.org
+        backstage_application_base_url: https://backstage.broadinstitute.org
+        db_user: backstage@bits-backstage-prod.iam
+        instance_connection_name: bits-backstage-prod:us-east4:backstage-prod
+        project-id: bits-backstage-prod
+    - image: gcr.io/kpt-fn/set-annotations:v0.1.4
+      configMap:
+        iam.gke.io/gcp-service-account: backstage@bits-backstage-prod.iam.gserviceaccount.com
+      name: set-service-account-annotations
+      selectors:
+        - kind: ServiceAccount
+          name: backstage
+  validators:
+    - image: gcr.io/kpt-fn/kubeval:v0.3
+      configMap:
+        ignore_missing_schemas: "true"

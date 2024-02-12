@@ -1,0 +1,10 @@
+---
+extends: default
+ignore: |
+  prod/.terragrunt-cache/
+rules:
+  indentation:
+    spaces: 2
+  line-length:
+    level: warning
+    max: 120

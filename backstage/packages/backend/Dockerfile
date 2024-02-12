@@ -1,16 +1,4 @@
-# This dockerfile builds an image for the backend package.
-# It should be executed with the root of the repo as docker context.
-#
-# Before building this image, be sure to have run the following commands in the repo root:
-#
-# yarn install
-# yarn tsc
-# yarn build:backend
-#
-# Once the commands have been run, you can build the image using `yarn build-image`
-
-FROM node:18.18.1-bullseye
-RUN npm install --global node-gyp
+FROM node:18-bookworm-slim
 
 # Install isolate-vm dependencies, these are needed by the @backstage/plugin-scaffolder-backend.
 RUN --mount=type=cache,target=/var/cache/apt,sharing=locked \
@@ -19,19 +7,22 @@ RUN --mount=type=cache,target=/var/cache/apt,sharing=locked \
     apt-get install -y --no-install-recommends python3 g++ build-essential && \
     yarn config set python /usr/bin/python3
 
-# Install sqlite3 dependencies. You can skip this if you don't use sqlite3 in the image,
-# in which case you should also move better-sqlite3 to "devDependencies" in package.json.
-RUN --mount=type=cache,target=/var/cache/apt,sharing=locked \
-    --mount=type=cache,target=/var/lib/apt,sharing=locked \
-    apt-get update && \
-    apt-get install -y --no-install-recommends libsqlite3-dev
+# Install mkdocs-techdocs-core dependencies
+RUN apt-get update && apt-get install -y python3 python3-pip python3-venv
 
+ENV VIRTUAL_ENV=/opt/venv
+RUN python3 -m venv $VIRTUAL_ENV
+ENV PATH="$VIRTUAL_ENV/bin:$PATH"
+
+RUN pip3 install mkdocs-techdocs-core
 # From here on we use the least-privileged `node` user to run the backend.
 USER node
 
 # This should create the app dir as `node`.
-# If it is instead created as `root` then the `tar` command below will fail: `can't create directory 'packages/': Permission denied`.
-# If this occurs, then ensure BuildKit is enabled (`DOCKER_BUILDKIT=1`) so the app dir is correctly created as `node`.
+# If it is instead created as `root` then the `tar` command below will
+# fail: `can't create directory 'packages/': Permission denied`.
+# If this occurs, then ensure BuildKit is enabled (`DOCKER_BUILDKIT=1`)
+# so the app dir is correctly created as `node`.
 WORKDIR /app
 
 # This switches many Node.js dependencies to production mode.
@@ -51,3 +42,5 @@ COPY --chown=node:node packages/backend/dist/bundle.tar.gz app-config*.yaml ./
 RUN tar xzf bundle.tar.gz && rm bundle.tar.gz
 
 CMD ["node", "packages/backend", "--config", "app-config.yaml", "--config", "app-config.production.yaml"]
+
+# node packages/backend --config app-config.yaml --config app-config.production.yaml
