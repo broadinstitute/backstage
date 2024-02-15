@@ -1,0 +1,16 @@
+apiVersion: backstage.io/v1alpha1
+kind: Domain
+metadata:
+  name: containers
+  description: Containers / Container Images / Container Orchestration
+  title: Containers
+  tags:
+  - hpc
+  - kubernetes
+  - bits-tools
+
+  annotations:
+    backstage.io/managed-by: backstage
+spec:
+  owner: devnull
+  lifecycle: production

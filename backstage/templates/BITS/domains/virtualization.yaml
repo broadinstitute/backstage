@@ -1,0 +1,15 @@
+apiVersion: backstage.io/v1alpha1
+kind: Domain
+metadata:
+  name: virtualization
+  description: Tools and services for managing virtualization
+  title: Virtualization
+  tags:
+  - bits-tools
+  - virtualization
+
+  annotations:
+    backstage.io/managed-by: backstage
+spec:
+  owner: bits-aviso
+  lifecycle: production

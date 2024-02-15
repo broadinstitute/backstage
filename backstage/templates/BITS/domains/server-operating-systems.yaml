@@ -1,0 +1,15 @@
+apiVersion: backstage.io/v1alpha1
+kind: Domain
+metadata:
+  name: server-operating-systems
+  description: Managment of Server Operating systems.
+  title: "Server Operating Systems"
+  tags:
+  - bits-tools
+  - os
+
+  annotations:
+    backstage.io/managed-by: backstage
+spec:
+  owner: bits-aviso
+  lifecycle: production

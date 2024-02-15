@@ -1,0 +1,14 @@
+apiVersion: backstage.io/v1alpha1
+kind: Domain
+metadata:
+  name: infrastructure-tools
+  description: Infrastructure Tools for managing infrastructure.
+  title: "Infrastructure Tools"
+  tags:
+  - bits-tools
+
+  annotations:
+    backstage.io/managed-by: backstage
+spec:
+  owner: bits-aviso
+  lifecycle: production
