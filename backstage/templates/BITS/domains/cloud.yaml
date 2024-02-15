@@ -1,0 +1,14 @@
+apiVersion: backstage.io/v1alpha1
+kind: Domain
+metadata:
+  name: cloud
+  description: Managment of Cloud Platforms.
+  title: Cloud
+  tags:
+  - gcp
+
+  annotations:
+    backstage.io/managed-by: backstage
+spec:
+  owner: devnull
+  lifecycle: production

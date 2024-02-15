@@ -1,0 +1,18 @@
+---
+apiVersion: backstage.io/v1alpha1
+kind: Location
+metadata:
+  name: bits-domains
+  description: A collection of all Backstage Domains at BROAD BITS
+spec:
+  targets:
+    - ./domains/monitoring.yaml
+    - ./domains/automation.yaml
+    - ./domains/containers.yaml
+    - ./domains/infrastructure-tools.yaml
+    - ./domains/orchestration.yaml
+    - ./domains/virtualization.yaml
+    - ./domains/cloud.yaml
+    - ./domains/hpc.yaml
+    - ./domains/monitoring.yaml
+    - ./domains/server-operating-systems.yaml

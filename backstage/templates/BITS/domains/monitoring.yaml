@@ -1,0 +1,15 @@
+apiVersion: backstage.io/v1alpha1
+kind: Domain
+metadata:
+  name: monitoring
+  description: Monitoring domain for managing observability and metrics
+  title: Monitoring
+  tags:
+  - monitoring
+
+  annotations:
+    backstage.io/managed-by: backstage
+spec:
+  owner: bits
+  lifecycle: production
+  

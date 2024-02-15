@@ -17,11 +17,12 @@ metadata:
     backstage.io/kubernetes-namespace: backstage
     github.com/project-slug: broadinstitute/backstage
     google.com/cloudbuild-project-slug: bits-gke-clusters
+    google.com/cloudbuild-location: us-east4
     backstage.io/techdocs-ref: dir:.
 spec:
   type: service
   system: backstage
-  #domain: bits-platforms
+  domain: orchestration
   owner: devnull
   lifecycle: experimental
 

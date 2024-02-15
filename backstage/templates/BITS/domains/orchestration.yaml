@@ -1,0 +1,14 @@
+apiVersion: backstage.io/v1alpha1
+kind: Domain
+metadata:
+  name: orchestration
+  description: Orchestration of Containers and Services. 
+  title: Orchestration
+  tags:
+  - gcp
+
+  annotations:
+    backstage.io/managed-by: backstage
+spec:
+  owner: devnull
+  lifecycle: production
