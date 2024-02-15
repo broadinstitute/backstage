@@ -118,8 +118,14 @@ catalog:
       rules:
         - allow: [User, Group]
 
-    - type: file
-      target: ../../templates/BITS/domains.yaml #switch this to a url to pull from a remote source https://github.com/broadinstitute/backstage/tree/main/backstage/templates/BITS/domains.yaml
+    # Example of Local Development for domains 
+    # - type: file
+    #   target: ../../templates/BITS/domains.yaml
+    #   rules:
+    #     - allow: [Location, Domain]
+
+    - type:  url
+      target: https://github.com/broadinstitute/backstage/tree/main/backstage/templates/BITS/domains.yaml
       rules:
         - allow: [Location, Domain]
 
