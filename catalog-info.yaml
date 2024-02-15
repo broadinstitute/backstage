@@ -22,7 +22,7 @@ metadata:
 spec:
   type: service
   system: backstage
-  #domain: bits-platforms
+  domain: orchestration
   owner: devnull
   lifecycle: experimental
 
