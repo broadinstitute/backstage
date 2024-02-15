@@ -75,3 +75,8 @@ catalog:
           frequency: { minutes: 65 }
           # supports ISO duration, "human duration" as used in code
           timeout: { minutes: 3 }
+pagerDuty:
+  oauth:
+    clientId: ${PD_CLIENT_ID}
+    clientSecret: ${PD_CLIENT_SECRET}
+    subDomain: ${PD_ACCOUNT_SUBDOMAIN}

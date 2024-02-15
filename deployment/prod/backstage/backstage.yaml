@@ -41,6 +41,8 @@ spec:
               value: backstage@bits-backstage-prod.iam # kpt-set: ${db_user}
             - name: BACKSTAGE_APPLICATION_BASE_URL
               value: https://backstage.broadinstitute.org # kpt-set: ${backstage_application_base_url}
+            - name: PD_ACCOUNT_SUBDOMAIN
+              value: broadinstitute
           envFrom:
             - secretRef:
                 name: auth-google-client-id
@@ -50,6 +52,10 @@ spec:
                 name: auth-github-client-id
             - secretRef:
                 name: auth-github-client-secret
+            - secretRef:
+                name: pagerduty-client-id
+            - secretRef:
+                name: pagerduty-client-secret
           volumeMounts:
             - name: github-app-credentials
               mountPath: /app/github-app-backstage-bits-credentials.yaml

@@ -28,4 +28,12 @@ google_secret_manager_secrets = {
     service = "google"
     type    = "string"
   },
+  pagerduty-client-id = {
+    service = "pagerduty"
+    type    = "string"
+  },
+  pagerduty-client-secret = {
+    service = "pagerduty"
+    type    = "string"
+  },
 }

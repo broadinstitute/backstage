@@ -118,7 +118,7 @@ catalog:
       rules:
         - allow: [User, Group]
 
-    # Example of Local Development for domains 
+    # Example of Local Development for domains
     # - type: file
     #   target: ../../templates/BITS/domains.yaml
     #   rules:
