@@ -1,9 +1,5 @@
 data "google_client_config" "current" {}
 
-data "google_project" "current" {
-  project_id = var.core_project
-}
-
 locals {
   google_secret_manager_secrets = {
     for secret, labels in var.google_secret_manager_secrets :
@@ -65,5 +61,5 @@ resource "google_storage_bucket" "tech-docs" {
 resource "google_storage_bucket_iam_member" "service-account" {
   bucket = google_storage_bucket.tech-docs.name
   role   = "roles/storage.admin"
-  member = "serviceAccount:${module.db_service_accounts.service_accounts_map["${local.application_name}"]["email"]}"
+  member = "serviceAccount:${module.db_service_accounts.service_accounts_map[local.application_name]["email"]}"
 }

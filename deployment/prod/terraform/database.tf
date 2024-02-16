@@ -7,7 +7,7 @@ module "db_service_accounts" {
   source      = "terraform-google-modules/service-accounts/google"
   version     = "4.2.2"
   project_id  = var.core_project
-  names       = ["${local.application_name}"]
+  names       = [local.application_name]
   description = "service account for ${local.application_name}"
   project_roles = [
     "${var.core_project}=>roles/secretmanager.secretAccessor",
@@ -24,7 +24,7 @@ module "db_service_accounts" {
 }
 
 resource "google_service_account_iam_member" "db_workload_identity" {
-  service_account_id = module.db_service_accounts.service_accounts_map["${local.application_name}"]["name"]
+  service_account_id = module.db_service_accounts.service_accounts_map[local.application_name]["name"]
   role               = "roles/iam.workloadIdentityUser"
   member             = "serviceAccount:${var.gke_project}.svc.id.goog[${local.application_name}/${local.application_name}]"
 }
@@ -59,8 +59,8 @@ module "postgres" {
 
   iam_users = [
     {
-      id    = "${local.application_name}",
-      email = module.db_service_accounts.service_accounts_map["${local.application_name}"]["email"]
+      id    = local.application_name,
+      email = module.db_service_accounts.service_accounts_map[local.application_name]["email"],
     },
   ]
 }
@@ -115,4 +115,3 @@ resource "postgresql_grant" "table_permissions" {
   }
   depends_on = [module.postgres]
 }
-

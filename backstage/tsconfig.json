@@ -10,6 +10,6 @@
   "compilerOptions": {
     "outDir": "dist-types",
     "rootDir": ".",
-    "noUnusedLocals": false,
+    "noUnusedLocals": false
   }
 }
