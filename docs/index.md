@@ -28,6 +28,8 @@ kubectl -n backstage create secret generic auth-github-client-id --from-literal=
 kubectl -n backstage create secret generic auth-github-client-secret --from-literal=AUTH_GITHUB_CLIENT_SECRET=$AUTH_GITHUB_CLIENT_SECRET
 kubectl -n backstage create secret generic auth-google-client-id --from-literal=AUTH_GOOGLE_CLIENT_ID=$AUTH_GOOGLE_CLIENT_ID
 kubectl -n backstage create secret generic auth-google-client-secret --from-literal=AUTH_GOOGLE_CLIENT_SECRET=$AUTH_GOOGLE_CLIENT_SECRET
+kubectl -n backstage create secret generic pagerduty-client-id --from-literal=PD_CLIENT_ID=$PD_CLIENT_ID
+kubectl -n backstage create secret generic pagerduty-client-secret --from-literal=PD_CLIENT_SECRET=$PD_CLIENT_SECRET
 ```
 
 The above will eventually be replaced by secrets  in Google Secret Manager, so that we don't need to manually populate the secrets in the kubernetes cluster. Terraform will be used to create the secrets in Google Secret Manager, but does not populate them.
