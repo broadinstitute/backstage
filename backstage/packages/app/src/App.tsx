@@ -37,7 +37,8 @@ import { googleAuthApiRef } from '@backstage/core-plugin-api';
 import { SignInPage } from '@backstage/core-components';
 import { GcpProjectsPage } from '@backstage/plugin-gcp-projects';
 import { githubAuthApiRef } from '@backstage/core-plugin-api';
-
+import { ScaffolderFieldExtensions } from '@backstage/plugin-scaffolder-react';
+import { SelectFieldFromApiExtension } from '@roadiehq/plugin-scaffolder-frontend-module-http-request-field';
 
 interface SignInProviderConfig {
   id: string;
@@ -107,7 +108,11 @@ const routes = (
         <ReportIssue />
       </TechDocsAddons>
     </Route>
-    <Route path="/create" element={<ScaffolderPage />} />
+    <Route path="/create" element={<ScaffolderPage />}>
+      <ScaffolderFieldExtensions>
+        <SelectFieldFromApiExtension />
+      </ScaffolderFieldExtensions>
+    </Route>
     <Route path="/api-docs" element={<ApiExplorerPage />} />
     <Route path="/gcp-projects" element={<GcpProjectsPage />} />
     <Route

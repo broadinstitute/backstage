@@ -1,0 +1,105 @@
+apiVersion: scaffolder.backstage.io/v1beta3
+kind: Template
+metadata:
+  name: create-pagerduty-service
+  title: Create PagerDuty Service
+  description: Creates service in PagerDuty
+spec:
+  owner: pagerduty
+  type: service
+
+  parameters:
+    - title: PagerDuty Service
+      required:
+        - service_name
+        - description
+        - escalation_policy_id
+      properties:
+        service_name:
+          title: Service Name
+          type: string
+          description: The name of the service
+        description:
+          title: Description
+          type: string
+          description: The description of the service
+        escalation_policy_id:
+          title: Escalation Policy ID
+          type: string
+          description: The ID of the escalation policy to associate with the service
+          ui:field: SelectFieldFromApi
+          ui:options:
+            title: PagerDuty Escalation Policy
+            description: Select an escalation policy from PagerDuty
+            path: 'pagerduty/escalation_policies'
+            labelSelector: 'label'
+            valueSelector: 'value'
+            placeholder: '---'
+        alert_grouping:
+          title: Alert Grouping
+          type: string
+          description: Reduce noise by grouping similar alerts - Defaults to 'None'.
+          enum:
+            - 'time'
+            - 'intelligent'
+            - 'content_based'
+          enumNames:
+            - 'Time-based grouping'
+            - 'Intelligent grouping'
+            - 'Content-based grouping'
+
+    - title: Choose a location
+      required:
+        - repoUrl
+      properties:
+        repoUrl:
+          title: Repository Location
+          type: string
+          ui:field: RepoUrlPicker
+          ui:options:
+            allowedHosts:
+              - github.com
+
+  steps:
+    - id: pagerdutyService
+      name: Create PagerDuty Service
+      action: pagerduty:service:create
+      input:
+        name: ${{ parameters.service_name }}
+        description: ${{ parameters.description }}
+        escalationPolicyId: ${{ parameters.escalation_policy_id }}
+        alertGrouping: ${{ parameters.alert_grouping }}
+
+    - id: fetch-base
+      name: Fetch Base
+      action: fetch:template
+      input:
+        url: ./content
+        templateFileExtension: '.yaml'
+        values:
+          name: ${{ parameters.service_name }}
+          serviceId: ${{ steps['pagerdutyService'].output.serviceId }}
+          integrationKey: ${{ steps['pagerdutyService'].output.integrationKey }}
+
+    - id: publish
+      name: Publish
+      action: publish:github
+      input:
+        allowedHosts: ['github.com']
+        description: This is ${{ parameters.name }}
+        repoUrl: ${{ parameters.repoUrl }}
+
+    - id: register
+      name: Register
+      action: catalog:register
+      input:
+        repoContentsUrl: ${{ steps['publish'].output.repoContentsUrl }}
+        catalogInfoPath: '/catalog-info'
+
+  output:
+    links:
+      - title: Open in PagerDuty
+        url: ${{ steps['pagerdutyService'].output.serviceUrl }}
+    text:
+      - title: Integration Key
+        text: ${{ steps['pagerdutyService'].output.integrationKey }}

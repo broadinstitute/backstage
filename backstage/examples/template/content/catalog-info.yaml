@@ -2,6 +2,9 @@ apiVersion: backstage.io/v1alpha1
 kind: Component
 metadata:
   name: ${{ values.name | dump }}
+  annotations:
+    pagerduty.com/integration-key: ${{ values.integrationKey | dump }}
+    pagerduty.com/service-id: ${{ values.serviceId | dump }}
 spec:
   type: service
   owner: user:guest

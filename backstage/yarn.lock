@@ -3431,7 +3431,7 @@
     zod "^3.22.4"
     zod-to-json-schema "^3.20.4"
 
-"@backstage/plugin-scaffolder-react@^1.7.1":
+"@backstage/plugin-scaffolder-react@^1.6.1", "@backstage/plugin-scaffolder-react@^1.7.1":
   version "1.7.1"
   resolved "https://registry.yarnpkg.com/@backstage/plugin-scaffolder-react/-/plugin-scaffolder-react-1.7.1.tgz#3731fa9f82dbcfd36610e2db6dfe9d856a7f8e9f"
   integrity sha512-cwzyxqTyewRhtq+MmJj4ujx1jZBeXzxbQaLoNoiwZWJ3USXnploC0iCfa8CMbjGH7wnk1f59KEy9rExagO/BNA==
@@ -3469,7 +3469,7 @@
     zod "^3.22.4"
     zod-to-json-schema "^3.20.4"
 
-"@backstage/plugin-scaffolder@^1.17.1":
+"@backstage/plugin-scaffolder@^1.16.1", "@backstage/plugin-scaffolder@^1.17.1":
   version "1.17.1"
   resolved "https://registry.yarnpkg.com/@backstage/plugin-scaffolder/-/plugin-scaffolder-1.17.1.tgz#285642f3b267c1230f577e24892743982390946e"
   integrity sha512-DGdrXXJKU6pq8VN4k6KNuNOAG22Dn/Nu92N9m7cQIg981F3/FMQqECMThAT4jVw7kaQRZrs75hw47wPtg/CgDA==
@@ -6187,7 +6187,7 @@
   dependencies:
     "@babel/runtime" "^7.4.4"
 
-"@material-ui/lab@4.0.0-alpha.61", "@material-ui/lab@^4.0.0-alpha.60", "@material-ui/lab@^4.0.0-alpha.61":
+"@material-ui/lab@4.0.0-alpha.61", "@material-ui/lab@^4.0.0-alpha.45", "@material-ui/lab@^4.0.0-alpha.60", "@material-ui/lab@^4.0.0-alpha.61":
   version "4.0.0-alpha.61"
   resolved "https://registry.yarnpkg.com/@material-ui/lab/-/lab-4.0.0-alpha.61.tgz#9bf8eb389c0c26c15e40933cc114d4ad85e3d978"
   integrity sha512-rSzm+XKiNUjKegj8bzt5+pygZeckNLOr+IjykH8sYdVk7dE9y2ZuUSofiMV2bJk3qU+JHwexmw+q0RyNZB9ugg==
@@ -7530,6 +7530,17 @@
   resolved "https://registry.yarnpkg.com/@repeaterjs/repeater/-/repeater-3.0.5.tgz#b77571685410217a548a9c753aa3cdfc215bfc78"
   integrity sha512-l3YHBLAol6d/IKnB9LhpD0cEZWAoe3eFKUyTYWmFmCO2Q/WOckxLQAUyMZWwZV2M/m3+4vgRoaolFqaII82/TA==
 
+"@rjsf/core@5.14.2":
+  version "5.14.2"
+  resolved "https://registry.yarnpkg.com/@rjsf/core/-/core-5.14.2.tgz#1f3580c5f56dfd89c571ba42fb857b29b7698fad"
+  integrity sha512-SLWZpY3U1IemXfWH2QkjxTa0jjyB/BL3n7aXPpgoiekXKofituWpwE+n7Tf0EeDxOCAJcvzrqGqBc17XUbnbwQ==
+  dependencies:
+    lodash "^4.17.21"
+    lodash-es "^4.17.21"
+    markdown-to-jsx "^7.3.2"
+    nanoid "^3.3.6"
+    prop-types "^15.8.1"
+
 "@rjsf/core@5.15.1":
   version "5.15.1"
   resolved "https://registry.yarnpkg.com/@rjsf/core/-/core-5.15.1.tgz#bbc412eb764252ec0f217c3668341be9e0dc7d61"
@@ -7556,6 +7567,17 @@
   version "5.15.1"
   resolved "https://registry.yarnpkg.com/@rjsf/material-ui/-/material-ui-5.15.1.tgz#3e03fc2ae55f3bb3c3774734aab52453d5ea45e3"
   integrity sha512-lbvz0tHOP09PUlqXAU4mfNHgfFH2SmL27D8kYsE+q1EHOWtBG9E98tOr+F0Kou5gti0ETBEajtQ8eKo0VlibFg==
+
+"@rjsf/utils@5.14.2":
+  version "5.14.2"
+  resolved "https://registry.yarnpkg.com/@rjsf/utils/-/utils-5.14.2.tgz#efb26f581a846346136f414ff272fcf4c655d836"
+  integrity sha512-NyVrYEKYm9gXtnn06TDDUK6hWKs8LVBP1AZWfGeDoyFcBitj+kxMYIt8sB5GuM/lje8BrBM+cBLWi4p/SNymzg==
+  dependencies:
+    json-schema-merge-allof "^0.8.1"
+    jsonpointer "^5.0.1"
+    lodash "^4.17.21"
+    lodash-es "^4.17.21"
+    react-is "^18.2.0"
 
 "@rjsf/utils@5.15.1":
   version "5.15.1"
@@ -7600,6 +7622,26 @@
     msw "^1.0.1"
     node-fetch "^2.6.1"
     react-use "^17.2.4"
+
+"@roadiehq/plugin-scaffolder-frontend-module-http-request-field@^1.6.2":
+  version "1.6.2"
+  resolved "https://registry.yarnpkg.com/@roadiehq/plugin-scaffolder-frontend-module-http-request-field/-/plugin-scaffolder-frontend-module-http-request-field-1.6.2.tgz#5d9460c0acaef37e6204d6d28e1eaf6cd5afc9bb"
+  integrity sha512-xBQfcSTDiVen4wwx94gFcguI1BCTjUPZuaDHJd+oqYsDPxbeyOzDf2WLxWi/5Gqsww/UrZM5cEIpoDty5hSq3g==
+  dependencies:
+    "@backstage/core-components" "^0.13.8"
+    "@backstage/core-plugin-api" "^1.8.0"
+    "@backstage/plugin-scaffolder" "^1.16.1"
+    "@backstage/plugin-scaffolder-react" "^1.6.1"
+    "@backstage/theme" "^0.4.4"
+    "@material-ui/core" "^4.12.2"
+    "@material-ui/icons" "^4.9.1"
+    "@material-ui/lab" "^4.0.0-alpha.45"
+    "@rjsf/core" "5.14.2"
+    "@rjsf/utils" "5.14.2"
+    lodash "^4.17.21"
+    nunjucks "^3.2.3"
+    react-use "^17.2.4"
+    zod "^3.19.1"
 
 "@rollup/plugin-commonjs@^25.0.0":
   version "25.0.7"
@@ -25742,7 +25784,7 @@ zod-to-json-schema@^3.20.4, zod-to-json-schema@^3.21.4:
   resolved "https://registry.yarnpkg.com/zod-to-json-schema/-/zod-to-json-schema-3.21.4.tgz#de97c5b6d4a25e9d444618486cb55c0c7fb949fd"
   integrity sha512-fjUZh4nQ1s6HMccgIeE0VP4QG/YRGPmyjO9sAh890aQKPEk3nqbfUXhMFaC+Dr5KvYBm8BCyvfpZf2jY9aGSsw==
 
-zod@^3.22.4:
+zod@^3.19.1, zod@^3.22.4:
   version "3.22.4"
   resolved "https://registry.yarnpkg.com/zod/-/zod-3.22.4.tgz#f31c3a9386f61b1f228af56faa9255e845cf3fff"
   integrity sha512-iC+8Io04lddc+mVqQ9AZ7OQ2MrUKGN+oIQyq1vemgt46jwCwLfhq7/pwnBnNXXXZb8VTVLKwp9EDkx+ryxIWmg==

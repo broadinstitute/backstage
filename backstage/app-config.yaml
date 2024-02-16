@@ -112,6 +112,12 @@ catalog:
       rules:
         - allow: [Template]
 
+    # Local example PagerDuty template
+    - type: file
+      target: ../../examples/template/pagerduty.yaml
+      rules:
+        - allow: [Template]
+
     # Local example organizational data
     - type: file
       target: ../../examples/org.yaml
