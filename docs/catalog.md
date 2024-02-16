@@ -37,4 +37,3 @@ For example, a playlist management system might encapsulate a backend service to
 While systems are the basic level of encapsulation for related entities, it is often useful to group a collection of systems that share terminology, domain models, metrics, KPIs, business purpose, or documentation, i.e. they form a bounded context.
 
 For example, it would make sense if the different systems in the “Payments” domain would come with some documentation on how to accept payments for a new product or use-case, share the same entity types in their APIs, and integrate well with each other. Other domains could be “Content Ingestion”, “Ads” or “Search”.
-

@@ -1,15 +1,16 @@
+---
 apiVersion: networking.gke.io/v1
 kind: ManagedCertificate
-metadata: # kpt-merge: gcp-load-balancer/gcp-load-balancer-managed-cert
-  name: backstage-managed-cert # kpt-set: ${name}-managed-cert
+metadata:  # kpt-merge: gcp-load-balancer/gcp-load-balancer-managed-cert
+  name: backstage-managed-cert  # kpt-set: ${name}-managed-cert
   namespace: backstage
   labels:
     app.kubernetes.io/managed-by: gcp-cloud-build-deploy
-    app: backstage # kpt-set: ${name}
+    app: backstage  # kpt-set: ${name}
     environment: dev
     backstage.io/kubernetes-id: backstage
   annotations:
     internal.kpt.dev/upstream-identifier: 'networking.gke.io|ManagedCertificate|gcp-load-balancer|gcp-load-balancer-managed-cert'
 spec:
   domains:
-    - backstage-dev.broadinstitute.org # kpt-set: ${cert-name}
+    - backstage-dev.broadinstitute.org  # kpt-set: ${cert-name}

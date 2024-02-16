@@ -1,3 +1,4 @@
+---
 apiVersion: kpt.dev/v1
 kind: Kptfile
 metadata:

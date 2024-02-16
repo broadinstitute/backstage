@@ -1,10 +1,10 @@
 ---
 extends: default
-ignore: |
-  prod/.terragrunt-cache/
 rules:
+  comments-indentation: disable
   indentation:
+    indent-sequences: whatever
     spaces: 2
   line-length:
     level: warning
-    max: 120
+    max: 130
