@@ -12,6 +12,12 @@ apiVersion: backstage.io/v1alpha1
 kind: Component
 metadata:
   name: example-website
+  annotations:
+    pagerduty.com/integration-key: b14f2c8afb49400bd0ddb48d216ada5a
+    google.com/cloudbuild-project-slug: bits-gke-clusters
+    google.com/cloudbuild-repo-name: backstage
+    google.com/cloudbuild-location: us-east4
+    github.com/project-slug: broadinstitute/backstage
 spec:
   type: website
   lifecycle: experimental
