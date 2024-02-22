@@ -1,0 +1,33 @@
+---
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: ${{ values.name }}
+  title: ${{ values.name | replace(" ", "-") | lower}}
+  description: ${{ values.description }}
+  links:
+    - url: https://${{ values.name }}.broadinstitute.org
+      title: ${{ values.name }}
+      icon: dashboard
+
+{%- if(values.tags.length) %}
+  tags:
+  {%- for tag in values.tags %}
+  - ${{ tag }}
+  {%- endfor %}
+{%- endif %}
+  annotations:
+    backstage.io/kubernetes-id: ${{ values.name }}
+    github.com/project-slug: ${{ values.projectSlug }}
+    google.com/cloudbuild-project-slug: bits-gke-clusters
+    google.com/cloudbuild-repo-name: ${{ values.name }}
+    google.com/cloudbuild-location: us-east4
+    backstage.io/techdocs-ref: dir:.
+    {%if values.nameSpace %}backstage.io/kubernetes-namespace: ${{ values.nameSpace }} {% endif %}
+    {%if values.pagerdutyIntegrationKey %}pagerduty.com/service-id: ${{values.pagerdutyIntegrationKey}} {% endif %}
+spec:
+  type: ${{ values.type }}
+  owner: ${{ values.owner }}
+  lifecycle: ${{ values.lifecycle }}
+  {%if values.system%}system: ${{ values.system }} {% endif %}
+  {%if values.domain%}domain: ${{ values.domain }} {% endif %}

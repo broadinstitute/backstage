@@ -1,0 +1,104 @@
+---
+apiVersion: scaffolder.backstage.io/v1beta3
+# https://backstage.io/docs/features/software-catalog/descriptor-format#kind-template
+kind: Template
+metadata:
+  name: terraform-control-module-template
+  title: Terraform Control Module Template
+  description: A template for managing Terraform projects in Google Cloud.
+  tags:
+    - terraform
+spec:
+  owner: group:devnull
+  type: service
+
+
+# {
+#     "application_name": "",
+#     "gcp_project": "",
+#     "gcp_region": "us-central1",
+#     "backend": ["GCS", "Terraform Cloud"],
+#     "gcs_bucket": "",
+#     "tf_cloud_organization": "broad-bibt",
+#     "terraform_version": "1.5.1",
+#     "github_team": "org/team",
+#     "output_directory": "terraform",
+#     "provider_google_version": "4.70.0",
+#     "_copy_without_render": [
+#         "*.yml"
+#    ]
+# }
+  # These parameters are used to generate the input form in the frontend, and are
+  # used to gather input data for the execution of the template.
+  parameters:
+    - title: Project Information
+      required:
+        - name
+        - gcp-project
+        - gcp-region
+        # - output-directory
+        # - google-provider-version
+        # - terraform-version
+        # - tf-cloud-organization
+        # - gcs-bucket
+
+        - projectSlug
+      properties:
+        name:
+          title: Name
+          type: string
+          description: Unique name of the project. This will be used in the repository name and in the docker image name.
+          ui:placholder: terra-javatemplate-service
+          ui:autofocus: true
+        projectSlug:
+          title: Project Slug
+          type: string
+          description: A short one word name for the project used in infrastructure representations. NO HYPHENS!
+          ui:field: ValidateSlug
+        visibility:
+          title: Repo Visibility
+          type: string
+          description: Should the repo be public or private?
+          default: public
+          enum:
+            - public
+            - private
+          enumNames:
+            - Public
+            - Private
+    - title: Choose an Owner
+      required:
+        - owner
+        - organization
+      properties:
+        organization:
+          title: Organization
+          type: string
+          description: Github organization where the repository will be created
+          default: DataBiosphere
+          enum:
+            - broadinstitute
+          enumNames:
+            - Broad Institute
+        owner:
+          title: Team
+          type: string
+          description: Github team that will own the repository
+          ui:field: GithubTeamPicker
+          ui:autofocus: true
+    - title: Tracking Info
+      required:
+        - slackChannel
+        - jiraTicket
+      properties:
+        slackChannel:
+          title: Slack Channel
+          type: string
+          description: Notification slack channel for team owning this service
+          ui:placholder: '#my-channel'
+          ui:autofocus: true
+        jiraTicket:
+          title: Jira Ticket
+          type: string
+          description: Jira ticket tracking work for service setup
+          ui:placholder: XXX-123

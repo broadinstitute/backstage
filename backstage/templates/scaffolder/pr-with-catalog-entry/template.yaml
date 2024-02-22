@@ -1,0 +1,116 @@
+---
+apiVersion: scaffolder.backstage.io/v1beta3
+kind: Template
+metadata:
+  name: open-pr-with-catalog-entry
+  title: Onboard your service to Backstage
+  description: Create a new PR with your service's details.
+spec:
+  owner: group:broadinstitute/devnull
+  type: service
+
+  parameters:
+    - title: What is your service about?
+      required:
+        - name
+        - description
+        - type
+        - lifecycle
+      properties:
+        name:
+          title: Name
+          type: string
+          description: Unique name of the component
+
+        description:
+          title: Service description
+          type: string
+
+        type:
+          title: Component type
+          type: string
+          default: service
+          enum: ['service', 'website', 'resource', 'documentation', 'library']
+
+        system:
+          title: System (optional)
+          type: string
+          description: |
+            A system is a collection of resources and components that share a common purpose.
+            e.g. "search", "payments", "infrastructure", "data-platform"
+        domain:
+          title: Domain (optional)
+          type: string
+          description: |
+            The domain is collection of systems that share terminology, domain models, metrics, KPIs,
+            business purpose, or documentation. i.e. they form a bounded context.
+            e.g. "search", "payments", "infrastructure", "data-platform"
+
+        lifecycle:
+          title: Service lifecycle
+          type: string
+          default: production
+          enum: ['production', 'experimental', 'deprecated']
+
+        tags:
+          title: List of tags (optional)
+          type: array
+          default:
+            - bits
+            - bits-tools
+          items:
+            type: string
+            title: Backstage Tags
+
+    - title: Choose a location
+      required:
+        - repoUrl
+      properties:
+        repoUrl:
+          title: Repository Location
+          type: string
+          ui:field: RepoUrlPicker
+          ui:options:
+            allowedHosts:
+              - github.com
+            allowedOrganizations:
+              - broadinstitute
+
+    - title: Integrations (optional)
+      properties:
+        pagerdutyIntegrationKey:
+          title: PagerDuty integration key
+          type: string
+
+  steps:
+    - id: fetchTemplate
+      action: fetch:template
+      input:
+        url: ./skeleton
+        templateFileExtension: .njk
+        values:
+          name: ${{ parameters.name }}
+          description: ${{ parameters.description }}
+          owner: ${{ parameters.repoUrl | parseRepoUrl | pick('owner') }}
+          tags: ${{ parameters.tags }}
+          type: ${{ parameters.type }}
+          domain: ${{ parameters.domain }}
+          system: ${{ parameters.system }}
+          projectSlug: ${{ parameters.repoUrl | projectSlug }}
+          pagerdutyIntegrationKey: ${{ parameters.pagerdutyIntegrationKey }}
+          lifecycle: ${{ parameters.lifecycle }}
+
+    - id: createPullRequest
+      name: createPullRequest
+      action: publish:github:pull-request
+      input:
+        repoUrl: ${{ parameters.repoUrl }}
+        branchName: backstage-integration
+        title: Onboard service to Catalog
+        description: This PR adds a metadata file about this service so that it can be registered in our software catalog.
+
+  output:
+    links:
+      - title: View the pull request on GitHub
+        icon: github
+        url: ${{ steps['createPullRequest'].output.remoteUrl }}

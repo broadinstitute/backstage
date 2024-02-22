@@ -58,6 +58,12 @@ catalog:
       rules:
         - allow: [Location, Domain]
 
+    # Import a template from a file
+    - type: file
+      target: ./templates/scaffolder/pr-with-catalog-entry/template.yaml
+      rules:
+        - allow: [Template]
+
   providers:
     github:
       # the provider ID can be any camelCase string
