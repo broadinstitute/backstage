@@ -1,0 +1,152 @@
+---
+apiVersion: scaffolder.backstage.io/v1beta3
+# https://backstage.io/docs/features/software-catalog/descriptor-format#kind-template
+kind: Template
+metadata:
+  name: terraform-control-module-template
+  title: Terraform Control Module Template
+  description: A template for managing Terraform projects.
+  tags:
+    - terraform
+spec:
+  owner: group:devnull
+  type: service
+
+
+# {
+#     "application_name": "",
+#     "gcp_project": "",
+#     "gcp_region": "us-central1",
+#     "backend": ["GCS", "Terraform Cloud"],
+#     "gcs_bucket": "",
+#     "tf_cloud_organization": "broad-bibt",
+#     "terraform_version": "1.5.1",
+#     "github_team": "org/team",
+#     "output_directory": "terraform",
+#     "provider_google_version": "4.70.0",
+#     "_copy_without_render": [
+#         "*.yml"
+#    ]
+# }
+  # These parameters are used to generate the input form in the frontend, and are
+  # used to gather input data for the execution of the template.
+  parameters:
+    - title: Project Information
+      required:
+        - name
+        - description
+        - type
+        - lifecycle
+        # - gcp-project
+        # - gcp-region
+        # - type
+        # - output-directory
+        # - google-provider-version
+        # - terraform-version
+        # - tf-cloud-organization
+        # - gcs-bucket
+      properties:
+        name:
+          title: Name
+          type: string
+          description: Unique name of the component
+
+        description:
+          title: Service description
+          type: string
+
+        type:
+          title: Component type
+          type: string
+          default: service
+          enum: ['service', 'website', 'resource', 'documentation', 'library']
+
+        system:
+          title: System (optional)
+          type: string
+          description: |
+            A system is a collection of resources and components that share a common purpose.
+            e.g. "search", "payments", "infrastructure", "data-platform"
+        domain:
+          title: Domain (optional)
+          type: string
+          description: |
+            The domain is collection of systems that share terminology, domain models, metrics, KPIs,
+            business purpose, or documentation. i.e. they form a bounded context.
+            e.g. "search", "payments", "infrastructure", "data-platform"
+
+        lifecycle:
+          title: Service lifecycle
+          type: string
+          default: production
+          enum: ['production', 'experimental', 'deprecated']
+
+        tags:
+          title: List of tags (optional)
+          type: array
+          default:
+            - bits
+            - bits-tools
+            - terraform
+          items:
+            type: string
+            title: Backstage Tags
+
+    - title: Choose a location
+      required:
+        - repoUrl
+      properties:
+        repoUrl:
+          title: Repository Location
+          type: string
+          ui:field: RepoUrlPicker
+          ui:options:
+            allowedHosts:
+              - github.com
+            allowedOrganizations:
+              - broadinstitute
+
+        visibility:
+          title: Repo Visibility
+          type: string
+          description: Should the repo be public or private?
+          default: public
+          enum:
+            - public
+            - private
+          enumNames:
+            - Public
+            - Private
+
+  steps:
+    # This step publishes the contents of the working directory to GitHub.
+    - id: publish
+      name: Publish
+      action: publish:github
+      input:
+        allowedHosts: ['github.com']
+        description: ${{ parameters.description }}
+        repoUrl: ${{ parameters.repoUrl }}
+        repoVisibility: ${{ parameters.visibility }}
+        access: ${{ parameters.repoUrl | projectSlug }}
+        defaultBranch: main
+        requireCodeOwnerReviews: true
+    # Add many steps here
+
+
+    # The final step is to register our new component in the catalog.
+    - id: register
+      name: Register
+      action: catalog:register
+      input:
+        repoContentsUrl: ${{ steps['publish'].output.repoContentsUrl }}
+        catalogInfoPath: '/catalog-info.yaml'
+
+  # Outputs are displayed to the user after a successful execution of the template.
+  output:
+    links:
+      - title: Repository
+        url: ${{ steps['publish'].output.remoteUrl }}
+      - title: Open in catalog
+        icon: catalog
+        entityRef: ${{ steps['register'].output.entityRef }}

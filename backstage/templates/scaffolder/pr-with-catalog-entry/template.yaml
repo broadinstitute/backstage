@@ -86,8 +86,8 @@ spec:
     - id: fetchTemplate
       action: fetch:template
       input:
-        url: ./skeleton
-        templateFileExtension: .njk
+        url: ./content
+        templateFileExtension: .yaml
         values:
           name: ${{ parameters.name }}
           description: ${{ parameters.description }}
