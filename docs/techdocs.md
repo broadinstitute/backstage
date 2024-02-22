@@ -41,6 +41,6 @@ plugins:
   - techdocs-core
 ```
 
-#### Test Your Docs locally
+### Test Your Docs locally
 
 To test your documentation locally, you can use the `techdocs-cli` tool. This tool allows you to build and serve your documentation locally, so you can preview it before publishing it to your project's TechDocs site. You can also run this container `docker run -w /content -v $(pwd):/content -p 8000:8000 -it spotify/techdocs serve -a 0.0.0.0:8000` to serve your documentation locally.
