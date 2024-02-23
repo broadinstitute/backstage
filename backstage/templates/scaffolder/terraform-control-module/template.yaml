@@ -186,6 +186,7 @@ spec:
             If you already have a key, you can input it below.
             If you don't want to use the PagerDuty integration, leave the field blank.
           type: boolean
+          default: false
           # ui:widget: select
 
       dependencies:
