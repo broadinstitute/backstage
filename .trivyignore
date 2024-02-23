@@ -1,0 +1,8 @@
+# Backstage does write operations for TechDocs
+# and Software Templates setting this would break the app
+AVD-KSV-0015
+
+# SSL Connections are enforces, we use SQLProxy to connect to the database
+AVD-KSV-0015
+# This is required for the app to work, since the app is in a seperate VPC
+AVD-KSV-0017
