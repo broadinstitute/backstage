@@ -99,16 +99,28 @@ spec:
 
     - title: Choose a location
       required:
+        - githubTeam
         - repoUrl
       properties:
+        githubTeam:
+          title: GitHub Team
+          type: string
+          ui:field: OwnerPicker
+          description: The GitHub team that owns the repository.
+          ui:options:
+            catalogFilter:
+              - kind: Group
+                spec.type: team
+
         repoUrl:
           title: Repository Location
           type: string
           ui:field: RepoUrlPicker
+          default: github.com?owner=broadinstitute
           ui:options:
             allowedHosts:
               - github.com
-            allowedOrganizations:
+            allowedOwners:
               - broadinstitute
 
         visibility:
@@ -238,14 +250,14 @@ spec:
         values:
           name: ${{ parameters.name }}
           description: ${{ parameters.description }}
-          owner: ${{ parameters.repoUrl | parseRepoUrl | pick('owner') }}
+          owner: ${{ parameters.githubTeam | parseEntityRef | pick('name') }}
           tags: ${{ parameters.tags }}
           type: ${{ parameters.type }}
           domain: ${{ parameters.domain }}
           system: ${{ parameters.system }}
           lifecycle: ${{ parameters.lifecycle }}
           githubRepo: ${{ parameters.repoUrl | parseRepoUrl | pick('repo') }}
-          githubOrg: ${{ parameters.repoUrl | parseRepoUrl | pick('organization') }}
+          githubOrg: ${{ parameters.repoUrl | parseRepoUrl | pick('owner') }}
           gcpRegion: ${{ parameters.gcpRegion }}
           gcpProjectDev: ${{ parameters.gcpProjectDev }}
           gcpProjectProd: ${{ parameters.gcpProjectProd }}
@@ -264,7 +276,8 @@ spec:
         description: ${{ parameters.description }}
         repoUrl: ${{ parameters.repoUrl }}
         repoVisibility: ${{ parameters.visibility }}
-        access: ${{ parameters.repoUrl | projectSlug }}
+        access: >-
+          ${{ parameters.repoUrl | parseRepoUrl | pick('owner') }}/${{ parameters.githubTeam | parseEntityRef | pick('name') }}
         defaultBranch: main
         requireCodeOwnerReviews: true
     # Add many steps here

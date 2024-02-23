@@ -85,6 +85,8 @@ spec:
           ui:options:
             allowedHosts:
               - github.com
+            allowedOwners:
+              - broadinstitute
 
     - title: Integrations (optional)
       properties:
