@@ -23,3 +23,5 @@ jobs:
       run_trivy: true
   terraform-docs:
     uses: broadinstitute/shared-workflows/.github/workflows/terraform-docs.yaml@add-terraform-docs
+    with:
+      working_directory: './deployment/dev/terraform/,./deployment/prod/terraform/'

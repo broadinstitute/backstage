@@ -58,9 +58,14 @@ catalog:
       rules:
         - allow: [Location, Domain]
 
-    # Import Terraform template from a file - todo: stop putting this in the container and use a URL
+    # Import Add Backstage template from a file - todo: stop putting this in the container and use a URL
     - type: file
       target: ./templates/scaffolder/pr-with-catalog-entry/template.yaml
+      rules:
+        - allow: [Template]
+
+    - type: file
+      target: ./templates/scaffolder/terraform-control-module/template.yaml
       rules:
         - allow: [Template]
 
