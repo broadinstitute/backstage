@@ -29,6 +29,7 @@ repos:
     rev: v1.32.0
     hooks:
       - id: yamllint
+        exclude: 'backstage/templates/.*/content/.*'
         args:
           - -s
   - repo: https://github.com/compilerla/conventional-pre-commit
