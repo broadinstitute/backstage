@@ -64,17 +64,27 @@ spec:
 
     - title: Choose a location
       required:
+        - githubTeam
         - repoUrl
       properties:
+        githubTeam:
+          title: GitHub Team
+          type: string
+          ui:field: OwnerPicker
+          description: The GitHub team that owns the repository.
+          ui:options:
+            catalogFilter:
+              - kind: Group
+                spec.type: team
+
         repoUrl:
           title: Repository Location
           type: string
           ui:field: RepoUrlPicker
+          default: github.com?owner=broadinstitute
           ui:options:
             allowedHosts:
               - github.com
-            allowedOrganizations:
-              - broadinstitute
 
     - title: Integrations (optional)
       properties:
@@ -90,13 +100,13 @@ spec:
         values:
           name: ${{ parameters.name }}
           description: ${{ parameters.description }}
-          owner: ${{ parameters.repoUrl | parseRepoUrl | pick('owner') }}
+          owner: ${{ parameters.githubTeam | parseEntityRef | pick('name') }}
           tags: ${{ parameters.tags }}
           type: ${{ parameters.type }}
           domain: ${{ parameters.domain }}
           system: ${{ parameters.system }}
           githubRepo: ${{ parameters.repoUrl | parseRepoUrl | pick('repo') }}
-          githubOrg: ${{ parameters.repoUrl | parseRepoUrl | pick('organization') }}
+          githubOrg: ${{ parameters.repoUrl | parseRepoUrl | pick('owner') }}
           pagerdutyIntegrationKey: ${{ parameters.pagerdutyIntegrationKey }}
           lifecycle: ${{ parameters.lifecycle }}
 
