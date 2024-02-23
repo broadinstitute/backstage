@@ -3,42 +3,27 @@ apiVersion: backstage.io/v1alpha1
 kind: Component
 metadata:
   name: backstage
+  title: backstage
+  description: my service 
   links:
     - url: https://backstage.broadinstitute.org
-      title: Backstage
+      title: backstage
       icon: dashboard
-  description: Broad Institute Engineering Portal is an Internal Developer Platform (Spotify Backstage by another name)
   tags:
   - bits
-  - kubernetes
   - bits-tools
-
   annotations:
     backstage.io/kubernetes-id: backstage
-    backstage.io/kubernetes-namespace: backstage
-    pagerduty.com/integration-key: 7745a85d395d4409d098c6a10a8cc952
     github.com/project-slug: broadinstitute/backstage
     google.com/cloudbuild-project-slug: bits-gke-clusters
     google.com/cloudbuild-repo-name: backstage
     google.com/cloudbuild-location: us-east4
     backstage.io/techdocs-ref: dir:.
+    
+    
 spec:
   type: service
-  system: backstage
-  domain: orchestration
-  owner: devnull
-  lifecycle: experimental
-
----
-apiVersion: backstage.io/v1alpha1
-kind: System
-metadata:
-  name: backstage
-  description: |
-    The Backstage Internal Developer Platform
-  tags:
-    - bits
-    - bits-tools
-spec:
-  owner: devnull
-  domain: orchestration
+  owner: broadinstitute
+  lifecycle: production
+  
+  
