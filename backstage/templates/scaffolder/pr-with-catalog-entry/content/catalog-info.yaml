@@ -18,7 +18,7 @@ metadata:
 {%- endif %}
   annotations:
     backstage.io/kubernetes-id: ${{ values.name }}
-    github.com/project-slug: ${{ values.projectSlug }}
+    github.com/project-slug: ${{ values.githubOrg }}/${{ values.githubRepo }}
     google.com/cloudbuild-project-slug: bits-gke-clusters
     google.com/cloudbuild-repo-name: ${{ values.name }}
     google.com/cloudbuild-location: us-east4

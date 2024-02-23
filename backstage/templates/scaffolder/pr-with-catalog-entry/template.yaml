@@ -87,7 +87,6 @@ spec:
       action: fetch:template
       input:
         url: ./content
-        templateFileExtension: .yaml
         values:
           name: ${{ parameters.name }}
           description: ${{ parameters.description }}
@@ -96,7 +95,8 @@ spec:
           type: ${{ parameters.type }}
           domain: ${{ parameters.domain }}
           system: ${{ parameters.system }}
-          projectSlug: ${{ parameters.repoUrl | projectSlug }}
+          githubRepo: ${{ parameters.repoUrl | parseRepoUrl | pick('repo') }}
+          githubOrg: ${{ parameters.repoUrl | parseRepoUrl | pick('organization') }}
           pagerdutyIntegrationKey: ${{ parameters.pagerdutyIntegrationKey }}
           lifecycle: ${{ parameters.lifecycle }}
 

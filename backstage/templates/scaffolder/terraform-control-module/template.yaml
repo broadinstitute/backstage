@@ -4,8 +4,13 @@ apiVersion: scaffolder.backstage.io/v1beta3
 kind: Template
 metadata:
   name: terraform-control-module-template
-  title: Terraform Control Module Template
-  description: A template for managing Terraform projects.
+  title: Terraform Control Module using a GCS Backend and Atlantis
+  description: |
+    This templates uses a "WET" approach, meaning to manage projects.
+    Directories are used to separate environments, and code is promoted by coping files between directories.
+    In this model, environment specific data is stored in the terraform.tfvars file, with nearly all other files being identical.
+    This template creates a new repository with a Terraform project, a Backstage catalog entry, configures Atlantis,
+    sets the Google provider version, and uses the shared GCS bucket for state storage.
   tags:
     - terraform
 spec:
@@ -110,15 +115,146 @@ spec:
           title: Repo Visibility
           type: string
           description: Should the repo be public or private?
-          default: public
+          default: private
           enum:
             - public
             - private
           enumNames:
             - Public
             - Private
+    - title: Terraform Configuration
+      required:
+        - gcpRegion
+        - gcpProjectDev
+        - gcpProjectProd
+        - gcsBucket
+      properties:
+        gcpRegion:
+          title: GCP Region
+          type: string
+          default: us-east4
+          description: The default region for the Google provider
+
+        # todo: ask if the user wants us to create the projects, and create project-dev and project-prod
+        gcpProjectDev:
+          title: Development GCP Project
+          type: string
+          description: GCP project managed by the default/primary provider. Prod and Dev should use different projects.
+
+        gcpProjectProd:
+          title: Production GCP Project
+          type: string
+          description: GCP project managed by the default/primary provider. Prod and Dev should use different projects.
+
+        gcsBucket:
+          title: GCS Bucket
+          type: string
+          default: broad-atlantis-terraform-prod
+          description: The name of the GCS bucket used to store Terraform state files.
+
+        googleProviderVersion:
+          title: Google Provider Version
+          type: string
+          default: 5.17.0
+          description: The version of the Google provider to use in the Terraform configuration.
+
+        terraformVersion:
+          title: Terraform Version
+          type: string
+          default: 1.7.4
+          description: The version of Terraform to use in the Terraform configuration.
+
+    # todo: ask if we should create the pagerduty integration and if not, ask for the optional key.
+    - title: Integrations (optional)
+      properties:
+        createPagerduty:
+          title: Create PagerDuty Service?
+          description: |
+            Check box to create a new PagerDuty service for this component.
+            If you already have a key, you can input it below.
+            If you don't want to use the PagerDuty integration, leave the field blank.
+          type: boolean
+          # ui:widget: select
+
+      dependencies:
+        createPagerduty:
+          oneOf:
+            - properties:
+                createPagerduty:
+                  enum:
+                    - true
+
+                escalationPolicyId:
+                  title: Escalation Policy ID
+                  type: string
+                  description: The ID of the escalation policy to associate with the service
+                  ui:field: SelectFieldFromApi
+                  ui:options:
+                    title: PagerDuty Escalation Policy
+                    description: Select an escalation policy from PagerDuty
+                    path: 'pagerduty/escalation_policies'
+                    labelSelector: 'label'
+                    valueSelector: 'value'
+                    placeholder: '---'
+                alertGrouping:
+                  title: Alert Grouping
+                  type: string
+                  description: Reduce noise by grouping similar alerts - Defaults to 'None'.
+                  enum:
+                    - 'time'
+                    - 'intelligent'
+                    - 'content_based'
+                  enumNames:
+                    - 'Time-based grouping'
+                    - 'Intelligent grouping'
+                    - 'Content-based grouping'
+
+
+            - properties:
+                createPagerduty:
+                  enum:
+                    - false
+                pagerdutyIntegrationKey:
+                  title: PagerDuty integration key
+                  description: This value is ignored if you selected "Yes" for the previous question.
+                  type: string
 
   steps:
+    - id: pagerdutyService
+      name: Create PagerDuty Service
+      if: ${{ parameters.createPagerduty }}
+      action: pagerduty:service:create
+      input:
+        name: ${{ parameters.name }}
+        description: ${{ parameters.description }}
+        escalationPolicyId: ${{ parameters.escalationPolicyId }}
+        alertGrouping: ${{ parameters.alertGrouping }}
+
+    - id: fetchTemplate
+      name: Fetch Template
+      action: fetch:template
+      input:
+        url: ./content
+        values:
+          name: ${{ parameters.name }}
+          description: ${{ parameters.description }}
+          owner: ${{ parameters.repoUrl | parseRepoUrl | pick('owner') }}
+          tags: ${{ parameters.tags }}
+          type: ${{ parameters.type }}
+          domain: ${{ parameters.domain }}
+          system: ${{ parameters.system }}
+          lifecycle: ${{ parameters.lifecycle }}
+          githubRepo: ${{ parameters.repoUrl | parseRepoUrl | pick('repo') }}
+          githubOrg: ${{ parameters.repoUrl | parseRepoUrl | pick('organization') }}
+          gcpRegion: ${{ parameters.gcpRegion }}
+          gcpProjectDev: ${{ parameters.gcpProjectDev }}
+          gcpProjectProd: ${{ parameters.gcpProjectProd }}
+          gcsBucket: ${{ parameters.gcsBucket }}
+          googleProviderVersion: ${{ parameters.googleProviderVersion }}
+          terraformVersion: ${{ parameters.terraformVersion }}
+          pagerdutyIntegrationKey: ${{ parameters.pagerdutyIntegrationKey or steps['pagerdutyService'].output.integrationKey }}
+          # pagerdutyintegrationKey: ${{ steps['pagerdutyService'].output.integrationKey }}
+
     # This step publishes the contents of the working directory to GitHub.
     - id: publish
       name: Publish

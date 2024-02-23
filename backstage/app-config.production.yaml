@@ -58,7 +58,7 @@ catalog:
       rules:
         - allow: [Location, Domain]
 
-    # Import a template from a file
+    # Import Terraform template from a file - todo: stop putting this in the container and use a URL
     - type: file
       target: ./templates/scaffolder/pr-with-catalog-entry/template.yaml
       rules:

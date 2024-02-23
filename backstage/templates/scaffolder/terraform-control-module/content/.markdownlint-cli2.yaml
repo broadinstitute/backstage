@@ -1,0 +1,14 @@
+---
+# Disable some built-in rules
+config:
+  line-length: false
+  no-inline-html: false
+# Fix any fixable errors
+fix: true
+# Disable inline config comments
+noInlineConfig: true
+# Disable progress on stdout (only valid at root)
+noProgress: true
+# Define glob expressions to ignore
+ignores:
+  - ".github/pull_request_template.md"
