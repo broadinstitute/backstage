@@ -118,7 +118,7 @@ spec:
       input:
         repoUrl: ${{ parameters.repoUrl }}
         branchName: backstage-integration
-        title: Onboard service to Catalog
+        title: 'feat: Onboard service to Catalog'
         description: This PR adds a metadata file about this service so that it can be registered in our software catalog.
 
   output:

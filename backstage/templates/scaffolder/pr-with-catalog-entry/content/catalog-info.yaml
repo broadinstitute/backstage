@@ -13,7 +13,7 @@ metadata:
 {%- if(values.tags.length) %}
   tags:
   {%- for tag in values.tags %}
-  - ${{ tag }}
+    - ${{ tag }}
   {%- endfor %}
 {%- endif %}
   annotations:
@@ -29,5 +29,5 @@ spec:
   type: ${{ values.type }}
   owner: ${{ values.owner }}
   lifecycle: ${{ values.lifecycle }}
-  {%if values.system%}system: ${{ values.system }} {% endif %}
-  {%if values.domain%}domain: ${{ values.domain }} {% endif %}
+  {%- if values.system%}system: ${{ values.system }} {% endif %}
+  {%- if values.domain%}domain: ${{ values.domain }} {% endif %}
