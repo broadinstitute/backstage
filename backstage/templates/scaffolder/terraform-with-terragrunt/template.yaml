@@ -3,39 +3,21 @@ apiVersion: scaffolder.backstage.io/v1beta3
 # https://backstage.io/docs/features/software-catalog/descriptor-format#kind-template
 kind: Template
 metadata:
-  name: terraform-control-module-template
-  title: Terraform Control Module using a GCS Backend and Atlantis
+  name: terraform-with-terragrunt
+  title: Terragrunt Control Module using a GCS Backend and Atlantis
   description: |
-    This template uses a "WET" approach, which involves organizing projects in a structured manner.
-    Directories are used to divide different environments, and modifications to the code are implemented
-    by duplicating files between directories. In this model, environment-specific data is kept in the
-    `terraform.tfvars` file, while most other files remain identical. The template creates a new GitHub
-    repository consisting of a Terraform project, a Backstage catalog entry, and configures Atlantis.
-    Additionally, it sets the Google provider version and utilizes the shared GCS bucket for storing
-    state information.
+    This template uses a "DRY" approach, which involves organizing projects in a structured manner
+    and using a common set of Terraform manifests to deploy infrastructure.
+    The template creates a new GitHub repository consisting of a Terragrunt project,
+    a Backstage catalog entry, and configures Atlantis. Additionally, it sets the Google provider
+    version and utilizes the shared GCS bucket for storing state information.
 
   tags:
-    - terraform
+    - terragrunt
 spec:
   owner: group:devnull
   type: service
 
-
-# {
-#     "application_name": "",
-#     "gcp_project": "",
-#     "gcp_region": "us-central1",
-#     "backend": ["GCS", "Terraform Cloud"],
-#     "gcs_bucket": "",
-#     "tf_cloud_organization": "broad-bibt",
-#     "terraform_version": "1.5.1",
-#     "github_team": "org/team",
-#     "output_directory": "terraform",
-#     "provider_google_version": "4.70.0",
-#     "_copy_without_render": [
-#         "*.yml"
-#    ]
-# }
   # These parameters are used to generate the input form in the frontend, and are
   # used to gather input data for the execution of the template.
   parameters:
@@ -45,14 +27,6 @@ spec:
         - description
         - type
         - lifecycle
-        # - gcp-project
-        # - gcp-region
-        # - type
-        # - output-directory
-        # - google-provider-version
-        # - terraform-version
-        # - tf-cloud-organization
-        # - gcs-bucket
       properties:
         name:
           title: Name
@@ -95,7 +69,7 @@ spec:
           default:
             - bits
             - bits-tools
-            - terraform
+            - terragrunt
           items:
             type: string
             title: Backstage Tags
@@ -137,35 +111,77 @@ spec:
           enumNames:
             - Public
             - Private
+
     - title: Terraform Configuration
       required:
         - gcpRegion
+        - gcpZone
         - gcpProjectDev
+        - gcpProjectDevName
         - gcpProjectProd
+        - gcpProjectProdName
         - gcsBucket
+        - gcsBucketProject
+        - gcpBillingAccount
+        - broadCostObject
+        - gcpFolderId
       properties:
         gcpRegion:
           title: GCP Region
           type: string
           default: us-east4
           description: The default region for the Google provider
+        gcpZone:
+          title: GCP Zone
+          type: string
+          default: us-east4-c
+          description: The default zone for the Google provider
 
         # todo: ask if the user wants us to create the projects, and create project-dev and project-prod
         gcpProjectDev:
           title: Development GCP Project
           type: string
           description: GCP project managed by the default/primary provider. Prod and Dev should use different projects.
+        gcpProjectDevName:
+          title: Development GCP Project Name
+          type: string
+          description: The name of the GCP project managed by the default provider. Prod and Dev should use different projects.
 
         gcpProjectProd:
           title: Production GCP Project
           type: string
-          description: GCP project managed by the default/primary provider. Prod and Dev should use different projects.
+          description: GCP project managed by the default provider. Prod and Dev should use different projects.
+        gcpProjectProdName:
+          title: Production GCP Project Name
+          type: string
+          description: The name of the GCP project managed by the default provider. Prod and Dev should use different projects.
 
         gcsBucket:
           title: GCS Bucket
           type: string
           default: broad-atlantis-terraform-prod
           description: The name of the GCS bucket used to store Terraform state files.
+
+        gcsBucketProject:
+          title: GCS Bucket Project
+          type: string
+          default: broad-bits-terraform
+          description: The name of the GCP project that owns the GCS bucket.
+
+        gcpBillingAccount:
+          title: GCP Billing Account
+          type: string
+          description: The billing account to use for the GCP project.
+
+        gcpFolderId:
+          title: GCP Folder ID
+          type: string
+          description: The folder ID to use for the GCP project.
+
+        broadCostObject:
+          title: Broad Cost Object
+          type: string
+          description: The cost object to use for the GCP costs.
 
         googleProviderVersion:
           title: Google Provider Version
@@ -263,9 +279,16 @@ spec:
           githubRepo: ${{ parameters.repoUrl | parseRepoUrl | pick('repo') }}
           githubOrg: ${{ parameters.repoUrl | parseRepoUrl | pick('owner') }}
           gcpRegion: ${{ parameters.gcpRegion }}
+          gcpZone: ${{ parameters.gcpZone }}
           gcpProjectDev: ${{ parameters.gcpProjectDev }}
+          gcpProjectDevName: ${{ parameters.gcpProjectDevName }}
           gcpProjectProd: ${{ parameters.gcpProjectProd }}
+          gcpProjectProdName: ${{ parameters.gcpProjectProdName }}
           gcsBucket: ${{ parameters.gcsBucket }}
+          gcsBucketProject: ${{ parameters.gcsBucketProject }}
+          gcpBillingAccount: ${{ parameters.gcpBillingAccount }}
+          gcpFolderId: ${{ parameters.gcpFolderId }}
+          broadCostObject: ${{ parameters.broadCostObject }}
           googleProviderVersion: ${{ parameters.googleProviderVersion }}
           terraformVersion: ${{ parameters.terraformVersion }}
           pagerdutyIntegrationKey: ${{ parameters.pagerdutyIntegrationKey or steps['pagerdutyService'].output.integrationKey }}

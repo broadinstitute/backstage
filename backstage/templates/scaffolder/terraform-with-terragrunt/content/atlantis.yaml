@@ -1,8 +1,23 @@
 ---
 version: 3
 projects:
-  - name: development
-    dir: dev
   - name: production
+    apply_requirements:
+      - approved
+      - undiverged
+    autoplan:
+      enabled: true
+      when_modified:
+        - "../terraform/*.tf"
     dir: prod
-    apply_requirements: [approved]
+    workflow: terragrunt
+
+  - name: development
+    apply_requirements:
+      - undiverged
+    autoplan:
+      enabled: true
+      when_modified:
+        - "../terraform/*.tf"
+    dir: dev
+    workflow: terragrunt

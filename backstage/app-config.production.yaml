@@ -69,6 +69,11 @@ catalog:
       rules:
         - allow: [Template]
 
+    - type: file
+      target: ./templates/scaffolder/terraform-with-terragrunt/template.yaml
+      rules:
+        - allow: [Template]
+
   providers:
     github:
       # the provider ID can be any camelCase string
