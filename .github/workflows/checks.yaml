@@ -16,6 +16,6 @@ jobs:
     with:
       tflint_config_path: '.tflint.hcl'
   terraform-docs:
-    uses: broadinstitute/shared-workflows/.github/workflows/terraform-docs.yaml@2.1.1
+    uses: broadinstitute/shared-workflows/.github/workflows/terraform-docs.yaml@v2.1.1
     with:
       working_directory: './deployment/dev/terraform/,./deployment/prod/terraform/'
