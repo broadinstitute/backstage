@@ -6,11 +6,14 @@ metadata:
   name: terraform-control-module-template
   title: Terraform Control Module using a GCS Backend and Atlantis
   description: |
-    This templates uses a "WET" approach, meaning to manage projects.
-    Directories are used to separate environments, and code is promoted by coping files between directories.
-    In this model, environment specific data is stored in the terraform.tfvars file, with nearly all other files being identical.
-    This template creates a new repository with a Terraform project, a Backstage catalog entry, configures Atlantis,
-    sets the Google provider version, and uses the shared GCS bucket for state storage.
+    This template uses a "WET" approach, which involves organizing projects in a structured manner.
+    Directories are used to divide different environments, and modifications to the code are implemented
+    by duplicating files between directories. In this model, environment-specific data is kept in the
+    `terraform.tfvars` file, while most other files remain identical. The template creates a new GitHub
+    repository consisting of a Terraform project, a Backstage catalog entry, and configures Atlantis.
+    Additionally, it sets the Google provider version and utilizes the shared GCS bucket for storing
+    state information.
+
   tags:
     - terraform
 spec:
