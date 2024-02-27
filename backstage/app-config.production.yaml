@@ -58,6 +58,22 @@ catalog:
       rules:
         - allow: [Location, Domain]
 
+    # Import Add Backstage template from a file - todo: stop putting this in the container and use a URL
+    - type: file
+      target: ./templates/scaffolder/pr-with-catalog-entry/template.yaml
+      rules:
+        - allow: [Template]
+
+    - type: file
+      target: ./templates/scaffolder/terraform-control-module/template.yaml
+      rules:
+        - allow: [Template]
+
+    - type: file
+      target: ./templates/scaffolder/terraform-with-terragrunt/template.yaml
+      rules:
+        - allow: [Template]
+
   providers:
     github:
       # the provider ID can be any camelCase string

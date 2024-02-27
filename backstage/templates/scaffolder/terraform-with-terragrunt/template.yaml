@@ -1,0 +1,328 @@
+---
+apiVersion: scaffolder.backstage.io/v1beta3
+# https://backstage.io/docs/features/software-catalog/descriptor-format#kind-template
+kind: Template
+metadata:
+  name: terraform-with-terragrunt
+  title: Terragrunt Control Module using a GCS Backend and Atlantis
+  description: |
+    This template uses a "DRY" approach, which involves organizing projects in a structured manner
+    and using a common set of Terraform manifests to deploy infrastructure.
+    The template creates a new GitHub repository consisting of a Terragrunt project,
+    a Backstage catalog entry, and configures Atlantis. Additionally, it sets the Google provider
+    version and utilizes the shared GCS bucket for storing state information.
+
+  tags:
+    - terragrunt
+spec:
+  owner: group:devnull
+  type: service
+
+  # These parameters are used to generate the input form in the frontend, and are
+  # used to gather input data for the execution of the template.
+  parameters:
+    - title: Project Information
+      required:
+        - name
+        - description
+        - type
+        - lifecycle
+      properties:
+        name:
+          title: Name
+          type: string
+          description: Unique name of the component
+
+        description:
+          title: Service description
+          type: string
+
+        type:
+          title: Component type
+          type: string
+          default: service
+          enum: ['service', 'website', 'resource', 'documentation', 'library']
+
+        system:
+          title: System (optional)
+          type: string
+          description: |
+            A system is a collection of resources and components that share a common purpose.
+            e.g. "search", "payments", "infrastructure", "data-platform"
+        domain:
+          title: Domain (optional)
+          type: string
+          description: |
+            The domain is collection of systems that share terminology, domain models, metrics, KPIs,
+            business purpose, or documentation. i.e. they form a bounded context.
+            e.g. "search", "payments", "infrastructure", "data-platform"
+
+        lifecycle:
+          title: Service lifecycle
+          type: string
+          default: production
+          enum: ['production', 'experimental', 'deprecated']
+
+        tags:
+          title: List of tags (optional)
+          type: array
+          default:
+            - bits
+            - bits-tools
+            - terragrunt
+          items:
+            type: string
+            title: Backstage Tags
+
+    - title: Choose a location
+      required:
+        - githubTeam
+        - repoUrl
+      properties:
+        githubTeam:
+          title: GitHub Team
+          type: string
+          ui:field: OwnerPicker
+          description: The GitHub team that owns the repository.
+          ui:options:
+            catalogFilter:
+              - kind: Group
+                spec.type: team
+
+        repoUrl:
+          title: Repository Location
+          type: string
+          ui:field: RepoUrlPicker
+          default: github.com?owner=broadinstitute
+          ui:options:
+            allowedHosts:
+              - github.com
+            allowedOwners:
+              - broadinstitute
+
+        visibility:
+          title: Repo Visibility
+          type: string
+          description: Should the repo be public or private?
+          default: private
+          enum:
+            - public
+            - private
+          enumNames:
+            - Public
+            - Private
+
+    - title: Terraform Configuration
+      required:
+        - gcpRegion
+        - gcpZone
+        - gcpProjectDev
+        - gcpProjectDevName
+        - gcpProjectProd
+        - gcpProjectProdName
+        - gcsBucket
+        - gcsBucketProject
+        - gcpBillingAccount
+        - broadCostObject
+        - gcpFolderId
+      properties:
+        gcpRegion:
+          title: GCP Region
+          type: string
+          default: us-east4
+          description: The default region for the Google provider
+        gcpZone:
+          title: GCP Zone
+          type: string
+          default: us-east4-c
+          description: The default zone for the Google provider
+
+        # todo: ask if the user wants us to create the projects, and create project-dev and project-prod
+        gcpProjectDev:
+          title: Development GCP Project
+          type: string
+          description: GCP project managed by the default/primary provider. Prod and Dev should use different projects.
+        gcpProjectDevName:
+          title: Development GCP Project Name
+          type: string
+          description: The name of the GCP project managed by the default provider. Prod and Dev should use different projects.
+
+        gcpProjectProd:
+          title: Production GCP Project
+          type: string
+          description: GCP project managed by the default provider. Prod and Dev should use different projects.
+        gcpProjectProdName:
+          title: Production GCP Project Name
+          type: string
+          description: The name of the GCP project managed by the default provider. Prod and Dev should use different projects.
+
+        gcsBucket:
+          title: GCS Bucket
+          type: string
+          default: broad-atlantis-terraform-prod
+          description: The name of the GCS bucket used to store Terraform state files.
+
+        gcsBucketProject:
+          title: GCS Bucket Project
+          type: string
+          default: broad-bits-terraform
+          description: The name of the GCP project that owns the GCS bucket.
+
+        gcpBillingAccount:
+          title: GCP Billing Account
+          type: string
+          description: The billing account to use for the GCP project.
+
+        gcpFolderId:
+          title: GCP Folder ID
+          type: string
+          description: The folder ID to use for the GCP project.
+
+        broadCostObject:
+          title: Broad Cost Object
+          type: string
+          description: The cost object to use for the GCP costs.
+
+        googleProviderVersion:
+          title: Google Provider Version
+          type: string
+          default: 5.17.0
+          description: The version of the Google provider to use in the Terraform configuration.
+
+        terraformVersion:
+          title: Terraform Version
+          type: string
+          default: 1.7.4
+          description: The version of Terraform to use in the Terraform configuration.
+
+    # todo: ask if we should create the pagerduty integration and if not, ask for the optional key.
+    - title: Integrations (optional)
+      properties:
+        createPagerduty:
+          title: Create PagerDuty Service?
+          description: |
+            Check box to create a new PagerDuty service for this component.
+            If you already have a key, you can input it below.
+            If you don't want to use the PagerDuty integration, leave the field blank.
+          type: boolean
+          default: false
+          # ui:widget: select
+
+      dependencies:
+        createPagerduty:
+          oneOf:
+            - properties:
+                createPagerduty:
+                  enum:
+                    - true
+
+                escalationPolicyId:
+                  title: Escalation Policy ID
+                  type: string
+                  description: The ID of the escalation policy to associate with the service
+                  ui:field: SelectFieldFromApi
+                  ui:options:
+                    title: PagerDuty Escalation Policy
+                    description: Select an escalation policy from PagerDuty
+                    path: 'pagerduty/escalation_policies'
+                    labelSelector: 'label'
+                    valueSelector: 'value'
+                    placeholder: '---'
+                alertGrouping:
+                  title: Alert Grouping
+                  type: string
+                  description: Reduce noise by grouping similar alerts - Defaults to 'None'.
+                  enum:
+                    - 'time'
+                    - 'intelligent'
+                    - 'content_based'
+                  enumNames:
+                    - 'Time-based grouping'
+                    - 'Intelligent grouping'
+                    - 'Content-based grouping'
+
+
+            - properties:
+                createPagerduty:
+                  enum:
+                    - false
+                pagerdutyIntegrationKey:
+                  title: PagerDuty integration key
+                  description: This value is ignored if you selected "Yes" for the previous question.
+                  type: string
+
+  steps:
+    - id: pagerdutyService
+      name: Create PagerDuty Service
+      if: ${{ parameters.createPagerduty }}
+      action: pagerduty:service:create
+      input:
+        name: ${{ parameters.name }}
+        description: ${{ parameters.description }}
+        escalationPolicyId: ${{ parameters.escalationPolicyId }}
+        alertGrouping: ${{ parameters.alertGrouping }}
+
+    - id: fetchTemplate
+      name: Fetch Template
+      action: fetch:template
+      input:
+        url: ./content
+        values:
+          name: ${{ parameters.name }}
+          description: ${{ parameters.description }}
+          owner: ${{ parameters.githubTeam | parseEntityRef | pick('name') }}
+          tags: ${{ parameters.tags }}
+          type: ${{ parameters.type }}
+          domain: ${{ parameters.domain }}
+          system: ${{ parameters.system }}
+          lifecycle: ${{ parameters.lifecycle }}
+          githubRepo: ${{ parameters.repoUrl | parseRepoUrl | pick('repo') }}
+          githubOrg: ${{ parameters.repoUrl | parseRepoUrl | pick('owner') }}
+          gcpRegion: ${{ parameters.gcpRegion }}
+          gcpZone: ${{ parameters.gcpZone }}
+          gcpProjectDev: ${{ parameters.gcpProjectDev }}
+          gcpProjectDevName: ${{ parameters.gcpProjectDevName }}
+          gcpProjectProd: ${{ parameters.gcpProjectProd }}
+          gcpProjectProdName: ${{ parameters.gcpProjectProdName }}
+          gcsBucket: ${{ parameters.gcsBucket }}
+          gcsBucketProject: ${{ parameters.gcsBucketProject }}
+          gcpBillingAccount: ${{ parameters.gcpBillingAccount }}
+          gcpFolderId: ${{ parameters.gcpFolderId }}
+          broadCostObject: ${{ parameters.broadCostObject }}
+          googleProviderVersion: ${{ parameters.googleProviderVersion }}
+          terraformVersion: ${{ parameters.terraformVersion }}
+          pagerdutyIntegrationKey: ${{ parameters.pagerdutyIntegrationKey or steps['pagerdutyService'].output.integrationKey }}
+          # pagerdutyintegrationKey: ${{ steps['pagerdutyService'].output.integrationKey }}
+
+    # This step publishes the contents of the working directory to GitHub.
+    - id: publish
+      name: Publish
+      action: publish:github
+      input:
+        allowedHosts: ['github.com']
+        description: ${{ parameters.description }}
+        repoUrl: ${{ parameters.repoUrl }}
+        repoVisibility: ${{ parameters.visibility }}
+        access: >-
+          ${{ parameters.repoUrl | parseRepoUrl | pick('owner') }}/${{ parameters.githubTeam | parseEntityRef | pick('name') }}
+        defaultBranch: main
+        requireCodeOwnerReviews: true
+    # Add many steps here
+
+
+    # The final step is to register our new component in the catalog.
+    - id: register
+      name: Register
+      action: catalog:register
+      input:
+        repoContentsUrl: ${{ steps['publish'].output.repoContentsUrl }}
+        catalogInfoPath: '/catalog-info.yaml'
+
+  # Outputs are displayed to the user after a successful execution of the template.
+  output:
+    links:
+      - title: Repository
+        url: ${{ steps['publish'].output.remoteUrl }}
+      - title: Open in catalog
+        icon: catalog
+        entityRef: ${{ steps['register'].output.entityRef }}
