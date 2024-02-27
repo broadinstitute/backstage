@@ -20,22 +20,6 @@ spec:
   owner: group:devnull
   type: service
 
-
-# {
-#     "application_name": "",
-#     "gcp_project": "",
-#     "gcp_region": "us-central1",
-#     "backend": ["GCS", "Terraform Cloud"],
-#     "gcs_bucket": "",
-#     "tf_cloud_organization": "broad-bibt",
-#     "terraform_version": "1.5.1",
-#     "github_team": "org/team",
-#     "output_directory": "terraform",
-#     "provider_google_version": "4.70.0",
-#     "_copy_without_render": [
-#         "*.yml"
-#    ]
-# }
   # These parameters are used to generate the input form in the frontend, and are
   # used to gather input data for the execution of the template.
   parameters:
