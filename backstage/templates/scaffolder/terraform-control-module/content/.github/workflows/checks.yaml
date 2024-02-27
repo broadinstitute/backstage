@@ -15,3 +15,7 @@ jobs:
     uses: broadinstitute/shared-workflows/.github/workflows/terraform-lint.yaml@v2.1.0
     with:
       tflint_config_path: '.tflint.hcl'
+  terraform-docs:
+    uses: broadinstitute/shared-workflows/.github/workflows/terraform-docs.yaml@v2.1.1
+    with:
+      working_directory: './dev/,./prod/'
