@@ -41,7 +41,7 @@ spec:
           title: Component type
           type: string
           default: service
-          enum: ['service', 'website', 'resource', 'documentation', 'library']
+          enum: ['service', 'website', 'resource', 'documentation', 'library', 'API']
 
         system:
           title: System (optional)
@@ -269,7 +269,7 @@ spec:
         url: ./content
         values:
           name: ${{ parameters.name }}
-          description: ${{ parameters.description }}
+          description: ${{ parameters.description | dump }}
           owner: ${{ parameters.githubTeam | parseEntityRef | pick('name') }}
           tags: ${{ parameters.tags }}
           type: ${{ parameters.type }}
