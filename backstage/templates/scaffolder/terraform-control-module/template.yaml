@@ -51,7 +51,7 @@ spec:
           title: Component type
           type: string
           default: service
-          enum: ['service', 'website', 'resource', 'documentation', 'library']
+          enum: ['service', 'website', 'resource', 'documentation', 'library', 'API']
 
         system:
           title: System (optional)
