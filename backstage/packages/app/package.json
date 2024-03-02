@@ -32,6 +32,7 @@
     "@backstage/plugin-catalog-import": "^0.10.6",
     "@backstage/plugin-catalog-react": "^1.10.0",
     "@backstage/plugin-cloudbuild": "^0.4.0",
+    "@backstage/plugin-cost-insights": "^0.12.19",
     "@backstage/plugin-gcp-projects": "^0.3.46",
     "@backstage/plugin-github-actions": "^0.6.11",
     "@backstage/plugin-github-pull-requests-board": "^0.1.24",

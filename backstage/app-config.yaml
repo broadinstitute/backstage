@@ -157,3 +157,6 @@ kubernetes:
       skipTLSVerify: true
       skipMetricsLookup: false
       exposeDashboard: true
+
+costInsights:
+  engineerCost: 200000
