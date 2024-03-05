@@ -1,15 +1,16 @@
 ---
 apiVersion: backstage.io/v1alpha1
-kind: Component
+kind: {% if values.type == 'API' -%}${{ values.type }}{%elif values.type == 'resource' -%}${{ values.type | capitalize }}{% else -%}Component{% endif %}
 metadata:
   name: ${{ values.name }}
-  title: ${{ values.name | replace(" ", "-") | lower}}
+  title: {% if values.title -%}${{ values.title | dump }}{% else -%}${{ values.name | replace(" ", "-") | lower}}{% endif %}
   description: ${{ values.description }}
+{%- if values.addLink %}
   links:
-    - url: https://${{ values.name }}.broadinstitute.org
+    - url: ${{ values.addLink }}
       title: ${{ values.name }}
       icon: dashboard
-
+{%- endif -%}
 {%- if(values.tags.length) %}
   tags:
   {%- for tag in values.tags %}
@@ -17,11 +18,14 @@ metadata:
   {%- endfor %}
 {%- endif %}
   annotations:
-    backstage.io/kubernetes-id: ${{ values.name }}
+    {% if values.kubernetesAnnotation -%}backstage.io/kubernetes-id: ${{ values.name }}
+    {% endif -%}
     github.com/project-slug: ${{ values.githubOrg }}/${{ values.githubRepo }}
+    {% if values.cloudbuildAnnotation -%}
     google.com/cloudbuild-project-slug: bits-gke-clusters
     google.com/cloudbuild-repo-name: ${{ values.name }}
     google.com/cloudbuild-location: us-east4
+    {% endif -%}
     {% if values.nameSpace -%}backstage.io/kubernetes-namespace: ${{ values.nameSpace }}
     {% endif -%}
     {% if values.pagerdutyIntegrationKey -%}pagerduty.com/service-id: ${{ values.pagerdutyIntegrationKey }}
