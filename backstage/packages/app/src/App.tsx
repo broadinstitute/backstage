@@ -39,6 +39,7 @@ import { GcpProjectsPage } from '@backstage/plugin-gcp-projects';
 import { githubAuthApiRef } from '@backstage/core-plugin-api';
 import { ScaffolderFieldExtensions } from '@backstage/plugin-scaffolder-react';
 import { SelectFieldFromApiExtension } from '@roadiehq/plugin-scaffolder-frontend-module-http-request-field';
+import { CostInsightsPage } from '@backstage/plugin-cost-insights';
 
 interface SignInProviderConfig {
   id: string;
@@ -92,6 +93,7 @@ const app = createApp({
 const routes = (
   <FlatRoutes>
     <Route path="/" element={<Navigate to="catalog" />} />
+    <Route path="/cost-insights" element={<CostInsightsPage />} />
     <Route path="/catalog" element={<CatalogIndexPage />} />
     <Route
       path="/catalog/:namespace/:kind/:name"

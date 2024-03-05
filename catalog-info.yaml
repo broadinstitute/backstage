@@ -12,7 +12,6 @@ metadata:
   - bits
   - kubernetes
   - bits-tools
-
   annotations:
     backstage.io/kubernetes-id: backstage
     backstage.io/kubernetes-namespace: backstage
@@ -34,11 +33,18 @@ apiVersion: backstage.io/v1alpha1
 kind: System
 metadata:
   name: backstage
+  title: Backstage
   description: |
     The Backstage Internal Developer Platform
+  links:
+    - url: https://backstage.broadinstitute.org
+      title: Backstage
+      icon: dashboard
   tags:
     - bits
     - bits-tools
+  annotations:
+    backstage.io/techdocs-ref: dir:.
 spec:
   owner: devnull
   domain: orchestration

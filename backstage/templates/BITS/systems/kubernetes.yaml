@@ -1,0 +1,18 @@
+---
+apiVersion: backstage.io/v1alpha1
+kind: System
+metadata:
+  name: kubernetes
+  description: "Container orchestration system for automating software deployment, scaling, and management."
+  title: Kubernetes
+  tags:
+  - containers
+  - orchestration
+  - kubernetes
+  - gke
+  annotations:
+    backstage.io/managed-by: backstage
+spec:
+  owner: devnull
+  domain: orchestration
+  lifecycle: production
