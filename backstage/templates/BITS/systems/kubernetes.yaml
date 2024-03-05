@@ -4,7 +4,7 @@ kind: System
 metadata:
   name: kubernetes
   description: "Container orchestration system for automating software deployment, scaling, and management."
-  title: Orchestration
+  title: Kubernetes
   tags:
   - containers
   - orchestration
