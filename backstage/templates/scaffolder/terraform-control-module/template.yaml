@@ -29,19 +29,19 @@ spec:
         - description
         - type
         - lifecycle
-        # - gcp-project
-        # - gcp-region
-        # - type
-        # - output-directory
-        # - google-provider-version
-        # - terraform-version
-        # - tf-cloud-organization
-        # - gcs-bucket
+
       properties:
         name:
           title: Name
           type: string
           description: Unique name of the component
+
+        title:
+          title: Title (optional)
+          type: string
+          description: |
+            The title of the component. This is a human-readable name for the component.
+            If not provided, the name will be used as the title.
 
         description:
           title: Service description
@@ -52,6 +52,14 @@ spec:
           type: string
           default: service
           enum: ['service', 'website', 'resource', 'documentation', 'library', 'API']
+
+        lifecycle:
+          title: Service lifecycle
+          type: string
+          default: production
+          enum: ['production', 'experimental', 'deprecated']
+          description: |
+            The lifecycle phase of the service. e.g. "production", "experimental", "deprecated"
 
         system:
           title: System (optional)
@@ -67,11 +75,32 @@ spec:
             business purpose, or documentation. i.e. they form a bounded context.
             e.g. "search", "payments", "infrastructure", "data-platform"
 
-        lifecycle:
-          title: Service lifecycle
+        kubernetesAnnotation:
+          title: Kubernetes Annotation (optional)
+          type: boolean
+          default: false
+          description: |
+            Add Backstage annotation for the Kubernetes resource. This is used to
+            [identify the resource in Kubernetes]
+            (https://backstage.io/docs/features/kubernetes/configuration#surfacing-your-kubernetes-components-as-part-of-an-entity).
+            If true, the annotation will be added to the Kubernetes resource using the "name" field. Default is false.
+
+        cloudbuildAnnotation:
+          title: Cloud Build Annotation (optional)
+          type: boolean
+          default: false
+          description: |
+            Add Backstage annotation for the Cloud Build resource. This is used to
+            [identify the resource in Cloud Build]
+            (https://github.com/backstage/backstage/tree/master/plugins/cloudbuild#add-annotations-to-your-component-infoyaml-file).
+            If true, the annotation will be added to the Cloud Build resource using the "name" field. Default is false.
+
+        addLink:
+          title: Add a URL (optional)
           type: string
-          default: production
-          enum: ['production', 'experimental', 'deprecated']
+          description: |
+            Add a default [URL](https://backstage.io/docs/features/software-catalog/descriptor-format/#links-optional).
+            If empty no link block will be added.
 
         tags:
           title: List of tags (optional)
@@ -254,6 +283,10 @@ spec:
           terraformVersion: ${{ parameters.terraformVersion }}
           pagerdutyIntegrationKey: ${{ parameters.pagerdutyIntegrationKey or steps['pagerdutyService'].output.integrationKey }}
           # pagerdutyintegrationKey: ${{ steps['pagerdutyService'].output.integrationKey }}
+          title: ${{ parameters.title }}
+          kubernetesAnnotation: ${{ parameters.kubernetesAnnotation }}
+          cloudbuildAnnotation: ${{ parameters.cloudbuildAnnotation }}
+          addLink: ${{ parameters.addLink }}
 
     # This step publishes the contents of the working directory to GitHub.
     - id: publish
