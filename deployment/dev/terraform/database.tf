@@ -32,7 +32,7 @@ resource "google_service_account_iam_member" "db_workload_identity" {
 # Create a CloudSQL instance for App to use
 module "postgres" {
   source                      = "GoogleCloudPlatform/sql-db/google//modules/postgresql"
-  version                     = "19.0.0"
+  version                     = "20.0.0"
   database_version            = "POSTGRES_15"
   name                        = "${local.application_name}-${var.env}"
   project_id                  = var.core_project
