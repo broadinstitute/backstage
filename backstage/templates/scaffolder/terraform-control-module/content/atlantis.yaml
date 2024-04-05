@@ -1,8 +1,8 @@
 ---
 version: 3
 projects:
-  - name: development
+  - name: dev
     dir: dev
-  - name: production
+  - name: prod
     dir: prod
     apply_requirements: [approved]
