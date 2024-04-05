@@ -1,7 +1,7 @@
 ---
 version: 3
 projects:
-  - name: production
+  - name: prod
     apply_requirements:
       - approved
       - undiverged
@@ -12,7 +12,7 @@ projects:
     dir: prod
     workflow: terragrunt
 
-  - name: development
+  - name: dev
     apply_requirements:
       - undiverged
     autoplan:
