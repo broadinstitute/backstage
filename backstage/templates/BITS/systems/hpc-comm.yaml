@@ -1,0 +1,27 @@
+---
+apiVersion: backstage.io/v1alpha1
+kind: System
+metadata:
+  name: hpc-comm
+  description: |
+    A community cluster for high performance computing.
+    aka. “The Broad Cluster”, "UGER"
+
+  title: "HPC Community Cluster"
+  links:
+    - url: "https://broadbits.atlassian.net/wiki/spaces/D/pages/22639022/HPC+Community+Cluster+Overview"
+      title: "HPC Community Cluster Overview"
+    - url: "https://broadbits.atlassian.net/wiki/spaces/D/pages/22639843/Design+decisions"
+      title: "Disco Design Docs"
+  tags:
+  - hpc
+  - uger
+  - disco
+  - gridengine
+  - slurm
+  annotations:
+    backstage.io/managed-by: backstage
+spec:
+  owner: devnull
+  domain: hpc
+  lifecycle: production
