@@ -1,0 +1,23 @@
+---
+apiVersion: backstage.io/v1alpha1
+kind: System
+metadata:
+  name: hpc-seqprod
+  description: |
+    HPC Clusters to provide computational power to GP.
+    This cluster is significantly different from UGER and other HPC compute clusters
+
+  title: "HPC Seqprod Cluster"
+  links:
+    - url: "https://broadbits.atlassian.net/wiki/spaces/D/pages/207257601/HPC+-+Seqprod"
+      title: "HPC Seqprod Overview"
+  tags:
+  - hpc
+  - seqprod
+  - slurm
+  annotations:
+    backstage.io/managed-by: backstage
+spec:
+  owner: devnull
+  domain: hpc
+  lifecycle: production

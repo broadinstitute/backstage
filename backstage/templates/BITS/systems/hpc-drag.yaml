@@ -1,0 +1,24 @@
+---
+apiVersion: backstage.io/v1alpha1
+kind: System
+metadata:
+  name: hpc-drag
+  description: |
+    High-Performance Compute (HPC) cluster capable of running hardware accelerated GATK processing
+    as well as general purpose compute tasks. HPC nodes support processing of AllOfUs (AOU)
+    data and other data that requires NIST 800-171 certification
+
+  title: "HPC DRAGEN Cluster"
+  links:
+    - url: "https://broadbits.atlassian.net/wiki/spaces/D/pages/22638762/Dragen+Product+HPC-DRAG"
+      title: "HPC DRAGEN Overview"
+  tags:
+  - hpc
+  - dragen
+  - slurm
+  annotations:
+    backstage.io/managed-by: backstage
+spec:
+  owner: devnull
+  domain: hpc
+  lifecycle: production
