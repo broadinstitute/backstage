@@ -9,6 +9,7 @@ nav:
   - templates: templates.md
   - plugins: plugins.md
   - ADRs: adr/README.md
+  - Operations: operations.md
 
 plugins:
   - techdocs-core
