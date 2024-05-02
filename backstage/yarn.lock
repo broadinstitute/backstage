@@ -2373,6 +2373,120 @@
     "@babel/helper-validator-identifier" "^7.22.20"
     to-fast-properties "^2.0.0"
 
+"@backstage-community/plugin-cloudbuild@^0.5.2":
+  version "0.5.2"
+  resolved "https://registry.yarnpkg.com/@backstage-community/plugin-cloudbuild/-/plugin-cloudbuild-0.5.2.tgz#853a4961de7c7eb9e626087151ee8c55826f50ec"
+  integrity sha512-TTrL3f4zIW5QOsRIntlvDmTIOuyesNGoohSInXv4QvNe0ouJCVGf8oSLHrlsO0bupZNVgF12PGrFfZMVTyQySg==
+  dependencies:
+    "@backstage/catalog-model" "^1.4.5"
+    "@backstage/core-components" "^0.14.4"
+    "@backstage/core-plugin-api" "^1.9.2"
+    "@backstage/plugin-catalog-react" "^1.11.3"
+    "@material-ui/core" "^4.12.2"
+    "@material-ui/icons" "^4.9.1"
+    "@types/react" "^16.13.1 || ^17.0.0 || ^18.0.0"
+    luxon "^3.0.0"
+    qs "^6.9.4"
+    react-use "^17.2.4"
+
+"@backstage-community/plugin-cost-insights-common@^0.1.3":
+  version "0.1.3"
+  resolved "https://registry.yarnpkg.com/@backstage-community/plugin-cost-insights-common/-/plugin-cost-insights-common-0.1.3.tgz#3b4f65a531ac9fb8b3601d7d2bd3de9ee7695fae"
+  integrity sha512-LhW0Ng5nW7a8nrt3V6Wr5QApw0pgULNhxvVBNOULGNgYvvv8gzW51GrcNq1+cZ67aNBo/c3g2TVAmlHMEyIUSw==
+
+"@backstage-community/plugin-cost-insights@^0.12.24":
+  version "0.12.24"
+  resolved "https://registry.yarnpkg.com/@backstage-community/plugin-cost-insights/-/plugin-cost-insights-0.12.24.tgz#e2cd4b4920650e06983364148713b4fb9106c9cb"
+  integrity sha512-vKHOOF6X1tR7rWRW0PtQKpy5HL2TU1l3mDr260MRrpL7NfQZbj5jhE/r8VY/0eTBjD6WS0m3t4xUFGuu68D3tg==
+  dependencies:
+    "@backstage-community/plugin-cost-insights-common" "^0.1.3"
+    "@backstage/catalog-model" "^1.4.5"
+    "@backstage/config" "^1.2.0"
+    "@backstage/core-components" "^0.14.4"
+    "@backstage/core-plugin-api" "^1.9.2"
+    "@backstage/plugin-catalog-react" "^1.11.3"
+    "@backstage/theme" "^0.5.3"
+    "@material-ui/core" "^4.12.2"
+    "@material-ui/icons" "^4.9.1"
+    "@material-ui/lab" "4.0.0-alpha.61"
+    "@material-ui/styles" "^4.9.6"
+    "@types/react" "^16.13.1 || ^17.0.0 || ^18.0.0"
+    "@types/recharts" "^1.8.14"
+    classnames "^2.2.6"
+    history "^5.0.0"
+    luxon "^3.0.0"
+    pluralize "^8.0.0"
+    qs "^6.9.4"
+    react-use "^17.2.4"
+    recharts "^2.5.0"
+    regression "^2.0.1"
+    yup "^1.0.0"
+
+"@backstage-community/plugin-gcp-projects@^0.3.51":
+  version "0.3.51"
+  resolved "https://registry.yarnpkg.com/@backstage-community/plugin-gcp-projects/-/plugin-gcp-projects-0.3.51.tgz#42bf6e2605058016d768d8b8dc9060c03078f651"
+  integrity sha512-4BSFufmFOoAS65VB/lYLyTKgJzWdhZaqHd05iLwfIm7gBO+7BkUnKk05H4JlYsOOJwy5WGS3bXbaVeu6ZTfC0g==
+  dependencies:
+    "@backstage/core-components" "^0.14.4"
+    "@backstage/core-plugin-api" "^1.9.2"
+    "@material-ui/core" "^4.12.2"
+    "@react-hookz/web" "^24.0.0"
+    "@types/react" "^16.13.1 || ^17.0.0"
+
+"@backstage-community/plugin-github-actions@^0.6.16":
+  version "0.6.16"
+  resolved "https://registry.yarnpkg.com/@backstage-community/plugin-github-actions/-/plugin-github-actions-0.6.16.tgz#03462f8e4fb2f3cca32ecd163e3c7c6f6d4a4e84"
+  integrity sha512-rgtsw+SzFPwJLNVra4VDEsXtjq1RJeoyGty1zirDHhjbs+tLVb6sJC5e/gRPkh3VK/elSeFw1CJbDJXhaOJ7cA==
+  dependencies:
+    "@backstage/catalog-model" "^1.4.5"
+    "@backstage/core-components" "^0.14.4"
+    "@backstage/core-plugin-api" "^1.9.2"
+    "@backstage/integration" "^1.10.0"
+    "@backstage/integration-react" "^1.1.26"
+    "@backstage/plugin-catalog-react" "^1.11.3"
+    "@material-ui/core" "^4.12.2"
+    "@material-ui/icons" "^4.9.1"
+    "@material-ui/lab" "4.0.0-alpha.61"
+    "@octokit/rest" "^19.0.3"
+    "@types/react" "^16.13.1 || ^17.0.0 || ^18.0.0"
+    git-url-parse "^14.0.0"
+    luxon "^3.0.0"
+    react-use "^17.2.4"
+
+"@backstage-community/plugin-github-pull-requests-board@^0.2.1":
+  version "0.2.1"
+  resolved "https://registry.yarnpkg.com/@backstage-community/plugin-github-pull-requests-board/-/plugin-github-pull-requests-board-0.2.1.tgz#ac5519d382aa683d17e995a9b701e8119c65cec5"
+  integrity sha512-S/PFFWeupykG4BJAnMwlsrSAiShAzLzMAewZ9Q/S2Mj9skHTL7MZn9y0HnPfH19zY5jEYt0zzadKB7JgTUKTVw==
+  dependencies:
+    "@backstage/catalog-model" "^1.4.5"
+    "@backstage/core-components" "^0.14.4"
+    "@backstage/core-plugin-api" "^1.9.2"
+    "@backstage/integration" "^1.10.0"
+    "@backstage/plugin-catalog-react" "^1.11.3"
+    "@material-ui/core" "^4.12.2"
+    "@material-ui/icons" "^4.9.1"
+    "@material-ui/lab" "4.0.0-alpha.61"
+    "@octokit/rest" "^19.0.3"
+    "@types/react" "^16.13.1 || ^17.0.0 || ^18.0.0"
+    luxon "^3.0.0"
+    p-limit "^3.1.0"
+
+"@backstage-community/plugin-tech-radar@^0.7.4":
+  version "0.7.4"
+  resolved "https://registry.yarnpkg.com/@backstage-community/plugin-tech-radar/-/plugin-tech-radar-0.7.4.tgz#2bf4c7f0749f422f066053d671ae5478771a1277"
+  integrity sha512-HPsR13J6bkBzhritV4C0lImoR61xa1SozSQ6yEtmbqmYinDgZ3JxRV3rzecSqD/Znc8tnoSqgvzsSViOBrua0Q==
+  dependencies:
+    "@backstage/core-compat-api" "^0.2.4"
+    "@backstage/core-components" "^0.14.4"
+    "@backstage/core-plugin-api" "^1.9.2"
+    "@backstage/frontend-plugin-api" "^0.6.4"
+    "@material-ui/core" "^4.12.2"
+    "@material-ui/icons" "^4.9.1"
+    "@types/react" "^16.13.1 || ^17.0.0 || ^18.0.0"
+    color "^4.0.1"
+    d3-force "^3.0.0"
+    react-use "^17.2.4"
+
 "@backstage/app-defaults@^1.5.4":
   version "1.5.4"
   resolved "https://registry.yarnpkg.com/@backstage/app-defaults/-/app-defaults-1.5.4.tgz#db646dfba05730100d9d6daf0d0c6cf4d4d84aaf"
@@ -3627,110 +3741,12 @@
     react-use "^17.2.4"
     zen-observable "^0.10.0"
 
-"@backstage/plugin-cloudbuild@^0.5.2":
-  version "0.5.2"
-  resolved "https://registry.yarnpkg.com/@backstage/plugin-cloudbuild/-/plugin-cloudbuild-0.5.2.tgz#b95699cd7b6cc1d88860c5951730ff4739bd93f6"
-  integrity sha512-1/S/FG0YB6AXOJ2SULHhqCKSoqnmtgpPMWNyehiRyNO/FDjhxntC+XOinOxLdVThqsqLrlo/j3AYh3CPm9OCBg==
-  dependencies:
-    "@backstage/catalog-model" "^1.4.5"
-    "@backstage/core-components" "^0.14.4"
-    "@backstage/core-plugin-api" "^1.9.2"
-    "@backstage/plugin-catalog-react" "^1.11.3"
-    "@material-ui/core" "^4.12.2"
-    "@material-ui/icons" "^4.9.1"
-    "@types/react" "^16.13.1 || ^17.0.0 || ^18.0.0"
-    luxon "^3.0.0"
-    qs "^6.9.4"
-    react-use "^17.2.4"
-
-"@backstage/plugin-cost-insights-common@^0.1.3":
-  version "0.1.3"
-  resolved "https://registry.yarnpkg.com/@backstage/plugin-cost-insights-common/-/plugin-cost-insights-common-0.1.3.tgz#15970d7d462e2a2f96449870d977700470a618a2"
-  integrity sha512-z0TKD5DeGSFABGDsXShx8dSA9yMlEn7P9qL/Pi1LY2oIGGd+K2BtRvAgyoVqC1VCNDBBGnTHwzgNFsESn+jU7Q==
-
-"@backstage/plugin-cost-insights@^0.12.24":
-  version "0.12.24"
-  resolved "https://registry.yarnpkg.com/@backstage/plugin-cost-insights/-/plugin-cost-insights-0.12.24.tgz#0f21fd330058c05034f41c7f2fc026b851c44433"
-  integrity sha512-6zkb12Yn+bIxpDN8w+lHdQ32s/TO2EsHSpamTS68U/psX+sJYX3ja6yQmHlSrZRJ9g7hQvfPH8b5OlB+fbVrBw==
-  dependencies:
-    "@backstage/catalog-model" "^1.4.5"
-    "@backstage/config" "^1.2.0"
-    "@backstage/core-components" "^0.14.4"
-    "@backstage/core-plugin-api" "^1.9.2"
-    "@backstage/plugin-catalog-react" "^1.11.3"
-    "@backstage/plugin-cost-insights-common" "^0.1.3"
-    "@backstage/theme" "^0.5.3"
-    "@material-ui/core" "^4.12.2"
-    "@material-ui/icons" "^4.9.1"
-    "@material-ui/lab" "4.0.0-alpha.61"
-    "@material-ui/styles" "^4.9.6"
-    "@types/react" "^16.13.1 || ^17.0.0 || ^18.0.0"
-    "@types/recharts" "^1.8.14"
-    classnames "^2.2.6"
-    history "^5.0.0"
-    luxon "^3.0.0"
-    pluralize "^8.0.0"
-    qs "^6.9.4"
-    react-use "^17.2.4"
-    recharts "^2.5.0"
-    regression "^2.0.1"
-    yup "^1.0.0"
-
 "@backstage/plugin-events-node@^0.3.3":
   version "0.3.3"
   resolved "https://registry.yarnpkg.com/@backstage/plugin-events-node/-/plugin-events-node-0.3.3.tgz#4881730ed0889439b6366b27defb3e6ea6ba8fcf"
   integrity sha512-xlo8a1ZMdnnQJbwbc8TAj0SYgN4tRfoLE1ATEQvksJPy3FCGbFDHSvDNtZFqA8VO2eB0/QGTBHFewLzLRB8I4A==
   dependencies:
     "@backstage/backend-plugin-api" "^0.6.17"
-
-"@backstage/plugin-gcp-projects@^0.3.51":
-  version "0.3.51"
-  resolved "https://registry.yarnpkg.com/@backstage/plugin-gcp-projects/-/plugin-gcp-projects-0.3.51.tgz#8c9ec6be31fe5ca9932c9077b66e05dcde7a2041"
-  integrity sha512-WVyHhN81H9Dw5cSAazr3LFAyLQ+IJ8g2d+aa3Quy9pIyE3lAe894WZpmfjMqBumzjoh4wGvpRMUZtdJb8G1sHA==
-  dependencies:
-    "@backstage/core-components" "^0.14.4"
-    "@backstage/core-plugin-api" "^1.9.2"
-    "@material-ui/core" "^4.12.2"
-    "@react-hookz/web" "^24.0.0"
-    "@types/react" "^16.13.1 || ^17.0.0"
-
-"@backstage/plugin-github-actions@^0.6.16":
-  version "0.6.16"
-  resolved "https://registry.yarnpkg.com/@backstage/plugin-github-actions/-/plugin-github-actions-0.6.16.tgz#67b3093abf1c98ec4e6431dbf8fd442fd305326b"
-  integrity sha512-w5ECgOJPO3s5igEx+ZzMshVEDfzd0uqnSzzVkj/r6ixJzhqWxoRhI1xJ1MzlciVi2lrCGGygxyaPCFbgc84+hA==
-  dependencies:
-    "@backstage/catalog-model" "^1.4.5"
-    "@backstage/core-components" "^0.14.4"
-    "@backstage/core-plugin-api" "^1.9.2"
-    "@backstage/integration" "^1.10.0"
-    "@backstage/integration-react" "^1.1.26"
-    "@backstage/plugin-catalog-react" "^1.11.3"
-    "@material-ui/core" "^4.12.2"
-    "@material-ui/icons" "^4.9.1"
-    "@material-ui/lab" "4.0.0-alpha.61"
-    "@octokit/rest" "^19.0.3"
-    "@types/react" "^16.13.1 || ^17.0.0 || ^18.0.0"
-    git-url-parse "^14.0.0"
-    luxon "^3.0.0"
-    react-use "^17.2.4"
-
-"@backstage/plugin-github-pull-requests-board@^0.2.1":
-  version "0.2.1"
-  resolved "https://registry.yarnpkg.com/@backstage/plugin-github-pull-requests-board/-/plugin-github-pull-requests-board-0.2.1.tgz#8104ff4f10d92f7d5998fe8e189cea12c3685c1d"
-  integrity sha512-UO54+50bOAvP3zCtaqgXbLFeleV3zEzkDnXKH4peukqoKONkyrWgiIhRC3035z06m1QtPurZqdtL2E7pxp8yaw==
-  dependencies:
-    "@backstage/catalog-model" "^1.4.5"
-    "@backstage/core-components" "^0.14.4"
-    "@backstage/core-plugin-api" "^1.9.2"
-    "@backstage/integration" "^1.10.0"
-    "@backstage/plugin-catalog-react" "^1.11.3"
-    "@material-ui/core" "^4.12.2"
-    "@material-ui/icons" "^4.9.1"
-    "@material-ui/lab" "4.0.0-alpha.61"
-    "@octokit/rest" "^19.0.3"
-    "@types/react" "^16.13.1 || ^17.0.0 || ^18.0.0"
-    luxon "^3.0.0"
-    p-limit "^3.1.0"
 
 "@backstage/plugin-home-react@^0.1.3", "@backstage/plugin-home-react@^0.1.5":
   version "0.1.12"
@@ -4398,22 +4414,6 @@
     "@material-ui/icons" "^4.9.1"
     "@types/react" "^16.13.1 || ^17.0.0 || ^18.0.0"
     qs "^6.9.4"
-    react-use "^17.2.4"
-
-"@backstage/plugin-tech-radar@^0.7.4":
-  version "0.7.4"
-  resolved "https://registry.yarnpkg.com/@backstage/plugin-tech-radar/-/plugin-tech-radar-0.7.4.tgz#84e63604b4defab5571d44c58ead74682e071c9c"
-  integrity sha512-mP1J+8rdjbCiS5fXeOrwUxH1bPBiKC4ds42l0EPcTsvzz21bHmAMxMbN+MM+dhVpGy0h6DkOsmwrBDMXXZeEYQ==
-  dependencies:
-    "@backstage/core-compat-api" "^0.2.4"
-    "@backstage/core-components" "^0.14.4"
-    "@backstage/core-plugin-api" "^1.9.2"
-    "@backstage/frontend-plugin-api" "^0.6.4"
-    "@material-ui/core" "^4.12.2"
-    "@material-ui/icons" "^4.9.1"
-    "@types/react" "^16.13.1 || ^17.0.0 || ^18.0.0"
-    color "^4.0.1"
-    d3-force "^3.0.0"
     react-use "^17.2.4"
 
 "@backstage/plugin-techdocs-backend@^1.10.4":
@@ -12196,6 +12196,12 @@ anymatch@^3.0.3, anymatch@~3.1.2:
 "app@link:packages/app":
   version "0.0.0"
   dependencies:
+    "@backstage-community/plugin-cloudbuild" "^0.5.2"
+    "@backstage-community/plugin-cost-insights" "^0.12.24"
+    "@backstage-community/plugin-gcp-projects" "^0.3.51"
+    "@backstage-community/plugin-github-actions" "^0.6.16"
+    "@backstage-community/plugin-github-pull-requests-board" "^0.2.1"
+    "@backstage-community/plugin-tech-radar" "^0.7.4"
     "@backstage/app-defaults" "^1.5.4"
     "@backstage/catalog-model" "^1.4.5"
     "@backstage/cli" "^0.26.4"
@@ -12209,18 +12215,12 @@ anymatch@^3.0.3, anymatch@~3.1.2:
     "@backstage/plugin-catalog-graph" "^0.4.4"
     "@backstage/plugin-catalog-import" "^0.10.10"
     "@backstage/plugin-catalog-react" "^1.11.3"
-    "@backstage/plugin-cloudbuild" "^0.5.2"
-    "@backstage/plugin-cost-insights" "^0.12.24"
-    "@backstage/plugin-gcp-projects" "^0.3.51"
-    "@backstage/plugin-github-actions" "^0.6.16"
-    "@backstage/plugin-github-pull-requests-board" "^0.2.1"
     "@backstage/plugin-kubernetes" "^0.11.9"
     "@backstage/plugin-org" "^0.6.24"
     "@backstage/plugin-permission-react" "^0.4.22"
     "@backstage/plugin-scaffolder" "^1.19.3"
     "@backstage/plugin-search" "^1.4.10"
     "@backstage/plugin-search-react" "^1.7.10"
-    "@backstage/plugin-tech-radar" "^0.7.4"
     "@backstage/plugin-techdocs" "^1.10.4"
     "@backstage/plugin-techdocs-module-addons-contrib" "^1.1.9"
     "@backstage/plugin-techdocs-react" "^1.2.3"
