@@ -34,6 +34,7 @@
     "@backstage/plugin-cloudbuild": "^0.4.0",
     "@backstage/plugin-cost-insights": "^0.12.19",
     "@backstage/plugin-gcp-projects": "^0.3.46",
+    "@backstage/plugin-git-release-manager": "^0.3.47",
     "@backstage/plugin-github-actions": "^0.6.11",
     "@backstage/plugin-github-pull-requests-board": "^0.1.24",
     "@backstage/plugin-kubernetes": "^0.11.5",

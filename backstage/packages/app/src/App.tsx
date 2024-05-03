@@ -40,6 +40,7 @@ import { githubAuthApiRef } from '@backstage/core-plugin-api';
 import { ScaffolderFieldExtensions } from '@backstage/plugin-scaffolder-react';
 import { SelectFieldFromApiExtension } from '@roadiehq/plugin-scaffolder-frontend-module-http-request-field';
 import { CostInsightsPage } from '@backstage/plugin-cost-insights';
+import { GitReleaseManagerPage } from '@backstage/plugin-git-release-manager';
 
 interface SignInProviderConfig {
   id: string;
@@ -95,6 +96,7 @@ const routes = (
     <Route path="/" element={<Navigate to="catalog" />} />
     <Route path="/cost-insights" element={<CostInsightsPage />} />
     <Route path="/catalog" element={<CatalogIndexPage />} />
+    <Route path="/grm" element={<GitReleaseManagerPage />} />
     <Route
       path="/catalog/:namespace/:kind/:name"
       element={<CatalogEntityPage />}
