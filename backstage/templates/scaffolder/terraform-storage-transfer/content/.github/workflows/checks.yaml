@@ -1,0 +1,15 @@
+---
+name: checks
+
+"on":
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  validation:
+    uses: broadinstitute/shared-workflows/.github/workflows/terraform-validate.yaml@v2.1.1
+  linting:
+    uses: broadinstitute/shared-workflows/.github/workflows/terraform-lint.yaml@v2.1.1
+    with:
+      tflint_config_path: .tflint.hcl
