@@ -74,6 +74,11 @@ catalog:
       rules:
         - allow: [Template]
 
+    - type: file
+      target: ./templates/scaffolder/terraform-storage-transfer/template.yaml
+      rules:
+        - allow: [Template]
+
   providers:
     github:
       # the provider ID can be any camelCase string

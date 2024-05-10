@@ -10,7 +10,7 @@ metadata:
     provided more generally by `terraform-control-module-template`.
   tags:
     - terraform
-    - GCP
+    - gcp
 
 spec:
   owner: group:devnull
@@ -75,7 +75,7 @@ spec:
           title: List of tags
           type: array
           default:
-            - GCP
+            - gcp
             - terraform
           items:
             type: string
