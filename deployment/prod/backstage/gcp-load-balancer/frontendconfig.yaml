@@ -1,11 +1,10 @@
----
 apiVersion: networking.gke.io/v1beta1
 kind: FrontendConfig
-metadata:  # kpt-merge: gcp-load-balancer/http-to-https
+metadata: # kpt-merge: gcp-load-balancer/http-to-https
   name: http-to-https
   namespace: backstage
   labels:
-    app: backstage  # kpt-set: ${name}
+    app: backstage # kpt-set: ${name}
     environment: prod
     app.kubernetes.io/managed-by: gcp-cloud-build-deploy
     backstage.io/kubernetes-id: backstage
@@ -15,3 +14,4 @@ spec:
   redirectToHttps:
     enabled: true
     responseCodeName: MOVED_PERMANENTLY_DEFAULT
+  sslPolicy: modern-tls12 # kpt-set: ${sslPolicy}
