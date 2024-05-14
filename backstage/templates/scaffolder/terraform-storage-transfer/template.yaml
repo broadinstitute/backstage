@@ -1,0 +1,227 @@
+---
+apiVersion: scaffolder.backstage.io/v1beta3
+kind: Template
+metadata:
+  name: terraform-storage-transfer-template
+  title: Manage Google Cloud Storage Transfer Service using Terraform
+  description: >-
+    This template provides a base for setting up and managing Google Cloud
+    Storage Transfer Service with Terraform. It uses the Terraform conventions
+    provided more generally by `terraform-control-module-template`.
+  tags:
+    - terraform
+    - gcp
+
+spec:
+  owner: group:devnull
+  type: service
+  parameters:
+    - title: Backstage Resource Information
+      required:
+        - name
+        - description
+        - type
+        - lifecycle
+      properties:
+        name:
+          title: Name
+          type: string
+          description: >-
+            A unique identifier for the component. This is how it will be
+            identified in Backstage.
+        title:
+          title: Title
+          type: string
+          description: >-
+            This is a human-readable name for easier discoverability Backstage.
+            If not provided, the name will be used as the title.
+        description:
+          title: Description
+          type: string
+          description: >-
+            This will be viewable in the resource overview in Backstage.
+        type:
+          title: Component type
+          type: string
+          default: service
+          enum:
+            - service
+            - website
+            - resource
+            - documentation
+            - library
+            - API
+          description: >-
+            A high-level category for sorting resources in Backstage.
+        lifecycle:
+          title: Lifecycle phase.
+          type: string
+          default: production
+          enum:
+            - production
+            - experimental
+            - deprecated
+          description: >-
+            A tag describing if/how the component is being used.
+        system:
+          title: System
+          type: string
+          description: >-
+            A system is a collection of resources and components that share a
+            common purpose such as "search", "payments", or "infrastructure".
+            It should be a pre-existing resource in Backstage. If you don't
+            know what to put here, leave it blank.
+        tags:
+          title: List of tags
+          type: array
+          default:
+            - gcp
+            - terraform
+          items:
+            type: string
+            title: Backstage Tags
+          description: >-
+            Arbitrary strings to better sort and find resources in Backstage.
+
+    - title: Github settings
+      required:
+        - githubTeam
+        - repoUrl
+      properties:
+        githubTeam:
+          title: GitHub Team
+          type: string
+          ui:field: OwnerPicker
+          description: The GitHub team that owns the repository.
+          ui:options:
+            catalogFilter:
+              - kind: Group
+                spec.type: team
+        repoUrl:
+          title: Repository Location
+          type: string
+          ui:field: RepoUrlPicker
+          default: github.com?owner=broadinstitute
+          ui:options:
+            allowedHosts:
+              - github.com
+            allowedOwners:
+              - broadinstitute
+
+        visibility:
+          title: Repo Visibility
+          type: string
+          description: >-
+            Should people outside of the Broad be able to see this repo? If
+            you're unsure, please err on the side of caution and leave this
+            setting as 'Private'. It can be changed later.
+          default: private
+          enum:
+            - public
+            - private
+          enumNames:
+            - Public
+            - Private
+
+    - title: Terraform Configuration
+      required:
+        - gcpRegion
+        - gcpProject
+        - gcsBucket
+        - sourceDirectory
+      properties:
+        gcpRegion:
+          title: GCP Region
+          type: string
+          default: us-east4
+          description: >-
+            The default region for the Google provider. If you don't have an
+            existing preference for a specific region, the default will be
+            fine.
+        gcpProject:
+          title: GCP Project
+          type: string
+          description: >-
+            GCP project managed by the default/primary provider.
+            This value will set default values in the template, but will not
+            create new projects or otherwise touch existing projects.
+        gcsBucket:
+          title: GCS Bucket
+          type: string
+          description: >-
+            The name of the GCS bucket to use for this service. It will be used
+            to store Terraform state files as well as be the final upload destination.
+        sourceDirectory:
+          title: Source directory
+          type: string
+          description: >-
+            Absolute path of the directory to be uploaded to the cloud.
+        googleProviderVersion:
+          title: Google Provider Version
+          type: string
+          default: 5.17.0
+          description: >-
+            The version of the Google provider to use in the Terraform
+            configuration. Dependabot will be enabled by default and will open
+            a PR to update this immediately upon creation of the repository.
+        terraformVersion:
+          title: Terraform Version
+          type: string
+          default: 1.7.4
+          description: >-
+            The version of Terraform to use in the Terraform configuration.
+            Dependabot will be enabled by default and will open a PR to update
+            this immediately upon creation of the repository.
+
+  steps:
+    - id: fetchTemplate
+      name: Generate Template
+      action: fetch:template
+      input:
+        url: ./content
+        values:
+          name: ${{ parameters.name }}
+          description: ${{ parameters.description | dump }}
+          owner: ${{ parameters.githubTeam | parseEntityRef | pick('name') }}
+          tags: ${{ parameters.tags }}
+          type: ${{ parameters.type }}
+          system: ${{ parameters.system }}
+          lifecycle: ${{ parameters.lifecycle }}
+          githubRepo: ${{ parameters.repoUrl | parseRepoUrl | pick('repo') }}
+          githubOrg: ${{ parameters.repoUrl | parseRepoUrl | pick('owner') }}
+          gcpRegion: ${{ parameters.gcpRegion }}
+          gcpProject: ${{ parameters.gcpProject }}
+          gcsBucket: ${{ parameters.gcsBucket }}
+          googleProviderVersion: ${{ parameters.googleProviderVersion }}
+          terraformVersion: ${{ parameters.terraformVersion }}
+          title: ${{ parameters.title }}
+          addLink: ${{ parameters.addLink }}
+
+    - id: publish
+      name: Publish to Github
+      action: publish:github
+      input:
+        allowedHosts:
+          - github.com
+        description: ${{ parameters.description }}
+        repoUrl: ${{ parameters.repoUrl }}
+        repoVisibility: ${{ parameters.visibility }}
+        access: >-
+          ${{ parameters.repoUrl | parseRepoUrl | pick('owner') }}/${{ parameters.githubTeam | parseEntityRef | pick('name') }}
+        defaultBranch: main
+        requireCodeOwnerReviews: true
+
+    - id: register
+      name: Register the resource to Backstage
+      action: catalog:register
+      input:
+        repoContentsUrl: ${{ steps['publish'].output.repoContentsUrl }}
+        catalogInfoPath: '/catalog-info.yaml'
+
+  output:
+    links:
+      - title: Repository
+        url: ${{ steps['publish'].output.remoteUrl }}
+      - title: Open in catalog
+        icon: catalog
+        entityRef: ${{ steps['register'].output.entityRef }}
