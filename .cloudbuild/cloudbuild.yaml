@@ -78,8 +78,9 @@ steps:
   # kpt fn eval backstage --image gcr.io/kpt-fn/set-image:v0.1.1 -- \
   #   name=us-east4-docker.pkg.dev/bits-gke-clusters/bits/backstage:latest newTag=0fb8278
   - id: kpt-set-image
-    name: 'gcr.io/kpt-dev/kpt:v1.0.0-beta.48'
+    name: 'gcr.io/google.com/cloudsdktool/google-cloud-cli:477.0.0-debian_component_based'
     args:
+      - 'kpt'
       - 'fn'
       - 'eval'
       - 'deployment/prod/${_APP}'
@@ -92,8 +93,9 @@ steps:
 
   # kpt fn eval deployment/prod/app --image gcr.io/kpt-fn/set-labels:v0.2.0 --exclude-kind=StatefulSet -- environment=prod
   - id: kpt-set-labels
-    name: 'gcr.io/kpt-dev/kpt:v1.0.0-beta.48'
+    name: 'gcr.io/google.com/cloudsdktool/google-cloud-cli:477.0.0-debian_component_based'
     args:
+      - 'kpt'
       - 'fn'
       - 'eval'
       - 'deployment/prod/${_APP}'
