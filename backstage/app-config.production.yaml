@@ -53,8 +53,8 @@ catalog:
   rules:
     - allow: [Component, System, API, Resource, Location]
   locations:
-    - type: url
-      target: https://github.com/broadinstitute/backstage/tree/main/backstage/templates/BITS/domains.yaml
+    - type: file
+      target: ./templates/BITS/domains.yaml
       rules:
         - allow: [Location, Domain]
 
