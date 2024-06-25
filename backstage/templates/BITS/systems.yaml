@@ -7,7 +7,7 @@ metadata:
 spec:
   type: url
   targets:
-    - https://github.com/broadinstitute/backstage/tree/main/backstage/templates/BITS/systems/kubernetes.yaml
-    - https://github.com/broadinstitute/backstage/tree/main/backstage/templates/BITS/systems/hpc-comm.yaml
-    - https://github.com/broadinstitute/backstage/tree/main/backstage/templates/BITS/systems/hpc-drag.yaml
-    - https://github.com/broadinstitute/backstage/tree/main/backstage/templates/BITS/systems/seqprod.yaml
+    - ./systems/kubernetes.yaml
+    - ./systems/hpc-comm.yaml
+    - ./systems/hpc-drag.yaml
+    - ./systems/seqprod.yaml
