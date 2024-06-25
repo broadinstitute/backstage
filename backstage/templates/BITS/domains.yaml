@@ -5,15 +5,15 @@ metadata:
   name: bits-domains
   description: A collection of all Backstage Domains at BROAD BITS
 spec:
-  type: url
+  type: file
   targets:
-    - https://github.com/broadinstitute/backstage/tree/main/backstage/templates/BITS/domains/monitoring.yaml
-    - https://github.com/broadinstitute/backstage/tree/main/backstage/templates/BITS/domains/automation.yaml
-    - https://github.com/broadinstitute/backstage/tree/main/backstage/templates/BITS/domains/containers.yaml
-    - https://github.com/broadinstitute/backstage/tree/main/backstage/templates/BITS/domains/infrastructure-tools.yaml
-    - https://github.com/broadinstitute/backstage/tree/main/backstage/templates/BITS/domains/orchestration.yaml
-    - https://github.com/broadinstitute/backstage/tree/main/backstage/templates/BITS/domains/virtualization.yaml
-    - https://github.com/broadinstitute/backstage/tree/main/backstage/templates/BITS/domains/cloud.yaml
-    - https://github.com/broadinstitute/backstage/tree/main/backstage/templates/BITS/domains/hpc.yaml
-    - https://github.com/broadinstitute/backstage/tree/main/backstage/templates/BITS/domains/monitoring.yaml
-    - https://github.com/broadinstitute/backstage/tree/main/backstage/templates/BITS/domains/server-operating-systems.yaml
+    - ./domains/monitoring.yaml
+    - ./domains/automation.yaml
+    - ./domains/containers.yaml
+    - ./domains/infrastructure-tools.yaml
+    - ./domains/orchestration.yaml
+    - ./domains/virtualization.yaml
+    - ./domains/cloud.yaml
+    - ./domains/hpc.yaml
+    - ./domains/monitoring.yaml
+    - ./domains/server-operating-systems.yaml
