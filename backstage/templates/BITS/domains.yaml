@@ -17,4 +17,3 @@ spec:
     - ./domains/hpc.yaml
     - ./domains/monitoring.yaml
     - ./domains/server-operating-systems.yaml
-    - ./domains/test.yaml
