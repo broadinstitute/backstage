@@ -98,10 +98,17 @@ In order to install and run the agent, the user on the host system must have:
 
 The Terraform automation will set up a service account, assign correct
 permissions to it, and generate a key. This key will need to be deployed to the
-host server. To access this key, run the following command:
+host server. To access this key, run the following command on Linux or MacOS:
 
-```
+```sh
 terraform -chdir=prod output service_account_key | base64 -d - > secret.json
+```
+
+on Windows:
+
+```sh
+terraform -chdir=prod output service_account_key > raw_secret
+certutil -decode raw_secret secret.json
 ```
 
 *Caution:* Anyone with access to this key will be able to upload arbitrary
@@ -117,7 +124,7 @@ to do so is:
 ```
 podman run \
     --ulimit memlock=64000000 \
-    --detatch \
+    --detach \
     --rm \
     --volume /local/transfer/logs:/logs \
     --volume ${{ values.sourceDirectory }}:${{ values.sourceDirectory }} \
