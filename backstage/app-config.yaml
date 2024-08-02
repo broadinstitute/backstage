@@ -2,6 +2,25 @@
 app:
   title: Broad Institute Engineering Portal
   baseUrl: http://localhost
+  support:
+    url: https://broad.io/help # Used by common ErrorPage
+    items: # Used by common SupportButton component
+      - title: Issues
+        icon: github
+        links:
+          - url: https://github.com/broadinstitute/backstage/issues
+            title: GitHub Issues
+      - title: Slack Chatroom
+        icon: chat
+        links:
+          - url: https://broadinstitute.enterprise.slack.com/archives/C07F45YLVFG
+            title: '#backstage'
+      - title: Service Now
+        icon: help
+        links:
+          - url: https://broad.io/help
+            title: 'Service Now Ticket'
+
 
 organization:
   name: Broad Institute
