@@ -31,7 +31,7 @@ import {
 import {
   isGithubActionsAvailable,
   EntityGithubActionsContent,
-} from '@backstage/plugin-github-actions';
+} from '@backstage-community/plugin-github-actions';
 import {
   EntityUserProfileCard,
   EntityGroupProfileCard,
@@ -58,10 +58,10 @@ import {
 import { TechDocsAddons } from '@backstage/plugin-techdocs-react';
 import { ReportIssue } from '@backstage/plugin-techdocs-module-addons-contrib';
 import { EntityKubernetesContent } from '@backstage/plugin-kubernetes';
-import { EntityCloudbuildContent, isCloudbuildAvailable } from '@backstage/plugin-cloudbuild';
+import { EntityCloudbuildContent, isCloudbuildAvailable } from '@backstage-community/plugin-cloudbuild';
 import { EntityGithubPullRequestsContent } from '@roadiehq/backstage-plugin-github-pull-requests';
 import { EntityGithubPullRequestsOverviewCard } from '@roadiehq/backstage-plugin-github-pull-requests';
-import { EntityTeamPullRequestsContent } from '@backstage/plugin-github-pull-requests-board';
+import { EntityTeamPullRequestsContent } from '@backstage-community/plugin-github-pull-requests-board';
 import {
   isPluginApplicableToEntity as isPagerDutyAvailable,
   EntityPagerDutyCard,

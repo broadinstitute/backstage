@@ -13,7 +13,7 @@ import {
 import { ScaffolderPage, scaffolderPlugin } from '@backstage/plugin-scaffolder';
 import { orgPlugin } from '@backstage/plugin-org';
 import { SearchPage } from '@backstage/plugin-search';
-import { TechRadarPage } from '@backstage/plugin-tech-radar';
+import { TechRadarPage } from '@backstage-community/plugin-tech-radar';
 import {
   TechDocsIndexPage,
   techdocsPlugin,
@@ -35,11 +35,11 @@ import { RequirePermission } from '@backstage/plugin-permission-react';
 import { catalogEntityCreatePermission } from '@backstage/plugin-catalog-common/alpha';
 import { googleAuthApiRef } from '@backstage/core-plugin-api';
 import { SignInPage } from '@backstage/core-components';
-import { GcpProjectsPage } from '@backstage/plugin-gcp-projects';
+import { GcpProjectsPage } from '@backstage-community/plugin-gcp-projects';
 import { githubAuthApiRef } from '@backstage/core-plugin-api';
 import { ScaffolderFieldExtensions } from '@backstage/plugin-scaffolder-react';
 import { SelectFieldFromApiExtension } from '@roadiehq/plugin-scaffolder-frontend-module-http-request-field';
-import { CostInsightsPage } from '@backstage/plugin-cost-insights';
+import { CostInsightsPage } from '@backstage-community/plugin-cost-insights';
 
 interface SignInProviderConfig {
   id: string;
