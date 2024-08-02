@@ -210,6 +210,9 @@ spec:
           ${{ parameters.repoUrl | parseRepoUrl | pick('owner') }}/${{ parameters.githubTeam | parseEntityRef | pick('name') }}
         defaultBranch: main
         requireCodeOwnerReviews: true
+        allowMergeCommit: true
+        allowSquashMerge: true
+
 
     - id: register
       name: Register the resource to Backstage
