@@ -2,7 +2,7 @@
 site_name: '${{ values.name }} Documentation'
 
 nav:
-  - Home: index.md
+  - Home: README.md
   # - ADRs: adr/README.md # Uncomment this line to enable ADRs
 
 plugins:

@@ -1,0 +1,12 @@
+id: publish
+name: Publish1
+action: publish:github
+input:
+  allowedHosts: ['github.com']
+  description: ${{ parameters.description }}
+  repoUrl: ${{ parameters.repoUrl }}
+  repoVisibility: ${{ parameters.visibility }}
+  access: >-
+    ${{ parameters.repoUrl | parseRepoUrl | pick('owner') }}/${{ parameters.githubTeam | parseEntityRef | pick('name') }}
+  defaultBranch: main
+  requireCodeOwnerReviews: true

@@ -8,9 +8,9 @@ import {
   configApiRef,
   createApiFactory,
 } from '@backstage/core-plugin-api';
-import { costInsightsApiRef } from '@backstage/plugin-cost-insights';
-import { CostInsightsApi } from '@backstage/plugin-cost-insights';
-import { ExampleCostInsightsClient } from '@backstage/plugin-cost-insights';
+import { costInsightsApiRef } from '@backstage-community/plugin-cost-insights';
+import { CostInsightsApi } from '@backstage-community/plugin-cost-insights';
+import { ExampleCostInsightsClient } from '@backstage-community/plugin-cost-insights';
 
 
 export const apis: AnyApiFactory[] = [

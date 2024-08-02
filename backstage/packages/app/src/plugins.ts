@@ -1,2 +1,2 @@
-export { plugin as GcpProjects } from '@backstage/plugin-gcp-projects';
-export { plugin as Cloudbuild } from '@backstage/plugin-cloudbuild';
+export { plugin as GcpProjects } from '@backstage-community/plugin-gcp-projects';
+export { plugin as Cloudbuild } from '@backstage-community/plugin-cloudbuild';

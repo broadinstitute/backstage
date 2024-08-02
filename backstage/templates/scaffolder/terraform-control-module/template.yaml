@@ -16,6 +16,7 @@ metadata:
 
   tags:
     - terraform
+    - recommended
 spec:
   owner: group:devnull
   type: service
@@ -301,6 +302,8 @@ spec:
           ${{ parameters.repoUrl | parseRepoUrl | pick('owner') }}/${{ parameters.githubTeam | parseEntityRef | pick('name') }}
         defaultBranch: main
         requireCodeOwnerReviews: true
+        allowMergeCommit: true
+        allowSquashMerge: true
     # Add many steps here
 
 
