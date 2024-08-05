@@ -19,39 +19,39 @@ terraform providers lock -platform=linux_amd64 -platform=darwin_amd64 -platform=
 | Name | Version |
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | 1.7.0 |
-| <a name="requirement_google"></a> [google](#requirement\_google) | 5.14.0 |
+| <a name="requirement_google"></a> [google](#requirement\_google) | 5.39.1 |
+| <a name="requirement_google-beta"></a> [google-beta](#requirement\_google-beta) | 5.39.1 |
 | <a name="requirement_postgresql"></a> [postgresql](#requirement\_postgresql) | 1.21.0 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-| <a name="provider_google"></a> [google](#provider\_google) | 5.14.0 |
+| <a name="provider_google"></a> [google](#provider\_google) | 5.39.1 |
 | <a name="provider_postgresql.database"></a> [postgresql.database](#provider\_postgresql.database) | 1.21.0 |
 
 ## Modules
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_db_service_accounts"></a> [db\_service\_accounts](#module\_db\_service\_accounts) | terraform-google-modules/service-accounts/google | 4.2.2 |
-| <a name="module_postgres"></a> [postgres](#module\_postgres) | GoogleCloudPlatform/sql-db/google//modules/postgresql | 18.2.0 |
+| <a name="module_db_service_accounts"></a> [db\_service\_accounts](#module\_db\_service\_accounts) | terraform-google-modules/service-accounts/google | 4.2.3 |
+| <a name="module_postgres"></a> [postgres](#module\_postgres) | GoogleCloudPlatform/sql-db/google//modules/postgresql | 21.0.0 |
 
 ## Resources
 
 | Name | Type |
 |------|------|
-| [google_project_iam_member.sa_access](https://registry.terraform.io/providers/hashicorp/google/5.14.0/docs/resources/project_iam_member) | resource |
-| [google_project_iam_member.team_access](https://registry.terraform.io/providers/hashicorp/google/5.14.0/docs/resources/project_iam_member) | resource |
-| [google_project_service.api_services](https://registry.terraform.io/providers/hashicorp/google/5.14.0/docs/resources/project_service) | resource |
-| [google_secret_manager_secret.backstage-bits-credentials](https://registry.terraform.io/providers/hashicorp/google/5.14.0/docs/resources/secret_manager_secret) | resource |
-| [google_service_account_iam_member.db_workload_identity](https://registry.terraform.io/providers/hashicorp/google/5.14.0/docs/resources/service_account_iam_member) | resource |
-| [google_storage_bucket.tech-docs](https://registry.terraform.io/providers/hashicorp/google/5.14.0/docs/resources/storage_bucket) | resource |
-| [google_storage_bucket_iam_member.service-account](https://registry.terraform.io/providers/hashicorp/google/5.14.0/docs/resources/storage_bucket_iam_member) | resource |
+| [google_project_iam_member.sa_access](https://registry.terraform.io/providers/hashicorp/google/5.39.1/docs/resources/project_iam_member) | resource |
+| [google_project_iam_member.team_access](https://registry.terraform.io/providers/hashicorp/google/5.39.1/docs/resources/project_iam_member) | resource |
+| [google_project_service.api_services](https://registry.terraform.io/providers/hashicorp/google/5.39.1/docs/resources/project_service) | resource |
+| [google_secret_manager_secret.backstage-bits-credentials](https://registry.terraform.io/providers/hashicorp/google/5.39.1/docs/resources/secret_manager_secret) | resource |
+| [google_service_account_iam_member.db_workload_identity](https://registry.terraform.io/providers/hashicorp/google/5.39.1/docs/resources/service_account_iam_member) | resource |
+| [google_storage_bucket.tech-docs](https://registry.terraform.io/providers/hashicorp/google/5.39.1/docs/resources/storage_bucket) | resource |
+| [google_storage_bucket_iam_member.service-account](https://registry.terraform.io/providers/hashicorp/google/5.39.1/docs/resources/storage_bucket_iam_member) | resource |
 | [postgresql_grant.database_connect](https://registry.terraform.io/providers/cyrilgdn/postgresql/1.21.0/docs/resources/grant) | resource |
 | [postgresql_grant.schema_usage_create](https://registry.terraform.io/providers/cyrilgdn/postgresql/1.21.0/docs/resources/grant) | resource |
 | [postgresql_grant.table_permissions](https://registry.terraform.io/providers/cyrilgdn/postgresql/1.21.0/docs/resources/grant) | resource |
-| [google_client_config.current](https://registry.terraform.io/providers/hashicorp/google/5.14.0/docs/data-sources/client_config) | data source |
-| [google_project.current](https://registry.terraform.io/providers/hashicorp/google/5.14.0/docs/data-sources/project) | data source |
+| [google_client_config.current](https://registry.terraform.io/providers/hashicorp/google/5.39.1/docs/data-sources/client_config) | data source |
 
 ## Inputs
 
