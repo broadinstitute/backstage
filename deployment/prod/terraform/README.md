@@ -27,7 +27,7 @@ terraform providers lock -platform=linux_amd64 -platform=darwin_amd64 -platform=
 
 | Name | Version |
 |------|---------|
-| <a name="provider_google"></a> [google](#provider\_google) | 5.14.0 |
+| <a name="provider_google"></a> [google](#provider\_google) | 5.39.1 |
 | <a name="provider_postgresql.database"></a> [postgresql.database](#provider\_postgresql.database) | 1.21.0 |
 
 ## Modules
