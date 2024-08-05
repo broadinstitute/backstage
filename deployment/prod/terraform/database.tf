@@ -47,7 +47,7 @@ module "postgres" {
   tier                        = var.cloudsql_tier # "db-n1-standard-8" # todo: Think about this for prod ( Maps to Production Preset )
 
   ip_configuration = {
-    ssl_mode = true
+    ssl_mode = "ENCRYPTED_ONLY"
   }
 
   database_flags = [
