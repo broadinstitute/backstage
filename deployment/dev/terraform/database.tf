@@ -5,7 +5,7 @@ locals { #todo the data heere should probably be a variable
 # Create a service account for App to use to connect to the CloudSQL instance
 module "db_service_accounts" {
   source      = "terraform-google-modules/service-accounts/google"
-  version     = "4.2.3"
+  version     = "4.3.0"
   project_id  = var.core_project
   names       = [local.application_name]
   description = "service account for ${local.application_name}"
