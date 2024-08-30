@@ -12,4 +12,3 @@ AUTH_GITHUB_CLIENT_SECRET=$(op --account broadinstitute.1password.com read "op:/
 export AUTH_GITHUB_CLIENT_SECRET
 op --account broadinstitute.1password.com read --out-file ./github-app-backstage-bits-dev-credentials.yaml "op://BITS - Backstage/github-app-backstage-bits-dev-credentials/github-app-backstage-bits-dev-credentials.yaml"
 
-# vim: set et fenc=utf-8 ff=unix ft=sh sts=2 sw=2 ts=2 :
