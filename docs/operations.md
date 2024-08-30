@@ -119,7 +119,7 @@ This is a sample `op.bash` file that you can use to source the secrets:
     op --account broadinstitute.1password.com read --out-file ./github-app-backstage-bits-dev-credentials.yaml "op://BITS - Backstage/github-app-backstage-bits-dev-credentials/github-app-backstage-bits-dev-credentials.yaml"
 ```
 
-> [!NOTE]
+!!! NOTE
 All the above works ***GREAT*** if you have access to the 1Password Vault, however, if you don't have access to the 1Password Vault, you must manually create the `github-app-backstage-bits-dev-credentials.yaml` file and populate the expected environment variables.
 
 The `github-app-credentials.yaml` is created when you create a new GitHub OAuth App. You can find instructions on how to create a GitHub OAuth App [here](https://backstage.io/docs/getting-started/config/authentication).
