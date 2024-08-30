@@ -101,23 +101,7 @@ Node and yarn will need to be installed. For the correct version of node, you ca
 
 To run Backstage locally, you need to set up a number of secrets locally. These secrets are stored in 1Password, and can be found in the `Backstage` vault. The secrets can be manually sourced, or you can use the `1password-cli` to source them. To use the `1password-cli`, you need to install it and authenticate with your 1Password account. You can find instructions on how to do this [here](https://support.1password.com/command-line-getting-started/).
 
-This repo uses [direnv](https://direnv.net/) to manage environment variables. You can install direnv by running `brew install direnv` on MacOS. Once you have direnv installed, you can use the `.envrc` files in the repo to source the secrets. You can also manually source the secrets by running the following commands from the app root (i.e the backstage directory in the repo): `source op.bash`
-
-This is a sample `op.bash` file that you can use to source the secrets:
-
-```Bash
-    # Google
-    AUTH_GOOGLE_CLIENT_ID=$(op --account broadinstitute.1password.com read "op://BITS - Backstage/OAuth 2.0 Client ID - Dev/client_id")
-    export AUTH_GOOGLE_CLIENT_ID
-    AUTH_GOOGLE_CLIENT_SECRET=$(op --account broadinstitute.1password.com read "op://BITS - Backstage/OAuth 2.0 Client ID - Dev/client_secret")
-    export AUTH_GOOGLE_CLIENT_SECRET
-    # GitHub
-    AUTH_GITHUB_CLIENT_ID=$(op --account broadinstitute.1password.com read "op://BITS - Backstage/auth-github-client-id-dev/credential")
-    export AUTH_GITHUB_CLIENT_ID
-    AUTH_GITHUB_CLIENT_SECRET=$(op --account broadinstitute.1password.com read "op://BITS - Backstage/auth-github-client-secret-dev/credential")
-    export AUTH_GITHUB_CLIENT_SECRET
-    op --account broadinstitute.1password.com read --out-file ./github-app-backstage-bits-dev-credentials.yaml "op://BITS - Backstage/github-app-backstage-bits-dev-credentials/github-app-backstage-bits-dev-credentials.yaml"
-```
+This repo uses [direnv](https://direnv.net/) to manage environment variables. You can install direnv by running `brew install direnv` on MacOS. Once you have direnv installed, you can use the `.envrc` files in the repo to source the secrets. You can also manually source the secrets by running the following commands from the app root (i.e the backstage directory in the repo): `source op.bash` and the file can be found in the repo at `backstage/op.bash`.
 
 !!! NOTE
 All the above works ***GREAT*** if you have access to the 1Password Vault, however, if you don't have access to the 1Password Vault, you must manually create the `github-app-backstage-bits-dev-credentials.yaml` file and populate the expected environment variables.
