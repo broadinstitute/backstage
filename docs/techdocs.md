@@ -27,18 +27,18 @@ You will need to create a mkdocs.yml file in the root of your project to configu
 Here is an example of a mkdocs.yml file:
 
 ```yaml
-site_name: 'BITS Backstage Documentation'
+site_name: "BITS Backstage Documentation"
 
 nav:
-  - Home: index.md
-  - catalog: catalog.md
-  - kubernetes: kubernetes.md
-  - techdocs: techdocs.md
-  - plugins: plugins.md
-  - ADRs: adr/README.md
+    - Home: index.md
+    - catalog: catalog.md
+    - kubernetes: kubernetes.md
+    - techdocs: techdocs.md
+    - plugins: plugins.md
+    - ADRs: adr/README.md
 
 plugins:
-  - techdocs-core
+    - techdocs-core
 ```
 
 ### Test Your Docs locally

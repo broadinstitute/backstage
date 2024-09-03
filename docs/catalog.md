@@ -15,9 +15,11 @@ A component is a piece of software, for example a mobile feature, web site, back
 A component can implement APIs for other components to consume. In turn it might consume APIs implemented by other components, or directly depend on components or resources that are attached to it at runtime.
 
 ### Resource
+
 Resources are the infrastructure a component needs to operate at runtime, like BigTable databases, Pub/Sub topics, S3 buckets or CDNs. Modelling them together with components and systems will better allow us to visualize resource footprint, and create tooling around them.
 
 ### API
+
 APIs form an important (maybe the most important) abstraction that allows large software ecosystems to scale. Thus, APIs are a first class citizen in the Backstage model and the primary way to discover existing functionality in the ecosystem.
 
 APIs are implemented by components and form boundaries between components. They might be defined using an RPC IDL (e.g., Protobuf, GraphQL, ...), a data schema (e.g., Avro, TFRecord, ...), or as code interfaces. In any case, APIs exposed by components need to be in a known machine-readable format so we can build further tooling and analysis on top.
