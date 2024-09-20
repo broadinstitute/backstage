@@ -62,10 +62,10 @@ import { EntityCloudbuildContent, isCloudbuildAvailable } from '@backstage-commu
 import { EntityGithubPullRequestsContent } from '@roadiehq/backstage-plugin-github-pull-requests';
 import { EntityGithubPullRequestsOverviewCard } from '@roadiehq/backstage-plugin-github-pull-requests';
 import { EntityTeamPullRequestsContent } from '@backstage-community/plugin-github-pull-requests-board';
-import {
-  isPluginApplicableToEntity as isPagerDutyAvailable,
-  EntityPagerDutyCard,
-} from '@pagerduty/backstage-plugin';
+// import {
+//   isPluginApplicableToEntity as isPagerDutyAvailable,
+//   EntityPagerDutyCard,
+// } from '@pagerduty/backstage-plugin';
 
 const techdocsContent = (
   <EntityTechdocsContent>
@@ -155,13 +155,13 @@ const overviewContent = (
         <EntityGithubPullRequestsOverviewCard />
       </Grid>
     </Grid>
-    <EntitySwitch>
+    {/* <EntitySwitch>
       <EntitySwitch.Case if={isPagerDutyAvailable}>
         <Grid item md={6}>
           <EntityPagerDutyCard />
         </Grid>
       </EntitySwitch.Case>
-    </EntitySwitch>
+    </EntitySwitch> */}
   </Grid>
 
 );
