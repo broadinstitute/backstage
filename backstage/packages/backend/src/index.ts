@@ -4,6 +4,96 @@ import { githubOrgEntityProviderTransformsExtensionPoint } from '@backstage/plug
 // Import { legacyPlugin } from '@backstage/backend-common';
 import { myVerifiedUserTransformer } from './transformers';
 
+// Sign in users who are not in the catalog
+import { googleAuthenticator } from '@backstage/plugin-auth-backend-module-google-provider';
+import { githubAuthenticator } from '@backstage/plugin-auth-backend-module-github-provider';
+import {
+    stringifyEntityRef,
+    DEFAULT_NAMESPACE,
+} from '@backstage/catalog-model';
+import {
+    authProvidersExtensionPoint,
+    createOAuthProviderFactory,
+} from '@backstage/plugin-auth-node';
+import { NotFoundError } from '@backstage/errors';
+
+const customAuth = createBackendModule({
+    // This ID must be exactly "auth" because that's the plugin it targets
+    pluginId: 'auth',
+    // This ID must be unique, but can be anything
+    moduleId: 'custom-google-auth-provider', // todo: change this to something more descriptive
+    register(reg) {
+        reg.registerInit({
+            deps: {
+                providers: authProvidersExtensionPoint,
+            },
+            async init({ providers }) {
+                providers.registerProvider({
+                    // This ID must match the actual provider config, e.g. addressing
+                    // auth.providers.github means that this must be "github".
+                    providerId: 'google',
+                    // Use createProxyAuthProviderFactory instead if it's one of the proxy
+                    // based providers rather than an OAuth based one
+                    factory: createOAuthProviderFactory({
+                        authenticator: googleAuthenticator,
+                        async signInResolver({ profile }, ctx) {
+                            if (!profile.email) {
+                                throw new Error(
+                                    'Login failed, user profile does not contain an email',
+                                );
+                            }
+                            // Split the email into the local part and the domain.
+                            const [localPart, domain] =
+                                profile.email.split('@');
+
+                            // Next we verify the email domain. It is recommended to include this
+                            // kind of check if you don't look up the user in an external service.
+                            if (domain !== 'broadinstitute.org') {
+                                throw new Error(
+                                    `Login failed, '${profile.email}' does not belong to the expected domain`,
+                                );
+                            }
+
+                            const userEntityRef = stringifyEntityRef({
+                                kind: 'User',
+                                name: localPart,
+                                namespace: DEFAULT_NAMESPACE,
+                            });
+                            try {
+                                await ctx.findCatalogUser({
+                                    filter: {
+                                        kind: ['User'],
+                                        'spec.profile.email': profile.email,
+                                    },
+                                });
+                            } catch (error) {
+                                if (error instanceof NotFoundError) {
+                                    // findCatalogUser will throw a NotFoundError if the User is not found in the Catalog
+
+                                    return ctx.issueToken({
+                                        claims: {
+                                            sub: userEntityRef,
+                                            ent: [userEntityRef],
+                                        },
+                                    });
+                                }
+                            }
+
+                            // User exists sign them in with their Catalog User
+                            return ctx.signInWithCatalogUser({
+                                filter: {
+                                    kind: ['User'],
+                                    'spec.profile.email': profile.email,
+                                },
+                            });
+                        },
+                    }),
+                });
+            },
+        });
+    },
+});
+
 // Transforms the User entity to add the verified email from the GitHub Org
 const githubOrgModule = createBackendModule({
     pluginId: 'catalog',
@@ -29,7 +119,7 @@ backend.add(import('@backstage/plugin-techdocs-backend/alpha'));
 
 // auth plugin
 backend.add(import('@backstage/plugin-auth-backend'));
-backend.add(import('@backstage/plugin-auth-backend-module-google-provider'));
+//backend.add(import('@backstage/plugin-auth-backend-module-google-provider'));
 // See https://backstage.io/docs/backend-system/building-backends/migrating#the-auth-plugin
 backend.add(import('@backstage/plugin-auth-backend-module-guest-provider'));
 backend.add(import('@backstage/plugin-auth-backend-module-github-provider'));
@@ -70,5 +160,8 @@ backend.add(import('@backstage/plugin-kubernetes-backend/alpha'));
 
 // Map  Org emails to GitHub user entities in the catalog
 backend.add(githubOrgModule);
+
+// Custom auth provider
+backend.add(customAuth);
 
 backend.start();

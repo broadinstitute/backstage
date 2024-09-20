@@ -103,13 +103,13 @@ auth:
         clientSecret: ${AUTH_GOOGLE_CLIENT_SECRET}
         signIn:
           resolvers:
-            - resolver: emailMatchingUserEntityProfileEmail
+#            - resolver: emailMatchingUserEntityProfileEmail
       production:
         clientId: ${AUTH_GOOGLE_CLIENT_ID}
         clientSecret: ${AUTH_GOOGLE_CLIENT_SECRET}
         signIn:
           resolvers:
-            - resolver: emailMatchingUserEntityProfileEmail
+ #           - resolver: emailMatchingUserEntityProfileEmail
     github:
       development:
         clientId: ${AUTH_GITHUB_CLIENT_ID}
