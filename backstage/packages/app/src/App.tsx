@@ -2,22 +2,22 @@ import React from 'react';
 import { Navigate, Route } from 'react-router-dom';
 import { apiDocsPlugin, ApiExplorerPage } from '@backstage/plugin-api-docs';
 import {
-  CatalogEntityPage,
-  CatalogIndexPage,
-  catalogPlugin,
+    CatalogEntityPage,
+    CatalogIndexPage,
+    catalogPlugin,
 } from '@backstage/plugin-catalog';
 import {
-  CatalogImportPage,
-  catalogImportPlugin,
+    CatalogImportPage,
+    catalogImportPlugin,
 } from '@backstage/plugin-catalog-import';
 import { ScaffolderPage, scaffolderPlugin } from '@backstage/plugin-scaffolder';
 import { orgPlugin } from '@backstage/plugin-org';
 import { SearchPage } from '@backstage/plugin-search';
 import { TechRadarPage } from '@backstage-community/plugin-tech-radar';
 import {
-  TechDocsIndexPage,
-  techdocsPlugin,
-  TechDocsReaderPage,
+    TechDocsIndexPage,
+    techdocsPlugin,
+    TechDocsReaderPage,
 } from '@backstage/plugin-techdocs';
 import { TechDocsAddons } from '@backstage/plugin-techdocs-react';
 import { ReportIssue } from '@backstage/plugin-techdocs-module-addons-contrib';
@@ -42,115 +42,122 @@ import { SelectFieldFromApiExtension } from '@roadiehq/plugin-scaffolder-fronten
 import { CostInsightsPage } from '@backstage-community/plugin-cost-insights';
 
 interface SignInProviderConfig {
-  id: string;
-  title: string;
-  message: string;
-  apiRef: any;
+    id: string;
+    title: string;
+    message: string;
+    apiRef: any;
 }
 
 const googleProvider: SignInProviderConfig = {
-  id: 'google-auth-provider',
-  title: 'Google',
-  message: 'Sign in using Google',
-  apiRef: googleAuthApiRef,
+    id: 'google-auth-provider',
+    title: 'Google',
+    message: 'Sign in using Google',
+    apiRef: googleAuthApiRef,
 };
 
 const app = createApp({
-  components: {
-    SignInPage: props => (
-      <SignInPage
-        {...props}
-        auto
-        provider={{
-          id: 'google-auth-provider',
-          title: 'Google',
-          message: 'Sign in using Google',
-          apiRef: googleAuthApiRef,
-        }}
-      />
-    ),
-  },
-  apis,
-  bindRoutes({ bind }) {
-    bind(catalogPlugin.externalRoutes, {
-      createComponent: scaffolderPlugin.routes.root,
-      viewTechDoc: techdocsPlugin.routes.docRoot,
-      createFromTemplate: scaffolderPlugin.routes.selectedTemplate,
-    });
-    bind(apiDocsPlugin.externalRoutes, {
-      registerApi: catalogImportPlugin.routes.importPage,
-    });
-    bind(scaffolderPlugin.externalRoutes, {
-      registerComponent: catalogImportPlugin.routes.importPage,
-      viewTechDoc: techdocsPlugin.routes.docRoot,
-    });
-    bind(orgPlugin.externalRoutes, {
-      catalogIndex: catalogPlugin.routes.catalogIndex,
-    });
-  },
+    components: {
+        SignInPage: props => (
+            <SignInPage
+                {...props}
+                auto
+                provider={{
+                    id: 'google-auth-provider',
+                    title: 'Google',
+                    message: 'Sign in using Google',
+                    apiRef: googleAuthApiRef,
+                }}
+            />
+        ),
+    },
+    apis,
+    bindRoutes({ bind }) {
+        bind(catalogPlugin.externalRoutes, {
+            createComponent: scaffolderPlugin.routes.root,
+            viewTechDoc: techdocsPlugin.routes.docRoot,
+            createFromTemplate: scaffolderPlugin.routes.selectedTemplate,
+        });
+        bind(apiDocsPlugin.externalRoutes, {
+            registerApi: catalogImportPlugin.routes.importPage,
+        });
+        bind(scaffolderPlugin.externalRoutes, {
+            registerComponent: catalogImportPlugin.routes.importPage,
+            viewTechDoc: techdocsPlugin.routes.docRoot,
+        });
+        bind(orgPlugin.externalRoutes, {
+            catalogIndex: catalogPlugin.routes.catalogIndex,
+        });
+    },
 });
 
 const routes = (
-  <FlatRoutes>
-    <Route path="/" element={<Navigate to="catalog" />} />
-    <Route path="/cost-insights" element={<CostInsightsPage />} />
-    <Route path="/catalog" element={<CatalogIndexPage />} />
-    <Route
-      path="/catalog/:namespace/:kind/:name"
-      element={<CatalogEntityPage />}
-    >
-      {entityPage}
-    </Route>
-    <Route path="/docs" element={<TechDocsIndexPage />} />
-    <Route
-      path="/docs/:namespace/:kind/:name/*"
-      element={<TechDocsReaderPage />}
-    >
-      <TechDocsAddons>
-        <ReportIssue />
-      </TechDocsAddons>
-    </Route>
-    <Route path="/create" element={<ScaffolderPage
-      groups={[
-        {
-          title: "Recommended",
-          filter: entity =>
-            entity?.metadata?.tags?.includes('recommended') ?? false,
-        },
-      ]}
-    />}>
-      <ScaffolderFieldExtensions>
-        <SelectFieldFromApiExtension />
-      </ScaffolderFieldExtensions>
-    </Route>
-    <Route path="/api-docs" element={<ApiExplorerPage />} />
-    <Route path="/gcp-projects" element={<GcpProjectsPage />} />
-    <Route
-      path="/tech-radar"
-      element={<TechRadarPage width={1500} height={800} />}
-    />
-    <Route
-      path="/catalog-import"
-      element={
-        <RequirePermission permission={catalogEntityCreatePermission}>
-          <CatalogImportPage />
-        </RequirePermission>
-      }
-    />
-    <Route path="/search" element={<SearchPage />}>
-      {searchPage}
-    </Route>
-    <Route path="/settings" element={<UserSettingsPage />} />
-    <Route path="/catalog-graph" element={<CatalogGraphPage />} />
-  </FlatRoutes>
+    <FlatRoutes>
+        <Route path="/" element={<Navigate to="catalog" />} />
+        <Route path="/cost-insights" element={<CostInsightsPage />} />
+        <Route path="/catalog" element={<CatalogIndexPage />} />
+        <Route
+            path="/catalog/:namespace/:kind/:name"
+            element={<CatalogEntityPage />}
+        >
+            {entityPage}
+        </Route>
+        <Route path="/docs" element={<TechDocsIndexPage />} />
+        <Route
+            path="/docs/:namespace/:kind/:name/*"
+            element={<TechDocsReaderPage />}
+        >
+            <TechDocsAddons>
+                <ReportIssue />
+            </TechDocsAddons>
+        </Route>
+        <Route
+            path="/create"
+            element={
+                <ScaffolderPage
+                    groups={[
+                        {
+                            title: 'Recommended',
+                            filter: entity =>
+                                entity?.metadata?.tags?.includes(
+                                    'recommended',
+                                ) ?? false,
+                        },
+                    ]}
+                />
+            }
+        >
+            <ScaffolderFieldExtensions>
+                <SelectFieldFromApiExtension />
+            </ScaffolderFieldExtensions>
+        </Route>
+        <Route path="/api-docs" element={<ApiExplorerPage />} />
+        <Route path="/gcp-projects" element={<GcpProjectsPage />} />
+        <Route
+            path="/tech-radar"
+            element={<TechRadarPage width={1500} height={800} />}
+        />
+        <Route
+            path="/catalog-import"
+            element={
+                <RequirePermission permission={catalogEntityCreatePermission}>
+                    <CatalogImportPage />
+                </RequirePermission>
+            }
+        />
+        <Route path="/search" element={<SearchPage />}>
+            {searchPage}
+        </Route>
+        <Route path="/settings" element={<UserSettingsPage />} />
+        <Route path="/catalog-graph" element={<CatalogGraphPage />} />
+    </FlatRoutes>
 );
 
 export default app.createRoot(
-  <>
-    <AlertDisplay />
-    <OAuthRequestDialog />
-    <AppRouter>
-      <Root>{routes}</Root>
-    </AppRouter>
-  </>,
+    <>
+        <AlertDisplay />
+        <OAuthRequestDialog />
+        <AppRouter>
+            <Root>{routes}</Root>
+        </AppRouter>
+    </>,
 );

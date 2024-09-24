@@ -1,6 +1,27 @@
-# Plugins Intalled and Configured
+# Backstage Plugins
 
-## Kubernetes Plugin
+## Plugin Databases
+
+The following plugins need databases. The databases are created by
+Terraform in the deployment directory for dev and prod. It is important
+to ensure that when adding a plugin that expects a database, that the
+database is created, otherwise the deployment will fail.
+
+The databases are:
+
+* backstage_plugin_app
+* backstage_plugin_auth
+* backstage_plugin_catalog
+* backstage_plugin_scaffolder
+* backstage_plugin_search
+* backstage_plugin_proxy
+* backstage_plugin_techdocs
+* backstage_plugin_permission
+* backstage_plugin_kubernetes
+
+## Plugins Installed and Configured
+
+### Kubernetes Plugin
 
 This plugin is enabled and is configured to show the Kubernetes tab on the
 Entity Page. It is enabled on a component by adding this annotation to the
@@ -40,6 +61,8 @@ This has been install but is still a work in progress.
 
 ## PagerDuty
 
+>Note: This plugin is not currently installed.
+
 Annotating entities For every component that shows up in your Backstage catalog
 you have a .yaml file with its configuration. Add an annotation to the entity
 like this:
@@ -56,6 +79,11 @@ able to create incidents from Backstage if you do so.
 annotations:
     pagerduty.com/service-id: [SERVICE-ID]
 ```
+
+## Cost Insights
+
+The Cost Insights plugin is installed and configured to show the Cost Insights
+using mock data.
 
 ## todo
 

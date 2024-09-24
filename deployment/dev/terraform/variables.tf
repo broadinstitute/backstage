@@ -29,6 +29,23 @@ variable "additional_databases" {
       charset   = "",
       collation = "",
     },
+    { name      = "backstage_plugin_proxy",
+      charset   = "",
+      collation = "",
+    },
+    { name      = "backstage_plugin_techdocs",
+      charset   = "",
+      collation = "",
+    },
+    { name      = "backstage_plugin_permission",
+      charset   = "",
+      collation = "",
+    },
+    {
+      name      = "backstage_plugin_kubernetes",
+      charset   = "",
+      collation = "",
+    },
   ]
 
 }
