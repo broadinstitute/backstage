@@ -21,7 +21,7 @@ const customAuth = createBackendModule({
     // This ID must be exactly "auth" because that's the plugin it targets
     pluginId: 'auth',
     // This ID must be unique, but can be anything
-    moduleId: 'custom-google-auth-provider', // todo: change this to something more descriptive
+    moduleId: 'custom-google-auth-provider',
     register(reg) {
         reg.registerInit({
             deps: {
@@ -32,8 +32,6 @@ const customAuth = createBackendModule({
                     // This ID must match the actual provider config, e.g. addressing
                     // auth.providers.github means that this must be "github".
                     providerId: 'google',
-                    // Use createProxyAuthProviderFactory instead if it's one of the proxy
-                    // based providers rather than an OAuth based one
                     factory: createOAuthProviderFactory({
                         authenticator: googleAuthenticator,
                         async signInResolver({ profile }, ctx) {
@@ -119,7 +117,6 @@ backend.add(import('@backstage/plugin-techdocs-backend/alpha'));
 
 // auth plugin
 backend.add(import('@backstage/plugin-auth-backend'));
-//backend.add(import('@backstage/plugin-auth-backend-module-google-provider'));
 // See https://backstage.io/docs/backend-system/building-backends/migrating#the-auth-plugin
 backend.add(import('@backstage/plugin-auth-backend-module-guest-provider'));
 backend.add(import('@backstage/plugin-auth-backend-module-github-provider'));
