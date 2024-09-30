@@ -155,6 +155,13 @@ backend.add(import('@backstage/plugin-search-backend-module-techdocs/alpha'));
 // kubernetes
 backend.add(import('@backstage/plugin-kubernetes-backend/alpha'));
 
+// scaffolder plugins
+backend.add(import('@backstage/plugin-scaffolder-backend-module-github'));
+backend.add(
+  import('@roadiehq/scaffolder-backend-module-http-request/new-backend'),
+);
+backend.add(import('@roadiehq/scaffolder-backend-module-utils/new-backend'));
+
 // Map  Org emails to GitHub user entities in the catalog
 backend.add(githubOrgModule);
 
