@@ -14,14 +14,14 @@ steps:
     entrypoint: '/bin/sh'
     args: ['-c', 'echo "test: do not delete" > github-app-backstage-bits-credentials.yaml']
 
-  # yarn install --frozen-lockfile
+  # yarn install --immutable
   - id: 'yarn-install'
     name: 'node:18-bookworm'
     dir: ${_APP}
     entrypoint: 'yarn'
     args:
       - 'install'
-      - '--frozen-lockfile'
+      - '--immutable'
 
   # yarn build:backend --config ../../app-config.yaml
   - id: 'build-backend'
