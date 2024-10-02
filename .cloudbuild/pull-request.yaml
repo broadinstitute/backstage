@@ -101,6 +101,13 @@ steps:
     - '${LOCATION}-docker.pkg.dev/${PROJECT_ID}-dev/bits/${_APP}-build-cache:latest'
     - --publish
 
+  # Push the image to the container registry.
+  - id: pull-test-image
+    name: 'gcr.io/cloud-builders/docker'
+    args:
+      - 'pull'
+      - '${LOCATION}-docker.pkg.dev/${PROJECT_ID}-dev/bits/${_APP}:${SHORT_SHA}'
+
   # Test the image.
   - id: test-docker-image
     name: 'gcr.io/gcp-runtimes/container-structure-test'
