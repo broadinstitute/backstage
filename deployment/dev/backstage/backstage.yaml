@@ -58,7 +58,7 @@ spec:
                 name: pagerduty-client-secret
           volumeMounts:
             - name: github-app-credentials
-              mountPath: /app/github-app-backstage-bits-credentials.yaml
+              mountPath: /workspace/github-app-backstage-bits-credentials.yaml
               subPath: github-app-backstage-bits-credentials.yaml
               readOnly: true
               # github-app-backstage-bits-credentials secret mounted in backstage app root as
