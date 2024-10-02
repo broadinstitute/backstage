@@ -66,6 +66,7 @@ steps:
 
   - id: build-run-image
     name: 'gcr.io/cloud-builders/docker'
+    dir: ${_APP}
     args:
       - 'build'
       - '-t'
@@ -76,6 +77,7 @@ steps:
 
   - id: build-image
     name: 'buildpacksio/pack:0.35.1'
+    dir: ${_APP}
     entrypoint: pack
     args:
     - 'build'
