@@ -74,10 +74,10 @@ spec:
               containerPort: 7007
               # Uncomment if health checks are enabled in your app:
               # https://backstage.io/docs/plugins/observability#health-checks
-              #          readinessProbe:
-              #            httpGet:
-              #              port: 7007
-              #              path: /healthcheck
+          readinessProbe:
+            httpGet:
+              port: 7007
+              path: /.backstage/health/v1/readiness
               #          livenessProbe:
               #            httpGet:
               #              port: 7007
