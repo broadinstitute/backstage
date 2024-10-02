@@ -8,61 +8,89 @@ steps:
   # probably pass an envvar to the build step.
 
   # echo 'test: do not delete' > github-app-backstage-bits-credentials.yaml
-  - id: 'populate-github-app-credentials-file'
-    name: 'alpine'
-    dir: ${_APP}
-    entrypoint: '/bin/sh'
-    args: ['-c', 'echo "test: do not delete" > github-app-backstage-bits-credentials.yaml']
+  # - id: 'populate-github-app-credentials-file'
+  #   name: 'alpine'
+  #   dir: ${_APP}
+  #   entrypoint: '/bin/sh'
+  #   args: ['-c', 'echo "test: do not delete" > github-app-backstage-bits-credentials.yaml']
 
-  # yarn install --immutable
-  - id: 'yarn-install'
-    name: 'node:18-bookworm'
-    dir: ${_APP}
-    entrypoint: 'yarn'
-    args:
-      - 'install'
-      - '--immutable'
+  # # yarn install --immutable
+  # - id: 'yarn-install'
+  #   name: 'node:18-bookworm'
+  #   dir: ${_APP}
+  #   entrypoint: 'yarn'
+  #   args:
+  #     - 'install'
+  #     - '--immutable'
 
-  # yarn build:backend --config ../../app-config.yaml
-  - id: 'build-backend'
-    name: 'node:18-bookworm'
-    dir: ${_APP}
-    entrypoint: 'yarn'
-    args:
-      - 'build:backend'
-      - '--config'
-      - '../../app-config.yaml'
-      - '--config'
-      - '../../app-config.production.yaml'
+  # # yarn build:backend --config ../../app-config.yaml
+  # - id: 'build-backend'
+  #   name: 'node:18-bookworm'
+  #   dir: ${_APP}
+  #   entrypoint: 'yarn'
+  #   args:
+  #     - 'build:backend'
+  #     - '--config'
+  #     - '../../app-config.yaml'
+  #     - '--config'
+  #     - '../../app-config.production.yaml'
 
-  # yarn tsc TypeScript Compiler
-  - id: 'yarn-tsc'
-    name: 'node:18-bookworm-slim'
-    dir: ${_APP}
-    entrypoint: 'yarn'
-    args:
-      - 'tsc'
+  # # yarn tsc TypeScript Compiler
+  # - id: 'yarn-tsc'
+  #   name: 'node:18-bookworm-slim'
+  #   dir: ${_APP}
+  #   entrypoint: 'yarn'
+  #   args:
+  #     - 'tsc'
 
-  # Build the Docker image.
-  - id: build-docker-image
+  # # Build the Docker image.
+  # - id: build-docker-image
+  #   name: 'gcr.io/cloud-builders/docker'
+  #   dir: ${_APP}
+  #   env:
+  #     - 'DOCKER_BUILDKIT=1'
+  #   args:
+  #     - 'image'
+  #     - 'build'
+  #     - '-f'
+  #     - 'packages/backend/Dockerfile'
+  #     - '-t'
+  #     - '${LOCATION}-docker.pkg.dev/${PROJECT_ID}/bits/${_APP}:${SHORT_SHA}'
+  #     - '-t'
+  #     - '${LOCATION}-docker.pkg.dev/${PROJECT_ID}-dev/bits/${_APP}:latest'
+  #     - '-t'
+  #     - '${LOCATION}-docker.pkg.dev/${PROJECT_ID}-dev/bits/${_APP}:${_PR_NUMBER}'
+  #     - '-t'
+  #     - '${LOCATION}-docker.pkg.dev/${PROJECT_ID}-dev/bits/${_APP}:${SHORT_SHA}'
+  #     - '.'
+
+  - id: build-run-image
     name: 'gcr.io/cloud-builders/docker'
-    dir: ${_APP}
-    env:
-      - 'DOCKER_BUILDKIT=1'
     args:
-      - 'image'
       - 'build'
+      - '-t'
+      - 'run-image'
       - '-f'
-      - 'packages/backend/Dockerfile'
-      - '-t'
-      - '${LOCATION}-docker.pkg.dev/${PROJECT_ID}/bits/${_APP}:${SHORT_SHA}'
-      - '-t'
-      - '${LOCATION}-docker.pkg.dev/${PROJECT_ID}-dev/bits/${_APP}:latest'
-      - '-t'
-      - '${LOCATION}-docker.pkg.dev/${PROJECT_ID}-dev/bits/${_APP}:${_PR_NUMBER}'
-      - '-t'
-      - '${LOCATION}-docker.pkg.dev/${PROJECT_ID}-dev/bits/${_APP}:${SHORT_SHA}'
+      - 'run.Dockerfile'
       - '.'
+
+  - id: build-image
+    name: 'buildpacksio/pack:0.35.1'
+    entrypoint: pack
+    args:
+    - 'build'
+    - '${LOCATION}-docker.pkg.dev/${PROJECT_ID}-dev/bits/${_APP}'
+    - '-t'
+    - '${LOCATION}-docker.pkg.dev/${PROJECT_ID}-dev/bits/${_APP}:latest'
+    - '-t'
+    - '${LOCATION}-docker.pkg.dev/${PROJECT_ID}-dev/bits/${_APP}:${_PR_NUMBER}'
+    - '-t'
+    - '${LOCATION}-docker.pkg.dev/${PROJECT_ID}-dev/bits/${_APP}:${SHORT_SHA}'
+    - '--run-image'
+    - 'run-image'
+    - --cache-image
+    - '${LOCATION}-docker.pkg.dev/${PROJECT_ID}-dev/bits/${_APP}-build-cache:latest'
+    - --publish
 
   # Test the image.
   - id: test-docker-image
@@ -70,16 +98,16 @@ steps:
     args:
       - 'test'
       - '--image'
-      - '${LOCATION}-docker.pkg.dev/${PROJECT_ID}/bits/${_APP}:${SHORT_SHA}'
+      - '${LOCATION}-docker.pkg.dev/${PROJECT_ID}-dev/bits/${_APP}:${SHORT_SHA}'
       - '--config'
       - 'container-image-tests.yaml'
 
-  # Push the image to the container registry.
-  - id: push-image-to-dev
-    name: 'gcr.io/cloud-builders/docker'
-    args:
-      - 'push'
-      - '${LOCATION}-docker.pkg.dev/${PROJECT_ID}-dev/bits/${_APP}:${SHORT_SHA}'
+  # # Push the image to the container registry.
+  # - id: push-image-to-dev
+  #   name: 'gcr.io/cloud-builders/docker'
+  #   args:
+  #     - 'push'
+  #     - '${LOCATION}-docker.pkg.dev/${PROJECT_ID}-dev/bits/${_APP}:${SHORT_SHA}'
 
   # kpt fn eval backstage --image gcr.io/kpt-fn/set-image:v0.1.1 -- \
   #   name=us-east4-docker.pkg.dev/bits-gke-clusters/bits/backstage:latest newTag=0fb8278
@@ -150,7 +178,6 @@ steps:
       - '--cluster=gke-autopilot-01-prod'
 #       # - '--verbose'
 images:
-  - '${LOCATION}-docker.pkg.dev/${PROJECT_ID}/bits/${_APP}:${SHORT_SHA}'
   - '${LOCATION}-docker.pkg.dev/${PROJECT_ID}-dev/bits/${_APP}:${SHORT_SHA}'
   - '${LOCATION}-docker.pkg.dev/${PROJECT_ID}-dev/bits/${_APP}:${_PR_NUMBER}'
   - '${LOCATION}-docker.pkg.dev/${PROJECT_ID}-dev/bits/${_APP}:latest'
