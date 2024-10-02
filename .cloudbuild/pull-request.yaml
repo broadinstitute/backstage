@@ -70,10 +70,17 @@ steps:
     args:
       - 'build'
       - '-t'
-      - 'run-image'
+      - '${LOCATION}-docker.pkg.dev/${PROJECT_ID}-dev/bits/${_APP}-run-image:${SHORT_SHA}'
       - '-f'
       - 'run.Dockerfile'
       - '.'
+
+  # Push the image to the container registry.
+  - id: push-run-image-to-dev
+    name: 'gcr.io/cloud-builders/docker'
+    args:
+      - 'push'
+      - '${LOCATION}-docker.pkg.dev/${PROJECT_ID}-dev/bits/${_APP}-run-image:${SHORT_SHA}'
 
   - id: build-image
     name: 'buildpacksio/pack:0.35.1'
@@ -89,7 +96,7 @@ steps:
     - '-t'
     - '${LOCATION}-docker.pkg.dev/${PROJECT_ID}-dev/bits/${_APP}:${SHORT_SHA}'
     - '--run-image'
-    - 'run-image'
+    - '${LOCATION}-docker.pkg.dev/${PROJECT_ID}-dev/bits/${_APP}-run-image:${SHORT_SHA}'
     - --cache-image
     - '${LOCATION}-docker.pkg.dev/${PROJECT_ID}-dev/bits/${_APP}-build-cache:latest'
     - --publish
