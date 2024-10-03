@@ -68,9 +68,9 @@ steps:
     name: 'gcr.io/kaniko-project/executor:latest'
     dir: ${_APP}
     args:
-    - --dockerfile='run.Dockerfile'
-    - --destination=${LOCATION}-docker.pkg.dev/${PROJECT_ID}-dev/bits/${_APP}-run-image:${SHORT_SHA}
-    - --cache=true
+    - '--dockerfile=run.Dockerfile'
+    - '--destination=${LOCATION}-docker.pkg.dev/${PROJECT_ID}-dev/bits/${_APP}-run-image:${SHORT_SHA}'
+    - '--cache=true'
 
   # - id: build-run-image
   #   name: 'gcr.io/cloud-builders/docker'
