@@ -1,4 +1,4 @@
-FROM gcr.io/buildpacks/google-22/run@sha256:28c712d28b3fc6f3ae817f1b1f49fd56d64e5cbd8a27aa53cc61ca398b92b4d3
+FROM gcr.io/buildpacks/google-22/run@sha256:60639cecf6a6dd290c56564c561e3d1bc9830e74767c24169cfa3cc6517f2826
 ENV PYTHON=/usr/bin/python3
 USER root
 RUN apt-get update && apt-get install -y --no-install-recommends \
@@ -10,4 +10,6 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 ENV VIRTUAL_ENV=/opt/venv
 RUN python3 -m venv $VIRTUAL_ENV
 ENV PATH="$VIRTUAL_ENV/bin:$PATH"
+RUN pip3 install --upgrade setuptools
 RUN pip3 install mkdocs-techdocs-core
+USER cnb
