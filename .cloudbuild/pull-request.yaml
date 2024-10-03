@@ -97,16 +97,6 @@ steps:
     - '${LOCATION}-docker.pkg.dev/${PROJECT_ID}-dev/bits/${_APP}:${SHORT_SHA}'
     - '--run-image'
     - '${LOCATION}-docker.pkg.dev/${PROJECT_ID}-dev/bits/${_APP}-run-image:${SHORT_SHA}'
-    - --cache-image
-    - '${LOCATION}-docker.pkg.dev/${PROJECT_ID}-dev/bits/${_APP}-build-cache:latest'
-    - --publish
-
-  # Push the image to the container registry.
-  - id: pull-test-image
-    name: 'gcr.io/cloud-builders/docker'
-    args:
-      - 'pull'
-      - '${LOCATION}-docker.pkg.dev/${PROJECT_ID}-dev/bits/${_APP}:${SHORT_SHA}'
 
   # Test the image.
   - id: test-docker-image
@@ -118,12 +108,12 @@ steps:
       - '--config'
       - 'container-image-tests.yaml'
 
-  # # Push the image to the container registry.
-  # - id: push-image-to-dev
-  #   name: 'gcr.io/cloud-builders/docker'
-  #   args:
-  #     - 'push'
-  #     - '${LOCATION}-docker.pkg.dev/${PROJECT_ID}-dev/bits/${_APP}:${SHORT_SHA}'
+  # Push the image to the container registry.
+  - id: push-image-to-dev
+    name: 'gcr.io/cloud-builders/docker'
+    args:
+      - 'push'
+      - '${LOCATION}-docker.pkg.dev/${PROJECT_ID}-dev/bits/${_APP}:${SHORT_SHA}'
 
   # kpt fn eval backstage --image gcr.io/kpt-fn/set-image:v0.1.1 -- \
   #   name=us-east4-docker.pkg.dev/bits-gke-clusters/bits/backstage:latest newTag=0fb8278
