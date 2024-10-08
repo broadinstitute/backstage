@@ -13,7 +13,7 @@ updates:
   - package-ecosystem: 'terraform'
     directory: '/deployment/dev/terraform'
     groups:
-      actions:
+      terraform_dev:
         patterns:
           - '*'
     schedule:
@@ -22,7 +22,7 @@ updates:
   - package-ecosystem: 'terraform'
     directory: '/deployment/prod/terraform'
     groups:
-      actions:
+      terraform_prod:
         patterns:
           - '*'
     schedule:
@@ -30,11 +30,19 @@ updates:
       interval: 'weekly'
   - package-ecosystem: 'docker'
     directory: 'deployment/dev/backstage'
+    groups:
+      docker_dev:
+        patterns:
+          - '*'
     schedule:
       # Check for updates to Docker images every week
       interval: 'weekly'
   - package-ecosystem: 'docker'
     directory: 'deployment/prod/backstage'
+    groups:
+      docker_prod:
+        patterns:
+          - '*'
     schedule:
       # Check for updates to Docker images every week
       interval: 'weekly'
