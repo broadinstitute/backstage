@@ -94,6 +94,7 @@ steps:
     name: 'buildpacksio/pack:0.35.1'
     dir: ${_APP}
     entrypoint: pack
+    secretEnv: ['PACK_VOLUME_KEY']
     args:
     - 'build'
     - '${LOCATION}-docker.pkg.dev/${PROJECT_ID}-dev/bits/${_APP}'
@@ -196,7 +197,12 @@ steps:
       - '--project=${PROJECT_ID}'
       - '--cluster=gke-autopilot-01-prod'
 #       # - '--verbose'
-images:
-  - '${LOCATION}-docker.pkg.dev/${PROJECT_ID}-dev/bits/${_APP}:${SHORT_SHA}'
-  - '${LOCATION}-docker.pkg.dev/${PROJECT_ID}-dev/bits/${_APP}:${_PR_NUMBER}'
-  - '${LOCATION}-docker.pkg.dev/${PROJECT_ID}-dev/bits/${_APP}:latest'
+
+availableSecrets:
+  secretManager:
+  - versionName: projects/broad-bits-devnull-secrets/secrets/cloudbuild-pack-volume-key-backstage/versions/latest
+    env: 'PACK_VOLUME_KEY'
+# images:
+#   - '${LOCATION}-docker.pkg.dev/${PROJECT_ID}-dev/bits/${_APP}:${SHORT_SHA}'
+#   - '${LOCATION}-docker.pkg.dev/${PROJECT_ID}-dev/bits/${_APP}:${_PR_NUMBER}'
+#   - '${LOCATION}-docker.pkg.dev/${PROJECT_ID}-dev/bits/${_APP}:latest'
