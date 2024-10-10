@@ -101,7 +101,7 @@ steps:
     name: 'gcr.io/cloud-builders/docker'
     args:
       - 'pull'
-      - '${LOCATION}-docker.pkg.dev/${PROJECT_ID}-dev/bits/${_APP}-run-image:${SHORT_SHA}'
+      - '${LOCATION}-docker.pkg.dev/${PROJECT_ID}-dev/bits/${_APP}:${SHORT_SHA}'
 
   # Test the image.
   - id: test-docker-image
