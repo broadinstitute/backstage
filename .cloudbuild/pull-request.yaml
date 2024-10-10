@@ -108,7 +108,6 @@ steps:
     name: 'gcr.io/gcp-runtimes/container-structure-test'
     args:
       - 'test'
-      - '--pull'
       - '--image'
       - '${LOCATION}-docker.pkg.dev/${PROJECT_ID}-dev/bits/${_APP}:${SHORT_SHA}'
       - '--config'
