@@ -58,7 +58,7 @@ spec:
                 name: pagerduty-client-secret
           volumeMounts:
             - name: github-app-credentials
-              mountPath: /app/github-app-backstage-bits-credentials.yaml
+              mountPath: /workspace/github-app-backstage-bits-credentials.yaml
               subPath: github-app-backstage-bits-credentials.yaml
               readOnly: true
               # github-app-backstage-bits-credentials secret mounted in backstage app root as
@@ -74,10 +74,11 @@ spec:
               containerPort: 7007
               # Uncomment if health checks are enabled in your app:
               # https://backstage.io/docs/plugins/observability#health-checks
-              #          readinessProbe:
-              #            httpGet:
-              #              port: 7007
-              #              path: /healthcheck
+          readinessProbe:
+            httpGet:
+              port: 7007
+              path: /.backstage/health/v1/readiness
+            initialDelaySeconds: 60
               #          livenessProbe:
               #            httpGet:
               #              port: 7007

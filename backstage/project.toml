@@ -1,0 +1,18 @@
+[_]
+schema-version = "0.2"
+id = "org.broadinstitute.backstage"
+name = "BITS Backstage"
+authors = ["devnull@broadinstitute.org"]
+version = "0.0.1"
+source-url = "https://github.com/broadinstitute/backstage"
+documentation-url = "https://backstage.broadinstitute.org/catalog/default/component/backstage/docs"
+
+
+[io.buildpacks]
+builder = "gcr.io/buildpacks/builder@sha256:63758e15217a1145bdc5c699652eb1e3a6c003e10c344eaf8e8e0734556b8312"
+exclude = [
+    "github-app*",
+    "app-config.local.yaml",
+    "op.bash",
+    "examples",
+]

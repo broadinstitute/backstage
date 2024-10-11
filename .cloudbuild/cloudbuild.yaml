@@ -3,60 +3,44 @@ substitutions:
   _APP: backstage
 
 steps:
-  # todo: Load cache from previous builds. /usr/local/share/.cache/yarn/v6
-  # todo: check ways to load a different "app-config.production.yaml" file for dev builds.
-  # probably pass an envvar to the build step.
-
-  # echo 'test: do not delete' > github-app-backstage-bits-credentials.yaml
-  - id: 'populate-github-app-credentials-file'
-    name: 'alpine'
+  - id: build-run-image
+    name: 'gcr.io/kaniko-project/executor:latest'
     dir: ${_APP}
-    entrypoint: '/bin/sh'
-    args: ['-c', 'echo "test: do not delete" > github-app-backstage-bits-credentials.yaml']
-
-  # yarn install --frozen-lockfile
-  - id: 'yarn-install'
-    name: 'node:18-bookworm'
-    dir: ${_APP}
-    entrypoint: 'yarn'
     args:
-      - 'install'
-      - '--frozen-lockfile'
+    - '--dockerfile=run.Dockerfile'
+    - '--destination=${LOCATION}-docker.pkg.dev/${PROJECT_ID}/bits/${_APP}-run-image:${SHORT_SHA}'
+    - '--cache=true'
 
-  # yarn build:backend --config ../../app-config.yaml
-  - id: 'build-backend'
-    name: 'node:18-bookworm'
+  - id: build-image
+    name: 'buildpacksio/pack:0.35.1'
     dir: ${_APP}
-    entrypoint: 'yarn'
+    entrypoint: pack
+    secretEnv: ['PACK_VOLUME_KEY']
     args:
-      - 'build:backend'
-      - '--config'
-      - '../../app-config.yaml'
-      - '--config'
-      - '../../app-config.production.yaml'
+    - 'build'
+    - '${LOCATION}-docker.pkg.dev/${PROJECT_ID}/bits/${_APP}:${SHORT_SHA}'
+    - '-t'
+    - '${LOCATION}-docker.pkg.dev/${PROJECT_ID}/bits/${_APP}:${_PR_NUMBER}'
+    - '--run-image'
+    - '${LOCATION}-docker.pkg.dev/${PROJECT_ID}/bits/${_APP}-run-image:${SHORT_SHA}'
+    - '--cache-image'
+    - '${LOCATION}-docker.pkg.dev/${PROJECT_ID}/bits/${_APP}:latest'
+    - '--publish'
 
-  # yarn tsc TypeScript Compiler
-  - id: 'yarn-tsc'
-    name: 'node:18-bookworm-slim'
-    dir: ${_APP}
-    entrypoint: 'yarn'
-    args:
-      - 'tsc'
 
-  # Build the Docker image.
-  - id: build-docker-image
+  # Pull image for testing
+  - id: pull-image-for-testing
     name: 'gcr.io/cloud-builders/docker'
-    dir: ${_APP}
-    env:
-      - 'DOCKER_BUILDKIT=1'
     args:
-      - 'image'
-      - 'build'
-      - '-f'
-      - 'packages/backend/Dockerfile'
-      - '-t'
+      - 'pull'
       - '${LOCATION}-docker.pkg.dev/${PROJECT_ID}/bits/${_APP}:${SHORT_SHA}'
-      - '.'
+
+  - id: create-tags
+    name: 'gcr.io/cloud-builders/docker'
+    args:
+      - 'tag'
+      - '${LOCATION}-docker.pkg.dev/${PROJECT_ID}/bits/${_APP}:${SHORT_SHA}'
+      - '${LOCATION}-docker.pkg.dev/${PROJECT_ID}/bits/${_APP}:latest'
 
   # Test the image.
   - id: test-docker-image
@@ -67,13 +51,6 @@ steps:
       - '${LOCATION}-docker.pkg.dev/${PROJECT_ID}/bits/${_APP}:${SHORT_SHA}'
       - '--config'
       - 'container-image-tests.yaml'
-
-  # Push the image to the container registry.
-  - id: push-image
-    name: 'gcr.io/cloud-builders/docker'
-    args:
-      - 'push'
-      - '${LOCATION}-docker.pkg.dev/${PROJECT_ID}/bits/${_APP}:${SHORT_SHA}'
 
   # kpt fn eval backstage --image gcr.io/kpt-fn/set-image:v0.1.1 -- \
   #   name=us-east4-docker.pkg.dev/bits-gke-clusters/bits/backstage:latest newTag=0fb8278
@@ -127,6 +104,10 @@ steps:
       - '--project=${PROJECT_ID}'
       - '--cluster=gke-autopilot-01-prod'
 
+availableSecrets:
+  secretManager:
+  - versionName: projects/broad-bits-devnull-secrets/secrets/cloudbuild-pack-volume-key-backstage/versions/latest
+    env: 'PACK_VOLUME_KEY'
 images:
-  - '${LOCATION}-docker.pkg.dev/${PROJECT_ID}/bits/${_APP}:${SHORT_SHA}'
+  - '${LOCATION}-docker.pkg.dev/${PROJECT_ID}/bits/${_APP}'
   - '${LOCATION}-docker.pkg.dev/${PROJECT_ID}/bits/${_APP}:latest'
