@@ -18,7 +18,7 @@
     "cy:run": "cypress run --browser chrome"
   },
   "dependencies": {
-    "@backstage-community/plugin-cloudbuild": "^0.5.2",
+    "@backstage-community/plugin-cloudbuild": "^0.5.6",
     "@backstage-community/plugin-cost-insights": "^0.12.24",
     "@backstage-community/plugin-gcp-projects": "^0.3.51",
     "@backstage-community/plugin-github-actions": "^0.6.16",
