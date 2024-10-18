@@ -99,6 +99,7 @@ steps:
     args:
       - 'run'
       - '--recursive'
+      - '--timeout=10m'
       - '--filename=deployment/prod/${_APP}'
       - '--location=${LOCATION}'
       - '--project=${PROJECT_ID}'
