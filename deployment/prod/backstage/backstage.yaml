@@ -78,7 +78,7 @@ spec:
             httpGet:
               port: 7007
               path: /.backstage/health/v1/readiness
-            initialDelaySeconds: 60
+            initialDelaySeconds: 300
               #          livenessProbe:
               #            httpGet:
               #              port: 7007
