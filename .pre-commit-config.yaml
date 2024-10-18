@@ -19,6 +19,8 @@ repos:
       - id: mixed-line-ending
       - id: trailing-whitespace
       - id: check-yaml
+        args:
+          - --allow-multiple-documents
   - repo: https://github.com/antonbabenko/pre-commit-terraform
     rev: v1.81.0
     hooks:
