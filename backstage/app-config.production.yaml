@@ -19,6 +19,10 @@ backend:
     methods: [GET, HEAD, PATCH, POST, PUT, DELETE]
     credentials: true
 
+  reading:
+    allow:
+      - host: 'raw.githubusercontent.com'
+
   # config options: https://node-postgres.com/api/client
   database:
     client: pg
@@ -59,8 +63,8 @@ catalog:
         - allow: [Location, Domain]
 
     # Import Add Backstage template from a file - todo: stop putting this in the container and use a URL
-    - type: file
-      target: ../../templates/scaffolder/pr-with-catalog-entry/template.yaml
+    - type: url
+      target: https://raw.githubusercontent.com/broadinstitute/backstage/refs/heads/main/backstage/templates/scaffolder/pr-with-catalog-entry/template.yaml
       rules:
         - allow: [Template]
 
