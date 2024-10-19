@@ -1,8 +1,9 @@
 id: publish
-name: Publish
+name: Publish to Github
 action: publish:github
 input:
-  allowedHosts: ['github.com']
+  allowedHosts:
+    - github.com
   description: ${{ parameters.description }}
   repoUrl: ${{ parameters.repoUrl }}
   repoVisibility: ${{ parameters.visibility }}
