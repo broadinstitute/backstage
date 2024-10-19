@@ -69,17 +69,17 @@ catalog:
         - allow: [Template]
 
     - type: file
-      target: ../../templates/scaffolder/terraform-control-module/template.yaml
+      target: https://raw.githubusercontent.com/broadinstitute/backstage/refs/heads/main/backstage/templates/scaffolder/terraform-control-module/template.yaml
       rules:
         - allow: [Template]
 
     - type: file
-      target: ../../templates/scaffolder/terraform-with-terragrunt/template.yaml
+      target: https://raw.githubusercontent.com/broadinstitute/backstage/refs/heads/main/backstage/templates/scaffolder/terraform-with-terragrunt/template.yaml
       rules:
         - allow: [Template]
 
     - type: file
-      target: ../../templates/scaffolder/terraform-storage-transfer/template.yaml
+      target: https://raw.githubusercontent.com/broadinstitute/backstage/refs/heads/main/backstage/templates/scaffolder/terraform-storage-transfer/template.yaml
       rules:
         - allow: [Template]
 
