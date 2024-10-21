@@ -56,22 +56,22 @@ catalog:
 
     # Example of a remote reference using `url` in `app-config.production.yaml`:
     - type: url
-      target: "https://raw.githubusercontent.com/broadinstitute/backstage/refs/heads/${REF_NAME}/backstage/templates/scaffolder/pr-with-catalog-entry/template.yaml"
+      target: "https://raw.githubusercontent.com/broadinstitute/backstage/refs/heads/${BRANCH_NAME}/backstage/templates/scaffolder/pr-with-catalog-entry/template.yaml"
       rules:
         - allow: [Template]
 
     - type: url
-      target: "https://raw.githubusercontent.com/broadinstitute/backstage/refs/heads/${REF_NAME}/backstage/templates/scaffolder/terraform-control-module/template.yaml"
+      target: "https://raw.githubusercontent.com/broadinstitute/backstage/refs/heads/${BRANCH_NAME}/backstage/templates/scaffolder/terraform-control-module/template.yaml"
       rules:
         - allow: [Template]
 
     - type: file
-      target: "https://raw.githubusercontent.com/broadinstitute/backstage/refs/heads/${REF_NAME}/backstage/templates/scaffolder/terraform-with-terragrunt/template.yaml"
+      target: "https://raw.githubusercontent.com/broadinstitute/backstage/refs/heads/${BRANCH_NAME}/backstage/templates/scaffolder/terraform-with-terragrunt/template.yaml"
       rules:
         - allow: [Template]
 
     - type: file
-      target: "https://raw.githubusercontent.com/broadinstitute/backstage/refs/heads/${REF_NAME}/backstage/templates/scaffolder/terraform-storage-transfer/template.yaml"
+      target: "https://raw.githubusercontent.com/broadinstitute/backstage/refs/heads/${BRANCH_NAME}/backstage/templates/scaffolder/terraform-storage-transfer/template.yaml"
       rules:
         - allow: [Template]
 
