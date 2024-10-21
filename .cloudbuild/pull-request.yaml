@@ -85,6 +85,7 @@ steps:
     args:
       - 'fn'
       - 'eval'
+      - 'deployment/dev/${_APP}'
       - '--image'
       - 'gcr.io/kpt-fn/apply-setters:v0.2.0'
       - '--'
