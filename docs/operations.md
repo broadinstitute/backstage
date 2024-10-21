@@ -48,26 +48,32 @@ techdocs:
 
 catalog:
     locations:
-        # Local example template
-        - type: file
-          target: ../../templates/scaffolder/pr-with-catalog-entry/template.yaml
-          rules:
-              - allow: [Template]
+    # Local example template
+    - type: file
+      target: ../../templates/scaffolder/terraform-control-module/template.yaml
+      rules:
+        - allow: [Template]
 
-        - type: file
-          target: ../../templates/scaffolder/terraform-control-module/template.yaml
-          rules:
-              - allow: [Template]
+    # Example of a remote reference using `url` in `app-config.production.yaml`:
+    - type: url
+      target: "https://raw.githubusercontent.com/broadinstitute/backstage/refs/heads/${BRANCH_NAME}/backstage/templates/scaffolder/pr-with-catalog-entry/template.yaml"
+      rules:
+        - allow: [Template]
 
-        - type: file
-          target: ../../templates/scaffolder/terraform-with-terragrunt/template.yaml
-          rules:
-              - allow: [Template]
+    - type: url
+      target: "https://raw.githubusercontent.com/broadinstitute/backstage/refs/heads/${BRANCH_NAME}/backstage/templates/scaffolder/terraform-control-module/template.yaml"
+      rules:
+        - allow: [Template]
 
-        - type: file
-          target: ../../templates/scaffolder/terraform-storage-transfer/template.yaml
-          rules:
-              - allow: [Template]
+    - type: file
+      target: "https://raw.githubusercontent.com/broadinstitute/backstage/refs/heads/${BRANCH_NAME}/backstage/templates/scaffolder/terraform-with-terragrunt/template.yaml"
+      rules:
+        - allow: [Template]
+
+    - type: file
+      target: "https://raw.githubusercontent.com/broadinstitute/backstage/refs/heads/${BRANCH_NAME}/backstage/templates/scaffolder/terraform-storage-transfer/template.yaml"
+      rules:
+        - allow: [Template]
 
         - type: file
           target: ../../examples/entities.yaml
