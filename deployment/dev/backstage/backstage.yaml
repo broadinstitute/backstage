@@ -43,6 +43,8 @@ spec:
               value: https://backstage-dev.broadinstitute.org # kpt-set: ${backstage_application_base_url}
             - name: PD_ACCOUNT_SUBDOMAIN
               value: broadinstitute
+            - name: BRANCH_NAME
+              value: chores-plugins # kpt-set: ${branch_name}
           envFrom:
             - secretRef:
                 name: auth-google-client-id
