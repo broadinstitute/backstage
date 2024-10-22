@@ -250,7 +250,15 @@ spec:
                   type: string
 
   steps:
-    - $yaml: ../defaults/pagerduty.yaml
+    - id: pagerdutyService
+      name: Create PagerDuty Service
+      if: ${{ parameters.createPagerduty }}
+      action: pagerduty:service:create
+      input:
+        name: ${{ parameters.name }}
+        description: ${{ parameters.description }}
+        escalationPolicyId: ${{ parameters.escalationPolicyId }}
+        alertGrouping: ${{ parameters.alertGrouping }}
 
     - id: fetchTemplate
       name: Fetch Template
@@ -282,10 +290,30 @@ spec:
           addLink: ${{ parameters.addLink }}
 
     # This step publishes the contents of the working directory to GitHub.
-    - $yaml: ../defaults/publish.yaml
+    - id: publish
+      name: Publish
+      action: publish:github
+      input:
+        allowedHosts: ['github.com']
+        description: ${{ parameters.description }}
+        repoUrl: ${{ parameters.repoUrl }}
+        repoVisibility: ${{ parameters.visibility }}
+        access: >-
+          ${{ parameters.repoUrl | parseRepoUrl | pick('owner') }}/${{ parameters.githubTeam | parseEntityRef | pick('name') }}
+        defaultBranch: main
+        requireCodeOwnerReviews: true
+        allowMergeCommit: true
+        allowSquashMerge: true
+    # Add many steps here
+
 
     # The final step is to register our new component in the catalog.
-    - $yaml: ../defaults/register.yaml
+    - id: register
+      name: Register
+      action: catalog:register
+      input:
+        repoContentsUrl: ${{ steps['publish'].output.repoContentsUrl }}
+        catalogInfoPath: '/catalog-info.yaml'
 
   # Outputs are displayed to the user after a successful execution of the template.
   output:
