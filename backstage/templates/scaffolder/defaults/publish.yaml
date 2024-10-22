@@ -1,8 +1,9 @@
 id: publish
-name: Publish1
+name: Publish to Github
 action: publish:github
 input:
-  allowedHosts: ['github.com']
+  allowedHosts:
+    - github.com
   description: ${{ parameters.description }}
   repoUrl: ${{ parameters.repoUrl }}
   repoVisibility: ${{ parameters.visibility }}
@@ -10,3 +11,5 @@ input:
     ${{ parameters.repoUrl | parseRepoUrl | pick('owner') }}/${{ parameters.githubTeam | parseEntityRef | pick('name') }}
   defaultBranch: main
   requireCodeOwnerReviews: true
+  allowMergeCommit: true
+  allowSquashMerge: true

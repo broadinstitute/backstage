@@ -79,6 +79,18 @@ steps:
       - '--'
       - 'environment=dev'
 
+  # kpt fn eval --image gcr.io/kpt-fn/apply-setters:v0.2.0 -- branch_name=$BRANCH_NAME
+  - id: kpt-apply-setters
+    name: 'gcr.io/kpt-dev/kpt:v1.0.0-beta.48'
+    args:
+      - 'fn'
+      - 'eval'
+      - 'deployment/dev/${_APP}'
+      - '--image'
+      - 'gcr.io/kpt-fn/apply-setters:v0.2.0'
+      - '--'
+      - 'branch_name=${BRANCH_NAME}'
+
   # gke-deploy server side Dry Run on the dev cluster.
   - id: gke-deploy-dry-run
     name: "gcr.io/cloud-builders/gke-deploy"
@@ -99,6 +111,7 @@ steps:
     args:
       - 'run'
       - '--recursive'
+      - '--timeout=10m'
       - '--filename=deployment/dev/${_APP}'
       - '--location=${LOCATION}'
       - '--project=${PROJECT_ID}-dev'
@@ -120,6 +133,8 @@ steps:
       - '--project=${PROJECT_ID}'
       - '--cluster=gke-autopilot-01-prod'
 #       # - '--verbose'
+options:
+  machineType: 'E2_HIGHCPU_8'
 
 availableSecrets:
   secretManager:

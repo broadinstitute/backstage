@@ -167,5 +167,6 @@ backend.add(githubOrgModule);
 
 // Custom auth provider
 backend.add(customAuth);
+backend.add(import('@pagerduty/backstage-plugin-backend'));
 
 backend.start();

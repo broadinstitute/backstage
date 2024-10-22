@@ -15,7 +15,7 @@ metadata:
   annotations:
     backstage.io/kubernetes-id: backstage
     backstage.io/kubernetes-namespace: backstage
-    pagerduty.com/integration-key: 7745a85d395d4409d098c6a10a8cc952
+    pagerduty.com/integration-key: b14f2c8afb49400bd0ddb48d216ada5a
     github.com/project-slug: broadinstitute/backstage
     google.com/cloudbuild-project-slug: bits-gke-clusters
     google.com/cloudbuild-repo-name: backstage
