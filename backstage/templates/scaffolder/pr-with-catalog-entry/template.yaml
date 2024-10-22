@@ -137,7 +137,8 @@ spec:
     - id: fetchTemplate
       action: fetch:template
       input:
-        url: "https://raw.githubusercontent.com/broadinstitute/backstage/refs/heads/${BRANCH_NAME}/backstage/templates/scaffolder/pr-with-catalog-entry/content"
+        #url: "https://raw.githubusercontent.com/broadinstitute/backstage/refs/heads/${BRANCH_NAME}/backstage/templates/scaffolder/pr-with-catalog-entry/content"
+        url: ./content
         values:
           name: ${{ parameters.name }}
           description: ${{ parameters.description | dump }}
