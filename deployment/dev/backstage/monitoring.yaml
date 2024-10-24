@@ -1,0 +1,16 @@
+apiVersion: monitoring.googleapis.com/v1
+kind: PodMonitoring
+metadata:
+  name: backstage
+  namespace: backstage
+  labels:
+    backstage.io/kubernetes-id: backstage
+    app.kubernetes.io/managed-by: gcp-cloud-build-deploy
+    environment: dev
+spec:
+  selector:
+    matchLabels:
+      app: backstage
+  endpoints:
+  - port: 9464
+    interval: 30s
