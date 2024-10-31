@@ -62,28 +62,23 @@ catalog:
       rules:
         - allow: [Location, Domain]
 
-    # Import Add Backstage template from a file - todo: stop putting this in the container and use a URL
-    - type: file
-      target: "https://raw.githubusercontent.com/broadinstitute/backstage/refs/heads/${BRANCH_NAME}/backstage/templates/scaffolder/pr-with-catalog-entry/template.yaml"
-      # target: ../../templates/scaffolder/pr-with-catalog-entry/template.yaml
+    - type: url
+      target: "https://github.com/broadinstitute/backstage/blob/${BRANCH_NAME}/backstage/templates/scaffolder/pr-with-catalog-entry/template.yaml"
       rules:
         - allow: [Template]
 
-    - type: file
-      # target: "https://raw.githubusercontent.com/broadinstitute/backstage/refs/heads/${BRANCH_NAME}/backstage/templates/scaffolder/terraform-control-module/template.yaml"
-      target: ../../templates/scaffolder/terraform-control-module/template.yaml
+    - type: url
+      target: "https://github.com/broadinstitute/backstage/blob/${BRANCH_NAME}/backstage/templates/scaffolder/terraform-control-module/template.yaml"
       rules:
         - allow: [Template]
 
-    - type: file
-      # target: "https://raw.githubusercontent.com/broadinstitute/backstage/refs/heads/${BRANCH_NAME}/backstage/templates/scaffolder/terraform-with-terragrunt/template.yaml"
-      target: ../../templates/scaffolder/terraform-with-terragrunt/template.yaml
+    - type: url
+      target: "https://github.com/broadinstitute/backstage/blob/${BRANCH_NAME}/backstage/templates/scaffolder/terraform-with-terragrunt/template.yaml"
       rules:
         - allow: [Template]
 
-    - type: file
-      # target: "https://raw.githubusercontent.com/broadinstitute/backstage/refs/heads/${BRANCH_NAME}/backstage/templates/scaffolder/terraform-storage-transfer/template.yaml"
-      target: ../../templates/scaffolder/terraform-storage-transfer/template.yaml
+    - type: url
+      target: "https://github.com/broadinstitute/backstage/blob/${BRANCH_NAME}/backstage/templates/scaffolder/terraform-storage-transfer/template.yaml"
       rules:
         - allow: [Template]
 

@@ -197,29 +197,9 @@ spec:
           title: ${{ parameters.title }}
           addLink: ${{ parameters.addLink }}
 
-    - id: publish
-      name: Publish to Github
-      action: publish:github
-      input:
-        allowedHosts:
-          - github.com
-        description: ${{ parameters.description }}
-        repoUrl: ${{ parameters.repoUrl }}
-        repoVisibility: ${{ parameters.visibility }}
-        access: >-
-          ${{ parameters.repoUrl | parseRepoUrl | pick('owner') }}/${{ parameters.githubTeam | parseEntityRef | pick('name') }}
-        defaultBranch: main
-        requireCodeOwnerReviews: true
-        allowMergeCommit: true
-        allowSquashMerge: true
+    - $yaml: ../defaults/steps/publish.yaml
 
-
-    - id: register
-      name: Register the resource to Backstage
-      action: catalog:register
-      input:
-        repoContentsUrl: ${{ steps['publish'].output.repoContentsUrl }}
-        catalogInfoPath: '/catalog-info.yaml'
+    - $yaml: ../defaults/steps/register.yaml
 
   output:
     links:

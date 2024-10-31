@@ -1,0 +1,66 @@
+title: Backstage Resource Information
+required:
+  - name
+  - description
+  - type
+  - lifecycle
+properties:
+  name:
+    title: Name
+    type: string
+    description: >-
+      A unique identifier for the component. This is how it will be
+      identified in Backstage.
+  title:
+    title: Title
+    type: string
+    description: >-
+      This is a human-readable name for easier discoverability Backstage.
+      If not provided, the name will be used as the title.
+  description:
+    title: Description
+    type: string
+    description: >-
+      This will be viewable in the resource overview in Backstage.
+  type:
+    title: Component type
+    type: string
+    default: service
+    enum:
+      - service
+      - website
+      - resource
+      - documentation
+      - library
+      - API
+    description: >-
+      A high-level category for sorting resources in Backstage.
+  lifecycle:
+    title: Lifecycle phase.
+    type: string
+    default: production
+    enum:
+      - production
+      - experimental
+      - deprecated
+    description: >-
+      A tag describing if/how the component is being used.
+  system:
+    title: System
+    type: string
+    description: >-
+      A system is a collection of resources and components that share a
+      common purpose such as "search", "payments", or "infrastructure".
+      It should be a pre-existing resource in Backstage. If you don't
+      know what to put here, leave it blank.
+  tags:
+    title: List of tags
+    type: array
+    default:
+      - gcp
+      - terraform
+    items:
+      type: string
+      title: Backstage Tags
+    description: >-
+      Arbitrary strings to better sort and find resources in Backstage.
