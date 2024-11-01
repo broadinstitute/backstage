@@ -88,6 +88,14 @@ catalog:
         - allow: [Template]
 
   providers:
+    githubOrg:
+      - id: production
+        githubUrl: https://github.com
+        orgs: ['broadinstitute']
+        schedule:
+          initialDelay: PT30S
+          frequency: PT1H
+          timeout: PT5M
     github:
       # the provider ID can be any camelCase string
       providerId:
