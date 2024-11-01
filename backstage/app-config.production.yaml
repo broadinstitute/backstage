@@ -99,11 +99,9 @@ catalog:
           repository: '.*'  # Regex
         schedule:  # same options as in TaskScheduleDefinition
           # supports cron, ISO duration, "human duration" as used in code
-          frequency:
-            minutes: 35
+          frequency: PT30M
           # supports ISO duration, "human duration" as used in code
-          timeout:
-            minutes: 3
+          timeout: PT3M
       importDSP:
         organization: 'broadinstitute'  # string
         catalogPath: '/foundation.yaml'  # string
@@ -113,11 +111,9 @@ catalog:
           repository: '.*'  # Regex
         schedule:  # same options as in TaskScheduleDefinition
           # supports cron, ISO duration, "human duration" as used in code
-          frequency:
-            minutes: 65
+          frequency: PT90M
           # supports ISO duration, "human duration" as used in code
-          timeout:
-            minutes: 3
+          timeout: PT3M
 pagerDuty:
   oauth:
     clientId: ${PD_CLIENT_ID}
