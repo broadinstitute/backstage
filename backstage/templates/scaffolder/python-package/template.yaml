@@ -1,0 +1,171 @@
+---
+apiVersion: scaffolder.backstage.io/v1beta3
+kind: Template
+metadata:
+  name: python-package
+  title: Create a pip-installable Python package
+  description: >-
+    This template provides a skeleton for a standard Python package along with
+    devnull-standard CI tooling.
+  tags:
+    - python
+
+spec:
+  owner: group:devnull
+  type: service
+  parameters:
+    - title: Backstage Resource Information
+      required:
+        - name
+        - description
+        - type
+        - lifecycle
+      properties:
+        name:
+          title: Name
+          type: string
+          description: >-
+            A unique identifier for the component. This is how it will be
+            identified in Backstage.
+        title:
+          title: Title
+          type: string
+          description: >-
+            This is a human-readable name for easier discoverability Backstage.
+            If not provided, the name will be used as the title.
+        description:
+          title: Description
+          type: string
+          description: >-
+            This will be viewable in the resource overview in Backstage.
+        type:
+          title: Component type
+          type: string
+          default: service
+          enum:
+            - service
+            - website
+            - resource
+            - documentation
+            - library
+            - API
+          description: >-
+            A high-level category for sorting resources in Backstage.
+        lifecycle:
+          title: Lifecycle phase
+          type: string
+          default: production
+          enum:
+            - production
+            - experimental
+            - deprecated
+          description: >-
+            A tag describing if/how the component is being used.
+        system:
+          title: System
+          type: string
+          description: >-
+            A system is a collection of resources and components that share a
+            common purpose such as "search", "payments", or "infrastructure".
+            It should be a pre-existing resource in Backstage. If you don't
+            know what to put here, leave it blank.
+        tags:
+          title: List of tags
+          type: array
+          default:
+            - python
+          items:
+            type: string
+            title: Backstage Tags
+          description: >-
+            Arbitrary strings to better sort and find resources in Backstage.
+
+    - title: CI settings
+      required:
+        - author
+      properties:
+        author:
+          title: Package Author
+          type: string
+          description: >-
+            Name of the person or group maintaining this package.
+        pypiRepository:
+          title: PyPI Repository
+          type: string
+          description: >-
+            Name of the repository to publish the package to. This is an
+            arbitrary identifier -- the only real requirement is that it match
+            the value locally configured with poetry.
+
+    - title: Github settings
+      required:
+        - githubTeam
+        - repoUrl
+      properties:
+        githubTeam:
+          title: GitHub Team
+          type: string
+          ui:field: OwnerPicker
+          description: The GitHub team that owns the repository.
+          ui:options:
+            catalogFilter:
+              - kind: Group
+                spec.type: team
+        repoUrl:
+          title: Repository Location
+          type: string
+          ui:field: RepoUrlPicker
+          default: github.com?owner=broadinstitute
+          ui:options:
+            allowedHosts:
+              - github.com
+            allowedOwners:
+              - broadinstitute
+
+        visibility:
+          title: Repo Visibility
+          type: string
+          description: >-
+            Should people outside of the Broad be able to see this repo? If
+            you're unsure, please err on the side of caution and leave this
+            setting as 'Private'. It can be changed later.
+          default: private
+          enum:
+            - public
+            - private
+          enumNames:
+            - Public
+            - Private
+
+  steps:
+    - id: fetchTemplate
+      name: Generate Template
+      action: fetch:template
+      input:
+        url: ./content
+        values:
+          name: ${{ parameters.name }}
+          description: ${{ parameters.description | dump }}
+          owner: ${{ parameters.githubTeam | parseEntityRef | pick('name') }}
+          tags: ${{ parameters.tags }}
+          type: ${{ parameters.type }}
+          system: ${{ parameters.system }}
+          lifecycle: ${{ parameters.lifecycle }}
+          author: ${{ parameters.author }}
+          pypiRepository: ${{ parameters.pypiRepository }}
+          githubRepo: ${{ parameters.repoUrl | parseRepoUrl | pick('repo') }}
+          githubOrg: ${{ parameters.repoUrl | parseRepoUrl | pick('owner') }}
+          title: ${{ parameters.title }}
+          addLink: ${{ parameters.addLink }}
+
+    - $yaml: ../defaults/steps/publish.yaml
+
+    - $yaml: ../defaults/steps/register.yaml
+
+  output:
+    links:
+      - title: Repository
+        url: ${{ steps['publish'].output.remoteUrl }}
+      - title: Open in catalog
+        icon: catalog
+        entityRef: ${{ steps['register'].output.entityRef }}
