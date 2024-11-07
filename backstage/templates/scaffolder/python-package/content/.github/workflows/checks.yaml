@@ -1,0 +1,11 @@
+---
+name: checks
+
+"on":
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  python-make-ci:
+    uses: broadinstitute/shared-workflows/.github/workflows/python-make-ci.yaml@v2.2.0

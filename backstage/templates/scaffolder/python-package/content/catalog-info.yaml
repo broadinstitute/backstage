@@ -1,0 +1,28 @@
+---
+apiVersion: backstage.io/v1alpha1
+kind: {% if values.type == 'API' -%}${{ values.type }}{%elif values.type == 'resource' -%}${{ values.type | capitalize }}{% else -%}Component{% endif %}
+metadata:
+  name: ${{ values.name }}
+  title: {% if values.title -%}${{ values.title | dump }}{% else -%}${{ values.name | replace(" ", "-") | lower}}{% endif %}
+  description: ${{ values.description }}
+{%- if values.addLink %}
+  links:
+    - url: ${{ values.addLink }}
+      title: ${{ values.name }}
+      icon: dashboard
+{%- endif -%}
+{%- if(values.tags.length) %}
+  tags:
+  {%- for tag in values.tags %}
+    - ${{ tag }}
+  {%- endfor %}
+{%- endif %}
+  annotations:
+    github.com/project-slug: ${{ values.githubOrg }}/${{ values.githubRepo }}
+    backstage.io/techdocs-ref: dir:.
+spec:
+  type: ${{ values.type }}
+  owner: ${{ values.owner }}
+  lifecycle: ${{ values.lifecycle }}
+  {% if values.system %}system: ${{ values.system }}
+  {% endif -%}
