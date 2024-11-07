@@ -1,0 +1,35 @@
+FROM docker.io/node:bookworm AS prettier-install
+RUN yarn add prettier@3
+
+FROM docker.io/python:bookworm
+
+ARG LOCAL_BIN=/root/.local/bin
+ARG WORKDIR=/${{ values.name }}
+ARG PACKAGE_NAME=${{ values.name | replace("-", "_") }}
+ENV PATH=$LOCAL_BIN:$PATH
+WORKDIR $WORKDIR
+VOLUME $WORKDIR
+
+# Install poetry
+RUN curl -sSL https://install.python-poetry.org | python -
+# Install prettier
+COPY --from=prettier-install /usr/local/bin/node $LOCAL_BIN
+COPY --from=prettier-install /node_modules/prettier /prettier
+RUN ln -s /prettier/bin/prettier.cjs $LOCAL_BIN/prettier
+
+# Specific files/directories are copied in separately to optimize the order of
+# cached layers since this is a development container, intended to be rebuilt
+# often.
+COPY Makefile $WORKDIR
+# Cache dependencies seperately from the actual package to speed up dev cycles
+COPY pyproject.toml poetry.lock $WORKDIR
+RUN poetry install --no-root --no-directory
+# Cache pyright's built-in node installation
+# The output is a little cludgy but we shouldn't supress it in case something
+# goes wrong.
+RUN poetry run pyright --help
+
+COPY tests $WORKDIR/tests
+COPY docs $WORKDIR/docs
+COPY $PACKAGE_NAME $WORKDIR/$PACKAGE_NAME
+RUN poetry install

@@ -1,0 +1,19 @@
+---
+version: 2
+updates:
+  - package-ecosystem: github-actions
+    directory: /
+    groups:
+      actions:
+        patterns:
+          - "*"
+    schedule:
+      interval: weekly
+  - package-ecosystem: pip
+    directory: /
+    groups:
+      pip:
+        patterns:
+          - "*"
+    schedule:
+      interval: weekly
