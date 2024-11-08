@@ -145,7 +145,7 @@ spec:
         url: ./content
         values:
           name: ${{ parameters.name }}
-          description: ${{ parameters.description | dump }}
+          description: ${{ parameters.description }}
           owner: ${{ parameters.githubTeam | parseEntityRef | pick('name') }}
           tags: ${{ parameters.tags }}
           type: ${{ parameters.type }}
