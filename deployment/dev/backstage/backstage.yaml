@@ -109,6 +109,7 @@ spec:
               port: 5432
             initialDelaySeconds: 30
             periodSeconds: 30
+	   # to avoid restarting the pod on frequent transient failures.
             failureThreshold: 6
           securityContext:
             # The default Cloud SQL Auth Proxy image runs as the
