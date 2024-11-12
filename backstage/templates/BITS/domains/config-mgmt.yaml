@@ -1,0 +1,18 @@
+---
+apiVersion: backstage.io/v1alpha1
+kind: Domain
+metadata:
+  name: config-mgmt
+  description: >-
+    Provide a library of software, reference architecture,
+    and recommended practice. We provide consultation, and
+    Software Modules. (Terraform Module, Ansible Playbooks, Puppet Modules)
+  title: "Configuration Managment"
+  tags:
+  - tools
+
+  annotations:
+    backstage.io/managed-by: backstage
+spec:
+  owner: devnull
+  lifecycle: production

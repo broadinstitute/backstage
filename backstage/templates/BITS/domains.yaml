@@ -7,13 +7,16 @@ metadata:
 spec:
   type: file
   targets:
-    - ./domains/monitoring.yaml
     - ./domains/automation.yaml
-    - ./domains/containers.yaml
-    - ./domains/infrastructure-tools.yaml
-    - ./domains/orchestration.yaml
-    - ./domains/virtualization.yaml
+    - ./domains/ci-cd.yaml
     - ./domains/cloud.yaml
+    - ./domains/containers.yaml
+    - ./domains/config-mgmt.yaml
     - ./domains/hpc.yaml
+    - ./domains/infrastructure-tools.yaml
     - ./domains/monitoring.yaml
+    - ./domains/orchestration.yaml
+    - ./domains/platform-eng.yaml
     - ./domains/server-operating-systems.yaml
+    - ./domains/scientific-software.yaml
+    - ./domains/virtualization.yaml

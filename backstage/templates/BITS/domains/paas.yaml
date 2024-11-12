@@ -1,0 +1,18 @@
+---
+apiVersion: backstage.io/v1alpha1
+kind: Domain
+metadata:
+  name: paas
+  description: >-
+    PaaS which replaces "Cloud" includes managing the Hosted Platforms
+    that we buy for example, GitHub, GCP, and so on.
+  title: "Platforms as a  Service"
+  tags:
+  - tools
+  - software
+
+  annotations:
+    backstage.io/managed-by: backstage
+spec:
+  owner: devnull
+  lifecycle: production
