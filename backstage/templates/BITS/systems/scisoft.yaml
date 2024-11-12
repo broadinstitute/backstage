@@ -1,0 +1,18 @@
+---
+apiVersion: backstage.io/v1alpha1
+kind: Domain
+metadata:
+  name: scisoft
+  description: >-
+    Spack software packaging pipeline used in high-performance computing (HPC) applications.
+  title: "Scientific Software"
+  tags:
+  - software
+  - hpc
+
+  annotations:
+    backstage.io/managed-by: backstage
+spec:
+  owner: devnull
+  domain: scientific-software
+  lifecycle: production

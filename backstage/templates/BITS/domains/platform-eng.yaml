@@ -1,0 +1,17 @@
+---
+apiVersion: backstage.io/v1alpha1
+kind: Domain
+metadata:
+  name: platform-eng
+  description: >-
+    Technology platforms supporting the needs of diverse development and operations teams.
+  title: "Platforms Engineering"
+  tags:
+  - tools
+  - software
+
+  annotations:
+    backstage.io/managed-by: backstage
+spec:
+  owner: devnull
+  lifecycle: production

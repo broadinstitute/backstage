@@ -1,0 +1,17 @@
+---
+apiVersion: backstage.io/v1alpha1
+kind: Domain
+metadata:
+  name: scientific-software
+  description: >-
+    Scientific software used in high-performance computing (HPC) applications.
+  title: "Scientific Software"
+  tags:
+  - software
+  - hpc
+
+  annotations:
+    backstage.io/managed-by: backstage
+spec:
+  owner: devnull
+  lifecycle: production
