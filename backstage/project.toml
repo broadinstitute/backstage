@@ -16,3 +16,15 @@ exclude = [
     "op.bash",
     "examples",
 ]
+
+[[io.buildpacks.group]]
+id = "google.nodejs.runtime"
+
+[[io.buildpacks.group]]
+id = "google.nodejs.yarn"
+
+[[io.buildpacks.group]]
+id = "google.config.entrypoint"
+
+[[io.buildpacks.group]]
+id = "google.utils.label-image"
