@@ -1,0 +1,16 @@
+---
+apiVersion: backstage.io/v1alpha1
+kind: Domain
+metadata:
+  name: ci-cd
+  description: "CI/CD Pipelines, providing common patterns, tools, and workflows for users , allowing them to build, deploy, and test software and infrastructure."
+  title: "CI/CD"
+  tags:
+  - tools
+  - software
+
+  annotations:
+    backstage.io/managed-by: backstage
+spec:
+  owner: devnull
+  lifecycle: production

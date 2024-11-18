@@ -7,7 +7,8 @@ metadata:
 spec:
   type: url
   targets:
-    - ./systems/kubernetes.yaml
     - ./systems/hpc-comm.yaml
     - ./systems/hpc-drag.yaml
+    - ./systems/kubernetes.yaml
+    - ./systems/scisoft.yaml
     - ./systems/seqprod.yaml
