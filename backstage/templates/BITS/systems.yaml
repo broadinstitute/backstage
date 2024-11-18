@@ -10,5 +10,5 @@ spec:
     - ./systems/hpc-comm.yaml
     - ./systems/hpc-drag.yaml
     - ./systems/kubernetes.yaml
-    - ./syystems/scisoft.yaml
+    - ./systems/scisoft.yaml
     - ./systems/seqprod.yaml
