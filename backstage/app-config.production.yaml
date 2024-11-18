@@ -82,6 +82,11 @@ catalog:
       rules:
         - allow: [Template]
 
+    - type: url
+      target: "https://github.com/broadinstitute/backstage/blob/${BRANCH_NAME}/backstage/templates/scaffolder/python-package/template.yaml"
+      rules:
+        - allow: [Template]
+
   providers:
     githubOrg:
       - id: production
@@ -122,3 +127,9 @@ pagerDuty:
     clientId: ${PD_CLIENT_ID}
     clientSecret: ${PD_CLIENT_SECRET}
     subDomain: ${PD_ACCOUNT_SUBDOMAIN}
+
+integrations:
+  github:
+    - host: github.com
+      apps:
+        - $include: github-app-backstage-bits-credentials.yaml
