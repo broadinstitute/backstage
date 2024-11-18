@@ -7,15 +7,15 @@ terraform {
   required_providers {
     google = {
       source  = "hashicorp/google"
-      version = "5.39.1"
+      version = "6.11.2"
     }
     google-beta = {
       source  = "hashicorp/google-beta"
-      version = "5.39.1"
+      version = "6.11.2"
     }
     postgresql = {
       source  = "cyrilgdn/postgresql"
-      version = "1.21.0"
+      version = "1.24.0"
     }
   }
 }
