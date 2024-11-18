@@ -75,25 +75,6 @@ spec:
 
         # The Annotation Parameters can probably be replaced with this at some point
         # https://backstage.io/docs/features/software-templates/input-examples/#boolean-multiple-options
-        kubernetesAnnotation:
-          title: Kubernetes Annotation (optional)
-          type: boolean
-          default: false
-          description: |
-            Add Backstage annotation for the Kubernetes resource. This is used to
-            [identify the resource in Kubernetes]
-            (https://backstage.io/docs/features/kubernetes/configuration#surfacing-your-kubernetes-components-as-part-of-an-entity).
-            If true, the annotation will be added to the Kubernetes resource using the "name" field. Default is false.
-
-        cloudbuildAnnotation:
-          title: Cloud Build Annotation (optional)
-          type: boolean
-          default: false
-          description: |
-            Add Backstage annotation for the Cloud Build resource. This is used to
-            [identify the resource in Cloud Build]
-            (https://github.com/backstage/backstage/tree/master/plugins/cloudbuild#add-annotations-to-your-component-infoyaml-file).
-            If true, the annotation will be added to the Cloud Build resource using the "name" field. Default is false.
 
         addLink: # make this an optional boolean that populates an object
           title: Add a URL (optional)
@@ -102,7 +83,53 @@ spec:
           description: |
             Add a default [URL](https://backstage.io/docs/features/software-catalog/descriptor-format/#links-optional).
             If empty no link block will be added.
+
+        addAnnotations:
+          title: Add misc
+          type: boolean
+          default: false
+          description: |
+            foo
+
       dependencies:
+        addAnnotations:
+          allOf:
+            - if:
+                properties:
+                  addAnnotations:
+                    enum:
+                      - true
+              then:
+                properties:
+                  techDocsAnnotation:
+                    title: Techdocs Annotation (optional)
+                    type: boolean
+                    default: false
+                    description: |
+                      Add Backstage annotation for TechDocs. This is used to
+                      generate docs in backstage based on markdown files in the `docs`
+                      directory in the root of the repo.
+
+                  kubernetesAnnotation:
+                    title: Kubernetes Annotation (optional)
+                    type: boolean
+                    default: false
+                    description: |
+                      Add Backstage annotation for the Kubernetes resource. This is used to
+                      [identify the resource in Kubernetes]
+                      (https://backstage.io/docs/features/kubernetes/configuration#surfacing-your-kubernetes-components-as-part-of-an-entity).
+                      If true, the annotation will be added to the Kubernetes resource using the "name" field. Default is false.
+
+                  cloudbuildAnnotation:
+                    title: Cloud Build Annotation (optional)
+                    type: boolean
+                    default: false
+                    description: |
+                      Add Backstage annotation for the Cloud Build resource. This is used to
+                      [identify the resource in Cloud Build]
+                      (https://github.com/backstage/backstage/tree/master/plugins/cloudbuild#add-annotations-to-your-component-infoyaml-file).
+                      If true, the annotation will be added to the Cloud Build resource using the "name" field. Default is false.
+
         addLink:
           allOf:
             - if:
@@ -184,7 +211,6 @@ spec:
 
             annotations:
               github.com/project-slug: ${{ parameters.repoUrl | parseRepoUrl | pick('owner') }}/${{ parameters.repoUrl | parseRepoUrl | pick('repo') }}
-              backstage.io/techdocs-ref: dir:.
 
           spec:
             type: ${{ parameters.type | lower }}
@@ -194,6 +220,23 @@ spec:
     #         domain: ${{ parameters.domain }} # todo set to a default value
 
 # Add annotations to the catalog-info.yaml file if the user has selected to add them
+
+    - id: techdocsAnnotation
+      name: Add TechDocs Annotation
+      action: roadiehq:utils:jsonata:yaml:transform
+      if: ${{ parameters.techDocsAnnotation == true }}
+      input:
+        path: catalog-info.yaml
+        expression: '$ ~> | $ | { "metadata": { "annotations": $merge([metadata.annotations, { "backstage.io/techdocs-ref": "dir:." }]) } } |'
+
+    - id: docsWriteFile
+      name: Add TechDocs Annotation
+      action: roadiehq:utils:fs:write
+      if: ${{ parameters.techDocsAnnotation == true }}
+      input:
+        path: catalog-info.yaml
+        content: ${{ steps['techdocsAnnotation'].output.result }}
+
 
     - id: kubernetesAnnotation
       name: Kubernetes Annotation
