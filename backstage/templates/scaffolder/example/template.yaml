@@ -83,7 +83,7 @@ spec:
             type: string
             title: Backstage Tags
 
-        addLink: # make this an optional boolean that populates an object
+        addLink:
           title: Add a URL (optional)
           type: boolean
           default: false
@@ -183,7 +183,6 @@ spec:
             If you don't want to use the PagerDuty integration, leave the field blank.
           type: boolean
           default: false
-          # ui:widget: select
 
       dependencies:
         createPagerduty:
@@ -252,8 +251,8 @@ spec:
             type: ${{ parameters.type | lower }}
             lifecycle: ${{ parameters.lifecycle }}
             owner: ${{ parameters.githubTeam | parseEntityRef | pick('name') }}
-    #         system: ${{ parameters.system }}
-    #         domain: ${{ parameters.domain }} # todo set to a default value
+            system: ${{ parameters.system }}
+            domain: ${{ parameters.domain }}
 
 # Add annotations to the catalog-info.yaml file if the user has selected to add them
 
