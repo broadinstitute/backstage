@@ -73,8 +73,15 @@ spec:
             business purpose, or documentation. i.e. they form a bounded context.
             e.g. "search", "payments", "infrastructure", "data-platform"
 
-        # The Annotation Parameters can probably be replaced with this at some point
-        # https://backstage.io/docs/features/software-templates/input-examples/#boolean-multiple-options
+        tags:
+          title: List of tags (optional)
+          type: array
+          default:
+            - bits
+            - bits-tools
+          items:
+            type: string
+            title: Backstage Tags
 
         addLink: # make this an optional boolean that populates an object
           title: Add a URL (optional)
@@ -84,52 +91,7 @@ spec:
             Add a default [URL](https://backstage.io/docs/features/software-catalog/descriptor-format/#links-optional).
             If empty no link block will be added.
 
-        addAnnotations:
-          title: Add misc
-          type: boolean
-          default: false
-          description: |
-            foo
-
       dependencies:
-        addAnnotations:
-          allOf:
-            - if:
-                properties:
-                  addAnnotations:
-                    enum:
-                      - true
-              then:
-                properties:
-                  techDocsAnnotation:
-                    title: Techdocs Annotation (optional)
-                    type: boolean
-                    default: false
-                    description: |
-                      Add Backstage annotation for TechDocs. This is used to
-                      generate docs in backstage based on markdown files in the `docs`
-                      directory in the root of the repo.
-
-                  kubernetesAnnotation:
-                    title: Kubernetes Annotation (optional)
-                    type: boolean
-                    default: false
-                    description: |
-                      Add Backstage annotation for the Kubernetes resource. This is used to
-                      [identify the resource in Kubernetes]
-                      (https://backstage.io/docs/features/kubernetes/configuration#surfacing-your-kubernetes-components-as-part-of-an-entity).
-                      If true, the annotation will be added to the Kubernetes resource using the "name" field. Default is false.
-
-                  cloudbuildAnnotation:
-                    title: Cloud Build Annotation (optional)
-                    type: boolean
-                    default: false
-                    description: |
-                      Add Backstage annotation for the Cloud Build resource. This is used to
-                      [identify the resource in Cloud Build]
-                      (https://github.com/backstage/backstage/tree/master/plugins/cloudbuild#add-annotations-to-your-component-infoyaml-file).
-                      If true, the annotation will be added to the Cloud Build resource using the "name" field. Default is false.
-
         addLink:
           allOf:
             - if:
@@ -150,15 +112,40 @@ spec:
                         type: string
                         default: dashboard
 
-        tags:
-          title: List of tags (optional)
-          type: array
-          default:
-            - bits
-            - bits-tools
-          items:
-            type: string
-            title: Backstage Tags
+
+    - title: Add annotations
+      description: |
+        Add annotations to the catalog-info.yaml file to enable additional
+        functionality to your component.
+      properties:
+        techDocsAnnotation:
+          title: Techdocs Annotation (optional)
+          type: boolean
+          default: false
+          description: |
+            Add Backstage annotation for TechDocs. This is used to
+            generate docs in backstage based on markdown files in the `docs`
+            directory in the root of the repo.
+
+        kubernetesAnnotation:
+          title: Kubernetes Annotation (optional)
+          type: boolean
+          default: false
+          description: |
+            Add Backstage annotation for the Kubernetes resource. This is used to
+            [identify the resource in Kubernetes]
+            (https://backstage.io/docs/features/kubernetes/configuration#surfacing-your-kubernetes-components-as-part-of-an-entity).
+            If true, the annotation will be added to the Kubernetes resource using the "name" field. Default is false.
+
+        cloudbuildAnnotation:
+          title: Cloud Build Annotation (optional)
+          type: boolean
+          default: false
+          description: |
+            Add Backstage annotation for the Cloud Build resource. This is used to
+            [identify the resource in Cloud Build]
+            (https://github.com/backstage/backstage/tree/master/plugins/cloudbuild#add-annotations-to-your-component-infoyaml-file).
+            If true, the annotation will be added to the Cloud Build resource using the "name" field. Default is false.
 
     - title: Choose a location
       required:
@@ -186,11 +173,60 @@ spec:
             allowedOwners:
               - broadinstitute
 
-    - title: Integrations (optional)
+    - title: PagerDuty Integration (optional)
       properties:
-        pagerdutyIntegrationKey:
-          title: PagerDuty integration key
-          type: string
+        createPagerduty:
+          title: Create PagerDuty Service
+          description: >-
+            Check box to create a new PagerDuty service for this component.
+            If you already have a key, you can input it below.
+            If you don't want to use the PagerDuty integration, leave the field blank.
+          type: boolean
+          default: false
+          # ui:widget: select
+
+      dependencies:
+        createPagerduty:
+          oneOf:
+            - properties:
+                createPagerduty:
+                  enum:
+                    - true
+
+                escalationPolicyId:
+                  title: Escalation Policy ID
+                  type: string
+                  description: The ID of the escalation policy to associate with the service
+                  ui:field: SelectFieldFromApi
+                  ui:options:
+                    title: PagerDuty Escalation Policy
+                    description: Select an escalation policy from PagerDuty
+                    path: 'pagerduty/escalation_policies'
+                    labelSelector: 'label'
+                    valueSelector: 'value'
+                    placeholder: '---'
+                alertGrouping:
+                  title: Alert Grouping
+                  type: string
+                  description: Reduce noise by grouping similar alerts - Defaults to 'None'.
+                  enum:
+                    - 'time'
+                    - 'intelligent'
+                    - 'content_based'
+                  enumNames:
+                    - 'Time-based grouping'
+                    - 'Intelligent grouping'
+                    - 'Content-based grouping'
+
+
+            - properties:
+                createPagerduty:
+                  enum:
+                    - false
+                pagerdutyIntegrationKey:
+                  title: PagerDuty integration key
+                  description: This value is ignored if you selected "Yes" for the previous question.
+                  type: string
 
   steps:
     - action: catalog:write
@@ -269,6 +305,22 @@ spec:
       input:
         path: catalog-info.yaml
         content: ${{ steps['cloudbuildAnnotation'].output.result }}
+
+    - id: pagerDutyAnnotation
+      name: PagerDuty Annotation
+      action: roadiehq:utils:jsonata:yaml:transform
+      if: ${{ parameters.pagerdutyIntegrationKey !== null }}
+      input:
+        path: catalog-info.yaml
+        expression: '$ ~> | $ | { "metadata": { "annotations": $merge([metadata.annotations, { "pagerduty.com/integration-key": "${{ parameters.pagerdutyIntegrationKey }}", "google.com/cloudbuild-project-slug": "bits-gke-clusters", "google.com/cloudbuild-location": "us-east4" }]) } } |'
+
+    - id: pagerDutyWriteFile
+      name: Add PagerDuty Annotation
+      action: roadiehq:utils:fs:write
+      if: ${{ parameters.pagerdutyIntegrationKey != null }}
+      input:
+        path: catalog-info.yaml
+        content: ${{ steps['pagerDutyAnnotation'].output.result }}
 
     - action: debug:log
       id: write-workspace-directory
