@@ -1,4 +1,4 @@
-title: Integrations (optional)
+title: PagerDuty Integration (optional)
 properties:
   createPagerduty:
     title: Create PagerDuty Service
