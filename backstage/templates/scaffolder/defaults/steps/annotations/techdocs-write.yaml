@@ -1,6 +1,6 @@
 id: docsWriteFile
 name: Add TechDocs Annotation
-action: roadiehq:utils:fs:write
+action: roadiehq:utils:merge
 if: ${{ parameters.techDocsAnnotation == true }}
 input:
   path: catalog-info.yaml

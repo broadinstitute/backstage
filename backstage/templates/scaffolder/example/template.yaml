@@ -249,16 +249,14 @@ spec:
           kind: ${{ parameters.type if parameters.type == 'API' or parameters.type == 'Resource' else 'Component' }}
           metadata:
             name: ${{ parameters.name }}
-            description: ${{ values.description }}
+            description: ${{ parameters.description }}
             links:
               - url: ${{ parameters.link.url }}
                 title: ${{ parameters.link.title }}
                 icon: ${{ parameters.link.icon }}
             tags: ${{ parameters.tags }}
-
             annotations:
               github.com/project-slug: ${{ parameters.repoUrl | parseRepoUrl | pick('owner') }}/${{ parameters.repoUrl | parseRepoUrl | pick('repo') }}
-
           spec:
             type: ${{ parameters.type | lower }}
             lifecycle: ${{ parameters.lifecycle }}
@@ -269,7 +267,7 @@ spec:
     # Add annotations to the catalog-info.yaml file if the user has selected to add them
     # Start steps/annotations/<name>.yaml
     - id: techdocsAnnotation
-      name: Add TechDocs Annotation
+      name: TechDocs Annotation
       action: roadiehq:utils:jsonata:yaml:transform
       if: ${{ parameters.techDocsAnnotation == true }}
       input:
@@ -278,7 +276,7 @@ spec:
 
     - id: docsWriteFile
       name: Add TechDocs Annotation
-      action: roadiehq:utils:fs:write
+      action: roadiehq:utils:merge
       if: ${{ parameters.techDocsAnnotation == true }}
       input:
         path: catalog-info.yaml
@@ -294,7 +292,7 @@ spec:
 
     - id: kubeWriteFile
       name: Add Kubernetes Annotation
-      action: roadiehq:utils:fs:write
+      action: roadiehq:utils:merge
       if: ${{ parameters.kubernetesAnnotation == true }}
       input:
         path: catalog-info.yaml
@@ -310,7 +308,7 @@ spec:
 
     - id: cloudbuildWriteFile
       name: Add Cloud Build Annotation
-      action: roadiehq:utils:fs:write
+      action: roadiehq:utils:merge
       if: ${{ parameters.cloudbuildAnnotation == true }}
       input:
         path: catalog-info.yaml
@@ -326,7 +324,7 @@ spec:
 
     - id: pagerDutyWriteFile
       name: Add PagerDuty Annotation
-      action: roadiehq:utils:fs:write
+      action: roadiehq:utils:merge
       if: ${{ parameters.pagerdutyIntegrationKey != null }}
       input:
         path: catalog-info.yaml

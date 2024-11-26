@@ -7,7 +7,7 @@ input:
     kind: ${{ parameters.type if parameters.type == 'API' or parameters.type == 'Resource' else 'Component' }}
     metadata:
       name: ${{ parameters.name }}
-      description: ${{ values.description }}
+      description: ${{ parameters.description }}
       links:
         - url: ${{ parameters.link.url }}
           title: ${{ parameters.link.title }}
