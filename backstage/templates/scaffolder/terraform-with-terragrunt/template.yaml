@@ -24,7 +24,7 @@ spec:
   parameters:
     - $yaml: ../defaults/parameters/resource-info.yaml
     - $yaml: ../defaults/parameters/annotations.yaml
-    - title: Choose a location
+    - title: Github settings
       required:
         - githubTeam
         - repoUrl

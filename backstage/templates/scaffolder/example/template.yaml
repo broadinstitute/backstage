@@ -157,7 +157,7 @@ spec:
             If true, the annotation will be added to the Cloud Build resource using the "name" field. Default is false.
     # End parameters/annotations.yaml
 
-    - title: Choose a location
+    - title: Github settings
       required:
         - githubTeam
         - repoUrl
