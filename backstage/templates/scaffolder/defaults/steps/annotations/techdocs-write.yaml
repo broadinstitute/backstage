@@ -1,0 +1,7 @@
+id: docsWriteFile
+name: Add TechDocs Annotation
+action: roadiehq:utils:fs:write
+if: ${{ parameters.techDocsAnnotation == true }}
+input:
+  path: catalog-info.yaml
+  content: ${{ steps['techdocsAnnotation'].output.result }}

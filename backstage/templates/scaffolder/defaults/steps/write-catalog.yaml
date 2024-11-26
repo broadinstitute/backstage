@@ -1,0 +1,25 @@
+action: catalog:write
+id: create-catalog-info-file
+name: Create catalog file
+input:
+  entity:
+    apiVersion: backstage.io/v1alpha1
+    kind: ${{ parameters.type if parameters.type == 'API' or parameters.type == 'Resource' else 'Component' }}
+    metadata:
+      name: ${{ parameters.name }}
+      description: ${{ values.description }}
+      links:
+        - url: ${{ parameters.link.url }}
+          title: ${{ parameters.link.title }}
+          icon: ${{ parameters.link.icon }}
+      tags: ${{ parameters.tags }}
+
+      annotations:
+        github.com/project-slug: ${{ parameters.repoUrl | parseRepoUrl | pick('owner') }}/${{ parameters.repoUrl | parseRepoUrl | pick('repo') }}
+
+    spec:
+      type: ${{ parameters.type | lower }}
+      lifecycle: ${{ parameters.lifecycle }}
+      owner: ${{ parameters.githubTeam | parseEntityRef | pick('name') }}
+      system: ${{ parameters.system }}
+      domain: ${{ parameters.domain }}

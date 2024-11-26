@@ -239,7 +239,7 @@ spec:
                   type: string
     # End parameters/pagerduty.yaml
   steps:
-    # Start actions/write-catalog.yaml
+    # Start steps/write-catalog.yaml
     - action: catalog:write
       id: create-catalog-info-file
       name: Create catalog file
@@ -265,7 +265,9 @@ spec:
             owner: ${{ parameters.githubTeam | parseEntityRef | pick('name') }}
             system: ${{ parameters.system }}
             domain: ${{ parameters.domain }}
+    # End steps/write-catalog.yaml
     # Add annotations to the catalog-info.yaml file if the user has selected to add them
+    # Start steps/annotations/<name>.yaml
     - id: techdocsAnnotation
       name: Add TechDocs Annotation
       action: roadiehq:utils:jsonata:yaml:transform
@@ -281,7 +283,6 @@ spec:
       input:
         path: catalog-info.yaml
         content: ${{ steps['techdocsAnnotation'].output.result }}
-
 
     - id: kubernetesAnnotation
       name: Kubernetes Annotation
@@ -330,7 +331,7 @@ spec:
       input:
         path: catalog-info.yaml
         content: ${{ steps['pagerDutyAnnotation'].output.result }}
-    # End actions/write-catalog.yaml
+    # End steps/annotations/<name>.yaml
     # todo: delete the debug:log action
     - action: debug:log
       id: write-workspace-directory
