@@ -53,6 +53,14 @@ spec:
     - $yaml: ../defaults/steps/annotations/cloudbuild-write.yaml
     - $yaml: ../defaults/steps/annotations/pagerduty.yaml
     - $yaml: ../defaults/steps/annotations/pagerduty-write.yaml
+    - id: createPullRequest
+      name: createPullRequest
+      action: publish:github:pull-request
+      input:
+        repoUrl: ${{ parameters.repoUrl }}
+        branchName: backstage-integration
+        title: 'feat: Onboard service to Catalog'
+        description: This PR adds a metadata file about this service so that it can be registered in our software catalog.
 
   output:
     links:

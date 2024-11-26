@@ -339,6 +339,15 @@ spec:
       input:
         listWorkspace: true
 
+    - id: createPullRequest
+      name: createPullRequest
+      action: publish:github:pull-request
+      input:
+        repoUrl: ${{ parameters.repoUrl }}
+        branchName: backstage-integration
+        title: 'feat: Onboard service to Catalog'
+        description: This PR adds a metadata file about this service so that it can be registered in our software catalog.
+
   output:
     links:
       - title: View the pull request on GitHub

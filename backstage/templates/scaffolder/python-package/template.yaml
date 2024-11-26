@@ -14,72 +14,8 @@ spec:
   owner: group:devnull
   type: service
   parameters:
-    - title: Backstage Resource Information
-      required:
-        - name
-        - description
-        - type
-        - lifecycle
-      properties:
-        name:
-          title: Name
-          type: string
-          description: >-
-            A unique identifier for the component. This is how it will be
-            identified in Backstage.
-        title:
-          title: Title
-          type: string
-          description: >-
-            This is a human-readable name for easier discoverability Backstage.
-            If not provided, the name will be used as the title.
-        description:
-          title: Description
-          type: string
-          description: >-
-            This will be viewable in the resource overview in Backstage.
-        type:
-          title: Component type
-          type: string
-          default: service
-          enum:
-            - service
-            - website
-            - resource
-            - documentation
-            - library
-            - API
-          description: >-
-            A high-level category for sorting resources in Backstage.
-        lifecycle:
-          title: Lifecycle phase
-          type: string
-          default: production
-          enum:
-            - production
-            - experimental
-            - deprecated
-          description: >-
-            A tag describing if/how the component is being used.
-        system:
-          title: System
-          type: string
-          description: >-
-            A system is a collection of resources and components that share a
-            common purpose such as "search", "payments", or "infrastructure".
-            It should be a pre-existing resource in Backstage. If you don't
-            know what to put here, leave it blank.
-        tags:
-          title: List of tags
-          type: array
-          default:
-            - python
-          items:
-            type: string
-            title: Backstage Tags
-          description: >-
-            Arbitrary strings to better sort and find resources in Backstage.
-
+    - $yaml: ../defaults/parameters/resource-info.yaml
+    - $yaml: ../defaults/parameters/annotations.yaml
     - title: CI settings
       required:
         - author
@@ -146,20 +82,21 @@ spec:
         values:
           name: ${{ parameters.name }}
           description: ${{ parameters.description }}
-          owner: ${{ parameters.githubTeam | parseEntityRef | pick('name') }}
-          tags: ${{ parameters.tags }}
-          type: ${{ parameters.type }}
-          system: ${{ parameters.system }}
-          lifecycle: ${{ parameters.lifecycle }}
           author: ${{ parameters.author }}
           pypiRepository: ${{ parameters.pypiRepository }}
           githubRepo: ${{ parameters.repoUrl | parseRepoUrl | pick('repo') }}
           githubOrg: ${{ parameters.repoUrl | parseRepoUrl | pick('owner') }}
-          title: ${{ parameters.title }}
-          addLink: ${{ parameters.addLink }}
 
+    - $yaml: ../defaults/steps/write-catalog.yaml
+    - $yaml: ../defaults/steps/annotations/techdocs.yaml
+    - $yaml: ../defaults/steps/annotations/techdocs-write.yaml
+    - $yaml: ../defaults/steps/annotations/kubernetes.yaml
+    - $yaml: ../defaults/steps/annotations/kubernetes-write.yaml
+    - $yaml: ../defaults/steps/annotations/cloudbuild.yaml
+    - $yaml: ../defaults/steps/annotations/cloudbuild-write.yaml
+    - $yaml: ../defaults/steps/annotations/pagerduty.yaml
+    - $yaml: ../defaults/steps/annotations/pagerduty-write.yaml
     - $yaml: ../defaults/steps/publish.yaml
-
     - $yaml: ../defaults/steps/register.yaml
 
   output:
