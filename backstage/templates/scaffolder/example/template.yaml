@@ -239,6 +239,7 @@ spec:
                   type: string
     # End parameters/pagerduty.yaml
   steps:
+    # Start actions/write-catalog.yaml
     - action: catalog:write
       id: create-catalog-info-file
       name: Create catalog file
@@ -253,7 +254,7 @@ spec:
               - url: ${{ parameters.link.url }}
                 title: ${{ parameters.link.title }}
                 icon: ${{ parameters.link.icon }}
-            tags: ${{ parameters.tags }} # loop through a list of tags? #todo
+            tags: ${{ parameters.tags }}
 
             annotations:
               github.com/project-slug: ${{ parameters.repoUrl | parseRepoUrl | pick('owner') }}/${{ parameters.repoUrl | parseRepoUrl | pick('repo') }}
@@ -264,10 +265,7 @@ spec:
             owner: ${{ parameters.githubTeam | parseEntityRef | pick('name') }}
             system: ${{ parameters.system }}
             domain: ${{ parameters.domain }}
-            #todo: make system and domain optional pulldowns
-
-# Add annotations to the catalog-info.yaml file if the user has selected to add them
-
+    # Add annotations to the catalog-info.yaml file if the user has selected to add them
     - id: techdocsAnnotation
       name: Add TechDocs Annotation
       action: roadiehq:utils:jsonata:yaml:transform
@@ -332,6 +330,7 @@ spec:
       input:
         path: catalog-info.yaml
         content: ${{ steps['pagerDutyAnnotation'].output.result }}
+    # End actions/write-catalog.yaml
     # todo: delete the debug:log action
     - action: debug:log
       id: write-workspace-directory
