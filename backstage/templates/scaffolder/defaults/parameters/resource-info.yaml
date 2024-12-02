@@ -13,7 +13,7 @@ properties:
       identified in Backstage.
 
   title:
-    title: Title (optional)
+    title: Title
     type: string
     description: >-
       This is a human-readable name for easier discoverability Backstage.
@@ -51,7 +51,7 @@ properties:
       A tag describing if/how the component is being used.
 
   system:
-    title: System (optional)
+    title: System
     type: string
     description: >-
       A system is a collection of resources and components that share a
@@ -60,7 +60,7 @@ properties:
       know what to put here, leave it blank.
 
   domain:
-    title: Domain (optional)
+    title: Domain
     type: string
     description: >-
       The domain is collection of systems that share terminology, domain models, metrics, KPIs,
@@ -68,7 +68,7 @@ properties:
       e.g. "search", "payments", "infrastructure", "data-platform"
 
   tags:
-    title: List of tags (optional)
+    title: List of tags
     type: array
     description: >-
       Arbitrary strings to better sort and find resources in Backstage.
@@ -79,7 +79,7 @@ properties:
       title: Backstage Tags
 
   addLink:
-    title: Add a URL (optional)
+    title: Add a URL
     type: boolean
     default: false
     description: >-

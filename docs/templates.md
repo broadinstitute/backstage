@@ -3,7 +3,7 @@
 List of actions https://backstage.broadinstitute.org/create/actions
 
 Interactive Editor for Software Templates
-[!NOTE]
+***NOTE***
 The interactive editor does [not currently support placeholders](https://backstage.io/docs/features/software-templates/input-examples#use-placeholders-to-reference-remote-files:~:text=Testing%20of%20this%20functionality%20is%20not%20yet%20supported%20using%20create/edit.%20In%20addition%2C%20this%20functionality%20only%20works%20for%20remote%20files%20and%20not%20local%20files.%20You%20also%20cannot%20nest%20files.), so you will need to manually replace placeholders with the appropriate values.
 https://backstage.broadinstitute.org/create/edit
 
@@ -36,22 +36,24 @@ Example of a remote reference using `url` in `app-config.production.yaml`:
 If you want to reference software templates in your feature branch, so that you can test templates you'll need to add a `BRANCH_NAME` environment variable. The `.envrc` file does this for you if you use `direnv`, or you can do so manually with a command like : `export BRANCH_NAME=$(git rev-parse --abbrev-ref HEAD)`
 
 
-Useful resources
-https://backstage.io/docs/features/software-templates/ui-options-examples/
+### Useful resources
 
-Scafolder parameters - https://roadie.io/docs/scaffolder/scaffolder-parameters/
+[UI Examples](https://backstage.io/docs/features/software-templates/ui-options-examples/)
+
+[Scafolder parameters](https://roadie.io/docs/scaffolder/scaffolder-parameters/)
 
 highlightin this page https://roadie.io/docs/scaffolder/scaffolder-parameters/#picker-from-external-api-source
 
-useful actions summary page https://roadie.io/docs/scaffolder/scaffolder-actions-directory/
+[Summary page of usefal actions](https://roadie.io/docs/scaffolder/scaffolder-actions-directory/)
 
-conditionals
-`if: ${{ parameters.skipStep }}`
 
 https://backstage.io/docs/features/software-templates/writing-templates/#specsteps---action
 
-Conditional steps
-https://backstage.io/docs/features/software-templates/input-examples/#use-parameters-as-condition-in-steps
+[Conditional steps in a software template](https://backstage.io/docs/features/software-templates/input-examples/#use-parameters-as-condition-in-steps)
+
+conditionals use this syntax: `if: ${{ parameters.skipStep }}`
+
+A few examples:
 
 ```yaml
 - name: Only development environments
@@ -73,7 +75,9 @@ https://backstage.io/docs/features/software-templates/input-examples/#use-parame
     message: 'non-production step'
 ```
 
-```
+Use parameters as conditional for fields:
+
+```yaml
 parameters:
   - title: Fill in some steps
     properties:

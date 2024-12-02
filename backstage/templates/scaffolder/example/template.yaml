@@ -29,7 +29,7 @@ spec:
             identified in Backstage.
 
         title:
-          title: Title (optional)
+          title: Title
           type: string
           description: >-
             This is a human-readable name for easier discoverability Backstage.
@@ -67,7 +67,7 @@ spec:
             A tag describing if/how the component is being used.
 
         system:
-          title: System (optional)
+          title: System
           type: string
           description: >-
             A system is a collection of resources and components that share a
@@ -76,7 +76,7 @@ spec:
             know what to put here, leave it blank.
 
         domain:
-          title: Domain (optional)
+          title: Domain
           type: string
           description: >-
             The domain is collection of systems that share terminology, domain models, metrics, KPIs,
@@ -84,7 +84,7 @@ spec:
             e.g. "search", "payments", "infrastructure", "data-platform"
 
         tags:
-          title: List of tags (optional)
+          title: List of tags
           type: array
           description: >-
             Arbitrary strings to better sort and find resources in Backstage.
@@ -95,7 +95,7 @@ spec:
             title: Backstage Tags
 
         addLink:
-          title: Add a URL (optional)
+          title: Add a URL
           type: boolean
           default: false
           description: >-
@@ -130,7 +130,7 @@ spec:
         functionality to your component.
       properties:
         techDocsAnnotation:
-          title: Techdocs Annotation (optional)
+          title: Techdocs Annotation
           type: boolean
           default: false
           description: >-
@@ -139,7 +139,7 @@ spec:
             directory in the root of the repo.
 
         kubernetesAnnotation:
-          title: Kubernetes Annotation (optional)
+          title: Kubernetes Annotation
           type: boolean
           default: false
           description: >-
@@ -148,7 +148,7 @@ spec:
             If true, the annotation will be added to the Kubernetes resource using the "name" field. Default is false.
 
         cloudbuildAnnotation:
-          title: Cloud Build Annotation (optional)
+          title: Cloud Build Annotation
           type: boolean
           default: false
           description: >-
@@ -184,7 +184,7 @@ spec:
               - broadinstitute
 
     # Start parameters/pagerduty.yaml
-    - title: PagerDuty Integration (optional)
+    - title: PagerDuty Integration
       properties:
         createPagerduty:
           title: Create PagerDuty Service
