@@ -1,0 +1,7 @@
+id: pagerDutyWriteFile
+name: Add PagerDuty Annotation
+action: roadiehq:utils:merge
+if: ${{ parameters.pagerdutyIntegrationKey != null }}
+input:
+  path: catalog-info.yaml
+  content: ${{ steps['pagerDutyAnnotation'].output.result }}

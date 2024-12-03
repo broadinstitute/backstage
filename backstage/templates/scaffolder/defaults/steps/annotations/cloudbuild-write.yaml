@@ -1,0 +1,7 @@
+id: cloudbuildWriteFile
+name: Add Cloud Build Annotation
+action: roadiehq:utils:merge
+if: ${{ parameters.cloudbuildAnnotation == true }}
+input:
+  path: catalog-info.yaml
+  content: ${{ steps['cloudbuildAnnotation'].output.result }}

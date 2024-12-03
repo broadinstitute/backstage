@@ -1,4 +1,4 @@
-title: Integrations (optional)
+title: PagerDuty Integration
 properties:
   createPagerduty:
     title: Create PagerDuty Service
@@ -8,7 +8,6 @@ properties:
       If you don't want to use the PagerDuty integration, leave the field blank.
     type: boolean
     default: false
-    # ui:widget: select
 
 dependencies:
   createPagerduty:

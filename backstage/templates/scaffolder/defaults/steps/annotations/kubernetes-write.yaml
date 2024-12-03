@@ -1,0 +1,7 @@
+id: kubeWriteFile
+name: Add Kubernetes Annotation
+action: roadiehq:utils:merge
+if: ${{ parameters.kubernetesAnnotation == true }}
+input:
+  path: catalog-info.yaml
+  content: ${{ steps['kubernetesAnnotation'].output.result }}

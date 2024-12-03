@@ -11,32 +11,36 @@ properties:
     description: >-
       A unique identifier for the component. This is how it will be
       identified in Backstage.
+
   title:
     title: Title
     type: string
     description: >-
       This is a human-readable name for easier discoverability Backstage.
       If not provided, the name will be used as the title.
+
   description:
-    title: Description
+    title: Service description
     type: string
     description: >-
       This will be viewable in the resource overview in Backstage.
+
   type:
     title: Component type
     type: string
+    description: >-
+      A high-level category for sorting resources in [Backstage](https://backstage.broadinstitute.org/catalog/default/component/backstage/docs/catalog/#component).
     default: service
     enum:
-      - service
-      - website
-      - resource
-      - documentation
-      - library
+      - Service
+      - Website
+      - Resource
+      - Documentation
+      - Library
       - API
-    description: >-
-      A high-level category for sorting resources in Backstage.
+
   lifecycle:
-    title: Lifecycle phase.
+    title: Service lifecycle
     type: string
     default: production
     enum:
@@ -45,6 +49,7 @@ properties:
       - deprecated
     description: >-
       A tag describing if/how the component is being used.
+
   system:
     title: System
     type: string
@@ -53,14 +58,51 @@ properties:
       common purpose such as "search", "payments", or "infrastructure".
       It should be a pre-existing resource in Backstage. If you don't
       know what to put here, leave it blank.
+
+  domain:
+    title: Domain
+    type: string
+    description: >-
+      The domain is collection of systems that share terminology, domain models, metrics, KPIs,
+      business purpose, or documentation. i.e. they form a bounded context.
+      e.g. "search", "payments", "infrastructure", "data-platform"
+
   tags:
     title: List of tags
     type: array
+    description: >-
+      Arbitrary strings to better sort and find resources in Backstage.
     default:
       - gcp
-      - terraform
     items:
       type: string
       title: Backstage Tags
+
+  addLink:
+    title: Add a URL
+    type: boolean
+    default: false
     description: >-
-      Arbitrary strings to better sort and find resources in Backstage.
+      Add a default [URL](https://backstage.io/docs/features/software-catalog/descriptor-format/#links-optional).
+      If empty no link block will be added.
+
+dependencies:
+  addLink:
+    allOf:
+      - if:
+          properties:
+            addLink:
+              enum:
+                - true
+        then:
+          properties:
+            link:
+              type: object
+              properties:
+                url:
+                  type: string
+                title:
+                  type: string
+                icon:
+                  type: string
+                  default: dashboard

@@ -3,11 +3,11 @@ site_name: 'BITS Backstage Documentation'
 
 nav:
   - Home: README.md
-  - catalog: catalog.md
-  - kubernetes: kubernetes.md
-  - techdocs: techdocs.md
-  - templates: templates.md
-  - plugins: plugins.md
+  - "Software Catalog": catalog.md
+  - Kubernetes: kubernetes.md
+  - TechDocs: techdocs.md
+  - "Software Templates": templates.md
+  - "Backstage Plugins": plugins.md
   - ADRs: adr/README.md
   - Operations: operations.md
 
