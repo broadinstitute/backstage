@@ -1,0 +1,8 @@
+---
+apiVersion: bits-package.dev/v1
+kind: SpackPackage
+metadata:
+  name: name
+spec:
+  source: spack-public
+  type: spack
