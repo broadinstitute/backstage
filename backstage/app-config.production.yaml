@@ -87,6 +87,11 @@ catalog:
       rules:
         - allow: [Template]
 
+    - type: url
+      target: "https://github.com/broadinstitute/backstage/blob/${BRANCH_NAME}/backstage/templates/scaffolder/add-spack-package/template.yaml"
+      rules:
+        - allow: [Template]
+
   providers:
     githubOrg:
       - id: production

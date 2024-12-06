@@ -1,0 +1,134 @@
+---
+apiVersion: scaffolder.backstage.io/v1beta3
+kind: Template
+metadata:
+  name: add-spack-package
+  title: "Add Spack Package"
+  description: >-
+    Create a new PR with your a new spack package to the SCISOFT Repository.
+    Available packages and versions can be found at [packages.spack.io](https://packages.spack.io/).
+  tags:
+    - recommended
+    - spack
+    - scisoft
+
+spec:
+  owner: group:devnull
+  type: service
+
+  parameters:
+    - title: Package Information
+      required:
+        - name
+        - owners
+        - email
+        - versions
+      properties:
+        name:
+          title: Package Name
+          type: string
+          description: >-
+            Name of package to build and install.
+            Available packages and versions can be found at [packages.spack.io](https://packages.spack.io/).
+
+        versions:
+          title: 'Package Versions'
+          type: array
+          description: >-
+            List Versions to install. At least one version is required.
+          items:
+            type: string
+            title: Package Versions
+
+        owners:
+          title: Requesting Team
+          type: string
+          description: >-
+            Name of the team or lab requesting the package.
+        email:
+          title: Group Email
+          type: string
+          description: >-
+            Google Group Email address of the team or lab requesting the package.
+
+  steps:
+    - action: fetch:plain
+      id: fetch-plain
+      name: Fetch plain
+      input:
+        url: ./content
+
+    - id: set-name
+      name: Set Package Name
+      action: roadiehq:utils:jsonata:yaml:transform
+      input:
+        path: ./spack/packages/package.yaml
+        expression: '$ ~> | $ | { "metadata": { "name": "${{ parameters.name}}" } } |'
+
+    - id: WriteName
+      name: Write File
+      action: roadiehq:utils:merge
+      input:
+        path: ./spack/packages/package.yaml
+        content: ${{ steps['set-name'].output.result }}
+
+    - id: set-owners
+      name: Set Package Owners
+      action: roadiehq:utils:jsonata:yaml:transform
+      input:
+        path: ./spack/packages/package.yaml
+        expression: '$ ~> | $ | { "spec": { "owners": [{ "name": "${{ parameters.owners }}", "email": "${{ parameters.email }}" }] } } |'
+
+    - id: WriteOwners
+      name: Write File
+      action: roadiehq:utils:merge
+      input:
+        path: ./spack/packages/package.yaml
+        content: ${{ steps['set-owners'].output.result }}
+
+    - id: set-versions
+      name: Set Package Versions
+      action: roadiehq:utils:jsonata:yaml:transform
+      if: ${{ parameters.versions }}
+      input:
+        path: ./spack/packages/package.yaml
+        expression: '$ ~> | $ | { "spec": { "package_versions": $reduce($map($split("${{ parameters.versions }}", ","), function($v) { { "name": $v } }), $append, []) } } |'
+
+    - id: WriteVersions
+      name: Write File
+      action: roadiehq:utils:merge
+      if: ${{ parameters.versions }}
+      input:
+        path: ./spack/packages/package.yaml
+        content: ${{ steps['set-versions'].output.result }}
+
+    - action: fs:rename
+      id: renameFiles
+      name: Rename file
+      input:
+        files:
+          - from: ./spack/packages/package.yaml
+            to: ./spack/packages/${{ parameters.name }}.yaml
+
+    - action: debug:log
+      id: write-workspace-directory
+      name: List the workspace directory with file contents
+      input:
+        listWorkspace: true
+
+
+    - id: createPullRequest
+      name: createPullRequest
+      action: publish:github:pull-request
+      input:
+        repoUrl: 'github.com?repo=bits-packaging-pipeline&owner=broadinstitute'
+        branchName: add-${{ parameters.name }}-package
+        title: 'feat: Add ${{ parameters.name }} package to Spack Library'
+        description: >-
+          This PR adds the ${{ parameters.name }} package to the compiled packages available at the Broad.
+          The package will be installed with the following versions: ${{ parameters.versions }}.
+  output:
+    links:
+      - title: View the pull request on GitHub
+        icon: github
+        url: ${{ steps['createPullRequest'].output.remoteUrl }}
