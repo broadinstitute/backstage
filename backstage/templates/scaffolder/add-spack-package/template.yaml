@@ -92,7 +92,7 @@ spec:
       if: ${{ parameters.versions }}
       input:
         path: ./spack/packages/package.yaml
-        expression: '$ ~> | $ | { "spec": { "package_versions": $split("${{ parameters.versions }}", ",") ~> $map(function($v) { { "name": $v } }) } } |'
+        expression: '$ ~> | $ | { "spec": { "package_versions": $reduce($map($split("${{ parameters.versions }}", ","), function($v) { { "name": $v } }), $append, []) } } |'
 
     - id: WriteVersions
       name: Write File

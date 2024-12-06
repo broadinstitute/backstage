@@ -4,5 +4,7 @@ kind: SpackPackage
 metadata:
   name: name
 spec:
+  package_versions:
+    - name: 0.0.0
   source: spack-public
   type: spack
