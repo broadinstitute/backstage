@@ -1,0 +1,114 @@
+---
+apiVersion: scaffolder.backstage.io/v1beta3
+kind: Template
+metadata:
+  name: add-namespace
+  title: "Add kubernetes namespace for your team"
+  description: >-
+    Create a new Pull Request to add a new namespace to the Kubernetes cluster.
+    In addition to the namespace, the PR will add permissions for the namespace
+    to the team's Google Group.
+  tags:
+    - recommended
+    - kubernetes
+
+spec:
+  owner: group:devnull
+  type: service
+
+  parameters:
+    - title: Package Information
+      required:
+        - namespace
+        - teams
+        - owners
+      properties:
+        owners:
+          title: 'GitHub Owners'
+          type: string
+          description: >-
+            Name of the GitHub team that is responsible the namespace. for example: "myapp-prod"
+        namespace:
+          title: Kubernetes Namespace
+          type: string
+          description: >-
+            Name of the namespace to create. Must be unique. for example: "myapp-prod"
+        teams:
+          title: 'Namespace Admin Groups'
+          type: array
+          description: >-
+            List of ***Google Groups*** to add to the namespace. At least one group is required.
+          items:
+            type: string
+            title: Google Groups
+  steps:
+    - action: roadiehq:utils:serialize:yaml
+      id: Namespace
+      name: Create Namespace
+      input:
+        data:
+          apiVersion: v1
+          kind: Namespace
+          metadata:
+            name: ${{ parameters.namespace }}
+
+    - id: writeNamespace
+      name: Create Namespace YAML File
+      action: roadiehq:utils:fs:write
+      input:
+        path: manifests/namespace/${{ parameters.namespace }}/namespace.yaml
+        content: ${{ steps.Namespace.output.serialized }}
+
+    - id: parseRoleBinding
+      name: Parse RoleBinding for Namespace Admins File
+      action: roadiehq:utils:jsonata
+      input:
+        data:
+          kind: RoleBinding
+          apiVersion: rbac.authorization.k8s.io/v1
+          metadata:
+            name: namespace-admins
+            namespace: ${{ parameters.namespace }}
+          subjects:
+            - kind: Group
+              name: devnull@broadinstitute.org
+          roleRef:
+            kind: ClusterRole
+            name: namespace-admin
+            apiGroup: rbac.authorization.k8s.io
+        expression: '$ ~> | $ | { "subjects":  $reduce($map($split("${{ parameters.teams }}", ","), function($v) { { "kind": "Group", "name": $v } }), $append, []) } |'
+
+    - action: roadiehq:utils:serialize:yaml
+      id: serializeRoleBinding
+      name: Create RoleBinding for Namespace Admins
+      input:
+        data: ${{ steps.parseRoleBinding.output.result }}
+
+    - id: writeRoleBinding
+      name: Create Namespace Admin RoleBinding YAML File
+      action: roadiehq:utils:fs:write
+      input:
+        path: manifests/namespace/${{ parameters.namespace }}/namespace-admin.yaml
+        content: ${{ steps.serializeRoleBinding.output.serialized }}
+
+    - action: debug:log
+      id: write-workspace-directory
+      name: List the workspace directory with file contents
+      input:
+        listWorkspace: true
+
+    - id: createPullRequest
+      name: createPullRequest
+      action: publish:github:pull-request
+      input:
+        repoUrl: 'github.com?repo=kubernetes-configs=broadinstitute'
+        branchName: add-${{ parameters.namespace }}-namespace
+        title: 'feat: Add ${{ parameters.namespace }} for ${{ parameters.owners }}'
+        description: >-
+          This PR adds the ${{ parameters.namespace }} namespace to the Kubernetes cluster.
+          On behalf of the ${{ parameters.owners }} team.
+  output:
+    links:
+      - title: View the pull request on GitHub
+        icon: github
+        url: ${{ steps['createPullRequest'].output.remoteUrl }}
