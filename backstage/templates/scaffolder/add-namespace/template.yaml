@@ -53,7 +53,7 @@ spec:
             name: ${{ parameters.namespace }}
 
     - id: writeNamespace
-      name: Create Namespace YAML File
+      name: Write Namespace YAML File
       action: roadiehq:utils:fs:write
       input:
         path: manifests/namespace/${{ parameters.namespace }}/namespace.yaml
@@ -80,22 +80,22 @@ spec:
 
     - action: roadiehq:utils:serialize:yaml
       id: serializeRoleBinding
-      name: Create RoleBinding for Namespace Admins
+      name: Serialize RoleBinding for Namespace Admins
       input:
         data: ${{ steps.parseRoleBinding.output.result }}
 
     - id: writeRoleBinding
-      name: Create Namespace Admin RoleBinding YAML File
+      name: Write Namespace Admin RoleBinding YAML File
       action: roadiehq:utils:fs:write
       input:
         path: manifests/namespace/${{ parameters.namespace }}/namespace-admin.yaml
         content: ${{ steps.serializeRoleBinding.output.serialized }}
 
-    - action: debug:log
-      id: write-workspace-directory
-      name: List the workspace directory with file contents
-      input:
-        listWorkspace: true
+    # - action: debug:log
+    #   id: write-workspace-directory
+    #   name: List the workspace directory with file contents
+    #   input:
+    #     listWorkspace: true
 
     - id: createPullRequest
       name: createPullRequest
