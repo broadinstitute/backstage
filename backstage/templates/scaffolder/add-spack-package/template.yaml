@@ -52,70 +52,43 @@ spec:
             Google Group Email address of the team or lab requesting the package.
 
   steps:
-    - action: fetch:plain
-      id: fetch-plain
-      name: Fetch plain
+    - id: parsePackageFile
+      name: Parse Spack Package File
+      action: roadiehq:utils:jsonata
       input:
-        url: ./content
-
-    - id: set-name
-      name: Set Package Name
-      action: roadiehq:utils:jsonata:yaml:transform
-      input:
-        path: ./spack/packages/package.yaml
-        expression: '$ ~> | $ | { "metadata": { "name": "${{ parameters.name}}" } } |'
-
-    - id: WriteName
-      name: Write File
-      action: roadiehq:utils:merge
-      input:
-        path: ./spack/packages/package.yaml
-        content: ${{ steps['set-name'].output.result }}
-
-    - id: set-owners
-      name: Set Package Owners
-      action: roadiehq:utils:jsonata:yaml:transform
-      input:
-        path: ./spack/packages/package.yaml
-        expression: '$ ~> | $ | { "spec": { "owners": [{ "name": "${{ parameters.owners }}", "email": "${{ parameters.email }}" }] } } |'
-
-    - id: WriteOwners
-      name: Write File
-      action: roadiehq:utils:merge
-      input:
-        path: ./spack/packages/package.yaml
-        content: ${{ steps['set-owners'].output.result }}
-
-    - id: set-versions
-      name: Set Package Versions
-      action: roadiehq:utils:jsonata:yaml:transform
-      if: ${{ parameters.versions }}
-      input:
-        path: ./spack/packages/package.yaml
         expression: '$ ~> | $ | { "spec": { "package_versions": $reduce($map($split("${{ parameters.versions }}", ","), function($v) { { "name": $v } }), $append, []) } } |'
+        data:
+          apiVersion: bits-package.dev/v1
+          kind: SpackPackage
+          metadata:
+            name: ${{ parameters.name }}
+          spec:
+            owners:
+              - name: ${{ parameters.owners }}
+                email: ${{ parameters.email }}
+            package_versions:
+              - name: 0.0.0
+            source: spack-public
+            type: spack
 
-    - id: WriteVersions
-      name: Write File
-      action: roadiehq:utils:merge
-      if: ${{ parameters.versions }}
+    - action: roadiehq:utils:serialize:yaml
+      id: serializePackageFile
+      name: Serialize The Package File
       input:
-        path: ./spack/packages/package.yaml
-        content: ${{ steps['set-versions'].output.result }}
+        data: ${{ steps.parsePackageFile.output.result }}
 
-    - action: fs:rename
-      id: renameFiles
-      name: Rename file
+    - id: writePackageFile
+      name: Create Package YAML File
+      action: roadiehq:utils:fs:write
       input:
-        files:
-          - from: ./spack/packages/package.yaml
-            to: ./spack/packages/${{ parameters.name }}.yaml
+        path: spack/packages/${{ parameters.name }}.yaml
+        content: ${{ steps.serializePackageFile.output.serialized }}
 
-    - action: debug:log
-      id: write-workspace-directory
-      name: List the workspace directory with file contents
-      input:
-        listWorkspace: true
-
+    # - action: debug:log
+    #   id: write-workspace-directory
+    #   name: List the workspace directory with file contents
+    #   input:
+    #     listWorkspace: true
 
     - id: createPullRequest
       name: createPullRequest
