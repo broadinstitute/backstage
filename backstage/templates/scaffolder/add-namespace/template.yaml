@@ -36,13 +36,22 @@ spec:
           description: >-
             Name of the namespace to create. Must be unique. for example: "myapp-prod"
         teams:
-          title: 'Namespace Admin Groups'
+          title: 'Namespace Admins'
           type: array
           description: >-
             List of ***Google Groups*** to add to the namespace. At least one group is required.
+            Please insure that your Google Group is added to the
+            [gke-security-groups](https://groups.google.com/a/broadinstitute.org/g/gke-security-groups) group.
+            More information can be found on the
+            [Configure Google Groups for RBAC](https://cloud.google.com/kubernetes-engine/docs/how-to/google-groups-rbac#:~:text=Add%20your%20groups%20as%20nested%20groups%20to%20the%20gke%2Dsecurity%2Dgroups%20group.%20Don%27t%20add%20individual%20users%20as%20members%20of%20gke%2Dsecurity%2Dgroups.) page.
           items:
             type: string
             title: Google Groups
+            pattern: '^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$'
+      errorMessage:
+        properties:
+          teams: 'Must be validate email addresses'
+
   steps:
     - action: roadiehq:utils:serialize:yaml
       id: Namespace
@@ -99,16 +108,16 @@ spec:
     #   input:
     #     listWorkspace: true
 
-    - id: createPullRequest
-      name: createPullRequest
-      action: publish:github:pull-request
-      input:
-        repoUrl: 'github.com?repo=kubernetes-configs=broadinstitute'
-        branchName: add-${{ parameters.namespace }}-namespace
-        title: 'feat: Add ${{ parameters.namespace }} for ${{ parameters.owners }}'
-        description: >-
-          This PR adds the ${{ parameters.namespace }} namespace to the Kubernetes cluster.
-          On behalf of the ${{ parameters.owners }} team.
+    # - id: createPullRequest
+    #   name: createPullRequest
+    #   action: publish:github:pull-request
+    #   input:
+    #     repoUrl: 'github.com?repo=kubernetes-configs=broadinstitute'
+    #     branchName: add-${{ parameters.namespace }}-namespace
+    #     title: 'feat: Add ${{ parameters.namespace }} for ${{ parameters.owners }}'
+    #     description: >-
+    #       This PR adds the ${{ parameters.namespace }} namespace to the Kubernetes cluster.
+    #       On behalf of the ${{ parameters.owners }} team.
   output:
     links:
       - title: View the pull request on GitHub
