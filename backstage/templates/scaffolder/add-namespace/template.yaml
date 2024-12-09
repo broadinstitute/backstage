@@ -102,22 +102,38 @@ spec:
         path: manifests/namespace/${{ parameters.namespace }}/namespace-admin.yaml
         content: ${{ steps.serializeRoleBinding.output.serialized }}
 
+    - action: fetch:plain:file
+      id: fetchFile
+      name: Fetch CODEOWNERS file
+      input:
+        url: https://github.com/broadinstitute/kubernetes-configs/blob/main/.github/CODEOWNERS
+        targetPath: .github/CODEOWNERS
+
+    - action: roadiehq:utils:fs:append
+      id: appendCodeowners
+      name: Append GitHub Team to CODEOWNERS file
+      input:
+        path: .github/CODEOWNERS
+        content: |
+          # ${{ parameters.namespace }} namespace
+          /manifests/namespace/${{ parameters.namespace }}/* @${{ parameters.owners }}
+
     # - action: debug:log
     #   id: write-workspace-directory
     #   name: List the workspace directory with file contents
     #   input:
     #     listWorkspace: true
 
-    # - id: createPullRequest
-    #   name: createPullRequest
-    #   action: publish:github:pull-request
-    #   input:
-    #     repoUrl: 'github.com?repo=kubernetes-configs=broadinstitute'
-    #     branchName: add-${{ parameters.namespace }}-namespace
-    #     title: 'feat: Add ${{ parameters.namespace }} for ${{ parameters.owners }}'
-    #     description: >-
-    #       This PR adds the ${{ parameters.namespace }} namespace to the Kubernetes cluster.
-    #       On behalf of the ${{ parameters.owners }} team.
+    - id: createPullRequest
+      name: createPullRequest
+      action: publish:github:pull-request
+      input:
+        repoUrl: 'github.com?repo=kubernetes-configs&owner=broadinstitute'
+        branchName: add-${{ parameters.namespace }}-namespace
+        title: 'feat: Add ${{ parameters.namespace }} for ${{ parameters.owners }}'
+        description: >-
+          This PR adds the ${{ parameters.namespace }} namespace to the Kubernetes cluster.
+          On behalf of the ${{ parameters.owners }} team.
   output:
     links:
       - title: View the pull request on GitHub
