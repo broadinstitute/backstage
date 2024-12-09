@@ -50,6 +50,11 @@ spec:
           type: string
           description: >-
             Google Group Email address of the team or lab requesting the package.
+          pattern: '^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$'
+      errorMessage:
+        properties:
+          email: 'Must be validate email addresses'
+
 
   steps:
     - id: parsePackageFile
