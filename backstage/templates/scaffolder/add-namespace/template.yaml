@@ -5,7 +5,7 @@ metadata:
   name: add-namespace
   title: "Add kubernetes namespace for your team"
   description: >-
-    Create a new Pull Request to add a new namespace to the Kubernetes cluster.
+    Create a new Pull Request to add a new namespace to the `bits-gke-clusters` Kubernetes environment.
     In addition to the namespace, the PR will add permissions for the namespace
     to the team's Google Group.
   tags:
@@ -29,12 +29,12 @@ spec:
           ui:field: GithubTeamPicker
           ui:autofocus: true
           description: >-
-            Name of the GitHub team that is responsible the namespace. for example: "myapp-prod"
+            ***GitHub team*** responsible for the namespace.
         namespace:
           title: Kubernetes Namespace
           type: string
           description: >-
-            Name of the namespace to create. Must be unique. for example: "myapp-prod"
+            Namespace to create. Must be unique across the `bits-gke-clusters` Kubernetes environment.
         teams:
           title: 'Namespace Admins'
           type: array
@@ -50,7 +50,7 @@ spec:
             pattern: '^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$'
       errorMessage:
         properties:
-          teams: 'Must be validate email addresses'
+          teams: 'Must be a valid email address'
 
   steps:
     - action: roadiehq:utils:serialize:yaml
@@ -117,12 +117,6 @@ spec:
         content: |
           # ${{ parameters.namespace }} namespace
           /manifests/namespace/${{ parameters.namespace }}/* @broadinstitute/${{ parameters.owners }}
-
-    # - action: debug:log
-    #   id: write-workspace-directory
-    #   name: List the workspace directory with file contents
-    #   input:
-    #     listWorkspace: true
 
     - id: createPullRequest
       name: createPullRequest

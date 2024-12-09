@@ -53,7 +53,7 @@ spec:
           pattern: '^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$'
       errorMessage:
         properties:
-          email: 'Must be validate email addresses'
+          email: 'Must be a valid email address'
 
 
   steps:
@@ -88,12 +88,6 @@ spec:
       input:
         path: spack/packages/${{ parameters.name }}.yaml
         content: ${{ steps.serializePackageFile.output.serialized }}
-
-    # - action: debug:log
-    #   id: write-workspace-directory
-    #   name: List the workspace directory with file contents
-    #   input:
-    #     listWorkspace: true
 
     - id: createPullRequest
       name: createPullRequest
