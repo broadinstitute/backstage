@@ -26,6 +26,8 @@ spec:
         owners:
           title: 'GitHub Owners'
           type: string
+          ui:field: GithubTeamPicker
+          ui:autofocus: true
           description: >-
             Name of the GitHub team that is responsible the namespace. for example: "myapp-prod"
         namespace:

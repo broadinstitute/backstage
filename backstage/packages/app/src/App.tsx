@@ -40,6 +40,7 @@ import { githubAuthApiRef } from '@backstage/core-plugin-api';
 import { ScaffolderFieldExtensions } from '@backstage/plugin-scaffolder-react';
 import { SelectFieldFromApiExtension } from '@roadiehq/plugin-scaffolder-frontend-module-http-request-field';
 import { CostInsightsPage } from '@backstage-community/plugin-cost-insights';
+import { GithubTeamPickerExtension } from './scaffolder/GithubTeamPicker/GithubTeamPicker';
 
 interface SignInProviderConfig {
     id: string;
@@ -128,6 +129,7 @@ const routes = (
         >
             <ScaffolderFieldExtensions>
                 <SelectFieldFromApiExtension />
+                <GithubTeamPickerExtension />
             </ScaffolderFieldExtensions>
         </Route>
         <Route path="/api-docs" element={<ApiExplorerPage />} />
