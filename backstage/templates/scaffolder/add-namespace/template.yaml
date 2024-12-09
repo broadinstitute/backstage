@@ -116,7 +116,7 @@ spec:
         path: .github/CODEOWNERS
         content: |
           # ${{ parameters.namespace }} namespace
-          /manifests/namespace/${{ parameters.namespace }}/* @${{ parameters.owners }}
+          /manifests/namespace/${{ parameters.namespace }}/* @broadinstitute/${{ parameters.owners }}
 
     # - action: debug:log
     #   id: write-workspace-directory
@@ -130,7 +130,7 @@ spec:
       input:
         repoUrl: 'github.com?repo=kubernetes-configs&owner=broadinstitute'
         branchName: add-${{ parameters.namespace }}-namespace
-        title: 'feat: Add ${{ parameters.namespace }} for ${{ parameters.owners }}'
+        title: 'feat: Add ${{ parameters.namespace }} Namespace for ${{ parameters.owners }}'
         description: >-
           This PR adds the ${{ parameters.namespace }} namespace to the Kubernetes cluster.
           On behalf of the ${{ parameters.owners }} team.
