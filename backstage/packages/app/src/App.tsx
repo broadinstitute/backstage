@@ -123,6 +123,18 @@ const routes = (
                                     'recommended',
                                 ) ?? false,
                         },
+                        {
+                            title: 'Terraform',
+                            filter: entity =>
+                                entity?.metadata?.tags?.includes('terraform') ??
+                                false,
+                        },
+                        {
+                            title: 'Python',
+                            filter: entity =>
+                                entity?.metadata?.tags?.includes('python') ??
+                                false,
+                        },
                     ]}
                 />
             }
