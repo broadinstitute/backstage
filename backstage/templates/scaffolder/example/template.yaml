@@ -269,11 +269,41 @@ spec:
             type: ${{ parameters.type | lower }}
             lifecycle: ${{ parameters.lifecycle }}
             owner: ${{ parameters.githubTeam | parseEntityRef | pick('name') }}
-            system: ${{ parameters.system | parseEntityRef | pick('name') }}
-            domain: ${{ parameters.domain | parseEntityRef | pick('name') }}
     # End steps/write-catalog.yaml
     # Add annotations to the catalog-info.yaml file if the user has selected to add them
     # Start steps/annotations/<name>.yaml
+    - id: addSystem
+      name: Add System to catalog-info.yaml
+      action: roadiehq:utils:jsonata:yaml:transform
+      if: ${{ parameters.system }}
+      input:
+        path: catalog-info.yaml
+        expression: '$ ~> | $ | { "spec": { "system": "${{ parameters.system | parseEntityRef | pick("name") }}" } } |'
+
+    - id: systemWriteFile
+      name: Update catalog-info.yaml with System
+      action: roadiehq:utils:merge
+      if: ${{ parameters.system }}
+      input:
+        path: catalog-info.yaml
+        content: ${{ steps['addSystem'].output.result }}
+
+    - id: addDomain
+      name: Add Domain to catalog-info.yaml
+      action: roadiehq:utils:jsonata:yaml:transform
+      if: ${{ parameters.domain }}
+      input:
+        path: catalog-info.yaml
+        expression: '$ ~> | $ | { "spec": { "domain": "${{ parameters.domain | parseEntityRef | pick("name") }}" } } |'
+
+    - id: domainWriteFile
+      name: Update catalog-info.yaml with Domain
+      action: roadiehq:utils:merge
+      if: ${{ parameters.domain }}
+      input:
+        path: catalog-info.yaml
+        content: ${{ steps['addDomain'].output.result }}
+
     - id: techdocsAnnotation
       name: TechDocs Annotation
       action: roadiehq:utils:jsonata:yaml:transform
