@@ -127,6 +127,10 @@ spec:
           title: ${{ parameters.title }}
 
     - $yaml: ../defaults/steps/write-catalog.yaml
+    - $yaml: ../defaults/steps/system.yaml
+    - $yaml: ../defaults/steps/system-write.yaml
+    - $yaml: ../defaults/steps/domain.yaml
+    - $yaml: ../defaults/steps/domain-write.yaml
     - $yaml: ../defaults/steps/annotations/techdocs.yaml
     - $yaml: ../defaults/steps/annotations/techdocs-write.yaml
     - $yaml: ../defaults/steps/annotations/kubernetes.yaml

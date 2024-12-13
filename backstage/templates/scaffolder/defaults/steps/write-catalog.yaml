@@ -21,5 +21,3 @@ input:
       type: ${{ parameters.type | lower }}
       lifecycle: ${{ parameters.lifecycle }}
       owner: ${{ parameters.githubTeam | parseEntityRef | pick('name') }}
-      system: ${{ parameters.system | parseEntityRef | pick('name') }}
-      domain: ${{ parameters.domain | parseEntityRef | pick('name') }}
