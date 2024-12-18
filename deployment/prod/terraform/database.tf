@@ -5,7 +5,7 @@ locals { #todo the data heere should probably be a variable
 # Create a service account for App to use to connect to the CloudSQL instance
 module "db_service_accounts" {
   source      = "terraform-google-modules/service-accounts/google"
-  version     = "4.4.2"
+  version     = "4.4.3"
   project_id  = var.core_project
   names       = [local.application_name]
   description = "service account for ${local.application_name}"
@@ -32,7 +32,7 @@ resource "google_service_account_iam_member" "db_workload_identity" {
 # Create a CloudSQL instance for App to use
 module "postgres" {
   source                      = "GoogleCloudPlatform/sql-db/google//modules/postgresql"
-  version                     = "24.0.1"
+  version                     = "25.0.0"
   database_version            = "POSTGRES_15"
   name                        = "${local.application_name}-${var.env}"
   project_id                  = var.core_project
