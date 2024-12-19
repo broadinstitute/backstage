@@ -2,14 +2,14 @@ import { z } from 'zod';
 import { makeFieldSchema } from '@backstage/plugin-scaffolder-react';
 
 const output = (zImpl: typeof z) => zImpl.string().min(1);
-const uiOptions = (zImpl: typeof z) => zImpl.object({
-  placeholder: zImpl.string().optional(),
-});
+const uiOptions = (zImpl: typeof z) =>
+    zImpl.object({
+        placeholder: zImpl.string().optional(),
+    });
 export const GithubTeamPickerFieldSchema = makeFieldSchema({
-  output,
-  uiOptions,
-}
-);
+    output,
+    uiOptions,
+});
 
 /**
  * UI options for the Github Team Picker.
@@ -17,7 +17,7 @@ export const GithubTeamPickerFieldSchema = makeFieldSchema({
  */
 
 export type GithubTeamPickerUiOptions =
-  typeof GithubTeamPickerFieldSchema.uiOptionsType;
+    typeof GithubTeamPickerFieldSchema.uiOptionsType;
 
 /**
  * Props for the GithubTeamPicker.
