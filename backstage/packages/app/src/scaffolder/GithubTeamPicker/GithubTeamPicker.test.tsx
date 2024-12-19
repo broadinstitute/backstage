@@ -93,16 +93,20 @@ describe('<GithubTeamPicker />', () => {
       required,
     } as unknown as FieldProps<string>;
 
+    const containerRef = React.createRef<HTMLDivElement>();
+
     render(
+      <div ref={containerRef}>
       <TestApiProvider
         apis={[
-          [identityApiRef, mockIdentityApi],
-          [catalogApiRef, catalogApi],
-          [errorApiRef, mockErrorApi],
+        [identityApiRef, mockIdentityApi],
+        [catalogApiRef, catalogApi],
+        [errorApiRef, mockErrorApi],
         ]}
       >
         <GithubTeamPicker {...props} />
-      </TestApiProvider>,
+      </TestApiProvider>
+      </div>,
     );
 
     await waitFor(() =>
