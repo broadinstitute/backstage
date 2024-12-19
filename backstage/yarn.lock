@@ -4448,7 +4448,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@backstage/core-components@npm:^0.13.5, @backstage/core-components@npm:^0.13.8":
+"@backstage/core-components@npm:^0.13.5":
   version: 0.13.10
   resolution: "@backstage/core-components@npm:0.13.10"
   dependencies:
@@ -4671,7 +4671,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@backstage/core-plugin-api@npm:^1.6.0, @backstage/core-plugin-api@npm:^1.8.0, @backstage/core-plugin-api@npm:^1.8.2, @backstage/core-plugin-api@npm:^1.9.3":
+"@backstage/core-plugin-api@npm:^1.6.0, @backstage/core-plugin-api@npm:^1.8.2, @backstage/core-plugin-api@npm:^1.9.3":
   version: 1.9.3
   resolution: "@backstage/core-plugin-api@npm:1.9.3"
   dependencies:
@@ -6669,7 +6669,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@backstage/plugin-scaffolder-react@npm:^1.11.0, @backstage/plugin-scaffolder-react@npm:^1.6.1":
+"@backstage/plugin-scaffolder-react@npm:^1.11.0":
   version: 1.11.0
   resolution: "@backstage/plugin-scaffolder-react@npm:1.11.0"
   dependencies:
@@ -6765,64 +6765,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@backstage/plugin-scaffolder@npm:^1.16.1":
-  version: 1.24.0
-  resolution: "@backstage/plugin-scaffolder@npm:1.24.0"
-  dependencies:
-    "@backstage/catalog-client": "npm:^1.6.6"
-    "@backstage/catalog-model": "npm:^1.6.0"
-    "@backstage/core-compat-api": "npm:^0.2.8"
-    "@backstage/core-components": "npm:^0.14.10"
-    "@backstage/core-plugin-api": "npm:^1.9.3"
-    "@backstage/errors": "npm:^1.2.4"
-    "@backstage/frontend-plugin-api": "npm:^0.7.0"
-    "@backstage/integration": "npm:^1.14.0"
-    "@backstage/integration-react": "npm:^1.1.30"
-    "@backstage/plugin-catalog-common": "npm:^1.0.26"
-    "@backstage/plugin-catalog-react": "npm:^1.12.3"
-    "@backstage/plugin-permission-react": "npm:^0.4.25"
-    "@backstage/plugin-scaffolder-common": "npm:^1.5.5"
-    "@backstage/plugin-scaffolder-react": "npm:^1.11.0"
-    "@backstage/types": "npm:^1.1.1"
-    "@codemirror/language": "npm:^6.0.0"
-    "@codemirror/legacy-modes": "npm:^6.1.0"
-    "@codemirror/view": "npm:^6.0.0"
-    "@material-ui/core": "npm:^4.12.2"
-    "@material-ui/icons": "npm:^4.9.1"
-    "@material-ui/lab": "npm:4.0.0-alpha.61"
-    "@microsoft/fetch-event-source": "npm:^2.0.1"
-    "@react-hookz/web": "npm:^24.0.0"
-    "@rjsf/core": "npm:5.18.5"
-    "@rjsf/material-ui": "npm:5.18.5"
-    "@rjsf/utils": "npm:5.18.5"
-    "@rjsf/validator-ajv8": "npm:5.18.5"
-    "@types/react": "npm:^16.13.1 || ^17.0.0 || ^18.0.0"
-    "@uiw/react-codemirror": "npm:^4.9.3"
-    classnames: "npm:^2.2.6"
-    git-url-parse: "npm:^14.0.0"
-    humanize-duration: "npm:^3.25.1"
-    json-schema: "npm:^0.4.0"
-    json-schema-library: "npm:^9.0.0"
-    jszip: "npm:^3.10.1"
-    lodash: "npm:^4.17.21"
-    luxon: "npm:^3.0.0"
-    qs: "npm:^6.9.4"
-    react-resizable: "npm:^3.0.5"
-    react-use: "npm:^17.2.4"
-    react-window: "npm:^1.8.10"
-    yaml: "npm:^2.0.0"
-    zen-observable: "npm:^0.10.0"
-    zod: "npm:^3.22.4"
-    zod-to-json-schema: "npm:^3.20.4"
-  peerDependencies:
-    react: ^16.13.1 || ^17.0.0 || ^18.0.0
-    react-dom: ^16.13.1 || ^17.0.0 || ^18.0.0
-    react-router-dom: 6.0.0-beta.0 || ^6.3.0
-  checksum: 10c0/8d8716d2ca4e51d2767cc3d8b97d2b52731fe1a27d5e0b501d50795684bdf398149df93b072659c8c84fb13b87e327f42a170aa226cfd1f94eb71a97ccbf19df
-  languageName: node
-  linkType: hard
-
-"@backstage/plugin-scaffolder@npm:^1.27.2":
+"@backstage/plugin-scaffolder@npm:^1.24.0, @backstage/plugin-scaffolder@npm:^1.27.2":
   version: 1.27.2
   resolution: "@backstage/plugin-scaffolder@npm:1.27.2"
   dependencies:
@@ -7327,22 +7270,6 @@ __metadata:
     "@types/react":
       optional: true
   checksum: 10c0/9eecc32c9c31405d5b6c298ff07b296836376e5970cf849caa6a35537c07d2b86b9788f99b6d42e169f5c3dd2c8efca714f8ac21a0140166cbb358e00ed84bad
-  languageName: node
-  linkType: hard
-
-"@backstage/theme@npm:^0.4.4":
-  version: 0.4.4
-  resolution: "@backstage/theme@npm:0.4.4"
-  dependencies:
-    "@emotion/react": "npm:^11.10.5"
-    "@emotion/styled": "npm:^11.10.5"
-    "@mui/material": "npm:^5.12.2"
-  peerDependencies:
-    "@material-ui/core": ^4.12.2
-    "@types/react": ^16.13.1 || ^17.0.0
-    react: ^16.13.1 || ^17.0.0 || ^18.0.0
-    react-dom: ^16.13.1 || ^17.0.0 || ^18.0.0
-  checksum: 10c0/af63b7d1ba89c04db5791dd3da964e7f90440787b91c7d1361d93c162c032251c10cee3d65d65f49f033f855cd8faa1fd7e3b0cd0394ed642faecc270ebb06dc
   languageName: node
   linkType: hard
 
@@ -14598,19 +14525,19 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@rjsf/core@npm:5.14.2":
-  version: 5.14.2
-  resolution: "@rjsf/core@npm:5.14.2"
+"@rjsf/core@npm:5.17.0":
+  version: 5.17.0
+  resolution: "@rjsf/core@npm:5.17.0"
   dependencies:
     lodash: "npm:^4.17.21"
     lodash-es: "npm:^4.17.21"
-    markdown-to-jsx: "npm:^7.3.2"
-    nanoid: "npm:^3.3.6"
+    markdown-to-jsx: "npm:^7.4.1"
+    nanoid: "npm:^3.3.7"
     prop-types: "npm:^15.8.1"
   peerDependencies:
-    "@rjsf/utils": ^5.12.x
+    "@rjsf/utils": ^5.16.x
     react: ^16.14.0 || >=17
-  checksum: 10c0/2134b59d20c49f753d48e1b2814e9930c11ea02bbd856d6b0c4578ab223c3f68b43634ccf083f84dfa83d5f1d14ddeb0007918bbbefd1d79abec0c9f80373284
+  checksum: 10c0/98d8d5b2feb5012aa35dbd3ae5f7af98e2128b4cd41b0e42022a27b8b6fa38b2f564a7614f205ffec304983000a40c6d6f9949812ea5b16854f7ea6f9b791aed
   languageName: node
   linkType: hard
 
@@ -14688,9 +14615,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@rjsf/utils@npm:5.14.2":
-  version: 5.14.2
-  resolution: "@rjsf/utils@npm:5.14.2"
+"@rjsf/utils@npm:5.17.0":
+  version: 5.17.0
+  resolution: "@rjsf/utils@npm:5.17.0"
   dependencies:
     json-schema-merge-allof: "npm:^0.8.1"
     jsonpointer: "npm:^5.0.1"
@@ -14699,7 +14626,7 @@ __metadata:
     react-is: "npm:^18.2.0"
   peerDependencies:
     react: ^16.14.0 || >=17
-  checksum: 10c0/023ebd41329b6b06c8786b6a74bf695858ac88105a7602e5201e10bc8f60a66479331603239b5ee79e7105c4111ca8614ef193f6d122088a336c76876e1742e4
+  checksum: 10c0/179b9be8cec15ef3766e440cd441d48bea09f2f77888679409f309ae45db0576a6f194924267deddde3023e0405e61dd473e96d7cc784c6e710faee34db63cb0
   languageName: node
   linkType: hard
 
@@ -14805,27 +14732,27 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@roadiehq/plugin-scaffolder-frontend-module-http-request-field@npm:^1.6.2":
-  version: 1.6.2
-  resolution: "@roadiehq/plugin-scaffolder-frontend-module-http-request-field@npm:1.6.2"
+"@roadiehq/plugin-scaffolder-frontend-module-http-request-field@npm:^1.7.2":
+  version: 1.7.2
+  resolution: "@roadiehq/plugin-scaffolder-frontend-module-http-request-field@npm:1.7.2"
   dependencies:
-    "@backstage/core-components": "npm:^0.13.8"
-    "@backstage/core-plugin-api": "npm:^1.8.0"
-    "@backstage/plugin-scaffolder": "npm:^1.16.1"
-    "@backstage/plugin-scaffolder-react": "npm:^1.6.1"
-    "@backstage/theme": "npm:^0.4.4"
+    "@backstage/core-components": "npm:^0.14.10"
+    "@backstage/core-plugin-api": "npm:^1.9.3"
+    "@backstage/plugin-scaffolder": "npm:^1.24.0"
+    "@backstage/plugin-scaffolder-react": "npm:^1.11.0"
+    "@backstage/theme": "npm:^0.5.6"
     "@material-ui/core": "npm:^4.12.2"
     "@material-ui/icons": "npm:^4.9.1"
     "@material-ui/lab": "npm:^4.0.0-alpha.45"
-    "@rjsf/core": "npm:5.14.2"
-    "@rjsf/utils": "npm:5.14.2"
+    "@rjsf/core": "npm:5.17.0"
+    "@rjsf/utils": "npm:5.17.0"
     lodash: "npm:^4.17.21"
     nunjucks: "npm:^3.2.3"
     react-use: "npm:^17.2.4"
     zod: "npm:^3.19.1"
   peerDependencies:
-    react: ^16.13.1 || ^17.0.0
-  checksum: 10c0/93c429d1fc4c2b62bdcf770f3441575bd19542d3aa61da3e03fe0f3dfebbade0bb8bf2b91694227757ad345ba038da6713f7c9144b6eec4fdebfbc5c2ab5abbc
+    react: ^16.13.1 || ^17.0.0 || ^18.0.0
+  checksum: 10c0/b20be985dbf2953bf888d1039c4ce11b95c9b67e98703e17ff93bec83ca95aac92d8b734d63561a837166004b68e4127e7cdebebe800efb87168b6f7ed36ed4a
   languageName: node
   linkType: hard
 
@@ -19957,7 +19884,7 @@ __metadata:
     "@pagerduty/backstage-plugin": "npm:^0.15.1"
     "@pagerduty/backstage-plugin-common": "npm:^0.2.1"
     "@roadiehq/backstage-plugin-github-pull-requests": "npm:^2.5.18"
-    "@roadiehq/plugin-scaffolder-frontend-module-http-request-field": "npm:^1.6.2"
+    "@roadiehq/plugin-scaffolder-frontend-module-http-request-field": "npm:^1.7.2"
     "@testing-library/dom": "npm:^10.4.0"
     "@testing-library/jest-dom": "npm:^5.10.1"
     "@testing-library/react": "npm:^16.0.1"
@@ -31589,15 +31516,6 @@ __metadata:
   version: 3.0.3
   resolution: "markdown-table@npm:3.0.3"
   checksum: 10c0/47433a3f31e4637a184e38e873ab1d2fadfb0106a683d466fec329e99a2d8dfa09f091fa42202c6f13ec94aef0199f449a684b28042c636f2edbc1b7e1811dcd
-  languageName: node
-  linkType: hard
-
-"markdown-to-jsx@npm:^7.3.2":
-  version: 7.3.2
-  resolution: "markdown-to-jsx@npm:7.3.2"
-  peerDependencies:
-    react: ">= 0.14.0"
-  checksum: 10c0/191b9a9defeed02e12dd340cebf279f577266dac7b34574fa44ce4d64ee8536f9967d455b8303c853f84413feb473118290a6160d8221eeaf3b9e4961b8980e3
   languageName: node
   linkType: hard
 

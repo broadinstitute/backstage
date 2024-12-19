@@ -13,8 +13,9 @@ import { Autocomplete } from '@material-ui/lab';
 import React, { useState } from 'react';
 import useAsync from 'react-use/lib/useAsync';
 import { scaffolderPlugin } from '@backstage/plugin-scaffolder';
-import { createScaffolderFieldExtension } from '@backstage/plugin-scaffolder-react';
-import { GithubTeamPickerProps } from './schema';
+import { createScaffolderFieldExtension, FieldExtensionComponentProps } from '@backstage/plugin-scaffolder-react';
+
+export interface GithubTeamPickerProps extends FieldExtensionComponentProps<string, { title?: string; description?: string }> {}
 
 export const GithubTeamPicker = (props: GithubTeamPickerProps) => {
   const {
