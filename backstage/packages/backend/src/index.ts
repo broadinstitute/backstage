@@ -158,7 +158,7 @@ backend.add(import('@backstage/plugin-kubernetes-backend'));
 // scaffolder plugins
 backend.add(import('@backstage/plugin-scaffolder-backend-module-github'));
 backend.add(
-  import('@roadiehq/scaffolder-backend-module-http-request/new-backend'),
+    import('@roadiehq/scaffolder-backend-module-http-request/new-backend'),
 );
 backend.add(import('@roadiehq/scaffolder-backend-module-utils/new-backend'));
 
