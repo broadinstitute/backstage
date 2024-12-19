@@ -53,7 +53,7 @@
     "@pagerduty/backstage-plugin": "^0.15.1",
     "@pagerduty/backstage-plugin-common": "^0.2.1",
     "@roadiehq/backstage-plugin-github-pull-requests": "^2.5.18",
-    "@roadiehq/plugin-scaffolder-frontend-module-http-request-field": "^1.6.2",
+    "@roadiehq/plugin-scaffolder-frontend-module-http-request-field": "^1.7.2",
     "@testing-library/dom": "^10.4.0",
     "@testing-library/react": "^16.0.1",
     "@types/react": "^18.3.11",
