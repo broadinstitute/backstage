@@ -7,4 +7,4 @@
 
     jobs:
       stale:
-        uses: broadinstitute/shared-workflows/.github/workflows/close-stale.yaml@v2.5.0
+        uses: broadinstitute/shared-workflows/.github/workflows/close-stale.yaml@v2.6.1
