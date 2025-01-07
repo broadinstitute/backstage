@@ -135,6 +135,22 @@ Similarly the Google auth credentials are created when creating a new Google
 OAuth App. You can find instructions on how to create a Google OAuth App
 [here](https://backstage.io/docs/auth/google/provider#create-oauth-credentials).
 
+#### Specifying a branch name
+
+To reduce config duplication, the scaffolder templates pull reuseable snippets
+directly from Github based on branch name. For this to work, the
+`app-config.yaml` (or `app-config.local.yaml` during development) has repeated
+reference to an environment variable `BRANCH_NAME`. To work with templates in
+development, push your changes to Github and set this environment variable,
+e.g.:
+
+```bash
+export BRANCH_NAME="$(git rev-parse --abbrev-ref HEAD)"
+```
+
+If this variable is not set, you may see the catalog plugin fail, immediately
+resulting in Google Auth not working.
+
 #### Running Backstage
 
 To start the app, run:
