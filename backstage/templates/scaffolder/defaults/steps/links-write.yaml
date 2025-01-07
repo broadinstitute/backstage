@@ -1,0 +1,7 @@
+id: linksWriteFile
+name: Update catalog-info.yaml with links
+action: roadiehq:utils:merge
+if: ${{ parameters.addLink }}
+input:
+  path: catalog-info.yaml
+  content: ${{ steps['addLinks'].output.result }}

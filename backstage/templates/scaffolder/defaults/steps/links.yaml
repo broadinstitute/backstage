@@ -1,0 +1,7 @@
+id: addLinks
+name: Add links to catalog-info.yaml
+action: roadiehq:utils:jsonata:yaml:transform
+if: ${{ parameters.addLink }}
+input:
+  path: catalog-info.yaml
+  expression: '$ ~> | metadata | { "links": [{ "url": "${{ parameters.link.url }}", "title": "${{ parameters.link.title }}", "icon": "${{ parameters.link.icon }}" }] } |'

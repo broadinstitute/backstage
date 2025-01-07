@@ -49,6 +49,8 @@ spec:
     - $yaml: ../defaults/steps/system-write.yaml
     - $yaml: ../defaults/steps/domain.yaml
     - $yaml: ../defaults/steps/domain-write.yaml
+    - $yaml: ../defaults/steps/links.yaml
+    - $yaml: ../defaults/steps/links-write.yaml
     - $yaml: ../defaults/steps/annotations/techdocs.yaml
     - $yaml: ../defaults/steps/annotations/techdocs-write.yaml
     - $yaml: ../defaults/steps/annotations/kubernetes.yaml
