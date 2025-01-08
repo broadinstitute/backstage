@@ -8,10 +8,6 @@ input:
     metadata:
       name: ${{ parameters.name }}
       description: ${{ parameters.description }}
-      links:
-        - url: ${{ parameters.link.url }}
-          title: ${{ parameters.link.title }}
-          icon: ${{ parameters.link.icon }}
       tags: ${{ parameters.tags }}
 
       annotations:
