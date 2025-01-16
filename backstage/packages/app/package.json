@@ -18,12 +18,12 @@
     "cy:run": "cypress run --browser chrome"
   },
   "dependencies": {
-    "@backstage-community/plugin-cloudbuild": "^0.5.6",
-    "@backstage-community/plugin-cost-insights": "^0.12.24",
-    "@backstage-community/plugin-gcp-projects": "^0.3.51",
-    "@backstage-community/plugin-github-actions": "^0.6.16",
-    "@backstage-community/plugin-github-pull-requests-board": "^0.2.1",
-    "@backstage-community/plugin-tech-radar": "^0.7.4",
+    "@backstage-community/plugin-cloudbuild": "^0.6.0",
+    "@backstage-community/plugin-cost-insights": "^0.13.0",
+    "@backstage-community/plugin-gcp-projects": "^0.4.0",
+    "@backstage-community/plugin-github-actions": "^0.7.0",
+    "@backstage-community/plugin-github-pull-requests-board": "^0.3.0",
+    "@backstage-community/plugin-tech-radar": "^1.1.0",
     "@backstage/app-defaults": "^1.5.15",
     "@backstage/catalog-model": "^1.7.2",
     "@backstage/cli": "^0.29.4",
@@ -52,7 +52,7 @@
     "@material-ui/icons": "^4.9.1",
     "@pagerduty/backstage-plugin": "^0.15.1",
     "@pagerduty/backstage-plugin-common": "^0.2.1",
-    "@roadiehq/backstage-plugin-github-pull-requests": "^2.5.18",
+    "@roadiehq/backstage-plugin-github-pull-requests": "^3.0.1",
     "@roadiehq/plugin-scaffolder-frontend-module-http-request-field": "^1.7.2",
     "@testing-library/dom": "^10.4.0",
     "@testing-library/react": "^16.0.1",
@@ -67,13 +67,13 @@
   },
   "devDependencies": {
     "@backstage/test-utils": "^1.7.3",
-    "@testing-library/jest-dom": "^5.10.1",
+    "@testing-library/jest-dom": "^6.6.3",
     "@testing-library/user-event": "^14.0.0",
     "@types/react-dom": "*",
     "cross-env": "^7.0.0",
-    "cypress": "^9.7.0",
-    "eslint-plugin-cypress": "^2.10.3",
-    "start-server-and-test": "^1.10.11"
+    "cypress": "^13.17.0",
+    "eslint-plugin-cypress": "^4.1.0",
+    "start-server-and-test": "^2.0.10"
   },
   "browserslist": {
     "production": [
