@@ -1,6 +1,14 @@
 ---
 version: 2
 updates:
+  - package-ecosystem: "npm"
+    directory: "/backstage" # Location of package manifests
+    groups:
+      npm:
+        patterns:
+          - '*'
+    schedule:
+      interval: "weekly"
   - package-ecosystem: 'github-actions'
     directory: '/'
     groups:
