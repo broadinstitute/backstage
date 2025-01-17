@@ -1,4 +1,11 @@
 data "google_client_config" "current" {}
+data "google_project" "core" {
+  project_id = var.core_project
+}
+
+data "google_project" "gke" {
+  project_id = var.gke_project
+}
 
 locals {
   google_secret_manager_secrets = {
@@ -29,6 +36,14 @@ resource "google_secret_manager_secret" "backstage-bits-credentials" {
   replication {
     auto {}
   }
+}
+
+resource "google_secret_manager_secret_iam_member" "ksa-access" {
+  for_each  = local.google_secret_manager_secrets
+  project   = var.core_project
+  secret_id = google_secret_manager_secret.backstage-bits-credentials[each.key].secret_id
+  role      = "roles/secretmanager.secretAccessor"
+  member    = "principal://iam.googleapis.com/projects/${data.google_project.core.number}/locations/global/workloadIdentityPools/${var.gke_project}.svc.id.goog/subject/ns/${local.application_name}/sa/${local.application_name}"
 }
 
 resource "google_storage_bucket" "tech-docs" {
