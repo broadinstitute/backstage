@@ -27,6 +27,7 @@ import {
 import MenuIcon from '@material-ui/icons/Menu';
 import SearchIcon from '@material-ui/icons/Search';
 import MoneyIcon from '@material-ui/icons/MonetizationOn';
+import { InsightsSidebarItem } from '@spotify/backstage-plugin-insights';
 
 const useSidebarLogoStyles = makeStyles({
     root: {
@@ -92,6 +93,7 @@ export const Root = ({ children }: PropsWithChildren<{}>) => (
                         to="cost-insights"
                         text="Cost Insights"
                     />
+                    <InsightsSidebarItem />
                 </SidebarScrollWrapper>
             </SidebarGroup>
             <SidebarSpace />

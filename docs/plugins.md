@@ -9,15 +9,15 @@ database is created, otherwise the deployment will fail.
 
 The databases are:
 
-* backstage_plugin_app
-* backstage_plugin_auth
-* backstage_plugin_catalog
-* backstage_plugin_scaffolder
-* backstage_plugin_search
-* backstage_plugin_proxy
-* backstage_plugin_techdocs
-* backstage_plugin_permission
-* backstage_plugin_kubernetes
+-   backstage_plugin_app
+-   backstage_plugin_auth
+-   backstage_plugin_catalog
+-   backstage_plugin_scaffolder
+-   backstage_plugin_search
+-   backstage_plugin_proxy
+-   backstage_plugin_techdocs
+-   backstage_plugin_permission
+-   backstage_plugin_kubernetes
 
 ## Plugins Installed and Configured
 
@@ -61,7 +61,7 @@ This has been install but is still a work in progress.
 
 ## PagerDuty
 
->Note: This plugin is not currently installed.
+> Note: This plugin is not currently installed.
 
 Annotating entities For every component that shows up in your Backstage catalog
 you have a .yaml file with its configuration. Add an annotation to the entity
@@ -84,6 +84,20 @@ annotations:
 
 The Cost Insights plugin is installed and configured to show the Cost Insights
 using mock data.
+
+## Spotify Plugins
+
+These are Spotify Enterprise Plugins
+
+### Insights
+
+The goals for the [Insights(https://backstage.spotify.com/docs/plugins/insights/)] plugin are to:
+
+* Measure user and plugin adoption
+* Identify trends
+* Understand user behavior
+* Evaluate program success
+
 
 ## todo
 

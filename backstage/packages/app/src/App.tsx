@@ -12,7 +12,7 @@ import {
 } from '@backstage/plugin-catalog-import';
 import { ScaffolderPage, scaffolderPlugin } from '@backstage/plugin-scaffolder';
 import { orgPlugin } from '@backstage/plugin-org';
-import { SearchPage } from '@backstage/plugin-search';
+import { SearchPage, searchPlugin } from '@backstage/plugin-search';
 import { TechRadarPage } from '@backstage-community/plugin-tech-radar';
 import {
     TechDocsIndexPage,
@@ -41,6 +41,11 @@ import { ScaffolderFieldExtensions } from '@backstage/plugin-scaffolder-react';
 import { SelectFieldFromApiExtension } from '@roadiehq/plugin-scaffolder-frontend-module-http-request-field';
 import { CostInsightsPage } from '@backstage-community/plugin-cost-insights';
 import { GithubTeamPickerExtension } from './scaffolder/GithubTeamPicker/GithubTeamPicker';
+import {
+    InsightsPage,
+    insightsPlugin,
+    InsightsSurveyLoader,
+} from '@spotify/backstage-plugin-insights';
 
 interface SignInProviderConfig {
     id: string;
@@ -88,12 +93,16 @@ const app = createApp({
         bind(orgPlugin.externalRoutes, {
             catalogIndex: catalogPlugin.routes.catalogIndex,
         });
+        bind(insightsPlugin.externalRoutes, {
+            searchPage: searchPlugin.routes.root,
+        });
     },
 });
 
 const routes = (
     <FlatRoutes>
         <Route path="/" element={<Navigate to="catalog" />} />
+        <Route path="/insights" element={<InsightsPage />} />
         <Route path="/cost-insights" element={<CostInsightsPage />} />
         <Route path="/catalog" element={<CatalogIndexPage />} />
         <Route
@@ -171,6 +180,7 @@ export default app.createRoot(
         <AlertDisplay />
         <OAuthRequestDialog />
         <AppRouter>
+            <InsightsSurveyLoader />
             <Root>{routes}</Root>
         </AppRouter>
     </>,

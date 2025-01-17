@@ -147,3 +147,16 @@ integrations:
     - host: github.com
       apps:
         - $include: github-app-backstage-bits-credentials.yaml
+
+spotify:
+  licenseKey:
+    $file: /var/secrets/backstage-license-key
+  # For Backstage Insights
+  apiToken:
+    $file: /var/secrets/backstage-insights-token
+
+backstageInsights:
+  # Only collect insights from production Backstage
+  hostFilter: backstage.broadinstitute.org
+  salt: YBUiwn7onVtvKd8CNhOt1+06fmOVCwje
+  debug: false
