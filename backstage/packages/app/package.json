@@ -54,6 +54,8 @@
     "@pagerduty/backstage-plugin-common": "^0.2.1",
     "@roadiehq/backstage-plugin-github-pull-requests": "^3.0.1",
     "@roadiehq/plugin-scaffolder-frontend-module-http-request-field": "^1.7.2",
+    "@spotify/backstage-plugin-analytics-module-insights": "^0.9.5",
+    "@spotify/backstage-plugin-insights": "^0.5.7",
     "@testing-library/dom": "^10.4.0",
     "@testing-library/react": "^16.0.1",
     "@types/react": "^18.3.11",

@@ -50,6 +50,7 @@
     "@pagerduty/backstage-plugin-backend": "^0.9.1",
     "@roadiehq/scaffolder-backend-module-http-request": "^5.2.0",
     "@roadiehq/scaffolder-backend-module-utils": "^3.1.0",
+    "@spotify/backstage-plugin-insights-backend": "^0.5.0",
     "app": "link:../app",
     "better-sqlite3": "^11.8.0",
     "dockerode": "^4.0.3",
