@@ -150,10 +150,10 @@ integrations:
 
 spotify:
   licenseKey:
-    $file: /var/secrets/backstage-license-key
+    $file: ./secrets/backstage-license-key
   # For Backstage Insights
   apiToken:
-    $file: /var/secrets/backstage-insights-token
+    $file: ./secrets/backstage-insights-token
 
 backstageInsights:
   # Only collect insights from production Backstage
