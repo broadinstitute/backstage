@@ -63,6 +63,8 @@ spec:
               mountPath: /workspace/github-app-backstage-bits-credentials.yaml
               subPath: github-app-backstage-bits-credentials.yaml
               readOnly: true
+            - name: backstage-secrets
+              mountPath: /workspace/secrets
               # github-app-backstage-bits-credentials secret mounted in backstage app root as
               # github-app-backstage-bits-credentials.yaml
               # kubectl -n backstage create secret generic backstage-secrets \
@@ -127,3 +129,9 @@ spec:
             items:
               - key: github-app-backstage-bits-credentials.yaml
                 path: github-app-backstage-bits-credentials.yaml
+        - name: backstage-secrets
+          csi:
+            driver: secrets-store-gke.csi.k8s.io
+            readOnly: true
+            volumeAttributes:
+              secretProviderClass: backstage
