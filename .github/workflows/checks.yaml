@@ -19,3 +19,4 @@ jobs:
     uses: broadinstitute/shared-workflows/.github/workflows/terraform-docs.yaml@v2.6.1
     with:
       working_directory: './deployment/dev/terraform/,./deployment/prod/terraform/'
+# Test
