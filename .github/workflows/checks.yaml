@@ -8,6 +8,9 @@ name: 'checks'
 
 jobs:
   conventional-commits:
+    permissions:
+      pull-requests: write
+      contents: read
     uses: broadinstitute/shared-workflows/.github/workflows/conventional-commit.yaml@v2.6.1
   validation:
     uses: broadinstitute/shared-workflows/.github/workflows/terraform-validate.yaml@v2.6.1
