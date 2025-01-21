@@ -1,6 +1,6 @@
 ---
 apiVersion: backstage.io/v1alpha1
-kind: Domain
+kind: System
 metadata:
   name: scisoft
   description: >-

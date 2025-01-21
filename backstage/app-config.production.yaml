@@ -62,6 +62,11 @@ catalog:
       rules:
         - allow: [Location, Domain]
 
+    - type: file
+      target: ../../templates/BITS/systems.yaml
+      rules:
+        - allow: [Location, System]
+
     - type: url
       target: "https://github.com/broadinstitute/backstage/blob/${BRANCH_NAME}/backstage/templates/scaffolder/pr-with-catalog-entry/template.yaml"
       rules:

@@ -5,10 +5,11 @@ metadata:
   name: bits-systems
   description: A collection of all Backstage Systems at BROAD BITS
 spec:
-  type: url
+  type: file
   targets:
     - ./systems/hpc-comm.yaml
     - ./systems/hpc-drag.yaml
     - ./systems/kubernetes.yaml
+    - ./systems/sap.yaml
     - ./systems/scisoft.yaml
     - ./systems/seqprod.yaml
