@@ -45,6 +45,8 @@ spec:
               value: broadinstitute
             - name: BRANCH_NAME
               value: main # kpt-set: ${branch_name}
+            - name: OTEL_SERVICE_NAME
+              value: backstage
           envFrom:
             - secretRef:
                 name: auth-google-client-id
