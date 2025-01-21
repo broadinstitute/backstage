@@ -12,6 +12,7 @@ spec:
     - ./domains/cloud.yaml
     - ./domains/containers.yaml
     - ./domains/config-mgmt.yaml
+    - ./domains/erp.yaml
     - ./domains/hpc.yaml
     - ./domains/infrastructure-tools.yaml
     - ./domains/monitoring.yaml

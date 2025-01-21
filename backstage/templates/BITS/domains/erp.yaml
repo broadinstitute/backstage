@@ -1,0 +1,15 @@
+---
+apiVersion: backstage.io/v1alpha1
+kind: Domain
+metadata:
+  name: erp
+  description: Enterprise resource planning
+  title: ERP
+  tags:
+  - erp
+
+  annotations:
+    backstage.io/managed-by: backstage
+spec:
+  owner: enterprise-systems
+  lifecycle: production

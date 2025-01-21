@@ -1,0 +1,16 @@
+---
+apiVersion: backstage.io/v1alpha1
+kind: System
+metadata:
+  name: sap
+  description: >-
+    SAP Software Platform
+  title: "SAP"
+  tags:
+  - software
+  annotations:
+    backstage.io/managed-by: backstage
+spec:
+  owner: enterprise-systems
+  domain: erp
+  lifecycle: production
