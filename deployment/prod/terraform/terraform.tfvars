@@ -37,4 +37,12 @@ google_secret_manager_secrets = {
     service = "pagerduty"
     type    = "string"
   },
+  backstage-insights-token = {
+    service = "backstage-insights-plugin"
+    type    = "string"
+  },
+  backstage-license-key = {
+    service = "backstage"
+    type    = "string"
+  },
 }

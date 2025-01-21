@@ -169,4 +169,7 @@ backend.add(githubOrgModule);
 backend.add(customAuth);
 backend.add(import('@pagerduty/backstage-plugin-backend'));
 
+// Spotify plugins
+backend.add(import('@spotify/backstage-plugin-insights-backend'));
+
 backend.start();

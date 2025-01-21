@@ -34,8 +34,8 @@ terraform providers lock -platform=linux_amd64 -platform=darwin_amd64 -platform=
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_db_service_accounts"></a> [db\_service\_accounts](#module\_db\_service\_accounts) | terraform-google-modules/service-accounts/google | 4.4.1 |
-| <a name="module_postgres"></a> [postgres](#module\_postgres) | GoogleCloudPlatform/sql-db/google//modules/postgresql | 23.0.0 |
+| <a name="module_db_service_accounts"></a> [db\_service\_accounts](#module\_db\_service\_accounts) | terraform-google-modules/service-accounts/google | 4.4.3 |
+| <a name="module_postgres"></a> [postgres](#module\_postgres) | GoogleCloudPlatform/sql-db/google//modules/postgresql | 25.0.2 |
 
 ## Resources
 
@@ -45,6 +45,7 @@ terraform providers lock -platform=linux_amd64 -platform=darwin_amd64 -platform=
 | [google_project_iam_member.team_access](https://registry.terraform.io/providers/hashicorp/google/6.11.2/docs/resources/project_iam_member) | resource |
 | [google_project_service.api_services](https://registry.terraform.io/providers/hashicorp/google/6.11.2/docs/resources/project_service) | resource |
 | [google_secret_manager_secret.backstage-bits-credentials](https://registry.terraform.io/providers/hashicorp/google/6.11.2/docs/resources/secret_manager_secret) | resource |
+| [google_secret_manager_secret_iam_member.ksa-access](https://registry.terraform.io/providers/hashicorp/google/6.11.2/docs/resources/secret_manager_secret_iam_member) | resource |
 | [google_service_account_iam_member.db_workload_identity](https://registry.terraform.io/providers/hashicorp/google/6.11.2/docs/resources/service_account_iam_member) | resource |
 | [google_storage_bucket.tech-docs](https://registry.terraform.io/providers/hashicorp/google/6.11.2/docs/resources/storage_bucket) | resource |
 | [google_storage_bucket_iam_member.service-account](https://registry.terraform.io/providers/hashicorp/google/6.11.2/docs/resources/storage_bucket_iam_member) | resource |
@@ -52,6 +53,8 @@ terraform providers lock -platform=linux_amd64 -platform=darwin_amd64 -platform=
 | [postgresql_grant.schema_usage_create](https://registry.terraform.io/providers/cyrilgdn/postgresql/1.24.0/docs/resources/grant) | resource |
 | [postgresql_grant.table_permissions](https://registry.terraform.io/providers/cyrilgdn/postgresql/1.24.0/docs/resources/grant) | resource |
 | [google_client_config.current](https://registry.terraform.io/providers/hashicorp/google/6.11.2/docs/data-sources/client_config) | data source |
+| [google_project.core](https://registry.terraform.io/providers/hashicorp/google/6.11.2/docs/data-sources/project) | data source |
+| [google_project.gke](https://registry.terraform.io/providers/hashicorp/google/6.11.2/docs/data-sources/project) | data source |
 
 ## Inputs
 
@@ -60,9 +63,9 @@ terraform providers lock -platform=linux_amd64 -platform=darwin_amd64 -platform=
 | <a name="input_core_project"></a> [core\_project](#input\_core\_project) | GCP project to use for the default/primary provider | `string` | n/a | yes |
 | <a name="input_env"></a> [env](#input\_env) | Label for the environment or tier you are working in. Typically dev, staging, or prod | `string` | n/a | yes |
 | <a name="input_gke_project"></a> [gke\_project](#input\_gke\_project) | GCP project Where GKE clusters are running | `string` | n/a | yes |
-| <a name="input_google_secret_manager_secrets"></a> [google\_secret\_manager\_secrets](#input\_google\_secret\_manager\_secrets) | Map of secrets to create in Google Secret Manager in the format of { secret\_name = {  service = string, type = string } } | <pre>map(object({<br/>    service = string<br/>    type    = string<br/>  }))</pre> | n/a | yes |
-| <a name="input_additional_databases"></a> [additional\_databases](#input\_additional\_databases) | A list of databases to be created in your cluster | <pre>list(object({<br/>    name      = string<br/>    charset   = string<br/>    collation = string<br/>  }))</pre> | <pre>[<br/>  {<br/>    "charset": "",<br/>    "collation": "",<br/>    "name": "backstage_plugin_app"<br/>  },<br/>  {<br/>    "charset": "",<br/>    "collation": "",<br/>    "name": "backstage_plugin_auth"<br/>  },<br/>  {<br/>    "charset": "",<br/>    "collation": "",<br/>    "name": "backstage_plugin_catalog"<br/>  },<br/>  {<br/>    "charset": "",<br/>    "collation": "",<br/>    "name": "backstage_plugin_scaffolder"<br/>  },<br/>  {<br/>    "charset": "",<br/>    "collation": "",<br/>    "name": "backstage_plugin_search"<br/>  },<br/>  {<br/>    "charset": "",<br/>    "collation": "",<br/>    "name": "backstage_plugin_proxy"<br/>  },<br/>  {<br/>    "charset": "",<br/>    "collation": "",<br/>    "name": "backstage_plugin_techdocs"<br/>  },<br/>  {<br/>    "charset": "",<br/>    "collation": "",<br/>    "name": "backstage_plugin_permission"<br/>  },<br/>  {<br/>    "charset": "",<br/>    "collation": "",<br/>    "name": "backstage_plugin_kubernetes"<br/>  },<br/>  {<br/>    "charset": "",<br/>    "collation": "",<br/>    "name": "backstage_plugin_pagerduty"<br/>  }<br/>]</pre> | no |
-| <a name="input_api_services"></a> [api\_services](#input\_api\_services) | List of API services to enable | `list(string)` | <pre>[<br/>  "compute.googleapis.com",<br/>  "monitoring.googleapis.com",<br/>  "cloudidentity.googleapis.com",<br/>  "iam.googleapis.com",<br/>  "iap.googleapis.com",<br/>  "iamcredentials.googleapis.com",<br/>  "sts.googleapis.com",<br/>  "secretmanager.googleapis.com",<br/>  "sqladmin.googleapis.com"<br/>]</pre> | no |
+| <a name="input_google_secret_manager_secrets"></a> [google\_secret\_manager\_secrets](#input\_google\_secret\_manager\_secrets) | Map of secrets to create in Google Secret Manager in the format of { secret\_name = {  service = string, type = string } } | <pre>map(object({<br>    service = string<br>    type    = string<br>  }))</pre> | n/a | yes |
+| <a name="input_additional_databases"></a> [additional\_databases](#input\_additional\_databases) | A list of databases to be created in your cluster | <pre>list(object({<br>    name      = string<br>    charset   = string<br>    collation = string<br>  }))</pre> | <pre>[<br>  {<br>    "charset": "",<br>    "collation": "",<br>    "name": "backstage_plugin_app"<br>  },<br>  {<br>    "charset": "",<br>    "collation": "",<br>    "name": "backstage_plugin_auth"<br>  },<br>  {<br>    "charset": "",<br>    "collation": "",<br>    "name": "backstage_plugin_catalog"<br>  },<br>  {<br>    "charset": "",<br>    "collation": "",<br>    "name": "backstage_plugin_scaffolder"<br>  },<br>  {<br>    "charset": "",<br>    "collation": "",<br>    "name": "backstage_plugin_search"<br>  },<br>  {<br>    "charset": "",<br>    "collation": "",<br>    "name": "backstage_plugin_proxy"<br>  },<br>  {<br>    "charset": "",<br>    "collation": "",<br>    "name": "backstage_plugin_techdocs"<br>  },<br>  {<br>    "charset": "",<br>    "collation": "",<br>    "name": "backstage_plugin_permission"<br>  },<br>  {<br>    "charset": "",<br>    "collation": "",<br>    "name": "backstage_plugin_kubernetes"<br>  },<br>  {<br>    "charset": "",<br>    "collation": "",<br>    "name": "backstage_plugin_pagerduty"<br>  },<br>  {<br>    "charset": "",<br>    "collation": "",<br>    "name": "backstage_plugin_backstage-insights"<br>  }<br>]</pre> | no |
+| <a name="input_api_services"></a> [api\_services](#input\_api\_services) | List of API services to enable | `list(string)` | <pre>[<br>  "compute.googleapis.com",<br>  "monitoring.googleapis.com",<br>  "cloudidentity.googleapis.com",<br>  "iam.googleapis.com",<br>  "iap.googleapis.com",<br>  "iamcredentials.googleapis.com",<br>  "sts.googleapis.com",<br>  "secretmanager.googleapis.com",<br>  "sqladmin.googleapis.com"<br>]</pre> | no |
 | <a name="input_cloudsql_tier"></a> [cloudsql\_tier](#input\_cloudsql\_tier) | CloudSQL tier to use | `string` | `"db-g1-small"` | no |
 
 ## Outputs
