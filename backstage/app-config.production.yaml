@@ -157,6 +157,15 @@ spotify:
 
 backstageInsights:
   # Only collect insights from production Backstage
-  hostFilter: backstage.broadinstitute.org
+  # hostFilter: backstage.broadinstitute.org
   salt: YBUiwn7onVtvKd8CNhOt1+06fmOVCwje
   debug: false
+
+skillExchange:
+  slack:
+    token:
+      $file: ./secrets/backstage-skills-slack-bot-token
+    appToken:
+      $file: ./secrets/backstage-skills-slack-app-token
+    signingSecret:
+      $file: ./secrets/backstage-skills-slack-signing-secret
