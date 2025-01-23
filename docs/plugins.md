@@ -91,13 +91,25 @@ These are Spotify Enterprise Plugins
 
 ### Insights
 
-The goals for the [Insights(https://backstage.spotify.com/docs/plugins/insights/)] plugin are to:
+The goals for the [Insights](https://backstage.spotify.com/docs/plugins/insights/) plugin are to:
 
 * Measure user and plugin adoption
 * Identify trends
 * Understand user behavior
 * Evaluate program success
 
+### Skills Exchange
+
+The goals for the [Skills Exchange](https://backstage.spotify.com/docs/plugins/skill-exchange/) plugin are to:
+Provide an internal marketplace to promote and seek out unique, on-the-job learning opportunities for team members.
+In Skills Exchange you can create a skills profile, advertise yourself as a mentor in your topics of expertise, and
+browse for mentors that match your learning goals!
+
+You can also create hacks, and events, and create embed opportunities
+
+Broad Specifics Skills can be added by updating the `default-lists.yaml` file in
+root of the backstage repository. Detials on how to do this can be found in the
+[Skills Exchange](https://backstage.spotify.com/docs/plugins/skill-exchange/setup-and-installation#defining-skills-for-ingestion) documentation.
 
 ## todo
 

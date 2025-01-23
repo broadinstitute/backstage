@@ -76,6 +76,7 @@ const techdocsContent = (
         </TechDocsAddons>
     </EntityTechdocsContent>
 );
+import { SkillExchangeUserEntitySkillsCard } from '@spotify/backstage-plugin-skill-exchange';
 
 const cicdContent = (
     // This is an example of how you can implement your company's logic in entity page.
@@ -325,6 +326,9 @@ const userPage = (
                 </Grid>
                 <Grid item xs={12} md={6}>
                     <EntityOwnershipCard variant="gridItem" />
+                </Grid>
+                <Grid item xs={12} md={6}>
+                    <SkillExchangeUserEntitySkillsCard />
                 </Grid>
             </Grid>
         </EntityLayout.Route>
