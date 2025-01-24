@@ -170,5 +170,7 @@ skillExchange:
     signingSecret:
       $file: ./secrets/backstage-skills-slack-signing-secret
   defaultLists:
+    files: # for local files
+      - $include: default-lists.yaml
     remoteUrls: # for remote files
       - https://backstage.spotify.com/docs/assets/files/default-skills-1b9f68a18ea48146f2f562bd9b3f4978.yaml
