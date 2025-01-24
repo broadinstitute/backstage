@@ -46,6 +46,7 @@ import {
     insightsPlugin,
     InsightsSurveyLoader,
 } from '@spotify/backstage-plugin-insights';
+import { SkillExchangePage } from '@spotify/backstage-plugin-skill-exchange';
 
 interface SignInProviderConfig {
     id: string;
@@ -105,6 +106,10 @@ const routes = (
         <Route path="/insights" element={<InsightsPage />} />
         <Route path="/cost-insights" element={<CostInsightsPage />} />
         <Route path="/catalog" element={<CatalogIndexPage />} />
+        <Route
+            path="/skill-exchange"
+            element={<SkillExchangePage enableEmbeds enableHacks enableMentorships />}
+        />
         <Route
             path="/catalog/:namespace/:kind/:name"
             element={<CatalogEntityPage />}

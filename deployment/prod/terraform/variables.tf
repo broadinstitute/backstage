@@ -55,7 +55,12 @@ variable "additional_databases" {
       name      = "backstage_plugin_backstage-insights"
       charset   = ""
       collation = ""
-    }
+    },
+    {
+      name      = "backstage_plugin_skill-exchange"
+      charset   = ""
+      collation = ""
+    },
   ]
 }
 variable "api_services" {

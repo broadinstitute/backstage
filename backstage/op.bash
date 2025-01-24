@@ -14,8 +14,14 @@ if [ ! -v "${AUTH_GOOGLE_CLIENT_ID}" ]; then
     # Spotify Plugins
     SPOTIFY_BACKSTAGE_LICENSE_KEY=$(op --account broadinstitute.1password.com read "op://BITS - Backstage/License Key for Spotify Plugins/credential")
     SPOTIFY_BACKSTAGE_INSIGHTS_TOKEN=$(op --account broadinstitute.1password.com read "op://BITS - Backstage/backstage-insights-token/credential")
+    SPOTIFY_BACKSTAGE_SLACK_BOT_TOKEN=$(op --account broadinstitute.1password.com read "op://BITS - Backstage/Skills Exchange Slack App/bot-token")
+    SPOTIFY_BACKSTAGE_SLACK_APP_TOKEN=$(op --account broadinstitute.1password.com read "op://BITS - Backstage/Skills Exchange Slack App/app-token")
+    SPOTIFY_BACKSTAGE_SLACK_SIGNING_SECRET=$(op --account broadinstitute.1password.com read "op://BITS - Backstage/Skills Exchange Slack App/signing-secret")
     export SPOTIFY_BACKSTAGE_LICENSE_KEY
     export SPOTIFY_BACKSTAGE_INSIGHTS_TOKEN
+    export SPOTIFY_BACKSTAGE_SLACK_BOT_TOKEN
+    export SPOTIFY_BACKSTAGE_SLACK_APP_TOKEN
+    export SPOTIFY_BACKSTAGE_SLACK_SIGNING_SECRET
 
 fi
 if [ ! -f './github-app-backstage-bits-dev-credentials.yaml' ]; then

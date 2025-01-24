@@ -171,5 +171,9 @@ backend.add(import('@pagerduty/backstage-plugin-backend'));
 
 // Spotify plugins
 backend.add(import('@spotify/backstage-plugin-insights-backend'));
+backend.add(import('@spotify/backstage-plugin-skill-exchange-backend'));
+backend.add(
+  import('@spotify/backstage-plugin-search-backend-module-skill-exchange'),
+);
 
 backend.start();

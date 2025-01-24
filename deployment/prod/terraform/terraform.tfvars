@@ -45,4 +45,16 @@ google_secret_manager_secrets = {
     service = "backstage"
     type    = "string"
   },
+  backstage-skills-slack-bot-token = {
+    service = "backstage"
+    type    = "string"
+  },
+  backstage-skills-slack-app-token = {
+    service = "backstage"
+    type    = "string"
+  },
+  backstage-skills-slack-signing-secret = {
+    service = "backstage"
+    type    = "string"
+  },
 }
