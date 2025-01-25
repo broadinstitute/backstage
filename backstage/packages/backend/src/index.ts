@@ -169,6 +169,9 @@ backend.add(githubOrgModule);
 backend.add(customAuth);
 backend.add(import('@pagerduty/backstage-plugin-backend'));
 
+// Tech Radar
+backend.add(import('@backstage-community/plugin-tech-radar-backend'));
+
 // Spotify plugins
 backend.add(import('@spotify/backstage-plugin-insights-backend'));
 backend.add(import('@spotify/backstage-plugin-skill-exchange-backend'));

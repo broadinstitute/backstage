@@ -1,0 +1,494 @@
+{
+  "entries": [
+    {
+      "timeline": [
+        {
+          "moved": 0,
+          "ringId": "adopt",
+          "date": "2020-08-06T00:00:00.000Z",
+          "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua"
+        }
+      ],
+      "key": "javascript",
+      "id": "javascript",
+      "title": "JavaScript",
+      "quadrant": "languages",
+      "links": [
+        {
+          "url": "https://www.javascript.com/",
+          "title": "Learn more"
+        },
+        {
+          "url": "https://www.typescriptlang.org/",
+          "title": "TypeScript"
+        }
+      ],
+      "description": "Excepteur **sint** occaecat *cupidatat* non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.\n\n```ts\nconst x = \"3\";\n```\n"
+    },
+    {
+      "timeline": [
+        {
+          "moved": 0,
+          "ringId": "adopt",
+          "date": "2020-08-06T00:00:00.000Z",
+          "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua"
+        }
+      ],
+      "key": "python",
+      "id": "python",
+      "title": "Python",
+      "quadrant": "languages",
+      "links": [
+        {
+          "url": "https://www.python.org/",
+          "title": "Learn more"
+        },
+        {
+          "url": "https://docs.python.org/3/",
+          "title": "Python Documentation"
+        }
+      ],
+      "description": "Excepteur **sint** occaecat *cupidatat* non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.\n\n```python\nx = 3\n```\n"
+    },
+    {
+      "timeline": [
+        {
+          "moved": 0,
+          "ringId": "adopt",
+          "date": "2020-08-06T00:00:00.000Z",
+          "description": ""
+        }
+      ],
+      "key": "typescript",
+      "id": "typescript",
+      "title": "TypeScript",
+      "quadrant": "languages",
+      "description": "TypeScript (abbreviated as TS) is a free and open-source high-level programming language developed by Microsoft that adds static typing with optional type annotations to JavaScript."
+    },
+    {
+      "timeline": [
+        {
+          "moved": 0,
+          "ringId": "adopt",
+          "date": "2020-08-06T00:00:00.000Z"
+        }
+      ],
+      "links": [
+        {
+          "url": "https://reactjs.org/",
+          "title": "Learn more"
+        }
+      ],
+      "key": "react",
+      "id": "react",
+      "title": "React",
+      "quadrant": "frameworks"
+    },
+    {
+      "timeline": [
+        {
+          "moved": 0,
+          "ringId": "adopt",
+          "date": "2020-08-06T00:00:00.000Z"
+        }
+      ],
+      "key": "code-reviews",
+      "id": "code-reviews",
+      "title": "Code Reviews",
+      "quadrant": "process"
+    },
+    {
+      "timeline": [
+        {
+          "moved": 0,
+          "ringId": "adopt",
+          "date": "2020-08-06T00:00:00.000Z"
+        }
+      ],
+      "key": "itil-change-management",
+      "id": "itil-change-management",
+      "title": "ITIL Change Management",
+      "quadrant": "process"
+    },
+    {
+      "timeline": [
+        {
+          "moved": 0,
+          "ringId": "adopt",
+          "date": "2020-08-06T00:00:00.000Z"
+        }
+      ],
+      "key": "agile-methodology",
+      "id": "agile-methodology",
+      "title": "Agile Methodology",
+      "quadrant": "process"
+    },
+    {
+      "timeline": [
+        {
+          "moved": 0,
+          "ringId": "assess",
+          "date": "2020-08-06T00:00:00.000Z"
+        }
+      ],
+      "key": "mob-programming",
+      "id": "mob-programming",
+      "title": "Mob Programming",
+      "quadrant": "process"
+    },
+    {
+      "timeline": [
+        {
+          "moved": 0,
+          "ringId": "adopt",
+          "date": "2020-08-06T00:00:00.000Z"
+        }
+      ],
+      "key": "docs-like-code",
+      "id": "docs-like-code",
+      "title": "Docs-like-code",
+      "quadrant": "process"
+    },
+    {
+      "timeline": [
+        {
+          "ringId": "hold",
+          "date": "2020-08-06T00:00:00.000Z"
+        }
+      ],
+      "key": "force-push",
+      "id": "force-push",
+      "title": "Force push to master",
+      "quadrant": "process"
+    },
+    {
+      "timeline": [
+        {
+          "ringId": "hold",
+          "date": "2020-08-06T00:00:00.000Z"
+        }
+      ],
+      "links": [],
+      "key": "bitsdb",
+      "id": "bitsdb",
+      "title": "BitsDB",
+      "quadrant": "infrastructure"
+    },
+    {
+      "timeline": [
+        {
+          "ringId": "hold",
+          "date": "2020-08-06T00:00:00.000Z"
+        }
+      ],
+      "links": [],
+      "key": "gaia",
+      "id": "gaia",
+      "title": "Gaia",
+      "quadrant": "infrastructure"
+    },
+    {
+      "timeline": [
+        {
+          "ringId": "adopt",
+          "date": "2020-08-06T00:00:00.000Z",
+          "description": "long description"
+        },
+        {
+          "ringId": "trial",
+          "date": "2020-07-05T00:00:00.000Z",
+          "description": "long description"
+        }
+      ],
+      "links": [
+        {
+          "url": "https://github.com",
+          "title": "Learn more"
+        }
+      ],
+      "key": "github-actions",
+      "id": "github-actions",
+      "title": "GitHub Actions",
+      "quadrant": "infrastructure"
+    },
+    {
+      "timeline": [
+        {
+          "ringId": "adopt",
+          "date": "2020-08-06T00:00:00.000Z",
+          "description": "long description"
+        }
+      ],
+      "links": [
+        {
+          "url": "https://www.terraform.io/",
+          "title": "Learn more"
+        }
+      ],
+      "key": "terraform",
+      "id": "terraform",
+      "title": "Terraform",
+      "quadrant": "infrastructure"
+    },
+
+    {
+      "timeline": [
+        {
+          "ringId": "adopt",
+          "date": "2020-08-06T00:00:00.000Z",
+          "description": "long description"
+        }
+      ],
+      "links": [
+        {
+          "url": "https://terra.bio",
+          "title": "Learn more"
+        }
+      ],
+      "key": "terra",
+      "id": "terra",
+      "title": "Terra",
+      "quadrant": "infrastructure"
+    },
+    {
+      "timeline": [
+        {
+          "ringId": "adopt",
+          "date": "2020-08-06T00:00:00.000Z",
+          "description": "Managed Kubernetes service that automatically adjusts the resources allocated to your applications."
+        }
+      ],
+      "links": [
+        {
+          "url": "https://cloud.google.com/kubernetes-engine/docs/concepts/autopilot-overview",
+          "title": "Learn more"
+        }
+      ],
+      "key": "gke-autopilot",
+      "id": "gke-autopilot",
+      "title": "GKE Autopilot",
+      "quadrant": "infrastructure"
+    },
+    {
+        "timeline": [
+          {
+            "ringId": "adopt",
+            "date": "2020-08-06T00:00:00.000Z",
+            "description": "virtualization platform"
+          }
+        ],
+        "links": [
+          {
+            "url": "https://www.vmware.com",
+            "title": "Learn more"
+          }
+        ],
+        "key": "vmware",
+        "id": "vmware",
+        "title": "VMWare",
+        "quadrant": "infrastructure"
+      },
+    {
+      "timeline": [
+        {
+          "ringId": "adopt",
+          "date": "2020-08-06T00:00:00.000Z",
+          "description": "long description"
+        }
+      ],
+      "links": [
+        {
+          "url": "https://www.ansible.com/",
+          "title": "Learn more"
+        }
+      ],
+      "key": "ansible",
+      "id": "ansible",
+      "title": "Ansible",
+      "quadrant": "infrastructure"
+    },
+    {
+      "timeline": [
+        {
+          "ringId": "adopt",
+          "date": "2020-08-06T00:00:00.000Z",
+          "description": "long description"
+        }
+      ],
+      "links": [
+        {
+          "url": "https://puppet.com/",
+          "title": "Learn more"
+        }
+      ],
+      "key": "puppet",
+      "id": "puppet",
+      "title": "Puppet",
+      "quadrant": "infrastructure"
+    },
+    {
+      "timeline": [
+        {
+          "ringId": "adopt",
+          "date": "2020-08-06T00:00:00.000Z",
+          "description": "long description"
+        }
+      ],
+      "links": [
+        {
+          "url": "https://cloud.google.com/",
+          "title": "Learn more"
+        }
+      ],
+      "key": "gcp",
+      "id": "gcp",
+      "title": "Google Cloud Platform",
+      "quadrant": "infrastructure"
+    },
+    {
+      "timeline": [
+        {
+          "ringId": "adopt",
+          "date": "2020-08-06T00:00:00.000Z",
+          "description": "long description"
+        }
+      ],
+      "links": [
+        {
+          "url": "https://cloud.google.com/cloud-build",
+          "title": "Learn more"
+        }
+      ],
+      "key": "cloud-build",
+      "id": "cloud-build",
+      "title": "Cloud Build",
+      "quadrant": "infrastructure"
+    },
+    {
+      "timeline": [
+        {
+          "ringId": "adopt",
+          "date": "2020-08-06T00:00:00.000Z",
+          "description": "Slurm is a workload manager currently used on the HPC cluster."
+        }
+      ],
+      "links": [
+        {
+          "url": "https://slurm.schedmd.com/",
+          "title": "Learn more"
+        }
+      ],
+      "key": "slurm",
+      "id": "slurm",
+      "title": "Slurm",
+      "quadrant": "infrastructure"
+    },
+    {
+      "timeline": [
+        {
+          "ringId": "adopt",
+          "date": "2020-08-06T00:00:00.000Z",
+          "description": "Grid Engine is the workload manager currently used on UGER."
+        }
+      ],
+      "links": [
+        {
+          "url": "https://altair.com/grid-engine",
+          "title": "Learn more"
+        }
+      ],
+      "key": "gridengine",
+      "id": "gridengine",
+      "title": "Grid Engine",
+      "quadrant": "infrastructure"
+    },
+    {
+      "timeline": [
+        {
+          "ringId": "adopt",
+          "date": "2020-08-06T00:00:00.000Z",
+          "description": "long description"
+        }
+      ],
+      "links": [
+        {
+          "url": "https://www.docker.com/",
+          "title": "Learn more"
+        }
+      ],
+      "key": "docker",
+      "id": "docker",
+      "title": "Docker",
+      "quadrant": "infrastructure"
+    },
+    {
+      "timeline": [
+        {
+          "ringId": "adopt",
+          "date": "2020-08-06T00:00:00.000Z",
+          "description": "long description"
+        }
+      ],
+      "links": [
+        {
+          "url": "https://podman.io/",
+          "title": "Learn more"
+        }
+      ],
+      "key": "podman",
+      "id": "podman",
+      "title": "Podman",
+      "quadrant": "infrastructure"
+    }
+  ],
+  "quadrants": [
+    {
+      "id": "infrastructure",
+      "name": "Infrastructure"
+    },
+    {
+      "id": "frameworks",
+      "name": "Frameworks"
+    },
+    {
+      "id": "languages",
+      "name": "Languages"
+    },
+    {
+      "id": "process",
+      "name": "Process"
+    }
+  ],
+  "rings": [
+    {
+      "id": "adopt",
+      "name": "ADOPT",
+      "color": "#5BA300",
+      "description": "This technology is recommended for use. We have had positive experiences with it and it has proven to be stable and effective."
+    },
+    {
+      "id": "trial",
+      "name": "TRIAL",
+      "color": "#009EB0",
+      "description": "This technology is being trialed to understand its potential and limitations. This technology may be in use in some projects, though it is not yet widely adopted."
+    },
+    {
+      "id": "assess",
+      "name": "ASSESS",
+      "color": "#C7BA00",
+      "description": "This technology is worth exploring with the goal of understanding how it will affect our projects."
+    },
+    {
+      "id": "hold",
+      "name": "HOLD",
+      "color": "#E09B96",
+      "description": "This technology is not recommended to be used in new projects."
+    },
+    {
+      "id": "deprecated",
+      "name": "DEPRECATED",
+      "color": "#FF0000",
+      "description": "This technology is deprecated and should not be used in new projects."
+    }
+  ]
+}
