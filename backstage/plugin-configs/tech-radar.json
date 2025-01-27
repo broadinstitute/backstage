@@ -483,12 +483,6 @@
       "name": "HOLD",
       "color": "#E09B96",
       "description": "This technology is not recommended to be used in new projects."
-    },
-    {
-      "id": "deprecated",
-      "name": "DEPRECATED",
-      "color": "#FF0000",
-      "description": "This technology is deprecated and should not be used in new projects."
     }
   ]
 }
