@@ -90,12 +90,12 @@ using mock data.
 The Technology Radar is a concept created by ThoughtWorks which allows you to visualize the official guidelines
 of software languages, processes, infrastructure, and platforms at that particular company.
 
-In order to edit the tech radar, you will need to endit the `tech-radar.json` file in the `plugin-configs` directory.
+In order to edit the tech radar, you will need to edit the `tech-radar.json` file in the `plugin-configs` directory.
 
 The lifecycle definition is as follows:
 
 - Use: This technology is recommended for use by the majority of teams with a specific use case.
-- Trial: This technology has been evaluated for specific use cases and has showed clear benefits. Some teams adopt it in production, although it should be limited to low-impact projects as it might incur a higher risk.
+- Trial: This technology has been evaluated for specific use cases and has shown clear benefits.
 - Assess: This technology has the potential to be beneficial for the company. Some teams are evaluating it and using it in experimental projects. Using it in production comes with a high cost and risk due to lack of in-house knowledge, maintenance, and support.
 - Hold: We don't want to further invest in this technology or we evaluated it and we don't see it as beneficial for the company. Teams should not use it in new projects and should plan on migrating to a supported alternative if they use it for historical reasons. For broadly adopted technologies, the Radar should refer to a migration path to a supported alternative.
 - Deprecated: This technology is actively being phased out, or refactored. Teams should not use it in new projects and should plan on migrating to a supported alternative if they use it for historical reasons.
