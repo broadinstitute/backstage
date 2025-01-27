@@ -178,5 +178,10 @@ backend.add(import('@spotify/backstage-plugin-skill-exchange-backend'));
 backend.add(
   import('@spotify/backstage-plugin-search-backend-module-skill-exchange'),
 );
-
+backend.add(import('@spotify/backstage-plugin-soundcheck-backend'));
+backend.add(import('@spotify/backstage-plugin-soundcheck-backend-module-scm'));
+backend.add(
+    import('@spotify/backstage-plugin-soundcheck-backend-module-github'),
+  );
+  
 backend.start();

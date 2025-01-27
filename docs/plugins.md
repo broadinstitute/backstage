@@ -129,6 +129,20 @@ Broad Specifics Skills can be added by updating the `default-lists.yaml` file in
 root of the backstage repository. Detials on how to do this can be found in the
 [Skills Exchange](https://backstage.spotify.com/docs/plugins/skill-exchange/setup-and-installation#defining-skills-for-ingestion) documentation.
 
+### Soundcheck
+
+[Soundcheck(https://backstage.spotify.com/docs/plugins/soundcheck/#what-does-soundcheck-help-me-do)] is a tool that helps engineering organizations
+define and measure development and operational standards. It provides guidance to improve
+DevOps practices and overall tech health. Soundcheck also allows for the prioritization and visualization of tech health within Backstage.
+
+There are 5 fundamental elements that make up Soundcheck:
+
+Check: A standard or best practice a component is graded against.
+Check Result: The result of running a check against a component. Results are either pass or fail.
+Track: A long-term tech health initiative.
+Level: A group of checks that represent a milestone within a track.
+Certification: The outcome of passing all checks within a level.
+
 ## todo
 
 Configuration as Data (kpt)

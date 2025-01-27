@@ -57,6 +57,7 @@
     "@spotify/backstage-plugin-analytics-module-insights": "^0.9.5",
     "@spotify/backstage-plugin-insights": "^0.5.7",
     "@spotify/backstage-plugin-skill-exchange": "^0.12.5",
+    "@spotify/backstage-plugin-soundcheck": "^0.15.0",
     "@testing-library/dom": "^10.4.0",
     "@testing-library/react": "^16.0.1",
     "@types/react": "^18.3.11",

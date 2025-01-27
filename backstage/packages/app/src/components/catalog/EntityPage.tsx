@@ -77,6 +77,11 @@ const techdocsContent = (
     </EntityTechdocsContent>
 );
 import { SkillExchangeUserEntitySkillsCard } from '@spotify/backstage-plugin-skill-exchange';
+import {
+    EntitySoundcheckContent,
+    EntitySoundcheckCard,
+} from '@spotify/backstage-plugin-soundcheck';
+import { GroupSoundcheckContent } from '@spotify/backstage-plugin-soundcheck';
 
 const cicdContent = (
     // This is an example of how you can implement your company's logic in entity page.
@@ -158,13 +163,16 @@ const overviewContent = (
                 <EntityGithubPullRequestsOverviewCard />
             </Grid>
         </Grid>
+        <Grid item md={6} xs={12}>
+            <EntitySoundcheckCard />
+        </Grid>
         <EntitySwitch>
-  <EntitySwitch.Case if={isPagerDutyAvailable}>
-    <Grid item md={6}>
-      <EntityPagerDutyCard />
-    </Grid>
-  </EntitySwitch.Case>
-</EntitySwitch>
+            <EntitySwitch.Case if={isPagerDutyAvailable}>
+                <Grid item md={6}>
+                    <EntityPagerDutyCard />
+                </Grid>
+            </EntitySwitch.Case>
+        </EntitySwitch>
     </Grid>
 );
 
@@ -176,6 +184,9 @@ const serviceEntityPage = (
 
         <EntityLayout.Route path="/ci-cd" title="CI/CD">
             {cicdContent}
+        </EntityLayout.Route>
+        <EntityLayout.Route path="/soundcheck" title="Soundcheck">
+            <EntitySoundcheckContent />
         </EntityLayout.Route>
 
         <EntityLayout.Route path="/api" title="API">
@@ -353,6 +364,9 @@ const groupPage = (
         </EntityLayout.Route>
         <EntityLayout.Route path="/pull-requests" title="Pull Requests">
             <EntityTeamPullRequestsContent />
+        </EntityLayout.Route>
+        <EntityLayout.Route path="/soundcheck" title="Soundcheck">
+            <GroupSoundcheckContent />
         </EntityLayout.Route>
     </EntityLayout>
 );
