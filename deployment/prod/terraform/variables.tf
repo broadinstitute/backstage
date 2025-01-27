@@ -61,6 +61,11 @@ variable "additional_databases" {
       charset   = ""
       collation = ""
     },
+    {
+      name      = "backstage_plugin_tech-radar"
+      charset   = ""
+      collation = ""
+    },
   ]
 }
 variable "api_services" {

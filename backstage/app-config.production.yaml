@@ -148,6 +148,9 @@ integrations:
       apps:
         - $include: github-app-backstage-bits-credentials.yaml
 
+techRadar:
+  url: "https://github.com/broadinstitute/backstage/blob/${BRANCH_NAME}/backstage/plugin-configs/tech-radar.json"
+
 spotify:
   licenseKey:
     $file: ./secrets/backstage-license-key
@@ -171,6 +174,6 @@ skillExchange:
       $file: ./secrets/backstage-skills-slack-signing-secret
   defaultLists:
     files: # for local files
-      - $include: default-lists.yaml
+      - $include: ./plugin-configs/default-lists.yaml
     remoteUrls: # for remote files
       - https://backstage.spotify.com/docs/assets/files/default-skills-1b9f68a18ea48146f2f562bd9b3f4978.yaml
