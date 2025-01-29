@@ -143,6 +143,15 @@ Track: A long-term tech health initiative.
 Level: A group of checks that represent a milestone within a track.
 Certification: The outcome of passing all checks within a level.
 
+### RBAC
+
+The RBAC plugin is a no-code management UI for restricting access to plugins, routes, and data within Backstage.
+[Core Concepts](https://backstage.spotify.com/docs/plugins/rbac/core-concepts) can be found are on the Spotify Backstage docs site and
+will be useful for admins to understand how to configure new policies.
+
+The default policy is to allow all authorized users to access all catalog entities and nearly all plugins. The only exceptions are the
+RBAC plugin itself. 
+
 ## todo
 
 Configuration as Data (kpt)

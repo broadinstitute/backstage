@@ -1,0 +1,27 @@
+name: Fallback Policy
+description: Fallback Policy
+options:
+  resolutionStrategy: any-allow
+roles:
+  - name: Admins
+    members:
+      - group:default/devnull # add your own group/users here
+    permissions:
+      - match: '*'
+        decision: allow
+  - name: Everyone else
+    members: '*'
+    permissions:
+      - match:
+          actions:
+            - read
+          resourceType: catalog-entity
+        decision:
+          pluginId: catalog
+          resourceType: catalog-entity
+          conditions:
+            anyOf:
+              - rule: IS_ENTITY_OWNER
+                params:
+                  claims:
+                    - ':backstageUser'

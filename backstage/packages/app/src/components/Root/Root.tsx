@@ -30,6 +30,7 @@ import MoneyIcon from '@material-ui/icons/MonetizationOn';
 import { InsightsSidebarItem } from '@spotify/backstage-plugin-insights';
 import SchoolIcon from '@material-ui/icons/School';
 import DoneAllIcon from '@material-ui/icons/DoneAll';
+import { RBACSidebarItem } from '@spotify/backstage-plugin-rbac';
 
 const useSidebarLogoStyles = makeStyles({
     root: {
@@ -90,14 +91,11 @@ export const Root = ({ children }: PropsWithChildren<{}>) => (
                         to="tech-radar"
                         text="Tech Radar"
                     />
-                    <SidebarItem
-                        icon={MoneyIcon}
-                        to="cost-insights"
-                        text="Cost Insights"
-                    />
+                    {/* <SidebarItem icon={MoneyIcon} to="cost-insights" text="Cost Insights" /> */}
                     <SidebarItem icon={SchoolIcon} to="skill-exchange" text="Skill Exchange" />
                     <SidebarItem icon={DoneAllIcon} to='soundcheck' text='Soundcheck' />
                     <InsightsSidebarItem />
+                    <RBACSidebarItem />
                 </SidebarScrollWrapper>
             </SidebarGroup>
             <SidebarSpace />

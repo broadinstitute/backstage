@@ -48,6 +48,7 @@ import {
 } from '@spotify/backstage-plugin-insights';
 import { SkillExchangePage } from '@spotify/backstage-plugin-skill-exchange';
 import { SoundcheckRoutingPage } from '@spotify/backstage-plugin-soundcheck';
+import { RBACRoot } from '@spotify/backstage-plugin-rbac';
 
 interface SignInProviderConfig {
     id: string;
@@ -182,6 +183,7 @@ const routes = (
             path='/soundcheck'
             element={<SoundcheckRoutingPage title='Production Readiness' />}
         />
+        <Route path="/rbac" element={<RBACRoot />} />
     </FlatRoutes>
 );
 

@@ -137,9 +137,7 @@ backend.add(import('@backstage/plugin-catalog-backend-module-logs'));
 // permission plugin
 backend.add(import('@backstage/plugin-permission-backend'));
 // See https://backstage.io/docs/permissions/getting-started for how to create your own permission policy
-backend.add(
-    import('@backstage/plugin-permission-backend-module-allow-all-policy'),
-);
+//backend.add(import('./extensions/permissionsPolicyExtension'));
 
 // search plugin
 backend.add(import('@backstage/plugin-search-backend'));
@@ -183,5 +181,7 @@ backend.add(import('@spotify/backstage-plugin-soundcheck-backend-module-scm'));
 backend.add(
     import('@spotify/backstage-plugin-soundcheck-backend-module-github'),
   );
-  
+  backend.add(import('@spotify/backstage-plugin-rbac-backend'));
+  backend.add(import('@spotify/backstage-plugin-permission-backend-module-rbac'));
+
 backend.start();
