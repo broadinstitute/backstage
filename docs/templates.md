@@ -7,6 +7,10 @@ Interactive Editor for Software Templates
 The interactive editor does [not currently support placeholders](https://backstage.io/docs/features/software-templates/input-examples#use-placeholders-to-reference-remote-files:~:text=Testing%20of%20this%20functionality%20is%20not%20yet%20supported%20using%20create/edit.%20In%20addition%2C%20this%20functionality%20only%20works%20for%20remote%20files%20and%20not%20local%20files.%20You%20also%20cannot%20nest%20files.), so you will need to manually replace placeholders with the appropriate values.
 https://backstage.broadinstitute.org/create/edit
 
+## Sharing Software Templates
+
+When publishing a software template, in order to share it outside the group that owns the template, templates require either the `recommended` or `production` tag to be added to the template. Otherwise other folks will only see templates that are owned by them, and templates with the `recommended` or `production` tags.
+
 ### Local Development of Software Templates
 
 Because have broken software templates into [reusable components(https://backstage.io/docs/features/software-templates/input-examples#use-placeholders-to-reference-remote-files)], we have to use the `url` field in the app-config.yaml to reference the templates.

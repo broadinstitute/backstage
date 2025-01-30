@@ -13,6 +13,9 @@ roles:
     members: '*'
     permissions:
       - match:
+          name: catalog.entity.create
+        decision: allow
+      - match:
           actions:
             - delete
           resourceType: catalog-entity
@@ -64,6 +67,15 @@ roles:
                     params:
                       kinds:
                         - Template
+                  - rule: HAS_METADATA
+                    params:
+                      key: tags
+                      value: recommended
+              - allOf:
+                  - rule: IS_ENTITY_KIND
+                    params:
+                      kinds:
+                        - Template
                   - rule: IS_ENTITY_OWNER
                     params:
                       claims:
@@ -105,6 +117,21 @@ roles:
     members:
       - user:default/*
     permissions:
+      - match:
+          name: scaffolder.task.read
+        decision: allow
+      - match:
+          name: scaffolder.task.cancel
+        decision: allow
+      - match:
+          name: scaffolder.action.execute
+        decision: allow
+      - match:
+          name: scaffolder.template.step.read
+        decision: allow
+      - match:
+          name: scaffolder.template.parameter.read
+        decision: allow
       - match:
           name: scaffolder.task.create
         decision: allow
