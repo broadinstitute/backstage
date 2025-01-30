@@ -11,6 +11,7 @@ metadata:
   tags:
     - terraform
     - gcp
+    - production
 
 spec:
   owner: group:devnull
