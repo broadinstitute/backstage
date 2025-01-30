@@ -72,6 +72,11 @@ variable "additional_databases" {
       collation = ""
 
     },
+    {
+      name      = "backstage_plugin_rbac"
+      charset   = ""
+      collation = ""
+    },
   ]
 }
 variable "api_services" {
