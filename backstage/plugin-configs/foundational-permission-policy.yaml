@@ -1,0 +1,137 @@
+name: Foundational Permissions Policy
+description: null
+options:
+  resolutionStrategy: any-allow
+roles:
+  - name: admins-role
+    members:
+      - group:default/devnull
+    permissions:
+      - match: '*'
+        decision: allow
+  - name: default-catalog-role
+    members: '*'
+    permissions:
+      - match:
+          name: catalog.entity.create
+        decision: allow
+      - match:
+          actions:
+            - delete
+          resourceType: catalog-entity
+        decision:
+          pluginId: catalog
+          resourceType: catalog-entity
+          conditions:
+            rule: IS_ENTITY_OWNER
+            params:
+              claims:
+                - ':backstageUser'
+      - match:
+          actions:
+            - update
+          resourceType: catalog-entity
+        decision:
+          pluginId: catalog
+          resourceType: catalog-entity
+          conditions:
+            rule: IS_ENTITY_OWNER
+            params:
+              claims:
+                - ':backstageUser'
+      - match:
+          actions:
+            - read
+          resourceType: catalog-entity
+        decision:
+          pluginId: catalog
+          resourceType: catalog-entity
+          conditions:
+            anyOf:
+              - not:
+                  rule: IS_ENTITY_KIND
+                  params:
+                    kinds:
+                      - Template
+              - allOf:
+                  - rule: IS_ENTITY_KIND
+                    params:
+                      kinds:
+                        - Template
+                  - rule: HAS_METADATA
+                    params:
+                      key: tags
+                      value: production
+              - allOf:
+                  - rule: IS_ENTITY_KIND
+                    params:
+                      kinds:
+                        - Template
+                  - rule: HAS_METADATA
+                    params:
+                      key: tags
+                      value: recommended
+              - allOf:
+                  - rule: IS_ENTITY_KIND
+                    params:
+                      kinds:
+                        - Template
+                  - rule: IS_ENTITY_OWNER
+                    params:
+                      claims:
+                        - ':backstageUser'
+  - name: default-soundcheck-role
+    members: '*'
+    permissions:
+      - match:
+          name: soundcheck.techHealth.read
+        decision: allow
+      - match:
+          name: soundcheck.collector.read
+        decision: allow
+      - match:
+          actions:
+            - read
+          resourceType: soundcheck-campaign
+        decision: allow
+      - match:
+          actions:
+            - read
+          resourceType: soundcheck-track
+        decision: allow
+      - match:
+          actions:
+            - read
+          resourceType: soundcheck-check
+        decision: allow
+  - name: default-insights-role
+    members: '*'
+    permissions:
+      - match:
+          name: insights.survey.read
+        decision: allow
+      - match:
+          name: insights.read
+        decision: allow
+  - name: default-scaffolder-role
+    members:
+      - user:default/*
+    permissions:
+      - match:
+          name: scaffolder.task.read
+        decision: allow
+      - match:
+          name: scaffolder.task.cancel
+        decision: allow
+      - match:
+          name: scaffolder.action.execute
+        decision: allow
+      - match:
+          name: scaffolder.template.step.read
+        decision: allow
+      - match:
+          name: scaffolder.template.parameter.read
+        decision: allow
+      - match:
+          name: scaffolder.task.create
+        decision: allow

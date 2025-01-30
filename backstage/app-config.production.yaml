@@ -177,3 +177,39 @@ skillExchange:
       - $include: ./plugin-configs/default-lists.yaml
     remoteUrls: # for remote files
       - https://backstage.spotify.com/docs/assets/files/default-skills-1b9f68a18ea48146f2f562bd9b3f4978.yaml
+
+soundcheck:
+  programs:
+    $include: ./soundcheck-tracks.yaml
+  results:
+    history:
+      enable: true
+      retentionTimeInDays: 90
+      cleanupFrequencyCron: '0 0 0 * * *'
+      cleanupTimeoutInMinutes: 5
+  certifications:
+    history:
+      enable: true
+      retentionTimeInDays: 90
+      cleanupFrequencyCron: '0 0 0 * * *'
+      cleanupTimeoutInMinutes: 5
+
+permission:
+  enabled: true
+  permissionedPlugins:
+    - catalog
+    - scaffolder
+    - soundcheck
+    - backstage-insights
+  rbac:
+    authorizedUsers:
+      - group:default/devnull
+      - user:default/tfhartmann
+      - user:default/lbenezriravin
+      - user:default/coreone
+      - user:default/hjfbynara
+      - user:default/pssaluja
+    fallbackPolicy:
+      $include: ./plugin-configs/fallback-rbac-policy.yaml
+    defaultPolicy:
+      $include: ./plugin-configs/foundational-permission-policy.yaml

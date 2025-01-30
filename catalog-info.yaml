@@ -26,7 +26,7 @@ spec:
   system: backstage
   domain: orchestration
   owner: devnull
-  lifecycle: experimental
+  lifecycle: production
 
 ---
 apiVersion: backstage.io/v1alpha1

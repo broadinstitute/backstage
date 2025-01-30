@@ -66,6 +66,16 @@ variable "additional_databases" {
       charset   = ""
       collation = ""
     },
+    {
+      name      = "backstage_plugin_soundcheck"
+      charset   = ""
+      collation = ""
+    },
+    {
+      name      = "backstage_plugin_rbac"
+      charset   = ""
+      collation = ""
+    },
   ]
 }
 variable "api_services" {

@@ -1,0 +1,15 @@
+# - id: test-certified
+#   name: Test Certified
+#   ownerEntityRef: group:default/example-owner
+#   description: >
+#     Improve quality and reliability of your software component
+#     by measuring the use of testing best practices.
+#   documentationURL: https://www.backstage.io
+#   levels:
+#     - ordinal: 1
+#       checks:
+#         - id: tests-run
+#           name: Tests run on CI
+#           description: >
+#             Indicates whether your system is set up correctly to run tests and
+#             report the results. You must have at least one test.

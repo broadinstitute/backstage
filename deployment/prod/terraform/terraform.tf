@@ -1,5 +1,5 @@
 terraform {
-  required_version = "1.7.0"
+  required_version = "1.10.5"
   backend "gcs" {
     bucket = "broad-atlantis-terraform-prod"
     prefix = "backstage/prod"
