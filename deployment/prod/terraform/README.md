@@ -18,7 +18,7 @@ terraform providers lock -platform=linux_amd64 -platform=darwin_amd64 -platform=
 
 | Name | Version |
 |------|---------|
-| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | 1.7.0 |
+| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | 1.10.5 |
 | <a name="requirement_google"></a> [google](#requirement\_google) | 6.11.2 |
 | <a name="requirement_google-beta"></a> [google-beta](#requirement\_google-beta) | 6.11.2 |
 | <a name="requirement_postgresql"></a> [postgresql](#requirement\_postgresql) | 1.24.0 |
@@ -34,8 +34,8 @@ terraform providers lock -platform=linux_amd64 -platform=darwin_amd64 -platform=
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_db_service_accounts"></a> [db\_service\_accounts](#module\_db\_service\_accounts) | terraform-google-modules/service-accounts/google | 4.4.3 |
-| <a name="module_postgres"></a> [postgres](#module\_postgres) | GoogleCloudPlatform/sql-db/google//modules/postgresql | 25.0.2 |
+| <a name="module_db_service_accounts"></a> [db\_service\_accounts](#module\_db\_service\_accounts) | terraform-google-modules/service-accounts/google | 4.5.0 |
+| <a name="module_postgres"></a> [postgres](#module\_postgres) | GoogleCloudPlatform/sql-db/google//modules/postgresql | 25.1.0 |
 
 ## Resources
 
@@ -64,9 +64,10 @@ terraform providers lock -platform=linux_amd64 -platform=darwin_amd64 -platform=
 | <a name="input_env"></a> [env](#input\_env) | Label for the environment or tier you are working in. Typically dev, staging, or prod | `string` | n/a | yes |
 | <a name="input_gke_project"></a> [gke\_project](#input\_gke\_project) | GCP project Where GKE clusters are running | `string` | n/a | yes |
 | <a name="input_google_secret_manager_secrets"></a> [google\_secret\_manager\_secrets](#input\_google\_secret\_manager\_secrets) | Map of secrets to create in Google Secret Manager in the format of { secret\_name = {  service = string, type = string } } | <pre>map(object({<br>    service = string<br>    type    = string<br>  }))</pre> | n/a | yes |
-| <a name="input_additional_databases"></a> [additional\_databases](#input\_additional\_databases) | A list of databases to be created in your cluster | <pre>list(object({<br>    name      = string<br>    charset   = string<br>    collation = string<br>  }))</pre> | <pre>[<br>  {<br>    "charset": "",<br>    "collation": "",<br>    "name": "backstage_plugin_app"<br>  },<br>  {<br>    "charset": "",<br>    "collation": "",<br>    "name": "backstage_plugin_auth"<br>  },<br>  {<br>    "charset": "",<br>    "collation": "",<br>    "name": "backstage_plugin_catalog"<br>  },<br>  {<br>    "charset": "",<br>    "collation": "",<br>    "name": "backstage_plugin_scaffolder"<br>  },<br>  {<br>    "charset": "",<br>    "collation": "",<br>    "name": "backstage_plugin_search"<br>  },<br>  {<br>    "charset": "",<br>    "collation": "",<br>    "name": "backstage_plugin_proxy"<br>  },<br>  {<br>    "charset": "",<br>    "collation": "",<br>    "name": "backstage_plugin_techdocs"<br>  },<br>  {<br>    "charset": "",<br>    "collation": "",<br>    "name": "backstage_plugin_permission"<br>  },<br>  {<br>    "charset": "",<br>    "collation": "",<br>    "name": "backstage_plugin_kubernetes"<br>  },<br>  {<br>    "charset": "",<br>    "collation": "",<br>    "name": "backstage_plugin_pagerduty"<br>  },<br>  {<br>    "charset": "",<br>    "collation": "",<br>    "name": "backstage_plugin_backstage-insights"<br>  },<br>  {<br>    "charset": "",<br>    "collation": "",<br>    "name": "backstage_plugin_skill-exchange"<br>  }<br>]</pre> | no |
+| <a name="input_additional_databases"></a> [additional\_databases](#input\_additional\_databases) | A list of databases to be created in your cluster | <pre>list(object({<br>    name      = string<br>    charset   = string<br>    collation = string<br>  }))</pre> | `[]` | no |
 | <a name="input_api_services"></a> [api\_services](#input\_api\_services) | List of API services to enable | `list(string)` | <pre>[<br>  "compute.googleapis.com",<br>  "monitoring.googleapis.com",<br>  "cloudidentity.googleapis.com",<br>  "iam.googleapis.com",<br>  "iap.googleapis.com",<br>  "iamcredentials.googleapis.com",<br>  "sts.googleapis.com",<br>  "secretmanager.googleapis.com",<br>  "sqladmin.googleapis.com"<br>]</pre> | no |
 | <a name="input_cloudsql_tier"></a> [cloudsql\_tier](#input\_cloudsql\_tier) | CloudSQL tier to use | `string` | `"db-g1-small"` | no |
+| <a name="input_database_flags"></a> [database\_flags](#input\_database\_flags) | List of database flags to set on the CloudSQL instance | <pre>list(object({<br>    name  = string<br>    value = string<br>  }))</pre> | `[]` | no |
 
 ## Outputs
 

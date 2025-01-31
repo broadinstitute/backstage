@@ -5,7 +5,7 @@ locals { #todo the data heere should probably be a variable
 # Create a service account for App to use to connect to the CloudSQL instance
 module "db_service_accounts" {
   source      = "terraform-google-modules/service-accounts/google"
-  version     = "4.4.3"
+  version     = "4.5.0"
   project_id  = var.core_project
   names       = [local.application_name]
   description = "service account for ${local.application_name}"
@@ -32,7 +32,7 @@ resource "google_service_account_iam_member" "db_workload_identity" {
 # Create a CloudSQL instance for App to use
 module "postgres" {
   source                      = "GoogleCloudPlatform/sql-db/google//modules/postgresql"
-  version                     = "25.0.2"
+  version                     = "25.1.0"
   database_version            = "POSTGRES_15"
   name                        = "${local.application_name}-${var.env}"
   project_id                  = var.core_project
@@ -45,17 +45,11 @@ module "postgres" {
   region                      = data.google_client_config.current.region
   edition                     = "ENTERPRISE"
   tier                        = var.cloudsql_tier # "db-n1-standard-8" # todo: Think about this for prod ( Maps to Production Preset )
+  database_flags              = var.database_flags
 
   ip_configuration = {
     ssl_mode = "ENCRYPTED_ONLY"
   }
-
-  database_flags = [
-    {
-      name  = "cloudsql.iam_authentication"
-      value = "on"
-    },
-  ]
 
   iam_users = [
     {

@@ -8,76 +8,7 @@ variable "additional_databases" {
     charset   = string
     collation = string
   }))
-  default = [
-    { name      = "backstage_plugin_app",
-      charset   = "",
-      collation = "",
-    },
-    { name      = "backstage_plugin_auth",
-      charset   = "",
-      collation = "",
-    },
-    { name      = "backstage_plugin_catalog",
-      charset   = "",
-      collation = "",
-    },
-    { name      = "backstage_plugin_scaffolder",
-      charset   = "",
-      collation = "",
-    },
-    { name      = "backstage_plugin_search",
-      charset   = "",
-      collation = "",
-    },
-    { name      = "backstage_plugin_proxy",
-      charset   = "",
-      collation = "",
-    },
-    { name      = "backstage_plugin_techdocs",
-      charset   = "",
-      collation = "",
-    },
-    { name      = "backstage_plugin_permission",
-      charset   = "",
-      collation = "",
-    },
-    {
-      name      = "backstage_plugin_kubernetes",
-      charset   = "",
-      collation = "",
-    },
-    {
-      name      = "backstage_plugin_pagerduty",
-      charset   = "",
-      collation = "",
-    },
-    {
-      name      = "backstage_plugin_backstage-insights"
-      charset   = ""
-      collation = ""
-    },
-    {
-      name      = "backstage_plugin_skill-exchange"
-      charset   = ""
-      collation = ""
-    },
-    {
-      name      = "backstage_plugin_tech-radar"
-      charset   = ""
-      collation = ""
-    },
-    {
-      name      = "backstage_plugin_soundcheck"
-      charset   = ""
-      collation = ""
-
-    },
-    {
-      name      = "backstage_plugin_rbac"
-      charset   = ""
-      collation = ""
-    },
-  ]
+  default = []
 }
 variable "api_services" {
   description = "List of API services to enable"
@@ -105,6 +36,15 @@ variable "core_project" {
   description = "GCP project to use for the default/primary provider"
   type        = string
 
+}
+
+variable "database_flags" {
+  description = "List of database flags to set on the CloudSQL instance"
+  type = list(object({
+    name  = string
+    value = string
+  }))
+  default = []
 }
 
 variable "env" {
