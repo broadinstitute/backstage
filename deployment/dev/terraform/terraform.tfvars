@@ -57,3 +57,85 @@ google_secret_manager_secrets = {
     type    = "string"
   },
 }
+
+additional_databases = [
+  { name      = "backstage_plugin_app",
+    charset   = "",
+    collation = "",
+  },
+  { name      = "backstage_plugin_auth",
+    charset   = "",
+    collation = "",
+  },
+  { name      = "backstage_plugin_catalog",
+    charset   = "",
+    collation = "",
+  },
+  { name      = "backstage_plugin_scaffolder",
+    charset   = "",
+    collation = "",
+  },
+  { name      = "backstage_plugin_search",
+    charset   = "",
+    collation = "",
+  },
+  { name      = "backstage_plugin_proxy",
+    charset   = "",
+    collation = "",
+  },
+  { name      = "backstage_plugin_techdocs",
+    charset   = "",
+    collation = "",
+  },
+  { name      = "backstage_plugin_permission",
+    charset   = "",
+    collation = "",
+  },
+  {
+    name      = "backstage_plugin_kubernetes",
+    charset   = "",
+    collation = "",
+  },
+  {
+    name      = "backstage_plugin_pagerduty",
+    charset   = "",
+    collation = "",
+  },
+  {
+    name      = "backstage_plugin_backstage-insights"
+    charset   = ""
+    collation = ""
+  },
+  {
+    name      = "backstage_plugin_skill-exchange"
+    charset   = ""
+    collation = ""
+  },
+  {
+    name      = "backstage_plugin_tech-radar"
+    charset   = ""
+    collation = ""
+  },
+  {
+    name      = "backstage_plugin_soundcheck"
+    charset   = ""
+    collation = ""
+
+  },
+  {
+    name      = "backstage_plugin_rbac"
+    charset   = ""
+    collation = ""
+  },
+]
+
+database_flags = [
+  {
+    name  = "cloudsql.iam_authentication"
+    value = "on"
+  },
+  {
+    name  = "max_connections"
+    value = "100"
+  },
+]
