@@ -8,4 +8,4 @@ name: checks
 
 jobs:
   python-make-ci:
-    uses: broadinstitute/shared-workflows/.github/workflows/python-make-ci.yaml@v2.4.0
+    uses: broadinstitute/shared-workflows/.github/workflows/python-make-ci.yaml@v2.6.1
