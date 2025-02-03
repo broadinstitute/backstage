@@ -7123,8 +7123,8 @@ __metadata:
   linkType: hard
 
 "@backstage/plugin-techdocs@npm:^1.12.1":
-  version: 1.12.1
-  resolution: "@backstage/plugin-techdocs@npm:1.12.1"
+  version: 1.12.2
+  resolution: "@backstage/plugin-techdocs@npm:1.12.2"
   dependencies:
     "@backstage/catalog-model": "npm:^1.7.3"
     "@backstage/config": "npm:^1.3.2"
@@ -7161,7 +7161,7 @@ __metadata:
   peerDependenciesMeta:
     "@types/react":
       optional: true
-  checksum: 10c0/c6e9bbeffa0899266c864e47cc7a1f63c78e263e0b9b5bb48006426c6624d4f97d6df70577ea639b84f536a1c0c54eced70a16352bd7dd4adf7eee4f78ee28f5
+  checksum: 10c0/673800a76c9c55c43429faa6de72f73e0044925d05fb58037061784a31b9b72a8ac7f73f9e3ad2a138415079f2da0bb83366637fbcbe4d95d3ea4f2e6221021d
   languageName: node
   linkType: hard
 
