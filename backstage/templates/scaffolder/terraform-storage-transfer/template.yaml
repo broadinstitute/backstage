@@ -122,6 +122,8 @@ spec:
           gcsBucket: ${{ parameters.gcsBucket }}
           googleProviderVersion: ${{ parameters.googleProviderVersion }}
           terraformVersion: ${{ parameters.terraformVersion }}
+          repoOwner: >-
+            ${{ parameters.repoUrl | parseRepoUrl | pick('owner') }}/${{ parameters.githubTeam | parseEntityRef | pick('name') }}
 
     - $yaml: ../defaults/steps/write-catalog.yaml
     - $yaml: ../defaults/steps/system.yaml

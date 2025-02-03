@@ -7,6 +7,7 @@ metadata:
   description: Create a new PR with your service's details.
   tags:
     - recommended
+    - production
 
 spec:
   owner: group:devnull

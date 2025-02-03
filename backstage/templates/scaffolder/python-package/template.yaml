@@ -9,6 +9,7 @@ metadata:
     devnull-standard CI tooling.
   tags:
     - python
+    - production
 
 spec:
   owner: group:devnull
@@ -86,6 +87,8 @@ spec:
           pypiRepository: ${{ parameters.pypiRepository }}
           githubRepo: ${{ parameters.repoUrl | parseRepoUrl | pick('repo') }}
           githubOrg: ${{ parameters.repoUrl | parseRepoUrl | pick('owner') }}
+          repoOwner: >-
+            ${{ parameters.repoUrl | parseRepoUrl | pick('owner') }}/${{ parameters.githubTeam | parseEntityRef | pick('name') }}
 
     - $yaml: ../defaults/steps/write-catalog.yaml
     - $yaml: ../defaults/steps/system.yaml
