@@ -4492,8 +4492,8 @@ __metadata:
   linkType: hard
 
 "@backstage/cli@npm:^0.29.5":
-  version: 0.29.5
-  resolution: "@backstage/cli@npm:0.29.5"
+  version: 0.29.6
+  resolution: "@backstage/cli@npm:0.29.6"
   dependencies:
     "@backstage/catalog-model": "npm:^1.7.3"
     "@backstage/cli-common": "npm:^0.1.15"
@@ -4621,7 +4621,7 @@ __metadata:
       optional: true
   bin:
     backstage-cli: bin/backstage-cli
-  checksum: 10c0/58e712db5f4ddf031531ff3eedac40a272483b36a5eba1093c46f931dc9c173ad01b4ec9a0b315829604afddab5e9d6ddaacb756d8071922ca1504ca6eda6142
+  checksum: 10c0/7dfe0ab16d1326c17f840593345b2b7c7adc603cc58caf50589b286b4d8a6f7fac1edb4a562c281f482c7e3c3ace7029819576df10052747589014ea6263ea67
   languageName: node
   linkType: hard
 
