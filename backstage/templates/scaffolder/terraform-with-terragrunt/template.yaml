@@ -15,6 +15,7 @@ metadata:
   tags:
     - terragrunt
     - recommended
+    - production
 spec:
   owner: group:devnull
   type: service
@@ -172,6 +173,8 @@ spec:
           googleProviderVersion: ${{ parameters.googleProviderVersion }}
           terraformVersion: ${{ parameters.terraformVersion }}
           title: ${{ parameters.title }}
+          repoOwner: >-
+            ${{ parameters.repoUrl | parseRepoUrl | pick('owner') }}/${{ parameters.githubTeam | parseEntityRef | pick('name') }}
 
     - $yaml: ../defaults/steps/write-catalog.yaml
     - $yaml: ../defaults/steps/system.yaml

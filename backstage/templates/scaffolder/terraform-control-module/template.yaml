@@ -17,6 +17,8 @@ metadata:
   tags:
     - terraform
     - recommended
+    - production
+
 spec:
   owner: group:devnull
   type: service
@@ -97,13 +99,13 @@ spec:
         googleProviderVersion:
           title: Google Provider Version
           type: string
-          default: 5.17.0
+          default: 6.18.1
           description: The version of the Google provider to use in the Terraform configuration.
 
         terraformVersion:
           title: Terraform Version
           type: string
-          default: 1.7.4
+          default: 1.10.5
           description: The version of Terraform to use in the Terraform configuration.
 
     - $yaml: ../defaults/parameters/pagerduty.yaml
@@ -125,6 +127,8 @@ spec:
           googleProviderVersion: ${{ parameters.googleProviderVersion }}
           terraformVersion: ${{ parameters.terraformVersion }}
           title: ${{ parameters.title }}
+          repoOwner: >-
+            ${{ parameters.repoUrl | parseRepoUrl | pick('owner') }}/${{ parameters.githubTeam | parseEntityRef | pick('name') }}
 
     - $yaml: ../defaults/steps/write-catalog.yaml
     - $yaml: ../defaults/steps/system.yaml
