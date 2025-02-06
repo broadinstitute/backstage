@@ -56,6 +56,18 @@ google_secret_manager_secrets = {
     service = "backstage"
     type    = "string"
   },
+  backstage-soundcheck-slack-bot-token = {
+    service = "backstage"
+    type    = "string"
+  },
+  backstage-soundcheck-slack-app-token = {
+    service = "backstage"
+    type    = "string"
+  },
+  backstage-soundcheck-slack-signing-secret = {
+    service = "backstage"
+    type    = "string"
+  },
 }
 
 additional_databases = [
