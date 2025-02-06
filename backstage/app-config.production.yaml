@@ -165,6 +165,7 @@ backstageInsights:
   debug: false
 
 skillExchange:
+  hackUpdateNotificationsCron: '0 17 * * 1'
   slack:
     token:
       $file: ./secrets/backstage-skills-slack-bot-token
@@ -193,6 +194,13 @@ soundcheck:
       retentionTimeInDays: 90
       cleanupFrequencyCron: '0 0 0 * * *'
       cleanupTimeoutInMinutes: 5
+  slack:
+    token:
+      $file: ./secrets/backstage-soundcheck-slack-bot-token
+    appToken:
+      $file: ./secrets/backstage-soundcheck-slack-app-token
+    signingSecret:
+      $file: ./secrets/backstage-soundcheck-slack-signing-secret
 
 permission:
   enabled: true
