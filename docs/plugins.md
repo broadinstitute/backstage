@@ -143,6 +143,10 @@ Track: A long-term tech health initiative.
 Level: A group of checks that represent a milestone within a track.
 Certification: The outcome of passing all checks within a level.
 
+In order to get Slack notifications from your Slack app, it must be added to a Slack channel. The Slack channel can be either a public or a private channel that lives in the same workspace that you selected when creating the Slack app.
+
+Right-click on the desired channel in Slack, select View Channel Details, click on the Integrations tab, and then click on Add Apps. Search for your Slack app by name, find it in the search results, and then click on the Add button.
+
 ### RBAC
 
 The RBAC plugin is a no-code management UI for restricting access to plugins, routes, and data within Backstage.
@@ -150,7 +154,7 @@ The RBAC plugin is a no-code management UI for restricting access to plugins, ro
 will be useful for admins to understand how to configure new policies.
 
 The default policy is to allow all authorized users to access all catalog entities and nearly all plugins. The only exceptions are the
-RBAC plugin itself. 
+RBAC plugin itself.
 
 ## todo
 
