@@ -10,6 +10,9 @@ input:
   access: >-
     ${{ parameters.repoUrl | parseRepoUrl | pick('owner') }}/${{ parameters.githubTeam | parseEntityRef | pick('name') }}
   defaultBranch: main
+  protectDefaultBranch: true
+  protectEnforceAdmins: true
   requireCodeOwnerReviews: true
   allowMergeCommit: true
   allowSquashMerge: true
+  allowRebaseMerge: true
