@@ -104,6 +104,8 @@ steps:
       - '--location=${LOCATION}'
       - '--project=${PROJECT_ID}'
       - '--cluster=gke-autopilot-01-prod'
+options:
+  machineType: 'E2_HIGHCPU_32'
 
 availableSecrets:
   secretManager:
