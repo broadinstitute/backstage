@@ -134,7 +134,7 @@ steps:
       - '--cluster=gke-autopilot-01-prod'
 #       # - '--verbose'
 options:
-  machineType: 'E2_HIGHCPU_8'
+  machineType: 'E2_HIGHCPU_32'
 
 availableSecrets:
   secretManager:
