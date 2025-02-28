@@ -1,0 +1,48 @@
+---
+logsBucket: 'gs://1087551700560-us-east4-cloudbuild-logs'
+
+steps:
+  - id: build-run-image
+    name: 'gcr.io/kaniko-project/executor:latest'
+    dir: ${_APP}
+    args:
+    - '--dockerfile=run.Dockerfile'
+    - '--destination=${LOCATION}-docker.pkg.dev/${_REGISTRY_PROJECT}/${_REGISTRY_NAME}/${_APP}-run-image:${_GITHUB_SHA}'
+    - '--cache=true'
+    - '--cache-copy-layers=false'
+
+
+  - id: build-image
+    name: 'buildpacksio/pack:0.36.4'
+    dir: ${_APP}
+    entrypoint: pack
+    # secretEnv: ['PACK_VOLUME_KEY']
+    args:
+    - 'build'
+    - '${LOCATION}-docker.pkg.dev/${_REGISTRY_PROJECT}/${_REGISTRY_NAME}/${_APP}:${_GITHUB_SHA}'
+    - '-t'
+    - '${LOCATION}-docker.pkg.dev/${_REGISTRY_PROJECT}/${_REGISTRY_NAME}/${_APP}:${_PR}'
+    - '--run-image'
+    - '${LOCATION}-docker.pkg.dev/${_REGISTRY_PROJECT}/${_REGISTRY_NAME}/${_APP}-run-image:${_GITHUB_SHA}'
+    - '--cache-image'
+    - '${LOCATION}-docker.pkg.dev/${_REGISTRY_PROJECT}/${_REGISTRY_NAME}/${_APP}:latest'
+    - '--publish'
+
+  # Pull image for testing
+  - id: pull-image-for-testing
+    name: 'gcr.io/cloud-builders/docker'
+    args:
+      - 'pull'
+      - '${LOCATION}-docker.pkg.dev/${_REGISTRY_PROJECT}/${_REGISTRY_NAME}/${_APP}:${_PR}'
+
+  # Test the image.
+  - id: test-docker-image
+    name: 'gcr.io/gcp-runtimes/container-structure-test'
+    args:
+      - 'test'
+      - '--image'
+      - '${LOCATION}-docker.pkg.dev/${_REGISTRY_PROJECT}/${_REGISTRY_NAME}/${_APP}:${_PR}'
+      - '--config'
+      - '${_APP}/container-image-tests.yaml'
+
+images: ['${LOCATION}-docker.pkg.dev/${_REGISTRY_PROJECT}/${_REGISTRY_NAME}/${_APP}:${_PR}']
