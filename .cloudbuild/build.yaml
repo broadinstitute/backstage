@@ -43,6 +43,6 @@ steps:
       - '--image'
       - '${LOCATION}-docker.pkg.dev/${_REGISTRY_PROJECT}/${_REGISTRY_NAME}/${_APP}:${_PR}'
       - '--config'
-      - '${_APP}/container-image-tests.yaml'
+      - 'container-image-tests.yaml'
 
 images: ['${LOCATION}-docker.pkg.dev/${_REGISTRY_PROJECT}/${_REGISTRY_NAME}/${_APP}:${_PR}']
