@@ -12,7 +12,7 @@ steps:
     - '--cache=true'
 
   - id: build-image
-    name: 'buildpacksio/pack:0.35.1'
+    name: 'buildpacksio/pack:0.36.4'
     dir: ${_APP}
     entrypoint: pack
     secretEnv: ['PACK_VOLUME_KEY']
