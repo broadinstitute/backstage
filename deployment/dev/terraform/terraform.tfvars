@@ -5,7 +5,8 @@
 
 core_project = "bits-backstage-dev"
 env          = "dev"
-gke_project  = "bits-gke-clusters-dev"
+gke_project  = "bits-gke-clusters"
+namespace    = "backstage-dev"
 
 google_secret_manager_secrets = {
   github-app-backstage-bits-credentials = {
