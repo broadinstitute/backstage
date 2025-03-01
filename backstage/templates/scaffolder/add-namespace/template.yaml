@@ -49,9 +49,9 @@ spec:
             type: string
             title: Google Groups
             pattern: '^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$'
-      errorMessage:
-        properties:
-          teams: 'Must be a valid email address'
+            ui:help: 'Enter a valid Google Group email address'
+            ui:hideError: true
+            default: 'google-group@broadinstitute.org'
 
   steps:
     - action: roadiehq:utils:serialize:yaml
