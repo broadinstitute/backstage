@@ -39,6 +39,7 @@
               gcloud builds submit \
                 projects/${_BUILDER_PROJECT}/locations/us-east4/connections/github/repositories/${_REPONAME} \
                 --revision=$GITHUB_SHA \
+                --git-source-revision=$GITHUB_SHA \
                 --service-account='projects/${_BUILDER_PROJECT}/serviceAccounts/${_SERVICE_ACCOUNT}' \
                 --config=.cloudbuild/gke-deploy.yaml \
                 --region=us-east4 \
