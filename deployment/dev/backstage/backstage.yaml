@@ -85,10 +85,10 @@ spec:
               port: 7007
               path: /.backstage/health/v1/readiness
             initialDelaySeconds: 60
-              #          livenessProbe:
-              #            httpGet:
-              #              port: 7007
-              #              path: /healthcheck
+            #          livenessProbe:
+            #            httpGet:
+            #              port: 7007
+            #              path: /healthcheck
         - name: cloud-sql-proxy
           # It is recommended to use the latest version of the Cloud SQL Auth Proxy
           # Make sure to update on a regular schedule!

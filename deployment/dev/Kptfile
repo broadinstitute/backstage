@@ -27,6 +27,38 @@ pipeline:
         instance_connection_name: bits-backstage-dev:us-east4:backstage-dev
         project-id: bits-backstage-dev
         sslPolicy: modern-tls12
+        secrets: |
+          - resourceName: "projects/bits-backstage-dev/secrets/github-app-backstage-bits-credentials/versions/latest"
+            path: "github-app-backstage-bits-credentials.yaml"
+          - resourceName: "projects/bits-backstage-dev/secrets/auth-github-client-id/versions/latest"
+            path: "auth-github-client-id"
+          - resourceName: "projects/bits-backstage-dev/secrets/auth-github-client-secret/versions/latest"
+            path: "auth-github-client-secret"
+          - resourceName: "projects/bits-backstage-dev/secrets/auth-google-client-id/versions/latest"
+            path: "auth-google-client-id"
+          - resourceName: "projects/bits-backstage-dev/secrets/auth-google-client-secret/versions/latest"
+            path: "auth-google-client-secret"
+          - resourceName: "projects/bits-backstage-dev/secrets/pagerduty-client-id/versions/latest"
+            path: "pagerduty-client-id"
+          - resourceName: "projects/bits-backstage-dev/secrets/pagerduty-client-secret/versions/latest"
+            path: "pagerduty-client-secret"
+          - resourceName: "projects/bits-backstage-dev/secrets/backstage-insights-token/versions/latest"
+            path: "backstage-insights-token"
+          - resourceName: "projects/bits-backstage-dev/secrets/backstage-license-key/versions/latest"
+            path: "backstage-license-key"
+          - resourceName: "projects/bits-backstage-dev/secrets/backstage-skills-slack-bot-token/versions/latest"
+            path: "backstage-skills-slack-bot-token"
+          - resourceName: "projects/bits-backstage-dev/secrets/backstage-skills-slack-app-token/versions/latest"
+            path: "backstage-skills-slack-app-token"
+          - resourceName: "projects/bits-backstage-dev/secrets/backstage-skills-slack-signing-secret/versions/latest"
+            path: "backstage-skills-slack-signing-secret"
+          - resourceName: "projects/bits-backstage-dev/secrets/backstage-soundcheck-slack-bot-token/versions/latest"
+            path: "backstage-soundcheck-slack-bot-token"
+          - resourceName: "projects/bits-backstage-dev/secrets/backstage-soundcheck-slack-app-token/versions/latest"
+            path: "backstage-soundcheck-slack-app-token"
+          - resourceName: "projects/bits-backstage-dev/secrets/backstage-soundcheck-slack-signing-secret/versions/latest"
+            path: "backstage-soundcheck-slack-signing-secret"
+
     - image: gcr.io/kpt-fn/set-annotations:v0.1.4
       configMap:
         iam.gke.io/gcp-service-account: backstage@bits-backstage-dev.iam.gserviceaccount.com
