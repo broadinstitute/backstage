@@ -52,11 +52,9 @@ spec:
           description: >-
             Google Group Email address of the team or lab requesting the package.
           pattern: '^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$'
-      errorMessage:
-        properties:
-          email: 'Must be a valid email address'
-
-
+          ui:help: 'Enter a valid Google Group email address'
+          ui:hideError: true
+          default: 'google-group@broadinstitute.org'
   steps:
     - id: parsePackageFile
       name: Parse Spack Package File
