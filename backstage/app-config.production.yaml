@@ -146,7 +146,7 @@ integrations:
   github:
     - host: github.com
       apps:
-        - $include: github-app-backstage-bits-credentials.yaml
+        - $include: ./secrets/github-app-backstage-bits-credentials.yaml
 
 techRadar:
   url: "https://github.com/broadinstitute/backstage/blob/${BRANCH_NAME}/backstage/plugin-configs/tech-radar.json"

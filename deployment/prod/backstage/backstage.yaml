@@ -61,10 +61,6 @@ spec:
             - secretRef:
                 name: pagerduty-client-secret
           volumeMounts:
-            - name: github-app-credentials
-              mountPath: /workspace/github-app-backstage-bits-credentials.yaml
-              subPath: github-app-backstage-bits-credentials.yaml
-              readOnly: true
             - name: backstage-secrets
               mountPath: /workspace/secrets
               # github-app-backstage-bits-credentials secret mounted in backstage app root as
@@ -125,12 +121,6 @@ spec:
               # application's requirements.
               cpu: "1"
       volumes:
-        - name: github-app-credentials
-          secret:
-            secretName: github-app-backstage-bits-credentials
-            items:
-              - key: github-app-backstage-bits-credentials.yaml
-                path: github-app-backstage-bits-credentials.yaml
         - name: backstage-secrets
           csi:
             driver: secrets-store-gke.csi.k8s.io
