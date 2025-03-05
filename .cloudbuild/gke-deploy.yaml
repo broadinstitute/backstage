@@ -43,7 +43,7 @@ steps:
       - '--image'
       - 'gcr.io/kpt-fn/set-image:v0.1.1'
       - '--'
-      - 'name=us-east4-docker.pkg.dev/bits-gke-clusters/bits/atlantis:latest'
+      - 'name=us-east4-docker.pkg.dev/bits-gke-clusters/bits/backstage:latest'
       - 'newName=${LOCATION}-docker.pkg.dev/${_REGISTRY_PROJECT}/${_REGISTRY_NAME}/${_APP}'
       - 'newTag=${_IMAGE_TAG}'
 
