@@ -47,30 +47,9 @@ spec:
               value: main # kpt-set: ${branch_name}
             - name: OTEL_SERVICE_NAME
               value: backstage
-          envFrom:
-            - secretRef:
-                name: auth-google-client-id
-            - secretRef:
-                name: auth-google-client-secret
-            - secretRef:
-                name: auth-github-client-id
-            - secretRef:
-                name: auth-github-client-secret
-            - secretRef:
-                name: pagerduty-client-id
-            - secretRef:
-                name: pagerduty-client-secret
           volumeMounts:
             - name: backstage-secrets
               mountPath: /workspace/secrets
-              # github-app-backstage-bits-credentials secret mounted in backstage app root as
-              # github-app-backstage-bits-credentials.yaml
-              # kubectl -n backstage create secret generic backstage-secrets \
-              #   --from-file=github-app-backstage-bits-credentials.yaml \
-              #   --from-literal=AUTH_GOOGLE_CLIENT_ID=$AUTH_GOOGLE_CLIENT_ID \
-              #   --from-literal=AUTH_GOOGLE_CLIENT_SECRET=$AUTH_GOOGLE_CLIENT_SECRET \
-              #   --from-literal=AUTH_GITHUB_CLIENT_ID=$AUTH_GITHUB_CLIENT_ID \
-              #   --from-literal=AUTH_GITHUB_CLIENT_SECRET=$AUTH_GITHUB_CLIENT_SECRET
           ports:
             - name: http
               containerPort: 7007
