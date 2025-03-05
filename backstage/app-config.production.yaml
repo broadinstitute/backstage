@@ -46,6 +46,44 @@ techdocs:
     type: 'googleGcs'
     googleGcs:
       bucketName: ${TECHDOCS_STORAGE_BUCKET}
+auth:
+  # see https://backstage.io/docs/auth/ to learn about auth providers
+  environment: ${NODE_ENV}
+  providers:
+    google:
+      development:
+        clientId:
+          $file: ./secrets/auth-google-client-id
+        clientSecret:
+          $file: ./secrets/auth-google-client-secret
+        signIn:
+          resolvers:
+      production:
+        clientId:
+          $file: ./secrets/auth-google-client-id
+        clientSecret:
+          $file: ./secrets/auth-google-client-secret
+        signIn:
+          resolvers:
+ #           - resolver: emailMatchingUserEntityProfileEmail
+    github:
+      development:
+        clientId:
+          $file: ./secrets/auth-github-client-id
+        clientSecret:
+          $file: ./secrets/auth-github-client-secret
+        signIn:
+          resolvers:
+            - resolver: usernameMatchingUserEntityName
+
+      production:
+        clientId:
+          $file: ./secrets/auth-github-client-id
+        clientSecret:
+          $file: ./secrets/auth-github-client-secret
+        signIn:
+          resolvers:
+          - resolver: usernameMatchingUserEntityName
 
 catalog:
   # Overrides the default list locations from app-config.yaml as these contain example data.
