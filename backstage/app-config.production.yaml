@@ -176,8 +176,10 @@ catalog:
           timeout: PT3M
 pagerDuty:
   oauth:
-    clientId: ${PD_CLIENT_ID}
-    clientSecret: ${PD_CLIENT_SECRET}
+    clientId:
+      $file: ./secrets/pagerduty-client-id
+    clientSecret:
+      $file: ./secrets/pagerduty-client-secret
     subDomain: ${PD_ACCOUNT_SUBDOMAIN}
 
 integrations:
