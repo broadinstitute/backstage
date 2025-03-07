@@ -2,6 +2,11 @@
 logsBucket: 'gs://1087551700560-us-east4-cloudbuild-logs'
 
 steps:
+# gcloud storage
+  - id: copy-artifacts-from-gcs
+    name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+    args: ['gcloud', 'cp', 'gs://${_ARTIFACT_BUCKET}/${_APP}/${_PR_NUMBER}', 'backstage/node_module']
+
   - id: build-run-image
     name: 'gcr.io/kaniko-project/executor:latest'
     dir: ${_APP}
@@ -10,7 +15,6 @@ steps:
     - '--destination=${LOCATION}-docker.pkg.dev/${_REGISTRY_PROJECT}/${_REGISTRY_NAME}/${_APP}-run-image:${_GITHUB_SHA}'
     - '--cache=true'
     - '--cache-copy-layers=false'
-
 
   - id: build-image
     name: 'buildpacksio/pack:0.36.4'
@@ -46,3 +50,7 @@ steps:
       - 'container-image-tests.yaml'
 
 images: ['${LOCATION}-docker.pkg.dev/${_REGISTRY_PROJECT}/${_REGISTRY_NAME}/${_APP}:${_PR}']
+artifacts:
+  objects:
+    location: 'gs://${_ARTIFACT_BUCKET}/${_APP}/${_PR_NUMBER}'
+    paths: ["backstage/node_modules"]

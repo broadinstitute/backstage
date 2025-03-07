@@ -11,11 +11,6 @@ steps:
     - '--destination=${LOCATION}-docker.pkg.dev/${PROJECT_ID}/bits/${_APP}-run-image:${SHORT_SHA}'
     - '--cache=true'
 
-# gcloud storage
-  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
-    args: ['gcloud', 'cp', 'gs://${_ARTIFACT_BUCKET}/${_APP}/${_PR_NUMBER}', 'backstage/node_module']
-
-
   - id: build-image
     name: 'buildpacksio/pack:0.36.4'
     dir: ${_APP}
@@ -119,7 +114,3 @@ availableSecrets:
 images:
   - '${LOCATION}-docker.pkg.dev/${PROJECT_ID}/bits/${_APP}'
   - '${LOCATION}-docker.pkg.dev/${PROJECT_ID}/bits/${_APP}:latest'
-artifacts:
-  objects:
-    location: 'gs://${_ARTIFACT_BUCKET}/${_APP}/${_PR_NUMBER}'
-    paths: ["backstage/node_modules"]
