@@ -12,6 +12,7 @@
       _BUILDER_PROJECT: bits-packaging-prod
       _REGISTRY_PROJECT: bits-packaging-prod
       _REGISTRY_NAME: bits-container-hub
+      _ARTIFACT_BUCKET: pipeline-temporary-artifact-storage-149e
 
     jobs:
       build:

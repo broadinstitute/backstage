@@ -13,7 +13,7 @@ steps:
 
 # gcloud storage
   - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
-    args: ['gcloud', 'cp', 'gs://pipeline-temporary-artifact-storage-149e/${_APP}/${_PR_NUMBER}', 'backstage/node_module']
+    args: ['gcloud', 'cp', 'gs://${_ARTIFACT_BUCKET}/${_APP}/${_PR_NUMBER}', 'backstage/node_module']
 
 
   - id: build-image
@@ -121,5 +121,5 @@ images:
   - '${LOCATION}-docker.pkg.dev/${PROJECT_ID}/bits/${_APP}:latest'
 artifacts:
   objects:
-    location: 'gs://pipeline-temporary-artifact-storage-149e/${_APP}/${_PR_NUMBER}'
+    location: 'gs://${_ARTIFACT_BUCKET}/${_APP}/${_PR_NUMBER}'
     paths: ["backstage/node_modules"]
