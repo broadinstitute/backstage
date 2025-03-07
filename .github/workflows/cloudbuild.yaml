@@ -12,7 +12,7 @@
       _BUILDER_PROJECT: bits-packaging-prod
       _REGISTRY_PROJECT: bits-packaging-prod
       _REGISTRY_NAME: bits-container-hub
-      _ARTIFACT_BUCKET: pipeline-temporary-artifact-storage-149e
+      _ARTIFACT_BUCKET: pipeline-temporary-artifact-storage-e938
 
     jobs:
       build:
@@ -44,37 +44,37 @@
                 --service-account='projects/${_BUILDER_PROJECT}/serviceAccounts/${_SERVICE_ACCOUNT}' \
                 --config=.cloudbuild/build.yaml \
                 --region=us-east4 \
-                --substitutions=_APP=${_APP},_PR=${{ github.event.number }},_REGISTRY_PROJECT=${_REGISTRY_PROJECT},_REGISTRY_NAME=${_REGISTRY_NAME},_BUILDER_PROJECT=${_BUILDER_PROJECT},_SERVICE_ACCOUNT=${_SERVICE_ACCOUNT},_GITHUB_SHA=${GITHUB_SHA} \
+                --substitutions=_APP=${_APP},_PR=${{ github.event.number }},_REGISTRY_PROJECT=${_REGISTRY_PROJECT},_REGISTRY_NAME=${_REGISTRY_NAME},_BUILDER_PROJECT=${_BUILDER_PROJECT},_SERVICE_ACCOUNT=${_SERVICE_ACCOUNT},_GITHUB_SHA=${GITHUB_SHA},_ARTIFACT_BUCKET=${_ARTIFACT_BUCKET} \
                 --project=${_BUILDER_PROJECT}
-      # Deploy the Image tagged with the PR SHA to the Development Cluster
-      # deploy:
-      #   name: 'Deploy to Development'
-      #   needs: build
-      #   runs-on: ubuntu-latest
-      #   permissions:
-      #     contents: "read"
-      #     id-token: "write"
-      #   steps:
-      #     - name: Set _REPONAME environment variable
-      #       run: echo "_REPONAME=${GITHUB_REPOSITORY#"broadinstitute/"}" >> $GITHUB_ENV
+      Deploy the Image tagged with the PR SHA to the Development Cluster
+      deploy:
+        name: 'Deploy to Development'
+        needs: build
+        runs-on: ubuntu-latest
+        permissions:
+          contents: "read"
+          id-token: "write"
+        steps:
+          - name: Set _REPONAME environment variable
+            run: echo "_REPONAME=${GITHUB_REPOSITORY#"broadinstitute/"}" >> $GITHUB_ENV
 
-      #     - uses: "actions/checkout@v4"
-      #     - uses: "google-github-actions/auth@v2"
-      #       with:
-      #         workload_identity_provider: "projects/1087551700560/locations/global/workloadIdentityPools/github-pool/providers/github-provider"
-      #         service_account: "container-image-cloudbuild@bits-packaging-prod.iam.gserviceaccount.com"
-      #     - name: 'Set up Cloud SDK'
-      #       uses: 'google-github-actions/setup-gcloud@v2'
-      #       with:
-      #         version: '>= 506.0.0'
-      #     - name: 'Run Cloud Build'
-      #       run: |-
-      #         gcloud builds submit \
-      #           projects/${_BUILDER_PROJECT}/locations/us-east4/connections/github/repositories/${_REPONAME} \
-      #           --revision=$GITHUB_SHA \
-      #           --git-source-revision=$GITHUB_SHA \
-      #           --service-account='projects/${_BUILDER_PROJECT}/serviceAccounts/${_SERVICE_ACCOUNT}' \
-      #           --config=.cloudbuild/gke-deploy.yaml \
-      #           --region=us-east4 \
-      #           --substitutions=_APP=${_APP},_REGISTRY_PROJECT=${_REGISTRY_PROJECT},_REGISTRY_NAME=${_REGISTRY_NAME},_BUILDER_PROJECT=${_BUILDER_PROJECT},_SERVICE_ACCOUNT=${_SERVICE_ACCOUNT},_IMAGE_TAG=${GITHUB_SHA},_ENV="dev" \
-      #           --project=${_BUILDER_PROJECT}
+          - uses: "actions/checkout@v4"
+          - uses: "google-github-actions/auth@v2"
+            with:
+              workload_identity_provider: "projects/1087551700560/locations/global/workloadIdentityPools/github-pool/providers/github-provider"
+              service_account: "container-image-cloudbuild@bits-packaging-prod.iam.gserviceaccount.com"
+          - name: 'Set up Cloud SDK'
+            uses: 'google-github-actions/setup-gcloud@v2'
+            with:
+              version: '>= 506.0.0'
+          - name: 'Run Cloud Build'
+            run: |-
+              gcloud builds submit \
+                projects/${_BUILDER_PROJECT}/locations/us-east4/connections/github/repositories/${_REPONAME} \
+                --revision=$GITHUB_SHA \
+                --git-source-revision=$GITHUB_SHA \
+                --service-account='projects/${_BUILDER_PROJECT}/serviceAccounts/${_SERVICE_ACCOUNT}' \
+                --config=.cloudbuild/gke-deploy.yaml \
+                --region=us-east4 \
+                --substitutions=_APP=${_APP},_REGISTRY_PROJECT=${_REGISTRY_PROJECT},_REGISTRY_NAME=${_REGISTRY_NAME},_BUILDER_PROJECT=${_BUILDER_PROJECT},_SERVICE_ACCOUNT=${_SERVICE_ACCOUNT},_IMAGE_TAG=${GITHUB_SHA},_ENV="dev" \
+                --project=${_BUILDER_PROJECT}
