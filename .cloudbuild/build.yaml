@@ -52,5 +52,5 @@ steps:
 images: ['${LOCATION}-docker.pkg.dev/${_REGISTRY_PROJECT}/${_REGISTRY_NAME}/${_APP}:${_PR}']
 artifacts:
   objects:
-    location: 'gs://${_ARTIFACT_BUCKET}/${_APP}/${_PR_NUMBER}'
+    location: 'gs://${_ARTIFACT_BUCKET}/${_APP}/${_PR}'
     paths: ["backstage/node_modules"]
