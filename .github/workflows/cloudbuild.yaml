@@ -46,7 +46,7 @@
                 --region=us-east4 \
                 --substitutions=_APP=${_APP},_PR=${{ github.event.number }},_REGISTRY_PROJECT=${_REGISTRY_PROJECT},_REGISTRY_NAME=${_REGISTRY_NAME},_BUILDER_PROJECT=${_BUILDER_PROJECT},_SERVICE_ACCOUNT=${_SERVICE_ACCOUNT},_GITHUB_SHA=${GITHUB_SHA},_ARTIFACT_BUCKET=${_ARTIFACT_BUCKET} \
                 --project=${_BUILDER_PROJECT}
-      Deploy the Image tagged with the PR SHA to the Development Cluster
+      # Deploy the Image tagged with the PR SHA to the Development Cluster
       deploy:
         name: 'Deploy to Development'
         needs: build
