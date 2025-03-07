@@ -8,6 +8,10 @@ steps:
     args: ['gcloud', 'storage', 'cp', 'gs://${_ARTIFACT_BUCKET}/${_APP}/${_PR}', 'backstage/node_module']
     allowFailure: true
 
+  - id: copy-artifacts-to-gcs
+    name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+    args: ['gcloud', 'storage', 'cp', 'backstage/node_module', 'gs://${_ARTIFACT_BUCKET}/${_APP}/${_PR}']
+
   - id: build-run-image
     name: 'gcr.io/kaniko-project/executor:latest'
     dir: ${_APP}
@@ -51,7 +55,7 @@ steps:
       - 'container-image-tests.yaml'
 
 images: ['${LOCATION}-docker.pkg.dev/${_REGISTRY_PROJECT}/${_REGISTRY_NAME}/${_APP}:${_PR}']
-artifacts:
-  objects:
-    location: 'gs://${_ARTIFACT_BUCKET}/${_APP}/${_PR}'
-    paths: ["backstage/node_modules"]
+# artifacts:
+#   objects:
+#     location: 'gs://${_ARTIFACT_BUCKET}/${_APP}/${_PR}'
+#     paths: ["backstage/node_modules"]
