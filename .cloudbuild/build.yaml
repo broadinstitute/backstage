@@ -5,7 +5,8 @@ steps:
 # gcloud storage
   - id: copy-artifacts-from-gcs
     name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
-    args: ['gcloud', 'cp', 'gs://${_ARTIFACT_BUCKET}/${_APP}/${_PR}', 'backstage/node_module']
+    args: ['gcloud', 'storage', 'cp', 'gs://${_ARTIFACT_BUCKET}/${_APP}/${_PR}', 'backstage/node_module']
+    allowFailure: true
 
   - id: build-run-image
     name: 'gcr.io/kaniko-project/executor:latest'
