@@ -8,7 +8,7 @@ steps:
     args:
       - 'cp'
       - 'deployment/${_ENV}/Kptfile'
-      - 'deployment/prod/${_APP}/Kptfile' # todo: change this to remove the prod
+      - 'deployment/${_APP}/Kptfile' # todo: change this to remove the prod
 
   # kpt fn render app
   - id: kpt-render
@@ -17,7 +17,7 @@ steps:
       - 'kpt'
       - 'fn'
       - 'render'
-      - 'deployment/prod/${_APP}' # todo: maybe this to remove the prod
+      - 'deployment/${_APP}' # todo: maybe this to remove the prod
 
   # set environment=dev label
   - id: kpt-set-labels
@@ -26,7 +26,7 @@ steps:
       - 'kpt'
       - 'fn'
       - 'eval'
-      - 'deployment/prod/${_APP}'
+      - 'deployment/${_APP}'
       - '--image'
       - 'gcr.io/kpt-fn/set-labels:v0.2.0'
       - '--'
@@ -39,7 +39,7 @@ steps:
       - 'kpt'
       - 'fn'
       - 'eval'
-      - 'deployment/prod/${_APP}'
+      - 'deployment/${_APP}'
       - '--image'
       - 'gcr.io/kpt-fn/set-image:v0.1.1'
       - '--'
@@ -52,7 +52,7 @@ steps:
     args:
       - 'run'
       - '--recursive'
-      - '--filename=deployment/prod/${_APP}'
+      - '--filename=deployment/${_APP}'
       - '--location=${LOCATION}'
       - '--project=bits-gke-clusters'
       - '--cluster=gke-autopilot-01-prod'
