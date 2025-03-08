@@ -8,7 +8,7 @@ steps:
     args:
       - 'cp'
       - 'deployment/${_ENV}/Kptfile'
-      - 'deployment/${_APP}/Kptfile' # todo: change this to remove the prod
+      - 'deployment/${_APP}/Kptfile'
 
   # kpt fn render app
   - id: kpt-render
@@ -17,8 +17,7 @@ steps:
       - 'kpt'
       - 'fn'
       - 'render'
-      - 'deployment/${_APP}' # todo: maybe this to remove the prod
-
+      - 'deployment/${_APP}'
   # set environment=dev label
   - id: kpt-set-labels
     name: 'gcr.io/google.com/cloudsdktool/google-cloud-cli:477.0.0-debian_component_based'
