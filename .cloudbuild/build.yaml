@@ -30,7 +30,7 @@ steps:
     - '--run-image'
     - '${LOCATION}-docker.pkg.dev/${_REGISTRY_PROJECT}/${_REGISTRY_NAME}/${_APP}-run-image:${_GITHUB_SHA}'
     - '--cache-image'
-    - '${LOCATION}-docker.pkg.dev/${_REGISTRY_PROJECT}/${_REGISTRY_NAME}/${_APP}:latest'
+    - '${LOCATION}-docker.pkg.dev/${_REGISTRY_PROJECT}/${_REGISTRY_NAME}/${_APP}-cache-image:latest'
     - '--publish'
 
   # Pull image for testing
