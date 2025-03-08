@@ -35,5 +35,8 @@ id = "me/gcs-upload"
   [io.buildpacks.group.script]
   api = "0.10"
   inline = """
+curl -O https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-cli-linux-x86_64.tar.gz
+tar -xf google-cloud-cli-linux-x86_64.tar.gz
+./google-cloud-sdk/install.sh
 gcloud storage cp --recursive node_modules/ gs://${_ARTIFACT_BUCKET}/${_APP}/${_PR}/node_modules
 """
