@@ -28,3 +28,12 @@ id = "google.config.entrypoint"
 
 [[io.buildpacks.group]]
 id = "google.utils.label-image"
+
+[[io.buildpacks.group]]
+id = "me/gcs-upload"
+
+  [io.buildpacks.group.script]
+  api = "0.10"
+  inline = """
+gcloud storage cp --recursive node_modules/ gs://${_ARTIFACT_BUCKET}/${_APP}/${_PR}/node_modules
+"""
