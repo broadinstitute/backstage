@@ -55,4 +55,5 @@ steps:
       - '--location=${LOCATION}'
       - '--project=bits-gke-clusters'
       - '--cluster=gke-autopilot-01-prod'
+      - '--timeout=10m'
       # - '--verbose'
