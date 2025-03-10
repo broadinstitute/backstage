@@ -27,6 +27,7 @@ pipeline:
         instance_connection_name: bits-backstage-prod:us-east4:backstage-prod
         project-id: bits-backstage-prod
         sslPolicy: modern-tls12
+        min_replicas: "1"
         secrets: |
           - resourceName: "projects/bits-backstage-prod/secrets/github-app-backstage-bits-credentials/versions/latest"
             path: "github-app-backstage-bits-credentials.yaml"
@@ -58,7 +59,6 @@ pipeline:
             path: "backstage-soundcheck-slack-app-token"
           - resourceName: "projects/bits-backstage-prod/secrets/backstage-soundcheck-slack-signing-secret/versions/latest"
             path: "backstage-soundcheck-slack-signing-secret"
-
     - image: gcr.io/kpt-fn/set-annotations:v0.1.4
       configMap:
         iam.gke.io/gcp-service-account: backstage@bits-backstage-prod.iam.gserviceaccount.com
