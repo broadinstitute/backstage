@@ -27,6 +27,7 @@ pipeline:
         instance_connection_name: bits-backstage-dev:us-east4:backstage-dev
         project-id: bits-backstage-dev
         sslPolicy: modern-tls12
+        min_replicas: 1
         secrets: |
           - resourceName: "projects/bits-backstage-dev/secrets/github-app-backstage-bits-credentials/versions/latest"
             path: "github-app-backstage-bits-credentials.yaml"

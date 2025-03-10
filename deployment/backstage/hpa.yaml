@@ -12,7 +12,7 @@ spec:
     apiVersion: apps/v1
     kind: Deployment
     name: backstage
-  minReplicas: 2
+  minReplicas: 2 # kpt-set: ${min_replicas}
   maxReplicas: 5
   metrics:
   - type: Resource
