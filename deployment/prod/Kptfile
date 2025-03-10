@@ -1,0 +1,73 @@
+apiVersion: kpt.dev/v1
+kind: Kptfile
+metadata:
+  name: backstage
+  annotations:
+    config.kubernetes.io/local-config: "true"
+info:
+  description: Broad Institute Engineering Portal is an Internal Developer Platform (Spotify Backstage by another name)
+  keywords:
+    - GKE
+    - GCP
+    - Backstage
+pipeline:
+  mutators:
+    - image: gcr.io/kpt-fn/set-namespace:v0.4.1
+      configMap:
+        namespace: backstage
+    - image: gcr.io/kpt-fn/set-labels:v0.2.0
+      configMap:
+        app.kubernetes.io/managed-by: gcp-cloud-build-deploy
+        backstage.io/kubernetes-id: backstage
+    - image: gcr.io/kpt-fn/apply-setters:v0.2.0
+      configMap:
+        cert-name: backstage.broadinstitute.org
+        backstage_application_base_url: https://backstage.broadinstitute.org
+        db_user: backstage@bits-backstage-prod.iam
+        instance_connection_name: bits-backstage-prod:us-east4:backstage-prod
+        project-id: bits-backstage-prod
+        sslPolicy: modern-tls12
+        min_replicas: "2"
+        secrets: |
+          - resourceName: "projects/bits-backstage-prod/secrets/github-app-backstage-bits-credentials/versions/latest"
+            path: "github-app-backstage-bits-credentials.yaml"
+          - resourceName: "projects/bits-backstage-prod/secrets/auth-github-client-id/versions/latest"
+            path: "auth-github-client-id"
+          - resourceName: "projects/bits-backstage-prod/secrets/auth-github-client-secret/versions/latest"
+            path: "auth-github-client-secret"
+          - resourceName: "projects/bits-backstage-prod/secrets/auth-google-client-id/versions/latest"
+            path: "auth-google-client-id"
+          - resourceName: "projects/bits-backstage-prod/secrets/auth-google-client-secret/versions/latest"
+            path: "auth-google-client-secret"
+          - resourceName: "projects/bits-backstage-prod/secrets/pagerduty-client-id/versions/latest"
+            path: "pagerduty-client-id"
+          - resourceName: "projects/bits-backstage-prod/secrets/pagerduty-client-secret/versions/latest"
+            path: "pagerduty-client-secret"
+          - resourceName: "projects/bits-backstage-prod/secrets/backstage-insights-token/versions/latest"
+            path: "backstage-insights-token"
+          - resourceName: "projects/bits-backstage-prod/secrets/backstage-license-key/versions/latest"
+            path: "backstage-license-key"
+          - resourceName: "projects/bits-backstage-prod/secrets/backstage-skills-slack-bot-token/versions/latest"
+            path: "backstage-skills-slack-bot-token"
+          - resourceName: "projects/bits-backstage-prod/secrets/backstage-skills-slack-app-token/versions/latest"
+            path: "backstage-skills-slack-app-token"
+          - resourceName: "projects/bits-backstage-prod/secrets/backstage-skills-slack-signing-secret/versions/latest"
+            path: "backstage-skills-slack-signing-secret"
+          - resourceName: "projects/bits-backstage-prod/secrets/backstage-soundcheck-slack-bot-token/versions/latest"
+            path: "backstage-soundcheck-slack-bot-token"
+          - resourceName: "projects/bits-backstage-prod/secrets/backstage-soundcheck-slack-app-token/versions/latest"
+            path: "backstage-soundcheck-slack-app-token"
+          - resourceName: "projects/bits-backstage-prod/secrets/backstage-soundcheck-slack-signing-secret/versions/latest"
+            path: "backstage-soundcheck-slack-signing-secret"
+
+    - image: gcr.io/kpt-fn/set-annotations:v0.1.4
+      configMap:
+        iam.gke.io/gcp-service-account: backstage@bits-backstage-prod.iam.gserviceaccount.com
+      name: set-service-account-annotations
+      selectors:
+        - kind: ServiceAccount
+          name: backstage
+  validators:
+    - image: gcr.io/kpt-fn/kubeval:v0.3
+      configMap:
+        ignore_missing_schemas: "true"

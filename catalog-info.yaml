@@ -14,7 +14,6 @@ metadata:
   - bits-tools
   annotations:
     backstage.io/kubernetes-id: backstage
-    backstage.io/kubernetes-namespace: backstage
     pagerduty.com/integration-key: 2dfe75f325ae4b0bd0735b72b4c08f32
     github.com/project-slug: broadinstitute/backstage
     google.com/cloudbuild-project-slug: bits-gke-clusters

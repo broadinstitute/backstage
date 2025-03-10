@@ -65,3 +65,8 @@ variable "gke_project" {
   description = "GCP project Where GKE clusters are running"
   type        = string
 }
+
+variable "namespace" {
+  description = "Kubernetes Namespace to deploy resources into"
+  type        = string
+}

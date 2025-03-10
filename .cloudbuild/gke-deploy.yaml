@@ -1,0 +1,59 @@
+---
+logsBucket: 'gs://1087551700560-us-east4-cloudbuild-logs'
+
+steps:
+  # Copy configs for kpt to render.
+  - id: copy-Kptfile
+    name: 'ubuntu'
+    args:
+      - 'cp'
+      - 'deployment/${_ENV}/Kptfile'
+      - 'deployment/${_APP}/Kptfile'
+
+  # kpt fn render app
+  - id: kpt-render
+    name: 'gcr.io/google.com/cloudsdktool/google-cloud-cli:477.0.0-debian_component_based'
+    args:
+      - 'kpt'
+      - 'fn'
+      - 'render'
+      - 'deployment/${_APP}'
+  # set environment=dev label
+  - id: kpt-set-labels
+    name: 'gcr.io/google.com/cloudsdktool/google-cloud-cli:477.0.0-debian_component_based'
+    args:
+      - 'kpt'
+      - 'fn'
+      - 'eval'
+      - 'deployment/${_APP}'
+      - '--image'
+      - 'gcr.io/kpt-fn/set-labels:v0.2.0'
+      - '--'
+      - 'environment=${_ENV}'
+
+  # # Set Image
+  - id: kpt-set-image
+    name: 'gcr.io/google.com/cloudsdktool/google-cloud-cli:477.0.0-debian_component_based'
+    args:
+      - 'kpt'
+      - 'fn'
+      - 'eval'
+      - 'deployment/${_APP}'
+      - '--image'
+      - 'gcr.io/kpt-fn/set-image:v0.1.1'
+      - '--'
+      - 'name=us-east4-docker.pkg.dev/bits-gke-clusters/bits/backstage:latest'
+      - 'newName=${LOCATION}-docker.pkg.dev/${_REGISTRY_PROJECT}/${_REGISTRY_NAME}/${_APP}'
+      - 'newTag=${_IMAGE_TAG}'
+
+  # Deploy to GKE.
+  - name: "gcr.io/cloud-builders/gke-deploy"
+    args:
+      - 'run'
+      - '--recursive'
+      - '--filename=deployment/${_APP}'
+      - '--location=${LOCATION}'
+      - '--project=bits-gke-clusters'
+      - '--cluster=gke-autopilot-01-prod'
+      - '--timeout=10m'
+      # - '--verbose'
