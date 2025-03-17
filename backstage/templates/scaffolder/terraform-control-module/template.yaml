@@ -69,7 +69,6 @@ spec:
     - title: Terraform Configuration
       required:
         - gcpRegion
-        - gcpProjectDev
         - gcpProjectProd
         - gcsBucket
       properties:
@@ -83,7 +82,8 @@ spec:
         gcpProjectDev:
           title: Development GCP Project
           type: string
-          description: GCP project managed by the default/primary provider. Prod and Dev should use different projects.
+          description: >-
+            GCP project managed by the default/primary provider. A Dev project is *strongly encouraged* for most applications.
 
         gcpProjectProd:
           title: Production GCP Project
