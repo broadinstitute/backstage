@@ -5,11 +5,9 @@ metadata:
   name: create-repo
   title: Create a new GitHub repo.
   description: >-
-    This template creates a new GitHub repository with a Backstage catalog entry,
-    and a number of Broad defaults. It is intended to
+    This template creates a new GitHub repository with a Backstage catalog entry
+    a default set of GitHub actions, and TechDocs integration. It is intended to
     be used as a starting point for new projects.
-    * an initial set of GitHub actions
-    * TechDocs integration.
 
   tags:
     - recommended
