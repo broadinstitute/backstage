@@ -1,0 +1,101 @@
+---
+apiVersion: scaffolder.backstage.io/v1beta3
+kind: Template
+metadata:
+  name: create-repo
+  title: Create a new GitHub repo.
+  description: >-
+    This template creates a new GitHub repository with a Backstage catalog entry
+    a default set of GitHub actions, and TechDocs integration. It is intended to
+    be used as a starting point for new projects.
+
+  tags:
+    - recommended
+    - production
+
+spec:
+  owner: group:devnull
+  type: service
+
+  # These parameters are used to generate the input form in the frontend, and are
+  # used to gather input data for the execution of the template.
+  parameters:
+    - $yaml: ../defaults/parameters/resource-info.yaml
+    - $yaml: ../defaults/parameters/annotations.yaml
+    - title: Github settings
+      required:
+        - githubTeam
+        - repoUrl
+      properties:
+        githubTeam:
+          title: GitHub Team
+          type: string
+          ui:field: OwnerPicker
+          description: The GitHub team that owns the repository.
+          ui:options:
+            catalogFilter:
+              - kind: Group
+                spec.type: team
+
+        repoUrl:
+          title: Repository Location
+          type: string
+          ui:field: RepoUrlPicker
+          default: github.com?owner=broadinstitute
+          ui:options:
+            allowedHosts:
+              - github.com
+            allowedOwners:
+              - broadinstitute
+
+        visibility:
+          title: Repo Visibility
+          type: string
+          description: Should the repo be public or private?
+          default: private
+          enum:
+            - public
+            - private
+          enumNames:
+            - Public
+            - Private
+
+
+  steps:
+    - id: fetchTemplate
+      name: Fetch Template
+      action: fetch:template
+      input:
+        url: ./content
+        values:
+          name: ${{ parameters.name }}
+          title: ${{ parameters.title }}
+          repoOwner: >-
+            ${{ parameters.repoUrl | parseRepoUrl | pick('owner') }}/${{ parameters.githubTeam | parseEntityRef | pick('name') }}
+
+    - $yaml: ../defaults/steps/write-catalog.yaml
+    - $yaml: ../defaults/steps/system.yaml
+    - $yaml: ../defaults/steps/system-write.yaml
+    - $yaml: ../defaults/steps/domain.yaml
+    - $yaml: ../defaults/steps/domain-write.yaml
+    - $yaml: ../defaults/steps/links.yaml
+    - $yaml: ../defaults/steps/links-write.yaml
+    - $yaml: ../defaults/steps/annotations/techdocs.yaml
+    - $yaml: ../defaults/steps/annotations/techdocs-write.yaml
+    - $yaml: ../defaults/steps/annotations/kubernetes.yaml
+    - $yaml: ../defaults/steps/annotations/kubernetes-write.yaml
+    - $yaml: ../defaults/steps/annotations/cloudbuild.yaml
+    - $yaml: ../defaults/steps/annotations/cloudbuild-write.yaml
+    - $yaml: ../defaults/steps/annotations/pagerduty.yaml
+    - $yaml: ../defaults/steps/annotations/pagerduty-write.yaml
+    - $yaml: ../defaults/steps/publish.yaml
+    - $yaml: ../defaults/steps/register.yaml
+
+  # Outputs are displayed to the user after a successful execution of the template.
+  output:
+    links:
+      - title: Repository
+        url: ${{ steps['publish'].output.remoteUrl }}
+      - title: Open in catalog
+        icon: catalog
+        entityRef: ${{ steps['register'].output.entityRef }}
