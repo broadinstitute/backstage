@@ -10,10 +10,13 @@ updates:
         exclude-patterns:
         - '@backstage/*'
     schedule:
-      interval: "weekly"
+      interval: "monthly"
     ignore:
       - dependency-name: "react*"
         update-types: ["version-update:semver-major"]
+      - dependency-name: "@backstage/*"
+        update-types: ["version-update:semver-major"]
+
   - package-ecosystem: 'github-actions'
     directory: '/'
     groups:
@@ -42,18 +45,18 @@ updates:
       # Check for updates to Terraform every week
       interval: 'weekly'
   - package-ecosystem: 'docker'
-    directory: 'deployment/dev/backstage'
+    directory: '/deployment/backstage'
     groups:
-      docker_dev:
+      kubernetes:
         patterns:
           - '*'
     schedule:
       # Check for updates to Docker images every week
       interval: 'weekly'
   - package-ecosystem: 'docker'
-    directory: 'deployment/prod/backstage'
+    directory: '/backstage'
     groups:
-      docker_prod:
+      buildpack:
         patterns:
           - '*'
     schedule:
