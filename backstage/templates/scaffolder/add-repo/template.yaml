@@ -3,11 +3,13 @@ apiVersion: scaffolder.backstage.io/v1beta3
 kind: Template
 metadata:
   name: create-repo
-  title: Create an empty GitHub repository
+  title: Create a new GitHub repo.
   description: >-
     This template creates a new GitHub repository with a Backstage catalog entry,
-    a default set of GitHub actions, and TechDocs integration. It is intended to
+    and a number of Broad defaults. It is intended to
     be used as a starting point for new projects.
+    * an initial set of GitHub actions
+    * TechDocs integration.
 
   tags:
     - recommended
