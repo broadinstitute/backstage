@@ -31,6 +31,7 @@ import { InsightsSidebarItem } from '@spotify/backstage-plugin-insights';
 import SchoolIcon from '@material-ui/icons/School';
 import DoneAllIcon from '@material-ui/icons/DoneAll';
 import { RBACSidebarItem } from '@spotify/backstage-plugin-rbac';
+import CategoryIcon from '@material-ui/icons/Category';
 
 const useSidebarLogoStyles = makeStyles({
     root: {
@@ -75,7 +76,9 @@ export const Root = ({ children }: PropsWithChildren<{}>) => (
             <SidebarDivider />
             <SidebarGroup label="Menu" icon={<MenuIcon />}>
                 {/* Global nav, not org-specific */}
-                <SidebarItem icon={HomeIcon} to="catalog" text="Home" />
+                {/* <SidebarItem icon={HomeIcon} to="catalog" text="Home" /> */}
+                <SidebarItem icon={HomeIcon} to="/" text="Home" />
+                <SidebarItem icon={CategoryIcon} to="catalog" text="Catalog" />
                 <SidebarItem icon={ExtensionIcon} to="api-docs" text="APIs" />
                 <SidebarItem icon={LibraryBooks} to="docs" text="Docs" />
                 <SidebarItem
