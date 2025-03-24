@@ -11,16 +11,18 @@ repos:
       - id: check-json
       - id: check-merge-conflict
       - id: check-symlinks
+      - id: check-yaml
+        args:
+          - --allow-multiple-documents
       - id: detect-aws-credentials
         args:
           - --allow-missing-credentials
       - id: detect-private-key
       - id: end-of-file-fixer
       - id: mixed-line-ending
+        exclude: '.*\.gitignore'
       - id: trailing-whitespace
-      - id: check-yaml
-        args:
-          - --allow-multiple-documents
+        exclude: '.*\.gitignore'
   - repo: https://github.com/antonbabenko/pre-commit-terraform
     rev: v1.81.0
     hooks:
