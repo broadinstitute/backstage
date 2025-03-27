@@ -49,6 +49,8 @@ import {
 import { SkillExchangePage } from '@spotify/backstage-plugin-skill-exchange';
 import { SoundcheckRoutingPage } from '@spotify/backstage-plugin-soundcheck';
 import { RBACRoot } from '@spotify/backstage-plugin-rbac';
+import { HomepageCompositionRoot } from '@backstage/plugin-home';
+import { HomePage } from './components/home/HomePage';
 
 interface SignInProviderConfig {
     id: string;
@@ -104,7 +106,10 @@ const app = createApp({
 
 const routes = (
     <FlatRoutes>
-        <Route path="/" element={<Navigate to="catalog" />} />
+        {/* <Route path="/" element={<Navigate to="catalog" />} /> */}
+        <Route path="/" element={<HomepageCompositionRoot />}>
+            <HomePage />
+        </Route>
         <Route path="/insights" element={<InsightsPage />} />
         <Route path="/cost-insights" element={<CostInsightsPage />} />
         <Route path="/catalog" element={<CatalogIndexPage />} />
