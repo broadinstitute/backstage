@@ -8,14 +8,14 @@ name: 'checks'
 
 jobs:
   conventional-commits:
-    uses: broadinstitute/shared-workflows/.github/workflows/conventional-commit.yaml@v3.0.0
+    uses: broadinstitute/shared-workflows/.github/workflows/conventional-commit.yaml@v3.1.0
   validation:
-    uses: broadinstitute/shared-workflows/.github/workflows/terraform-validate.yaml@v3.0.0
+    uses: broadinstitute/shared-workflows/.github/workflows/terraform-validate.yaml@v3.1.0
   linting:
-    uses: broadinstitute/shared-workflows/.github/workflows/terraform-lint.yaml@v3.0.0
+    uses: broadinstitute/shared-workflows/.github/workflows/terraform-lint.yaml@v3.1.0
     with:
       tflint_config_path: '.tflint.hcl'
   terraform-docs:
-    uses: broadinstitute/shared-workflows/.github/workflows/terraform-docs.yaml@v3.0.0
+    uses: broadinstitute/shared-workflows/.github/workflows/terraform-docs.yaml@v3.1.0
     with:
       working_directory: './deployment/dev/terraform/,./deployment/prod/terraform/'
