@@ -32,14 +32,14 @@
     ]
   },
   "devDependencies": {
-    "@backstage/cli": "backstage:^",
+    "@backstage/cli": "^0.31.1",
     "@spotify/prettier-config": "^15.0.0",
-    "@types/react": "^18.3.11",
+    "@types/react": "^18.3.20",
     "concurrently": "^9.1.2",
-    "lerna": "^8.1.9",
-    "node-gyp": "^11.0.0",
-    "prettier": "^3.4.2",
-    "typescript": "~5.8.2"
+    "lerna": "^8.2.2",
+    "node-gyp": "^11.2.0",
+    "prettier": "^3.5.3",
+    "typescript": "~5.8.3"
   },
   "resolutions": {
     "@types/react": "^18",
@@ -58,7 +58,7 @@
   "packageManager": "yarn@4.5.1",
   "dependencies": {
     "@testing-library/dom": "^10.4.0",
-    "@types/react-dom": "^18.3.1",
+    "@types/react-dom": "^18.3.6",
     "react": "^18.3.1"
   }
 }
