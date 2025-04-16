@@ -63,6 +63,32 @@ plugins:
     - techdocs-core
 ```
 
+### Mermaid Diagrams
+
+To add diagrams to your documentation, you can use the `mermaid` block syntax.
+Here's an example of a simple Mermaid diagram:
+
+````Markdown
+
+    ```mermaid
+    graph TD
+        A[Start] --> B{Is it working?}
+        B -->|Yes| C[Great!]
+        B -->|No| D[Fix it]
+        D --> B
+    ```
+````
+
+Which generates
+
+```mermaid
+graph TD
+    A[Start] --> B{Is it working?}
+    B -->|Yes| C[Great!]
+    B -->|No| D[Fix it]
+    D --> B
+```
+
 ### Test Your Docs locally
 
 To test your documentation locally, you can use the `techdocs-cli` tool. This

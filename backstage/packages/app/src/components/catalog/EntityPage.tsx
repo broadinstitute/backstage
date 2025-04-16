@@ -73,6 +73,8 @@ const techdocsContent = (
     <EntityTechdocsContent>
         <TechDocsAddons>
             <ReportIssue />
+            <Mermaid config={{ theme: "forest", themeVariables: { lineColor: "#000000" } }} />
+            <Mermaid layoutLoaders={elkLayouts} config={{layout: 'elk'}} />
         </TechDocsAddons>
     </EntityTechdocsContent>
 );
@@ -82,6 +84,8 @@ import {
     EntitySoundcheckCard,
 } from '@spotify/backstage-plugin-soundcheck';
 import { GroupSoundcheckContent } from '@spotify/backstage-plugin-soundcheck';
+import { Mermaid } from "backstage-plugin-techdocs-addon-mermaid";
+import elkLayouts from '@mermaid-js/layout-elk';
 
 const cicdContent = (
     // This is an example of how you can implement your company's logic in entity page.
