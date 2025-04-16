@@ -16,6 +16,8 @@ steps:
     dir: ${_APP}
     entrypoint: pack
     # secretEnv: ['PACK_VOLUME_KEY']
+    env:
+    - 'NODE_OPTIONS="--max-old-space-size=3686"'
     args:
     - 'build'
     - '${LOCATION}-docker.pkg.dev/${_REGISTRY_PROJECT}/${_REGISTRY_NAME}/${_APP}:${_GITHUB_SHA}'
@@ -26,6 +28,8 @@ steps:
     - '--cache-image'
     - '${LOCATION}-docker.pkg.dev/${_REGISTRY_PROJECT}/${_REGISTRY_NAME}/${_APP}-cache-image:latest'
     - '--publish'
+    - '--env'
+    - 'NODE_OPTIONS'
 
   # Pull image for testing
   - id: pull-image-for-testing

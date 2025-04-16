@@ -10,6 +10,7 @@ nav:
   - "Backstage Plugins": plugins.md
   - ADRs: adr/README.md
   - Operations: operations.md
+  - test: terraform.md
 
 plugins:
   - techdocs-core

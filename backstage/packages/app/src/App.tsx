@@ -51,6 +51,8 @@ import { SoundcheckRoutingPage } from '@spotify/backstage-plugin-soundcheck';
 import { RBACRoot } from '@spotify/backstage-plugin-rbac';
 import { HomepageCompositionRoot } from '@backstage/plugin-home';
 import { HomePage } from './components/home/HomePage';
+import { Mermaid } from "backstage-plugin-techdocs-addon-mermaid";
+import elkLayouts from '@mermaid-js/layout-elk';
 
 interface SignInProviderConfig {
     id: string;
@@ -130,6 +132,8 @@ const routes = (
         >
             <TechDocsAddons>
                 <ReportIssue />
+                <Mermaid config={{ theme: "forest", themeVariables: { lineColor: "#000000" } }} />
+                <Mermaid layoutLoaders={elkLayouts} config={{layout: 'elk'}} />
             </TechDocsAddons>
         </Route>
         <Route
