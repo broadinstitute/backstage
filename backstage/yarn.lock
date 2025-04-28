@@ -14465,9 +14465,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@pagerduty/backstage-plugin-backend@npm:^0.9.1":
-  version: 0.9.4
-  resolution: "@pagerduty/backstage-plugin-backend@npm:0.9.4"
+"@pagerduty/backstage-plugin-backend@npm:0.9.5":
+  version: 0.9.5
+  resolution: "@pagerduty/backstage-plugin-backend@npm:0.9.5"
   dependencies:
     "@backstage/backend-common": "npm:^0.23.3"
     "@backstage/backend-defaults": "npm:^0.4.1"
@@ -14492,7 +14492,7 @@ __metadata:
     uuid: "npm:^9.0.1"
     winston: "npm:^3.2.1"
     yn: "npm:^4.0.0"
-  checksum: 10c0/d726616455aeb05b8713b55c157614a97ad5cc4d8cfd150b1306d05e2d3ee71442d6553f05b63aac46539ee37b1942026afbb5e05f84b4a8b9ebc7500bcdfeaa
+  checksum: 10c0/e7620d701ee675567e35d92c8ded7a18856e5a6e68fb16943f877cfed3f10284cbbf002a6fb84faefff97e13921b3a0d7e18e24890dbbc7ebde94ad8d7915a4e
   languageName: node
   linkType: hard
 
@@ -23209,7 +23209,7 @@ __metadata:
     "@opentelemetry/auto-instrumentations-node": "npm:^0.57.1"
     "@opentelemetry/exporter-prometheus": "npm:^0.200.0"
     "@opentelemetry/sdk-node": "npm:^0.200.0"
-    "@pagerduty/backstage-plugin-backend": "npm:^0.9.1"
+    "@pagerduty/backstage-plugin-backend": "npm:0.9.5"
     "@roadiehq/scaffolder-backend-module-http-request": "npm:^5.3.0"
     "@roadiehq/scaffolder-backend-module-utils": "npm:^3.4.0"
     "@spotify/backstage-plugin-insights-backend": "npm:^0.6.0"

@@ -23,6 +23,7 @@ spec:
         - namespace
         - teams
         - owners
+        - costobject
       properties:
         owners:
           title: 'GitHub Owners'
@@ -36,6 +37,11 @@ spec:
           type: string
           description: >-
             Namespace to create. Must be unique across the `bits-gke-clusters` Kubernetes environment.
+        costobject:
+          title: 'Cost Object'
+          type: string
+          description: >-
+            Broad Cost Object
         teams:
           title: 'Namespace Admins'
           type: array
@@ -63,6 +69,8 @@ spec:
           kind: Namespace
           metadata:
             name: ${{ parameters.namespace }}
+            labels:
+              costobject: ${{ parameters.costobject }}
 
     - id: writeNamespace
       name: Write Namespace YAML File
