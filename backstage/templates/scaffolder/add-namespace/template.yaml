@@ -40,6 +40,7 @@ spec:
         costobject:
           title: 'Cost Object'
           type: string
+          pattern: '^\d+$'
           description: >-
             Broad Cost Object
         teams:
