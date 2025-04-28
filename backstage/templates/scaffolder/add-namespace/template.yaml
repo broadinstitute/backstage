@@ -71,7 +71,7 @@ spec:
           metadata:
             name: ${{ parameters.namespace }}
             labels:
-              costobject: ${{ parameters.costobject }}
+              charge_to_costobject: ${{ parameters.costobject }}
 
     - id: writeNamespace
       name: Write Namespace YAML File
