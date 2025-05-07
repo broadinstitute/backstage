@@ -7,7 +7,13 @@ metadata:
   description: >-
     Create a new Pull Request to add a new namespace to the `bits-gke-clusters` Kubernetes environment.
     In addition to the namespace, the PR will add permissions for the namespace
-    to the team's Google Group.
+    to the team's Google Group. The namespace will also have the ability to use
+    [Config Connector](https://cloud.google.com/config-connector/docs/overview)
+    to manage GCP resource directly from the kubernetes namespace. This allows
+    users to define and manage GCP resources using Kubernetes manifests, providing
+    a unified and declarative approach to infrastructure management. A Google Service Account
+    will be created for you, and when granted roles in your project can be used to manage GCP
+    resources.
   tags:
     - recommended
     - kubernetes
@@ -18,7 +24,7 @@ spec:
   type: service
 
   parameters:
-    - title: Package Information
+    - title: Namespace Information
       required:
         - namespace
         - teams
@@ -52,7 +58,13 @@ spec:
             ui:help: 'Enter a valid Google Group email address'
             ui:hideError: true
             default: 'google-group@broadinstitute.org'
-
+        gcpProject:
+          title: 'Google Cloud Project'
+          type: string
+          description: >-
+            The name of a GCP Project to associate with this namespace for use with
+            [Config Connector](https://cloud.google.com/config-connector/docs/how-to/getting-started).
+            This project will be used by Config Connector to manage resources within the namespace.
   steps:
     - action: roadiehq:utils:serialize:yaml
       id: Namespace
@@ -63,6 +75,8 @@ spec:
           kind: Namespace
           metadata:
             name: ${{ parameters.namespace }}
+            annotations:
+              cnrm.cloud.google.com/project-id: ${{ parameters.gcpProject }}
 
     - id: writeNamespace
       name: Write Namespace YAML File
@@ -102,6 +116,98 @@ spec:
       input:
         path: manifests/namespace/${{ parameters.namespace }}/namespace-admin.yaml
         content: ${{ steps.serializeRoleBinding.output.serialized }}
+
+    - action: roadiehq:utils:serialize:yaml
+      id: ConfigConnectorContext
+      name: Create Config Connector Context
+      input:
+        data:
+          apiVersion: core.cnrm.cloud.google.com/v1beta1
+          kind: ConfigConnectorContext
+          metadata:
+            # you can only have one ConfigConnectorContext per namespace
+            name: configconnectorcontext.core.cnrm.cloud.google.com
+            namespace: ${{ parameters.namespace}}
+          spec:
+            googleServiceAccount: "${{ parameters.namespace }}@bits-gke-clusters.iam.gserviceaccount.com"
+            stateIntoSpec: Absent
+
+    - id: writeConfigConnectorContext
+      name: Write Config Connector Context YAML File
+      action: roadiehq:utils:fs:write
+      input:
+        path: manifests/namespace/${{ parameters.namespace }}/configconnectorcontext.yaml
+        content: ${{ steps.ConfigConnectorContext.output.serialized }}
+
+    - action: roadiehq:utils:serialize:yaml
+      id: IAMServiceAccount
+      name: Create IAMServiceAccount KRM file
+      input:
+        data:
+          apiVersion: iam.cnrm.cloud.google.com/v1beta1
+          kind: IAMServiceAccount
+          metadata:
+            namespace: mcp
+            name: ${{ parameters.namespace }}
+          spec:
+            description: >-
+              Managed Service Account create by Config Connector
+              In the MCP Namespace
+
+    - id: writeIAMServiceAccount
+      name: Write IAMServiceAccount YAML File into the MCP Namespace
+      action: roadiehq:utils:fs:write
+      input:
+        path: manifests/namespace/mcp/serviceaccounts/${{ parameters.namespace }}/serviceaccount.yaml
+        content: ${{ steps.IAMServiceAccount.output.serialized }}
+
+    - action: roadiehq:utils:serialize:yaml
+      id: workloadIdentityUser
+      name: Create IAMPolicyMember token creator binding KRM file
+      input:
+        data:
+          apiVersion: iam.cnrm.cloud.google.com/v1beta1
+          kind: IAMPolicyMember
+          metadata:
+            namespace: mcp
+            name: ${{ parameters.namespace }}-workloadidentity-user
+          spec:
+            member: principal://iam.googleapis.com/projects/864716322442/locations/global/workloadIdentityPools/bits-gke-clusters.svc.id.goog/subject/ns/${{ parameters.namespace }}/sa/cnrm-system/cnrm-controller-manager
+            resourceRef:
+              kind: IAMServiceAccount
+              name: ${{ parameters.namespace }}
+            role: roles/iam.workloadIdentityUser
+
+    - id: writeWorkloadIdentityUser
+      name: Write IAMServiceAccount YAML File into the MCP Namespace
+      action: roadiehq:utils:fs:write
+      input:
+        path: manifests/namespace/mcp/serviceaccounts/${{ parameters.namespace }}/workload-identity-user.yaml
+        content: ${{ steps.workloadIdentityUser.output.serialized }}
+
+    - action: roadiehq:utils:serialize:yaml
+      id: tokenCreator
+      name: Create IAMPolicyMember token creator binding KRM file
+      input:
+        data:
+          apiVersion: iam.cnrm.cloud.google.com/v1beta1
+          kind: IAMPolicyMember
+          metadata:
+            namespace: mcp
+            name: ${{ parameters.namespace }}-serviceaccount-tokencreator
+          spec:
+            member: serviceAccount:bits-gke-clusters.svc.id.goog[cnrm-system/cnrm-controller-manager-${{ parameters.namespace }}
+            resourceRef:
+              kind: IAMServiceAccount
+              name: ${{ parameters.namespace }}
+            role: roles/iam.serviceAccountTokenCreator
+
+    - id: writeTokenCreator
+      name: Write IAMServiceAccount YAML File into the MCP Namespace
+      action: roadiehq:utils:fs:write
+      input:
+        path: manifests/namespace/mcp/serviceaccounts/${{ parameters.namespace }}/serviceaccount-tokencreator.yaml
+        content: ${{ steps.tokenCreator.output.serialized }}
 
     - action: fetch:plain:file
       id: fetchFile
