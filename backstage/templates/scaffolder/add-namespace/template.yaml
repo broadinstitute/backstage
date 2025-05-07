@@ -9,7 +9,9 @@ metadata:
     In addition to the namespace, the PR will add permissions for the namespace
     to the team's Google Group. The namespace will also have the ability to use
     [Config Connector](https://cloud.google.com/config-connector/docs/overview)
-    to manage GCP resource directly from the kubernetes namespace. A Google Service Account
+    to manage GCP resource directly from the kubernetes namespace. This allows
+    users to define and manage GCP resources using Kubernetes manifests, providing
+    a unified and declarative approach to infrastructure management. A Google Service Account
     will be created for you, and when granted roles in your project can be used to manage GCP
     resources.
   tags:
@@ -61,8 +63,8 @@ spec:
           type: string
           description: >-
             The name of a GCP Project to associate with this namespace for use with
-            [Config Connector](https://cloud.google.com/config-connector/docs/how-to/getting-started)
-
+            [Config Connector](https://cloud.google.com/config-connector/docs/how-to/getting-started).
+            This project will be used by Config Connector to manage resources within the namespace.
   steps:
     - action: roadiehq:utils:serialize:yaml
       id: Namespace

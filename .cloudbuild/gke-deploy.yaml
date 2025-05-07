@@ -18,7 +18,8 @@ steps:
       - 'fn'
       - 'render'
       - 'deployment/${_APP}'
-  # set environment=dev label
+
+  # set environment=>_ENV label
   - id: kpt-set-labels
     name: 'gcr.io/google.com/cloudsdktool/google-cloud-cli:477.0.0-debian_component_based'
     args:
@@ -30,6 +31,18 @@ steps:
       - 'gcr.io/kpt-fn/set-labels:v0.2.0'
       - '--'
       - 'environment=${_ENV}'
+  # Set Branch env variable
+  - id: kpt-set-branch
+    name: 'gcr.io/google.com/cloudsdktool/google-cloud-cli:477.0.0-debian_component_based'
+    args:
+      - 'kpt'
+      - 'fn'
+      - 'eval'
+      - 'deployment/${_APP}'
+      - '--image'
+      - 'gcr.io/kpt-fn/apply-setters:v0.2.0'
+      - '--'
+      - 'branch_name=${_BRANCH}'
 
   # # Set Image
   - id: kpt-set-image
