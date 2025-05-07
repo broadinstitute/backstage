@@ -8,7 +8,7 @@ name: "Cloud Build"
       - 'backstage/**'
       - 'deployment/backstage/**'
       - '.cloudbuild/**'
-   
+
 # The below environment variables are used to set up the Cloud Build trigger
 # and can be changed from the defaults if the common build environment doesn't meet the needs of the service
 env:
@@ -81,5 +81,5 @@ jobs:
             --service-account='projects/${_BUILDER_PROJECT}/serviceAccounts/${_SERVICE_ACCOUNT}' \
             --config=.cloudbuild/gke-deploy.yaml \
             --region=us-east4 \
-            --substitutions=_APP=${_APP},_REGISTRY_PROJECT=${_REGISTRY_PROJECT},_REGISTRY_NAME=${_REGISTRY_NAME},_BUILDER_PROJECT=${_BUILDER_PROJECT},_SERVICE_ACCOUNT=${_SERVICE_ACCOUNT},_IMAGE_TAG=${GITHUB_SHA},_BRANCH=${GITHUB_HEAD_REF}_ENV="dev" \
+            --substitutions=_APP=${_APP},_REGISTRY_PROJECT=${_REGISTRY_PROJECT},_REGISTRY_NAME=${_REGISTRY_NAME},_BUILDER_PROJECT=${_BUILDER_PROJECT},_SERVICE_ACCOUNT=${_SERVICE_ACCOUNT},_IMAGE_TAG=${GITHUB_SHA},_BRANCH=${GITHUB_HEAD_REF},_ENV="dev" \
             --project=${_BUILDER_PROJECT}
