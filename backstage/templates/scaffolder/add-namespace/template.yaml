@@ -240,3 +240,15 @@ spec:
       - title: View the pull request on GitHub
         icon: github
         url: ${{ steps['createPullRequest'].output.remoteUrl }}
+    text:
+      - title: Google Service Account
+        content: |
+          ## Service Account Information
+
+          A service account has been created for your namespace with the email:
+
+          ${{ parameters.namespace }}@bits-gke-clusters.iam.gserviceaccount.com
+
+          You can use this service account to grant permissions in your GCP projects, allowing your
+          Kubernetes workloads to access GCP resources using Config Connector. To grant permissions,
+          add IAM roles to this service account in your target GCP projects.
