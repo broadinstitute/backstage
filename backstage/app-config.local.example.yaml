@@ -1,0 +1,148 @@
+# Backstage override configuration for your local development environment
+app:
+  baseUrl: http://localhost:3000
+
+backend:
+  reading:
+    allow:
+      - host: 'gist.githubusercontent.com'
+      - host: 'netftp.broadinstitute.org'
+      - host: 'raw.githubusercontent.com'
+    database:
+      client: pg
+      connection:
+        host: localhost
+        port: 5432
+        user: postgresUser
+        password: mysecretpassword
+
+  cors:
+    origin: http://localhost:3000
+    methods: [GET, HEAD, PATCH, POST, PUT, DELETE]
+    credentials: true
+
+integrations:
+  github:
+    - host: github.com
+      # This is a Personal Access Token or PAT from GitHub. You can find out how to generate this token,
+      # and more information about setting up the GitHub integration here:
+      # https://backstage.io/docs/getting-started/configuration#setting-up-a-github-integration
+      # token: ${GITHUB_TOKEN}
+      apps:
+        - $include: github-app-backstage-bits-credentials.yaml
+
+
+techdocs:
+  builder: 'local' # Alternatives - 'external'
+  generator:
+    runIn: 'docker' # Alternatives - 'local'
+  publisher:
+    type: 'local' # Alternatives - 'googleGcs' or 'awsS3'. Read documentation for using alternatives.
+
+auth:
+  # see https://backstage.io/docs/auth/ to learn about auth providers
+  environment: ${NODE_ENV}
+  providers:
+    google:
+      development:
+        clientId: ${AUTH_GOOGLE_CLIENT_ID}
+        clientSecret: ${AUTH_GOOGLE_CLIENT_SECRET}
+        signIn:
+          resolvers:
+      production:
+        clientId: ${AUTH_GOOGLE_CLIENT_ID}
+        clientSecret: ${AUTH_GOOGLE_CLIENT_SECRET}
+        signIn:
+          resolvers:
+
+catalog:
+  locations:
+    # Edit this URL to refer to your new template as needed.
+    - type: url
+      target: "https://github.com/broadinstitute/backstage/blob/${BRANCH_NAME}/backstage/templates/scaffolder/python-package/template.yaml"
+      rules:
+        - allow: [Template]
+
+pagerDuty:
+  oauth:
+    clientId: ${PD_CLIENT_ID}
+    clientSecret: ${PD_CLIENT_SECRET}
+    subDomain: ${PD_ACCOUNT_SUBDOMAIN}
+
+copilot:
+  scheduler:
+    frequency:
+      hours: 2
+    timeout:
+      minutes: 2
+    initialDelay:
+      seconds: 15
+  host: github.com
+  enterprise: broadinstitute
+  organization: broadinstitute
+
+spotify:
+  licenseKey: ${SPOTIFY_BACKSTAGE_LICENSE_KEY}
+  # For Backstage Insights
+  apiToken: ${SPOTIFY_BACKSTAGE_INSIGHTS_TOKEN}
+
+backstageInsights:
+  # # Only collect insights from production Backstage
+  # hostFilter: backstage.broadinstitute.org
+  salt: YBUiwn7onVtvKd8CNhOt1+06fmOVCwje
+  debug: true # sends insights to console set to false in production
+
+skillExchange:
+  hackUpdateNotificationsCron: '0 17 * * 1'
+  slack:
+    token: "${SKILLS_EXCHANGE_SLACK_BOT_TOKEN}"
+    appToken: "${SKILLS_EXCHANGE_SLACK_APP_TOKEN}"
+    signingSecret: "${SKILLS_EXCHANGE_SLACK_SIGNING_SECRET}"
+  defaultLists:
+    files: # for local files
+      - $include: ./plugin-configs/default-lists.yaml
+    remoteUrls: # for remote files
+      - https://backstage.spotify.com/docs/assets/files/default-skills-1b9f68a18ea48146f2f562bd9b3f4978.yaml
+
+techRadar:
+  url: "https://github.com/broadinstitute/backstage/blob/${BRANCH_NAME}/backstage/plugin-configs/tech-radar.json"
+
+soundcheck:
+  programs:
+    $include: ./soundcheck-tracks.yaml
+  results:
+    history:
+      enable: true
+      retentionTimeInDays: 90
+      cleanupFrequencyCron: '0 0 0 * * *'
+      cleanupTimeoutInMinutes: 5
+  certifications:
+    history:
+      enable: true
+      retentionTimeInDays: 90
+      cleanupFrequencyCron: '0 0 0 * * *'
+      cleanupTimeoutInMinutes: 5
+  slack:
+    token: "${SOUNDCHECK_SLACK_BOT_TOKEN}"
+    appToken: "${SOUNDCHECK_SLACK_APP_TOKEN}"
+    signingSecret: "${SOUNDCHECK_SLACK_SIGNING_SECRET}"
+
+permission:
+  enabled: true
+  permissionedPlugins:
+    - catalog
+    - scaffolder
+    - soundcheck
+    - backstage-insights
+  rbac:
+    authorizedUsers:
+      - group:default/devnull
+      - user:default/tfhartmann
+      - user:default/lihu-zhong
+      - user:default/coreone
+      - user:default/hjfbynara
+      - user:default/pssaluja
+    fallbackPolicy:
+      $include: ./plugin-configs/fallback-rbac-policy.yaml
+    defaultPolicy:
+      $include: ./plugin-configs/foundational-permission-policy.yaml
