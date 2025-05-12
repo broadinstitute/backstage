@@ -58,6 +58,7 @@
     "@spotify/backstage-plugin-skill-exchange-backend": "^0.14.5",
     "@spotify/backstage-plugin-soundcheck-backend": "^0.19.6",
     "@spotify/backstage-plugin-soundcheck-backend-module-github": "^0.7.7",
+    "@spotify/backstage-plugin-soundcheck-backend-module-http": "^0.1.8",
     "@spotify/backstage-plugin-soundcheck-backend-module-scm": "^0.10.7",
     "app": "link:../app",
     "better-sqlite3": "^11.8.0",
