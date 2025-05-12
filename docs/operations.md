@@ -6,96 +6,9 @@ The Backstage Project docs on configuration can be found
 [here](https://backstage.io/docs/conf/). In our implementations we use the
 `app-config.yaml` and `app-config.production.yaml` when running in production,
 and use app-config.local.yaml to over-ride the default configuration when
-running locally.
-
-Example of `app-config.local.yaml`:
-
-```yaml
-# Backstage override configuration for your local development environment
-app:
-    baseUrl: http://localhost:3000
-
-backend:
-    reading:
-        allow:
-            - host: "gist.githubusercontent.com"
-            - host: "netftp.broadinstitute.org"
-    database:
-        client: better-sqlite3
-        connection: ":memory:"
-
-    cors:
-        origin: http://localhost:3000
-        methods: [GET, HEAD, PATCH, POST, PUT, DELETE]
-        credentials: true
-
-integrations:
-    github:
-        - host: github.com
-          # This is a Personal Access Token or PAT from GitHub. You can find out how to generate this token,
-          # and more information about setting up the GitHub integration here:
-          # https://backstage.io/docs/getting-started/configuration#setting-up-a-github-integration
-          # token: ${GITHUB_TOKEN}
-          apps:
-              - $include: github-app-backstage-bits-dev-credentials.yaml
-
-techdocs:
-    builder: "local" # Alternatives - 'external'
-    generator:
-        runIn: "docker" # Alternatives - 'local'
-    publisher:
-        type: "local" # Alternatives - 'googleGcs' or 'awsS3'. Read documentation for using alternatives.
-
-catalog:
-    locations:
-    # Local example template
-    - type: file
-      target: ../../templates/scaffolder/terraform-control-module/template.yaml
-      rules:
-        - allow: [Template]
-
-    # Example of a remote reference using `url` in `app-config.production.yaml`:
-    - type: url
-      target: "https://raw.githubusercontent.com/broadinstitute/backstage/refs/heads/${BRANCH_NAME}/backstage/templates/scaffolder/pr-with-catalog-entry/template.yaml"
-      rules:
-        - allow: [Template]
-
-    - type: url
-      target: "https://raw.githubusercontent.com/broadinstitute/backstage/refs/heads/${BRANCH_NAME}/backstage/templates/scaffolder/terraform-control-module/template.yaml"
-      rules:
-        - allow: [Template]
-
-    - type: file
-      target: "https://raw.githubusercontent.com/broadinstitute/backstage/refs/heads/${BRANCH_NAME}/backstage/templates/scaffolder/terraform-with-terragrunt/template.yaml"
-      rules:
-        - allow: [Template]
-
-    - type: file
-      target: "https://raw.githubusercontent.com/broadinstitute/backstage/refs/heads/${BRANCH_NAME}/backstage/templates/scaffolder/terraform-storage-transfer/template.yaml"
-      rules:
-        - allow: [Template]
-
-        - type: file
-          target: ../../examples/entities.yaml
-
-        # Local example template
-        - type: file
-          target: ../../examples/template/template.yaml
-          rules:
-              - allow: [Template]
-
-        # Local example PagerDuty template
-        - type: file
-          target: ../../examples/template/pagerduty.yaml
-          rules:
-              - allow: [Template]
-
-        # Local example organizational data
-        - type: file
-          target: ../../examples/org.yaml
-          rules:
-              - allow: [User, Group]
-```
+running locally. There is an example `app-config.local.example.yaml` included in
+this repo. You can copy it to `app-config.local.yaml` and edit it as needed
+development and testing.
 
 ## Local Development
 
@@ -106,7 +19,7 @@ Node and yarn will need to be installed. For the correct version of node, you
 can use `nvm` to manage your node versions. This will pick up the correct
 version from the .nvmrc file in the repo.
 
-#### Local Secrets
+### Local Secrets
 
 To run Backstage locally, you need to set up a number of secrets locally. These
 secrets are stored in 1Password, and can be found in the `Backstage` vault. The
@@ -135,7 +48,7 @@ Similarly the Google auth credentials are created when creating a new Google
 OAuth App. You can find instructions on how to create a Google OAuth App
 [here](https://backstage.io/docs/auth/google/provider#create-oauth-credentials).
 
-#### Specifying a branch name
+### Specifying a branch name
 
 To reduce config duplication, the scaffolder templates pull reuseable snippets
 directly from Github based on branch name. For this to work, the
@@ -151,7 +64,23 @@ export BRANCH_NAME="$(git rev-parse --abbrev-ref HEAD)"
 If this variable is not set, you may see the catalog plugin fail, immediately
 resulting in Google Auth not working.
 
-#### Running Backstage
+### Setting up a local postgres instance
+
+Backstage relies on having access to a local database. The example local config
+is set up to access a postgres database. Set one up easily in a container:
+
+```bash
+podman run \
+    --rm \
+    --publish 5432:5432 \
+    --name backstage-dev-pg \
+    --detach \
+    --env POSTGRES_USER=postgresUser \
+    --env POSTGRES_PASSWORD=mysecretpassword \
+    postgres
+```
+
+### Running Backstage
 
 To start the app, run:
 
