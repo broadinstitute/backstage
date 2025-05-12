@@ -18365,15 +18365,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@spotify/prettier-config@npm:^15.0.0":
-  version: 15.0.0
-  resolution: "@spotify/prettier-config@npm:15.0.0"
-  peerDependencies:
-    prettier: 2.x
-  checksum: 10c0/d7033f9f3ab255b490084f72928d4df086f6a51bb6f88b0d3678a5a63e46fc58ad025a0a709f96d8ae91b82093d991d54ea6a48b7d3f2c7f3f747c1853b76532
-  languageName: node
-  linkType: hard
-
 "@standard-schema/utils@npm:^0.3.0":
   version: 0.3.0
   resolution: "@standard-schema/utils@npm:0.3.0"
@@ -44503,7 +44494,6 @@ __metadata:
   dependencies:
     "@backstage/cli": "backstage:^"
     "@mermaid-js/layout-elk": "npm:^0.1.7"
-    "@spotify/prettier-config": "npm:^15.0.0"
     "@testing-library/dom": "npm:^10.4.0"
     "@types/react": "npm:^18.3.11"
     "@types/react-dom": "npm:^18.3.1"
