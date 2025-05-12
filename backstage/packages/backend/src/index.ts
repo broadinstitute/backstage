@@ -159,6 +159,7 @@ backend.add(
     import('@roadiehq/scaffolder-backend-module-http-request/new-backend'),
 );
 backend.add(import('@roadiehq/scaffolder-backend-module-utils/new-backend'));
+backend.add(import('@spotify/backstage-plugin-soundcheck-backend-module-http'));
 
 // Map  Org emails to GitHub user entities in the catalog
 backend.add(githubOrgModule);
