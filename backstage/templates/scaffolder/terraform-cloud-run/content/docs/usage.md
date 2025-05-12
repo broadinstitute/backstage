@@ -19,13 +19,13 @@ repository.
 
 ### Set up a GCP project
 
-Before the automation in this repo can be executed, the GCP project
-`${{ values.gcpProject }}` must exist and you must be able to write to it from
-your workstation. To create a new project go to the
-[project creation page](https://console.cloud.google.com/projectcreate) on the
-Google cloud console and fill out the form. You will need a billing account.
-Please be aware that virtually all operations in GCP cost money, and cloud bills
-can add up quickly.
+Before the automation in this repo can be executed, the GCP projects `${{
+values.gcpProjectDev }}` and `${{ values.gcpProjectProd }}` must exist and you
+must be able to write to it from your workstation. To create a new project go to
+the [project creation page](https://console.cloud.google.com/projectcreate) on
+the Google cloud console and fill out the form. You will need a billing
+account. Please be aware that virtually all operations in GCP cost money, and
+cloud bills can add up quickly.
 
 ### Authenticate to GCP
 
@@ -165,6 +165,6 @@ This project mounts the same GCS bucket in both `dev` and `prod`. There are
 tradeoffs to this decision. It means that it's not necessary to duplicate or
 mock data for testing, and it reduces cost by not requiring paying twice for the
 same data. However, it does mean that pathological changes in development can
-affect production. To mitigate this the is mounted in read-only mode, but that
-setting may not be compatible with all usecases. BITS recommends that you
+affect production. To mitigate this the bucket is mounted in read-only mode, but
+that setting may not be compatible with all usecases. BITS recommends that you
 evaluate the relative risk for your application and modify this as you see fit.
