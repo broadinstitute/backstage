@@ -70,6 +70,10 @@ google_secret_manager_secrets = {
     service = "backstage"
     type    = "string"
   },
+  backstage-soundcheck-http-collector-token = {
+    service = "backstage"
+    type    = "string"
+  },
 }
 additional_databases = [
   { name      = "backstage_plugin_app",
