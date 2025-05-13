@@ -13,7 +13,7 @@ metadata:
     version and utilizes the shared GCS bucket for storing state information.
 
   tags:
-    - terragrunt
+    - terraform
     - production
 spec:
   owner: group:devnull
