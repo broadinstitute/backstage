@@ -12,6 +12,7 @@ metadata:
   tags:
     - recommended
     - production
+    - external
 
 spec:
   owner: group:devnull

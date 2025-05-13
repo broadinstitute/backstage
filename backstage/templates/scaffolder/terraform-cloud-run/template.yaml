@@ -12,6 +12,7 @@ metadata:
     - terraform
     - gcp
     - production
+    - external
 
 spec:
   owner: group:devnull
