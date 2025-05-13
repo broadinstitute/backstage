@@ -15,7 +15,6 @@ metadata:
     will be created for you, and when granted roles in your project can be used to manage GCP
     resources.
   tags:
-    - recommended
     - kubernetes
     - production
 

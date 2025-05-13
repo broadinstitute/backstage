@@ -16,7 +16,6 @@ metadata:
 
   tags:
     - terraform
-    - recommended
     - production
 
 spec:
