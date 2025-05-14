@@ -19,3 +19,7 @@ jobs:
     uses: broadinstitute/shared-workflows/.github/workflows/terraform-docs.yaml@v3.1.1
     with:
       working_directory: './deployment/dev/terraform/,./deployment/prod/terraform/'
+  adr-check-toc:
+    uses: broadinstitute/shared-workflows/.github/workflows/adr-check-toc.yaml@v3.2.0
+    with:
+      toc_file: docs/adr/README.md
