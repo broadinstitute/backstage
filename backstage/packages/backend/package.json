@@ -49,6 +49,7 @@
     "@opentelemetry/exporter-prometheus": "^0.200.0",
     "@opentelemetry/sdk-node": "^0.200.0",
     "@pagerduty/backstage-plugin-backend": "^0.9.1",
+    "@pagerduty/backstage-plugin-scaffolder-actions": "^0.2.2",
     "@roadiehq/scaffolder-backend-module-http-request": "^5.3.1",
     "@roadiehq/scaffolder-backend-module-utils": "^3.5.0",
     "@spotify/backstage-plugin-insights-backend": "^0.7.0",

@@ -166,7 +166,9 @@ backend.add(githubOrgModule);
 
 // Custom auth provider
 backend.add(customAuth);
+// PagerDuty plugins
 backend.add(import('@pagerduty/backstage-plugin-backend'));
+backend.add(import('@pagerduty/backstage-plugin-scaffolder-actions'));
 
 // Tech Radar
 backend.add(import('@backstage-community/plugin-tech-radar-backend'));
