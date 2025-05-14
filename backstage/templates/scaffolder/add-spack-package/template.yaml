@@ -8,7 +8,6 @@ metadata:
     Create a new PR with your a new spack package to the SCISOFT Repository.
     Available packages and versions can be found at [packages.spack.io](https://packages.spack.io/).
   tags:
-    - recommended
     - spack
     - scisoft
     - production

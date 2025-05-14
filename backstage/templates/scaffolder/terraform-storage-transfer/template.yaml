@@ -9,6 +9,7 @@ metadata:
     Storage Transfer Service with Terraform. It uses the Terraform conventions
     provided more generally by `terraform-control-module-template`.
   tags:
+    - recommended
     - terraform
     - gcp
     - production

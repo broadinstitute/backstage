@@ -126,6 +126,11 @@ catalog:
         - allow: [Template]
 
     - type: url
+      target: "https://github.com/broadinstitute/backstage/blob/${BRANCH_NAME}/backstage/templates/scaffolder/terraform-cloud-run/template.yaml"
+      rules:
+        - allow: [Template]
+
+    - type: url
       target: "https://github.com/broadinstitute/backstage/blob/${BRANCH_NAME}/backstage/templates/scaffolder/python-package/template.yaml"
       rules:
         - allow: [Template]
