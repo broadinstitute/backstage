@@ -126,6 +126,11 @@ soundcheck:
     token: "${SOUNDCHECK_SLACK_BOT_TOKEN}"
     appToken: "${SOUNDCHECK_SLACK_APP_TOKEN}"
     signingSecret: "${SOUNDCHECK_SLACK_SIGNING_SECRET}"
+  collectors:
+    http:
+      secrets:
+        - key: githubApiToken
+          value: ${GH_PAM_TOKEN}
 
 permission:
   enabled: true

@@ -250,6 +250,12 @@ soundcheck:
       $file: ./secrets/backstage-soundcheck-slack-app-token
     signingSecret:
       $file: ./secrets/backstage-soundcheck-slack-signing-secret
+  collectors:
+    http:
+      secrets:
+        - key: githubApiToken
+          value:
+            $file: ./secrets/backstage-soundcheck-http-collector-token
 
 permission:
   enabled: true
