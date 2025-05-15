@@ -195,7 +195,7 @@ spec:
             namespace: mcp
             name: ${{ parameters.namespace }}-serviceaccount-tokencreator
           spec:
-            member: serviceAccount:bits-gke-clusters.svc.id.goog[cnrm-system/cnrm-controller-manager-${{ parameters.namespace }}
+            member: serviceAccount:bits-gke-clusters.svc.id.goog[cnrm-system/cnrm-controller-manager-${{ parameters.namespace }}]
             resourceRef:
               kind: IAMServiceAccount
               name: ${{ parameters.namespace }}
