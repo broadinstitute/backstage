@@ -13,7 +13,7 @@ updates:
   - package-ecosystem: 'terraform'
     directory: '/dev'
     groups:
-      actions:
+      terraform_dev:
         patterns:
           - '*'
     schedule:
@@ -22,7 +22,7 @@ updates:
   - package-ecosystem: 'terraform'
     directory: '/prod'
     groups:
-      actions:
+      terraform_prod:
         patterns:
           - '*'
     schedule:

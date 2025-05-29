@@ -12,7 +12,6 @@ variable "api_services" {
 variable "core_project" {
   description = "GCP project managed by the default/primary provider"
   type        = string
-
 }
 
 variable "env" {
