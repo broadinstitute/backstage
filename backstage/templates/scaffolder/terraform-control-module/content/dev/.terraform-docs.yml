@@ -1,17 +1,8 @@
 ---
-formatter: "markdown"  # this is required
-
-version: ""
-
-header-from: HEADER.md
-footer-from: FOOTER.md
-
-recursive:
-  enabled: false
-  path: modules
-
 content: ""
-
+footer-from: FOOTER.md
+formatter: "markdown"  # this is required
+header-from: HEADER.md
 output:
   file: ""
   mode: inject
@@ -19,15 +10,12 @@ output:
     <!-- BEGIN_TF_DOCS -->
     {{ .Content }}
     <!-- END_TF_DOCS -->
-
 output-values:
   enabled: false
   from: ""
-
-sort:
-  enabled: true
-  by: required
-
+recursive:
+  enabled: false
+  path: modules
 settings:
   anchor: true
   color: true
@@ -42,3 +30,7 @@ settings:
   required: true
   sensitive: true
   type: true
+sort:
+  enabled: true
+  by: required
+version: ""

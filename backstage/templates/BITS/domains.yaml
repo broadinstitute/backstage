@@ -21,3 +21,4 @@ spec:
     - ./domains/server-operating-systems.yaml
     - ./domains/scientific-software.yaml
     - ./domains/virtualization.yaml
+    - ./domains/web-hosting.yaml
