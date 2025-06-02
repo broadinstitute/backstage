@@ -7,7 +7,7 @@ metadata:
     Provide a library of software, reference architecture,
     and recommended practice. We provide consultation, and
     Software Modules. (Terraform Module, Ansible Playbooks, Puppet Modules)
-  title: "Configuration Managment"
+  title: "Configuration Management"
   tags:
   - tools
 

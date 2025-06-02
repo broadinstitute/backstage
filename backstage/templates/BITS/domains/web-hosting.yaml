@@ -1,0 +1,16 @@
+---
+apiVersion: backstage.io/v1alpha1
+kind: Domain
+metadata:
+  annotations:
+    backstage.io/managed-by: backstage
+  description: Tools and services for managing web hosting functions
+  name: web-hosting
+  tags:
+  - bits-tools
+  - web
+  - hosting
+  title: Web Hosting
+spec:
+  lifecycle: production
+  owner: devnull
