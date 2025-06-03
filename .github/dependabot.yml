@@ -1,22 +1,6 @@
 ---
 version: 2
 updates:
-  - package-ecosystem: "npm"
-    directory: "/backstage" # Location of package manifests
-    groups:
-      npm:
-        patterns:
-          - '*'
-        exclude-patterns:
-        - '@backstage/*'
-    schedule:
-      interval: "monthly"
-    ignore:
-      - dependency-name: "react*"
-        update-types: ["version-update:semver-major"]
-      - dependency-name: "@backstage/*"
-        update-types: ["version-update:semver-major"]
-
   - package-ecosystem: 'github-actions'
     directory: '/'
     groups:
