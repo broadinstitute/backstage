@@ -16,6 +16,9 @@ insert_final_newline = false
 [*.{diff,patch}]
 trim_trailing_whitespace = false
 
+[.gitignore]
+trim_trailing_whitespace = false
+
 [*.{json,yml,yaml}]
 indent_size = 2
 indent_style = space
