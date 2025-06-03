@@ -1,0 +1,15 @@
+# http://editorconfig.org
+
+root = true
+
+[*.{json,yaml,yml}]
+indent_size = 2
+indent_style = space
+
+[*.{hcl,tf}]
+indent_size = 2
+indent_style = space
+
+[*.md]
+indent_size = 2
+indent_style = space
