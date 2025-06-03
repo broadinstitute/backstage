@@ -15737,9 +15737,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@pagerduty/backstage-plugin-backend@npm:^0.9.1":
-  version: 0.9.4
-  resolution: "@pagerduty/backstage-plugin-backend@npm:0.9.4"
+"@pagerduty/backstage-plugin-backend@npm:^0.9.6":
+  version: 0.9.6
+  resolution: "@pagerduty/backstage-plugin-backend@npm:0.9.6"
   dependencies:
     "@backstage/backend-common": "npm:^0.23.3"
     "@backstage/backend-defaults": "npm:^0.4.1"
@@ -15764,7 +15764,7 @@ __metadata:
     uuid: "npm:^9.0.1"
     winston: "npm:^3.2.1"
     yn: "npm:^4.0.0"
-  checksum: 10c0/d726616455aeb05b8713b55c157614a97ad5cc4d8cfd150b1306d05e2d3ee71442d6553f05b63aac46539ee37b1942026afbb5e05f84b4a8b9ebc7500bcdfeaa
+  checksum: 10c0/b9c486c52747c1971aadba9618f5801d42c851c59daf5e602c8edde58525cacfb35d02a465f0b58d76f5f65063c24b0d73b890cd61943850bf3635862388103c
   languageName: node
   linkType: hard
 
@@ -15779,6 +15779,13 @@ __metadata:
   version: 0.2.2
   resolution: "@pagerduty/backstage-plugin-common@npm:0.2.2"
   checksum: 10c0/f5966f047db7ddd72e792d6f4325ab2b3b93e39a7366685aeda4994e2e896768996cdb1cc734f8872ece6d2bf4e934354ab135b6708e5dcd3e3c7f7edde23dbc
+  languageName: node
+  linkType: hard
+
+"@pagerduty/backstage-plugin-common@npm:^0.2.3":
+  version: 0.2.3
+  resolution: "@pagerduty/backstage-plugin-common@npm:0.2.3"
+  checksum: 10c0/df5623e7e83dafaa18de6737d1046493b9d21e4d07308ec4d087e4c8161979f2a1482ad6c33ef20eee3fc106798cb1cf1af61b802936071bfd53f10ceb88bbee
   languageName: node
   linkType: hard
 
@@ -15803,9 +15810,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@pagerduty/backstage-plugin@npm:^0.15.1":
-  version: 0.15.3
-  resolution: "@pagerduty/backstage-plugin@npm:0.15.3"
+"@pagerduty/backstage-plugin@npm:^0.15.5":
+  version: 0.15.5
+  resolution: "@pagerduty/backstage-plugin@npm:0.15.5"
   dependencies:
     "@backstage/catalog-model": "npm:^1.5.0"
     "@backstage/core-components": "npm:^0.14.9"
@@ -15834,7 +15841,7 @@ __metadata:
     react: ^18.0.0 || ^20.0.0
     react-dom: ^18.0.0 || ^20.0.0
     react-router-dom: ^6.3.0
-  checksum: 10c0/6083d5c2c42e143dac70bf9ad69df093eae9d8f2aefb74c0cb713ce07edb20e2b323354cbf8dbe6b8e4eda569a058386b997753cb3b64599b5293e5870d227cf
+  checksum: 10c0/e80ae5217a6394d6c7bf79eae9f3f157de6240479747d7f3abced876a40024fcb007686ad945806cf61f5fa96e78c4f99c3507205bc878ea8b1d1b5aea90e40f
   languageName: node
   linkType: hard
 
@@ -16832,9 +16839,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@roadiehq/plugin-scaffolder-frontend-module-http-request-field@npm:^2.0.1":
-  version: 2.0.1
-  resolution: "@roadiehq/plugin-scaffolder-frontend-module-http-request-field@npm:2.0.1"
+"@roadiehq/plugin-scaffolder-frontend-module-http-request-field@npm:^2.1.0":
+  version: 2.1.0
+  resolution: "@roadiehq/plugin-scaffolder-frontend-module-http-request-field@npm:2.1.0"
   dependencies:
     "@backstage/core-components": "npm:^0.16.1"
     "@backstage/core-plugin-api": "npm:^1.10.1"
@@ -16847,7 +16854,7 @@ __metadata:
     zod: "npm:^3.19.1"
   peerDependencies:
     react: ^16.13.1 || ^17.0.0 || ^18.0.0
-  checksum: 10c0/71d4a94d04bae8e46e6dfe47755d8dbfc9d370282a3608c5fbbce993e44ea7963236b760d87d50774bbaae023fbac7ab51488076ac13437945280422a140d268
+  checksum: 10c0/cc9aef7852dd2cb62e2eba4b380f8d1226888ded614203bb924297251c39ca342f9633f6b19fc674245e9297fb96655fd7ee10647afd4a612a0759e69745731a
   languageName: node
   linkType: hard
 
@@ -23537,10 +23544,10 @@ __metadata:
     "@backstage/theme": "backstage:^"
     "@material-ui/core": "npm:^4.12.4"
     "@material-ui/icons": "npm:^4.9.1"
-    "@pagerduty/backstage-plugin": "npm:^0.15.1"
-    "@pagerduty/backstage-plugin-common": "npm:^0.2.1"
+    "@pagerduty/backstage-plugin": "npm:^0.15.5"
+    "@pagerduty/backstage-plugin-common": "npm:^0.2.3"
     "@roadiehq/backstage-plugin-github-pull-requests": "npm:^3.4.2"
-    "@roadiehq/plugin-scaffolder-frontend-module-http-request-field": "npm:^2.0.1"
+    "@roadiehq/plugin-scaffolder-frontend-module-http-request-field": "npm:^2.1.0"
     "@spotify/backstage-plugin-analytics-module-insights": "npm:^0.9.8"
     "@spotify/backstage-plugin-insights": "npm:^0.7.0"
     "@spotify/backstage-plugin-rbac": "npm:^0.7.7"
@@ -24482,7 +24489,7 @@ __metadata:
     "@opentelemetry/auto-instrumentations-node": "npm:^0.57.1"
     "@opentelemetry/exporter-prometheus": "npm:^0.200.0"
     "@opentelemetry/sdk-node": "npm:^0.200.0"
-    "@pagerduty/backstage-plugin-backend": "npm:^0.9.1"
+    "@pagerduty/backstage-plugin-backend": "npm:^0.9.6"
     "@pagerduty/backstage-plugin-scaffolder-actions": "npm:^0.2.2"
     "@roadiehq/scaffolder-backend-module-http-request": "npm:^5.3.1"
     "@roadiehq/scaffolder-backend-module-utils": "npm:^3.5.0"

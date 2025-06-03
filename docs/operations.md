@@ -101,6 +101,7 @@ here are the basic steps:
 1. Test your backstage locally to make sure everything is working as expected
    with `yarn dev`
 1. Commit your changes and push them to your branch.
+1. Optionally upgrade other plugins with `yarn backstage-cli versions:bump --pattern '@{roadiehq,pagerduty}/*'`
 1. Create a pull request and get it reviewed.
 1. Verify that the deployment is successful by viewing :
    https://backstage-dev.broadinstitute.org/

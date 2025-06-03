@@ -4,7 +4,7 @@ import {
   AuthorizeResult,
 } from '@backstage/plugin-permission-common';
 import { PermissionPolicy } from '@backstage/plugin-permission-node';
-import { policyExtensionPoint } from '@backstage/plugin-permission-node';
+import { policyExtensionPoint } from '@backstage/plugin-permission-node/alpha';
 
 class TestPermissionPolicy implements PermissionPolicy {
   async handle(): Promise<PolicyDecision> {
