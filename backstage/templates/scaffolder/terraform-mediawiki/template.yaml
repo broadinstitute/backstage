@@ -65,8 +65,8 @@ spec:
         - gcpRegion
         - gcpProjectDev
         - gcpProjectProd
-        - gcsBucket
-        - applicationName
+        - gcsTerraformBucket
+        - applicationDomain
         - applicationBucket
         - applicationBucketProject
       properties:
@@ -92,37 +92,19 @@ spec:
             GCP project managed by the default/primary provider.
             This value will set default values in the template, but will not
             create new projects or otherwise touch existing projects.
-        gcsBucket:
-          title: GCS Bucket
+        gcsTerraformBucket:
+          title: GCS Terraform Bucket
           type: string
           description: >-
             The name of the GCS bucket to use for this service. It will be used
             to store Terraform state files.
-        gcsCloudSQLSize:
-          title: Cloud SQL instance size
+        applicationDomain:
+          title: Application Domain
           type: string
-          default: db-f1-micro
           description: >-
-            The size of the Cloud SQL instance to create for this service. The
-            default is db-f1-micro, which is the smallest instance size.
-        applicationImageTag:
-          title: Container Image Tag
-          type: string
-          default: latest
-          description: >-
-            The tag of the MediaWiki container image to deploy with Cloud Run.
-            The image used is docker.io/library/mediawiki. If you don't know what
-            tag to use, the default will be "latest" and you can update in the
-            repository later.
-        applicationPort:
-          title: Application Port
-          type: integer
-          default: 80
-          description: >-
-            Port number the container listens on. Must be a valid TCP port
-            number between 1 and 65535, inclusive. If you are using an Apache-based
-            MediaWiki image, this is likely 80. If you are using a different
-            web server or application, you may need to change this value.
+            The domain to use for this application. Typically, this is under
+            the web.broadinstitute.org subdomain, but you can use a custom
+            domain if you have one reserved.
         applicationBucket:
           title: Data Bucket
           type: string
@@ -134,6 +116,31 @@ spec:
           description: >-
             GCS project where the data bucket is located. This can be the same
             as the production service project or a separate project.
+        applicationImageTag:
+          title: Container Image Tag
+          type: string
+          default: latest
+          description: >-
+            The tag of the MediaWiki container image to deploy with Cloud Run.
+            The image used is docker.io/library/mediawiki. If you don't know what
+            tag to use, the default will be "latest" and you can update in the
+            repository later.
+        gcsCloudSQLSize:
+          title: Cloud SQL instance size
+          type: string
+          default: db-f1-micro
+          description: >-
+            The size of the Cloud SQL instance to create for this service. The
+            default is db-f1-micro, which is the smallest instance size.
+        applicationPort:
+          title: Application Port
+          type: integer
+          default: 80
+          description: >-
+            Port number the container listens on. Must be a valid TCP port
+            number between 1 and 65535, inclusive. If you are using an Apache-based
+            MediaWiki image, this is likely 80. If you are using a different
+            web server or application, you may need to change this value.
         applicationVolumePath:
           title: Bucket Mount Path
           type: string
@@ -147,13 +154,6 @@ spec:
           default: 3
           description: >-
             The maximum number of instances that will run for the application.
-        applicationDomain:
-          title: Application Domain
-          type: string
-          description: >-
-            The domain to use for this application. Typically, this is under
-            the web.broadinstitute.org subdomain, but you can use a custom
-            domain if you prefer.
         googleProviderVersion:
           title: Google Provider Version
           type: string
@@ -182,16 +182,15 @@ spec:
           gcpRegion: ${{ parameters.gcpRegion }}
           gcpProjectDev: ${{ parameters.gcpProjectDev }}
           gcpProjectProd: ${{ parameters.gcpProjectProd }}
-          gcsBucket: ${{ parameters.gcsBucket }}
-          gcsCloudSQLSize: ${{ parameters.gcsCloudSQLSize }}
-          applicationName: ${{ parameters.applicationName }}
+          gcsTerraformBucket: ${{ parameters.gcsTerraformBucket }}
+          applicationDomain: ${{ parameters.applicationDomain }}
           applicationImageTag: ${{ parameters.applicationImageTag }}
+          gcsCloudSQLSize: ${{ parameters.gcsCloudSQLSize }}
           applicationPort: ${{ parameters.applicationPort }}
           applicationBucket: ${{ parameters.applicationBucket }}
           applicationBucketProject: ${{ parameters.applicationBucketProject }}
           applicationVolumePath: ${{ parameters.applicationVolumePath }}
           applicationMaxInstances: ${{ parameters.applicationMaxInstances }}
-          applicationDomain: ${{ parameters.applicationDomain }}
           googleProviderVersion: ${{ parameters.googleProviderVersion }}
           terraformVersion: ${{ parameters.terraformVersion }}
           repoOwner: >-
