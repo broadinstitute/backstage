@@ -184,7 +184,9 @@ backend.add(import('@spotify/backstage-plugin-soundcheck-backend-module-scm'));
 backend.add(
     import('@spotify/backstage-plugin-soundcheck-backend-module-github'),
   );
-  backend.add(import('@spotify/backstage-plugin-rbac-backend'));
-  backend.add(import('@spotify/backstage-plugin-permission-backend-module-rbac'));
+backend.add(import('@spotify/backstage-plugin-rbac-backend'));
+backend.add(import('@spotify/backstage-plugin-permission-backend-module-rbac'));
+backend.add(import('@backstage/plugin-notifications-backend'));
+backend.add(import('@backstage/plugin-signals-backend'));
 
 backend.start();

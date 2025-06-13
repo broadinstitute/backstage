@@ -32,6 +32,7 @@ import SchoolIcon from '@material-ui/icons/School';
 import DoneAllIcon from '@material-ui/icons/DoneAll';
 import { RBACSidebarItem } from '@spotify/backstage-plugin-rbac';
 import CategoryIcon from '@material-ui/icons/Category';
+import { NotificationsSidebarItem } from '@backstage/plugin-notifications';
 
 const useSidebarLogoStyles = makeStyles({
     root: {
@@ -99,6 +100,10 @@ export const Root = ({ children }: PropsWithChildren<{}>) => (
                     <SidebarItem icon={DoneAllIcon} to='soundcheck' text='Soundcheck' />
                     <InsightsSidebarItem />
                     <RBACSidebarItem />
+                    <NotificationsSidebarItem
+                        webNotificationsEnabled
+                        titleCounterEnabled
+                    />
                 </SidebarScrollWrapper>
             </SidebarGroup>
             <SidebarSpace />

@@ -53,6 +53,9 @@ import { HomepageCompositionRoot } from '@backstage/plugin-home';
 import { HomePage } from './components/home/HomePage';
 import { Mermaid } from "backstage-plugin-techdocs-addon-mermaid";
 import elkLayouts from '@mermaid-js/layout-elk';
+import { NotificationsPage, UserNotificationSettingsCard } from '@backstage/plugin-notifications';
+import { SignalsDisplay } from '@backstage/plugin-signals';
+import { SettingsLayout, Settings as AdvancedSettings } from '@backstage/plugin-user-settings';
 
 interface SignInProviderConfig {
     id: string;
@@ -186,13 +189,20 @@ const routes = (
         <Route path="/search" element={<SearchPage />}>
             {searchPage}
         </Route>
-        <Route path="/settings" element={<UserSettingsPage />} />
+        <Route path="/settings" element={<UserSettingsPage />}>
+            <SettingsLayout.Route path="/notifications" title="Notifications">
+                <UserNotificationSettingsCard
+                originNames={{ 'plugin:scaffolder': 'Scaffolder' }}
+                />
+            </SettingsLayout.Route>
+        </Route>
         <Route path="/catalog-graph" element={<CatalogGraphPage />} />
         <Route
             path='/soundcheck'
             element={<SoundcheckRoutingPage title='Production Readiness' />}
         />
         <Route path="/rbac" element={<RBACRoot />} />
+        <Route path="/notifications" element={<NotificationsPage />} />
     </FlatRoutes>
 );
 
@@ -200,6 +210,7 @@ export default app.createRoot(
     <>
         <AlertDisplay />
         <OAuthRequestDialog />
+        <SignalsDisplay />
         <AppRouter>
             <InsightsSurveyLoader />
             <Root>{routes}</Root>
