@@ -7,7 +7,7 @@ core_project = "bits-backstage-dev"
 env          = "dev"
 gke_project  = "bits-gke-clusters"
 namespace    = "backstage-dev"
-cloudsql_tier  = "db-n1-standard-1"
+cloudsql_tier  = "db-custom-2-4096"
 
 google_secret_manager_secrets = {
   github-app-backstage-bits-credentials = {
