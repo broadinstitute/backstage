@@ -10,17 +10,9 @@ updates:
     schedule:
       interval: weekly
   - package-ecosystem: terraform
-    directory: /dev
+    directory: /terraform
     groups:
-      terraform_dev:
-        patterns:
-          - "*"
-    schedule:
-      interval: weekly
-  - package-ecosystem: terraform
-    directory: /prod
-    groups:
-      terraform_prod:
+      terraform:
         patterns:
           - "*"
     schedule:

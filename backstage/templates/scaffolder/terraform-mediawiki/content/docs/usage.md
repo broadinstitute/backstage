@@ -19,13 +19,13 @@ repository.
 
 ### Set up a GCP project
 
-Before the automation in this repo can be executed, the GCP projects `${{
-values.gcpProjectDev }}` and `${{ values.gcpProjectProd }}` must exist and you
-must be able to write to it from your workstation. To create a new project go to
-the [project creation page](https://console.cloud.google.com/projectcreate) on
-the Google cloud console and fill out the form. You will need a billing
-account. Please be aware that virtually all operations in GCP cost money, and
-cloud bills can add up quickly.
+Before the automation in this repo can be executed, the GCP project
+`${{ values.gcpProject }}` must exist and you must be able to write to it from
+your workstation. To create a new project go to the
+[project creation page](https://console.cloud.google.com/projectcreate) on the
+Google cloud console and fill out the form. You will need a billing account.
+Please be aware that virtually all operations in GCP cost money, and cloud
+bills can add up quickly.
 
 ### Authenticate to GCP
 
