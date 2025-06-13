@@ -1,17 +1,17 @@
 ---
-apiVersion: monitoring.googleapis.com/v1
-kind: PodMonitoring
+apiVersion: policy/v1
+kind: PodDisruptionBudget
 metadata:
   name: backstage
   namespace: backstage
   labels:
-    backstage.io/kubernetes-id: backstage
     app.kubernetes.io/managed-by: gcp-cloud-build-deploy
     environment: prod
+    app: backstage
 spec:
+  minAvailable: 1
   selector:
     matchLabels:
       app: backstage
-  endpoints:
-  - port: 9464
-    interval: 30s
+      environment: prod
+      backstage.io/kubernetes-id: backstage

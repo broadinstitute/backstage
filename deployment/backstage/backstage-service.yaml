@@ -5,6 +5,7 @@ metadata:
   name: backstage
   namespace: backstage
   labels:
+    app: backstage
     environment: prod
     app.kubernetes.io/managed-by: gcp-cloud-build-deploy
     backstage.io/kubernetes-id: backstage

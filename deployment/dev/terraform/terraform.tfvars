@@ -7,6 +7,7 @@ core_project = "bits-backstage-dev"
 env          = "dev"
 gke_project  = "bits-gke-clusters"
 namespace    = "backstage-dev"
+cloudsql_tier  = "db-custom-2-4096" # Custom tier with 2 vCPUs and 4GB RAM
 
 google_secret_manager_secrets = {
   github-app-backstage-bits-credentials = {
@@ -144,6 +145,16 @@ additional_databases = [
     charset   = ""
     collation = ""
   },
+  {
+    name      = "backstage_plugin_notifications"
+    charset   = ""
+    collation = ""
+  },
+  {
+    name      = "backstage_plugin_signals"
+    charset   = ""
+    collation = ""
+  },
 ]
 
 database_flags = [
@@ -153,6 +164,6 @@ database_flags = [
   },
   {
     name  = "max_connections"
-    value = "100"
+    value = "200"
   },
 ]
