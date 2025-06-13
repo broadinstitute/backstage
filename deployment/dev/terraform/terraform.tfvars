@@ -163,6 +163,6 @@ database_flags = [
   },
   {
     name  = "max_connections"
-    value = "100"
+    value = "200"
   },
 ]
