@@ -60,6 +60,26 @@ resource "google_cloud_run_v2_service" "mediawiki" {
   ]
 }
 
+# By default, we will use Cloud Run domain mapping to map the service to
+# domains specified in the `web_domains` variable. This will automatically
+# create a load balancer for you, so you do not need to create one manually.
+# If you need the added flexibility of using a Google load balancer, you can
+# uncomment the resources in the network.tf file.
+resource "google_cloud_run_domain_mapping" "mediawiki" {
+  for_each = var.web_domains != null ? toset(var.web_domains) : []
+
+  location = var.core_region
+  name     = each.value
+
+  metadata {
+    namespace = var.core_project
+  }
+
+  spec {
+    route_name = google_cloud_run_v2_service.mediawiki.name
+  }
+}
+
 # Deploying the cloud run service too quickly after service account creation
 # fails cryptically. A redeploy fixes it but that's tedious -- sleeping a couple
 # minutes results in a clear run the first time. Since terraform stores state,

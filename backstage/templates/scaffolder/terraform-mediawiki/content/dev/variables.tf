@@ -23,3 +23,9 @@ variable "env" {
   description = "Label for the environment or tier you are working in. Typically dev, staging, or prod"
   type        = string
 }
+
+variable "web_domains" {
+  default     = []
+  description = "List of web domains to which to deploy the service"
+  type        = list(string)
+}
