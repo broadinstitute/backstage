@@ -104,13 +104,13 @@ spec:
               # The proxy's memory use scales linearly with the number of active
               # connections. Fewer open connections will use less memory. Adjust
               # this value based on your application's requirements.
-              memory: "1G"
+              memory: "2G"
               # The proxy's CPU use scales linearly with the amount of IO between
               # the database and the application. Adjust this value based on your
               # application's requirements.
               cpu: "1"
             limits:
-              memory: "1G"
+              memory: "2G"
               cpu: "1"
       volumes:
         - name: backstage-secrets
