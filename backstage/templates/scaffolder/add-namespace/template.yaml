@@ -23,11 +23,12 @@ spec:
   type: service
 
   parameters:
-    - title: Namespace Information
+    - title: Namespace Information & KCC Option
       required:
         - namespace
         - teams
         - owners
+        - includeKcc # Make the new boolean parameter required
       properties:
         owners:
           title: 'GitHub Owners'
@@ -57,25 +58,56 @@ spec:
             ui:help: 'Enter a valid Google Group email address'
             ui:hideError: true
             default: 'google-group@broadinstitute.org'
+        includeKcc:
+          title: Enable Google Cloud Config Connector (KCC)
+          type: boolean
+          description: >-
+            Set up Config Connector for this namespace. This allows managing GCP resources
+            (like service accounts, databases) directly from Kubernetes using the specified GCP Project.
+            Enabling this feature will add additional cost to your namespace. 
+          default: false
         gcpProject:
-          title: 'Google Cloud Project'
+          title: 'Google Cloud Project (for KCC)'
           type: string
           description: >-
-            The name of a GCP Project to associate with this namespace for use with
-            [Config Connector](https://cloud.google.com/config-connector/docs/how-to/getting-started).
-            This project will be used by Config Connector to manage resources within the namespace.
+            The GCP Project ID where Config Connector will manage resources for this namespace.
+            Required and used only if "Enable KCC" is checked.
+      dependencies:
+        includeKcc:
+          oneOf:
+            - properties:
+                includeKcc:
+                  const: true
+              required:
+                - gcpProject
+            - properties:
+                includeKcc:
+                  const: false
   steps:
-    - action: roadiehq:utils:serialize:yaml
-      id: Namespace
-      name: Create Namespace
+    - id: prepareNamespaceObject
+      name: Prepare Namespace Object
+      action: roadiehq:utils:jsonata
       input:
         data:
-          apiVersion: v1
-          kind: Namespace
-          metadata:
-            name: ${{ parameters.namespace }}
-            annotations:
-              cnrm.cloud.google.com/project-id: ${{ parameters.gcpProject }}
+          namespaceName: ${{ parameters.namespace }}
+          gcpProject: ${{ parameters.gcpProject }}
+          includeKcc: ${{ parameters.includeKcc }}
+        expression: |
+          (
+            $base := {
+              "apiVersion": "v1",
+              "kind": "Namespace",
+              "metadata": {
+                "name": $$.data.namespaceName
+              }
+            };
+            $$.data.includeKcc and $$.data.gcpProject ? $merge([$base, {"metadata": {"annotations": {"cnrm.cloud.google.com/project-id": $$.data.gcpProject}}}]) : $base
+          )
+    - action: roadiehq:utils:serialize:yaml
+      id: Namespace # ID remains 'Namespace' for dependent steps
+      name: Serialize Namespace Object
+      input:
+        data: ${{ steps.prepareNamespaceObject.output.result }}
 
     - id: writeNamespace
       name: Write Namespace YAML File
@@ -119,6 +151,7 @@ spec:
     - action: roadiehq:utils:serialize:yaml
       id: ConfigConnectorContext
       name: Create Config Connector Context
+      if: ${{ parameters.includeKcc }}
       input:
         data:
           apiVersion: core.cnrm.cloud.google.com/v1beta1
@@ -133,6 +166,7 @@ spec:
 
     - id: writeConfigConnectorContext
       name: Write Config Connector Context YAML File
+      if: ${{ parameters.includeKcc }}
       action: roadiehq:utils:fs:write
       input:
         path: manifests/namespace/${{ parameters.namespace }}/configconnectorcontext.yaml
@@ -141,6 +175,7 @@ spec:
     - action: roadiehq:utils:serialize:yaml
       id: IAMServiceAccount
       name: Create IAMServiceAccount KRM file
+      if: ${{ parameters.includeKcc }}
       input:
         data:
           apiVersion: iam.cnrm.cloud.google.com/v1beta1
@@ -155,6 +190,7 @@ spec:
 
     - id: writeIAMServiceAccount
       name: Write IAMServiceAccount YAML File into the MCP Namespace
+      if: ${{ parameters.includeKcc }}
       action: roadiehq:utils:fs:write
       input:
         path: manifests/namespace/mcp/serviceaccounts/${{ parameters.namespace }}/serviceaccount.yaml
@@ -163,6 +199,7 @@ spec:
     - action: roadiehq:utils:serialize:yaml
       id: workloadIdentityUser
       name: Create IAMPolicyMember token creator binding KRM file
+      if: ${{ parameters.includeKcc }}
       input:
         data:
           apiVersion: iam.cnrm.cloud.google.com/v1beta1
@@ -179,6 +216,7 @@ spec:
 
     - id: writeWorkloadIdentityUser
       name: Write IAMServiceAccount YAML File into the MCP Namespace
+      if: ${{ parameters.includeKcc }}
       action: roadiehq:utils:fs:write
       input:
         path: manifests/namespace/mcp/serviceaccounts/${{ parameters.namespace }}/workload-identity-user.yaml
@@ -187,6 +225,7 @@ spec:
     - action: roadiehq:utils:serialize:yaml
       id: tokenCreator
       name: Create IAMPolicyMember token creator binding KRM file
+      if: ${{ parameters.includeKcc }}
       input:
         data:
           apiVersion: iam.cnrm.cloud.google.com/v1beta1
@@ -203,6 +242,7 @@ spec:
 
     - id: writeTokenCreator
       name: Write IAMServiceAccount YAML File into the MCP Namespace
+      if: ${{ parameters.includeKcc }}
       action: roadiehq:utils:fs:write
       input:
         path: manifests/namespace/mcp/serviceaccounts/${{ parameters.namespace }}/serviceaccount-tokencreator.yaml
@@ -240,14 +280,17 @@ spec:
         icon: github
         url: ${{ steps['createPullRequest'].output.remoteUrl }}
     text:
-      - title: Google Service Account
+      - title: Namespace and KCC Status
         content: |
-          ## Service Account Information
-
-          A service account has been created for your namespace with the email:
-
-          ${{ parameters.namespace }}@bits-gke-clusters.iam.gserviceaccount.com
-
-          You can use this service account to grant permissions in your GCP projects, allowing your
-          Kubernetes workloads to access GCP resources using Config Connector. To grant permissions,
-          add IAM roles to this service account in your target GCP projects.
+          Namespace `${{ parameters.namespace }}` files have been prepared.
+          {% if parameters.includeKcc %}
+          Google Cloud Config Connector (KCC) has been **enabled** for this namespace, targeting GCP project `${{ parameters.gcpProject }}`.
+          A Google Service Account will be configured for KCC with the email:
+          **${{ parameters.namespace }}@bits-gke-clusters.iam.gserviceaccount.com**
+          You will be able to use this  service account to grant permissions in your GCP projects, allowing your
+          Kubernetes workloads to access GCP resources using Config Connector once the Pull Request has been merged.
+          To grant permissions, add IAM roles to this service account in your target GCP projects.
+          {% else %}
+          Google Cloud Config Connector (KCC) has been **disabled** for this namespace.
+          No KCC-specific resources (like the dedicated Google Service Account for KCC) were created by this template.
+          {% endif %}
