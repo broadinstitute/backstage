@@ -1,17 +1,17 @@
----
-apiVersion: policy/v1
-kind: PodDisruptionBudget
-metadata:
-  name: backstage
-  namespace: backstage
-  labels:
-    app.kubernetes.io/managed-by: gcp-cloud-build-deploy
-    environment: prod
-    app: backstage
-spec:
-  minAvailable: 1
-  selector:
-    matchLabels:
-      app: backstage
-      environment: prod
-      backstage.io/kubernetes-id: backstage
+# ---
+# apiVersion: policy/v1
+# kind: PodDisruptionBudget
+# metadata:
+#   name: backstage
+#   namespace: backstage
+#   labels:
+#     app.kubernetes.io/managed-by: gcp-cloud-build-deploy
+#     environment: prod
+#     app: backstage
+# spec:
+#   minAvailable: 1
+#   selector:
+#     matchLabels:
+#       app: backstage
+#       environment: prod
+#       backstage.io/kubernetes-id: backstage
