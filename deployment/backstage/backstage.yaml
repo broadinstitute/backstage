@@ -108,10 +108,10 @@ spec:
               # The proxy's CPU use scales linearly with the amount of IO between
               # the database and the application. Adjust this value based on your
               # application's requirements.
-              cpu: "1"
+              cpu: "1.5"
             limits:
               memory: "2G"
-              cpu: "1"
+              cpu: "1.5"
       volumes:
         - name: backstage-secrets
           csi:
