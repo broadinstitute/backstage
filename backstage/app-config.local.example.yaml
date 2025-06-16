@@ -29,8 +29,7 @@ integrations:
       # https://backstage.io/docs/getting-started/configuration#setting-up-a-github-integration
       # token: ${GITHUB_TOKEN}
       apps:
-        - $include: github-app-backstage-bits-credentials.yaml
-
+        - $include: github-app-backstage-bits-dev-credentials.yaml
 
 techdocs:
   builder: 'local' # Alternatives - 'external'

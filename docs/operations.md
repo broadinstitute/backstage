@@ -2,13 +2,13 @@
 
 ## App Configuration
 
-The Backstage Project docs on configuration can be found
-[here](https://backstage.io/docs/conf/). In our implementations we use the
-`app-config.yaml` and `app-config.production.yaml` when running in production,
-and use app-config.local.yaml to over-ride the default configuration when
-running locally. There is an example `app-config.local.example.yaml` included in
-this repo. You can copy it to `app-config.local.yaml` and edit it as needed
-development and testing.
+The Backstage Project docs on configuration can be found on the
+[Static Configuration](https://backstage.io/docs/conf/) page. In our
+implementations, we use the `app-config.yaml` and `app-config.production.yaml`
+when running in production, and `app-config.local.yaml` to override the default
+configuration when running locally. There is an example
+`app-config.local.example.yaml` included in this repo. You can copy it to
+`app-config.local.yaml` and edit it as needed for development and testing.
 
 ## Local Development
 
@@ -25,51 +25,74 @@ To run Backstage locally, you need to set up a number of secrets locally. These
 secrets are stored in 1Password, and can be found in the `Backstage` vault. The
 secrets can be manually sourced, or you can use the `1password-cli` to source
 them. To use the `1password-cli`, you need to install it and authenticate with
-your 1Password account. You can find instructions on how to do this
-[here](https://support.1password.com/command-line-getting-started/).
+your 1Password account. You can find instructions on how to do this in the
+[1Password CLI documentation](https://support.1password.com/command-line-getting-started/).
 
-This repo uses [direnv](https://direnv.net/) to manage environment variables.
-You can install direnv by running `brew install direnv` on MacOS. Once you have
-direnv installed, you can use the `.envrc` files in the repo to source the
-secrets. You can also manually source the secrets by running the following
-commands from the app root (i.e the backstage directory in the repo):
-`source op.bash` and the file can be found in the repo at `backstage/op.bash`.
+This repo uses [mise](https://mise.jdx.dev/) to manage the local development
+environment. You can install `mise` by running `brew install mise` on MacOS.
+Once you have `mise` installed, the `mise.toml` file in the `backstage/`
+directory will be used to set the environment variables.
+
+If you don't have `mise` but do have the 1Password CLI, you can also manually
+source the secrets by running the following commands from the app root (i.e the
+`backstage/` directory in the repo):
+
+```Shell
+source op.bash
+```
 
 !!! NOTE All the above works **_GREAT_** if you have access to the 1Password
-Vault, however, if you don't have access to the 1Password Vault, you must
+Vault. However, if you don't have access to the 1Password Vault, you must
 manually create the `github-app-backstage-bits-dev-credentials.yaml` file and
 populate the expected environment variables.
 
+You can also use the `github:credentials` task to create the
+`github-app-backstage-bits-dev-credentials.yaml`:
+
+```Shell
+mise run github:credentials
+```
+
+This task will also run before running the `backstage:dev` task to make sure the
+file is in place before attempting to start the Backstage instance.
+
 The `github-app-credentials.yaml` is created when you create a new GitHub OAuth
-App. You can find instructions on how to create a GitHub OAuth App
-[here](https://backstage.io/docs/getting-started/config/authentication).
+App. You can find instructions on how to create a GitHub OAuth App in the
+[Backstage Authentication documentation](https://backstage.io/docs/getting-started/config/authentication).
 
 Similarly the Google auth credentials are created when creating a new Google
-OAuth App. You can find instructions on how to create a Google OAuth App
-[here](https://backstage.io/docs/auth/google/provider#create-oauth-credentials).
+OAuth App. You can find instructions on how to create a Google OAuth App in the
+[Backstage Google Provider documentation](https://backstage.io/docs/auth/google/provider#create-oauth-credentials).
 
 ### Specifying a branch name
 
 To reduce config duplication, the scaffolder templates pull reuseable snippets
 directly from Github based on branch name. For this to work, the
 `app-config.yaml` (or `app-config.local.yaml` during development) has repeated
-reference to an environment variable `BRANCH_NAME`. To work with templates in
-development, push your changes to Github and set this environment variable,
-e.g.:
-
-```bash
-export BRANCH_NAME="$(git rev-parse --abbrev-ref HEAD)"
-```
+reference to an environment variable `BRANCH_NAME`.
 
 If this variable is not set, you may see the catalog plugin fail, immediately
-resulting in Google Auth not working.
+resulting in Google Auth not working. If you have a working `mise` configuration
+in your local environment, this environment variable will be set for you
+automatically. The variable is also set if you are using the `source op.bash`
+method.
 
 ### Setting up a local postgres instance
 
 Backstage relies on having access to a local database. The example local config
-is set up to access a postgres database. Set one up easily in a container:
+is set up to access a postgres database. If you are using `mise`, you can start
+the database using a [mise task](https://mise.jdx.dev/tasks/):
 
-```bash
+```Shell
+mise run backstage:pg
+```
+
+This task will also run before running the `backstage:dev` task to make sure the
+database container is running before attempting to start the Backstage instance.
+
+If you are not using `mise`, you can set one up easily using `podman`:
+
+```Shell
 podman run \
     --rm \
     --publish 5432:5432 \
@@ -80,31 +103,70 @@ podman run \
     postgres
 ```
 
+### Installing Backstage dependencies locally
+
+If you are using `mise`, you can install all the Backstage dependencies with a
+[mise task](https://mise.jdx.dev/tasks/):
+
+```Shell
+mise run backstage:install
+```
+
+This task will also run before running the `backstage:dev` task to make sure the
+dependencies are installed before attempting to start the Backstage instance.
+
+To use the manual method, you can run:
+
+```Shell
+yarn install
+```
+
 ### Running Backstage
 
-To start the app, run:
+If you are using `mise`, you start the local backstage instance using a
+[mise task](https://mise.jdx.dev/tasks/).
 
-```sh
-yarn install
+```Shell
+mise run backstage:dev
+```
+
+This task will run the instance. However, it has dependencies, so it will also
+run the following tasks:
+
+- backstage:install
+- github:credentials
+- backstage:pg
+
+This is to make sure the necessary prerequisites are in place before starting
+Backstage.
+
+To start the app using the manual method, run:
+
+```Shell
 yarn dev
 ```
 
+Both methods should open a browser on your system. If that doesn't happen
+automatically, you can browse to the local instance at
+[http://localhost:3000/](http://localhost:3000/).
+
 ## Keep Backstage Up-to-Date
 
-The comprehensive guide to keeping Backstage up-to-date can be found
-[here](https://backstage.io/docs/getting-started/keeping-backstage-updated/) but
-here are the basic steps:
+You should use the comprehensive guide to
+[Keeping Backstage Updated](https://backstage.io/docs/getting-started/keeping-backstage-updated/),
+but here are the basic steps:
 
 1. Create a new branch for the update.
 1. From the app root (i.e the backstage directory in the repo) run
-   `yarn backstage-cli versions:bump`
+   `yarn backstage-cli versions:bump`.
 1. Test your backstage locally to make sure everything is working as expected
-   with `yarn dev`
+   with `mise run backstage:dev` or `yarn dev` if not using `mise`.
 1. Commit your changes and push them to your branch.
-1. Optionally upgrade other plugins with `yarn backstage-cli versions:bump --pattern '@{roadiehq,pagerduty}/*'`
+1. Optionally upgrade other plugins with
+   `yarn backstage-cli versions:bump --pattern '@{roadiehq,pagerduty}/*'`
 1. Create a pull request and get it reviewed.
-1. Verify that the deployment is successful by viewing :
-   https://backstage-dev.broadinstitute.org/
+1. Verify that the deployment is successful by viewing:
+   [Backstage Dev](https://backstage-dev.broadinstitute.org/)
 
 ## Deployment
 
@@ -113,7 +175,7 @@ repo, the backstage root folder is `backstage/backstage`
 
 Build Docker Image for Backstage (From backstage root)
 
-```Bash
+```Shell
 yarn build:backend --config ../../app-config.yaml
 yarn tsc
 docker image build . -f packages/backend/Dockerfile --tag backstage
@@ -128,7 +190,7 @@ environment variables, and a local file, from 1Password.
 github-app-backstage-bits-credential auth-github-client-id
 auth-github-client-secret auth-google-client-id auth-google-client-secret
 
-```Bash
+```Shell
 kubectl -n backstage create secret generic github-app-backstage-bits-credentials --from-file=github-app-backstage-bits-credentials.yaml
 kubectl -n backstage create secret generic auth-github-client-id --from-literal=AUTH_GITHUB_CLIENT_ID=$AUTH_GITHUB_CLIENT_ID
 kubectl -n backstage create secret generic auth-github-client-secret --from-literal=AUTH_GITHUB_CLIENT_SECRET=$AUTH_GITHUB_CLIENT_SECRET
@@ -145,7 +207,7 @@ not populate them.
 
 Secrets can be added to secret manager either through the GUI, or the CLI.
 
-```Bash
+```Shell
 gcloud secrets versions add github-app-backstage-bits-credentials --data-file="github-app-backstage-bits-credentials.yaml"
 gcloud secrets versions add auth-github-client-id --data-file=<(echo -n $AUTH_GITHUB_CLIENT_ID)
 gcloud secrets versions add auth-github-client-secret --data-file=<(echo -n $AUTH_GITHUB_CLIENT_SECRET)
