@@ -74,10 +74,11 @@ spec:
               #            httpGet:
               #              port: 7007
               #              path: /healthcheck
+      initContainers:
         - name: cloud-sql-proxy
           # It is recommended to use the latest version of the Cloud SQL Auth Proxy
           # Make sure to update on a regular schedule!
-          image: gcr.io/cloud-sql-connectors/cloud-sql-proxy:2.16.0
+          image: gcr.io/cloud-sql-connectors/cloud-sql-proxy:2.17.1
           args:
             # If connecting from a VPC-native GKE cluster, you can use the
             # following flag to have the proxy connect over private IP
