@@ -92,7 +92,6 @@ spec:
             # Use auto iam authn to authenticate with the Cloud SQL instance
             - --auto-iam-authn
             - --health-check
-            - --debug-logs
             - bits-backstage-prod:us-east4:backstage-prod # kpt-set: ${instance_connection_name}
           securityContext:
             # The default Cloud SQL Auth Proxy image runs as the
