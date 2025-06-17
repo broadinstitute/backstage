@@ -52,10 +52,10 @@ spec:
               value: backstage
           resources:
             limits:
-              cpu: ".5"
+              cpu: "1"
               memory: "2G"
             requests:
-              cpu: ".5"
+              cpu: "1"
               memory: "2G"
           volumeMounts:
             - name: backstage-secrets
