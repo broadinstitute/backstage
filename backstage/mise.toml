@@ -1,0 +1,76 @@
+[env]
+NODE_ENV = "development"
+# Dynamic environment variables
+# Git
+BRANCH_NAME = "{{ exec(command='git rev-parse --abbrev-ref HEAD', cache_key='backstage_branch_name') }}"
+# Google
+AUTH_GOOGLE_CLIENT_ID = "{{ exec(command='op --account broadinstitute.1password.com read \"op://BITS - Backstage/OAuth 2.0 Client ID - Dev/client_id\"', cache_key='backstage_google_client_id') }}"
+AUTH_GOOGLE_CLIENT_SECRET = "{{ exec(command='op --account broadinstitute.1password.com read \"op://BITS - Backstage/OAuth 2.0 Client ID - Dev/client_secret\"', cache_key='backstage_google_client_secret') }}"
+# GitHub
+AUTH_GITHUB_CLIENT_ID = "{{ exec(command='op --account broadinstitute.1password.com read \"op://BITS - Backstage/auth-github-client-id-dev/credential\"', cache_key='backstage_github_client_id') }}"
+AUTH_GITHUB_CLIENT_SECRET = "{{ exec(command='op --account broadinstitute.1password.com read \"op://BITS - Backstage/auth-github-client-secret-dev/credential\"', cache_key='backstage_github_client_secret') }}"
+# Spotify Plugins
+SPOTIFY_BACKSTAGE_LICENSE_KEY = "{{ exec(command='op --account broadinstitute.1password.com read \"op://BITS - Backstage/License Key for Spotify Plugins/credential\"', cache_key='backstage_license_key') }}"
+SPOTIFY_BACKSTAGE_INSIGHTS_TOKEN = "{{ exec(command='op --account broadinstitute.1password.com read \"op://BITS - Backstage/backstage-insights-token/credential\"', cache_key='backstage_insights_token') }}"
+SKILLS_EXCHANGE_SLACK_BOT_TOKEN = "{{ exec(command='op --account broadinstitute.1password.com read \"op://BITS - Backstage/Skills Exchange Slack App/bot-token\"', cache_key='backstage_skills_bot_token') }}"
+SKILLS_EXCHANGE_SLACK_APP_TOKEN = "{{ exec(command='op --account broadinstitute.1password.com read \"op://BITS - Backstage/Skills Exchange Slack App/app-token\"', cache_key='backstage_skills_app_token') }}"
+SKILLS_EXCHANGE_SLACK_SIGNING_SECRET = "{{ exec(command='op --account broadinstitute.1password.com read \"op://BITS - Backstage/Skills Exchange Slack App/signing-secret\"', cache_key='backstage_skills_signing_secret') }}"
+SOUNDCHECK_SLACK_BOT_TOKEN = "{{ exec(command='op --account broadinstitute.1password.com read \"op://BITS - Backstage/Sound Check Slack App/bot-token\"', cache_key='backstage_soundcheck_bot_token') }}"
+SOUNDCHECK_SLACK_APP_TOKEN = "{{ exec(command='op --account broadinstitute.1password.com read \"op://BITS - Backstage/Sound Check Slack App/app-token\"', cache_key='backstage_soundcheck_app_token') }}"
+SOUNDCHECK_SLACK_SIGNING_SECRET = "{{ exec(command='op --account broadinstitute.1password.com read \"op://BITS - Backstage/Sound Check Slack App/signing-secret\"', cache_key='backstage_soundcheck_signing_secret') }}"
+
+[vars]
+onepassword_account = "broadinstitute.1password.com"
+onepassword_vault = "BITS - Backstage"
+onepassword_item = "github-app-backstage-bits-dev-credentials"
+
+[tasks."github:credentials"]
+description = "Fetch GitHub App credentials from 1Password"
+outputs = ["{{cwd}}/{{vars.onepassword_item}}.yaml"]
+quiet = true
+run = """
+#!/usr/bin/env bash
+if ! command -v op >/dev/null; then
+    echo "1Password CLI not found. Please install it to use this task."
+    exit 1
+fi
+if [ ! -f "{{cwd}}/{{vars.onepassword_item}}.yaml" ]; then
+    op --account '{{vars.onepassword_account}}' read \
+        --out-file "{{cwd}}/{{vars.onepassword_item}}.yaml" \
+        "op://{{vars.onepassword_vault}}/{{vars.onepassword_item}}/{{vars.onepassword_item}}.yaml"
+fi
+"""
+
+[tasks."backstage:install"]
+description = "Run a Yarn install for Backstage"
+run = "yarn install"
+
+[tasks."backstage:dev"]
+depends = ["backstage:install", "github:credentials", "backstage:pg"]
+description = "Run Backstage in development mode"
+run = "yarn dev"
+
+[tasks."backstage:pg"]
+description = "Run PostgreSQL for Backstage in development mode"
+quiet = true
+run = """
+#!/usr/bin/env bash
+if hash podman 2>/dev/null; then
+    CONTAINER_APP='podman'
+elif hash docker 2>/dev/null; then
+    CONTAINER_APP='docker'
+else
+    echo 'Container environment cannot be found. Exiting!'
+    exit 1
+fi
+if ! "${CONTAINER_APP}" ps -a | grep -q 'backstage-dev-pg'; then
+    "${CONTAINER_APP}" run \
+        --rm \
+        --publish 5432:5432 \
+        --name backstage-dev-pg \
+        --detach \
+        --env POSTGRES_USER=postgresUser \
+        --env POSTGRES_PASSWORD=mysecretpassword \
+        postgres
+fi
+"""

@@ -21,6 +21,7 @@ env:
 
 jobs:
   build:
+    if: github.event.pull_request.draft == false
     name: "Build and Test"
     runs-on: ubuntu-latest
     permissions:
@@ -53,6 +54,7 @@ jobs:
             --project=${_BUILDER_PROJECT}
   # Deploy the Image tagged with the PR SHA to the Development Cluster
   deploy:
+    if: github.event.pull_request.draft == false
     name: "Deploy to Development"
     needs: build
     runs-on: ubuntu-latest
