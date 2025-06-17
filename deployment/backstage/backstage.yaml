@@ -53,10 +53,10 @@ spec:
           resources:
             limits:
               cpu: "1"
-              memory: "2G"
+              memory: "3G"
             requests:
               cpu: "1"
-              memory: "2G"
+              memory: "3G"
           volumeMounts:
             - name: backstage-secrets
               mountPath: /workspace/secrets
