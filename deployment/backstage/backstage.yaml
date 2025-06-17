@@ -119,37 +119,37 @@ spec:
             # Recommended configurations for health check probes.
             # Probe parameters can be adjusted to best fit the requirements of your application.
             # For details, see https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/
-          startupProbe:
-            # We recommend adding a startup probe to the proxy sidecar
-            # container. This will ensure that service traffic will be routed to
-            # the pod only after the proxy has successfully started.
-            httpGet:
-              path: /startup
-              port: 9090
-            periodSeconds: 1
-            timeoutSeconds: 5
-            failureThreshold: 20
-          livenessProbe:
-            # We recommend adding a liveness probe to the proxy sidecar container.
-            httpGet:
-              path: /liveness
-              port: 9801
-            # Number of seconds after the container has started before the first probe is scheduled. Defaults to 0.
-            # Not necessary when the startup probe is in use.
-            initialDelaySeconds: 0
-            # Frequency of the probe.
-            periodSeconds: 60
-            # Number of seconds after which the probe times out.
-            timeoutSeconds: 30
-            # Number of times the probe is allowed to fail before the transition
-            # from healthy to failure state.
-            #
-            # If periodSeconds = 60, 5 tries will result in five minutes of
-            # checks. The proxy starts to refresh a certificate five minutes
-            # before its expiration. If those five minutes lapse without a
-            # successful refresh, the liveness probe will fail and the pod will be
-            # restarted.
-            failureThreshold: 5
+          # startupProbe:
+          #   # We recommend adding a startup probe to the proxy sidecar
+          #   # container. This will ensure that service traffic will be routed to
+          #   # the pod only after the proxy has successfully started.
+          #   httpGet:
+          #     path: /startup
+          #     port: 9090
+          #   periodSeconds: 1
+          #   timeoutSeconds: 5
+          #   failureThreshold: 20
+          # livenessProbe:
+          #   # We recommend adding a liveness probe to the proxy sidecar container.
+          #   httpGet:
+          #     path: /liveness
+          #     port: 9801
+          #   # Number of seconds after the container has started before the first probe is scheduled. Defaults to 0.
+          #   # Not necessary when the startup probe is in use.
+          #   initialDelaySeconds: 0
+          #   # Frequency of the probe.
+          #   periodSeconds: 60
+          #   # Number of seconds after which the probe times out.
+          #   timeoutSeconds: 30
+          #   # Number of times the probe is allowed to fail before the transition
+          #   # from healthy to failure state.
+          #   #
+          #   # If periodSeconds = 60, 5 tries will result in five minutes of
+          #   # checks. The proxy starts to refresh a certificate five minutes
+          #   # before its expiration. If those five minutes lapse without a
+          #   # successful refresh, the liveness probe will fail and the pod will be
+          #   # restarted.
+          #   failureThreshold: 5
           # We do not recommend adding a readiness probe under most circumstances
 
       volumes:
