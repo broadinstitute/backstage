@@ -79,6 +79,7 @@ spec:
           # It is recommended to use the latest version of the Cloud SQL Auth Proxy
           # Make sure to update on a regular schedule!
           image: gcr.io/cloud-sql-connectors/cloud-sql-proxy:2.17.1
+          restartPolicy: Always # Run as a sidecar container
           args:
             # If connecting from a VPC-native GKE cluster, you can use the
             # following flag to have the proxy connect over private IP
@@ -90,9 +91,9 @@ spec:
             - --port=5432
             # Use auto iam authn to authenticate with the Cloud SQL instance
             - --auto-iam-authn
-            - bits-backstage-prod:us-east4:backstage-prod # kpt-set: ${instance_connection_name}
             - --health-check
             - --debug-logs
+            - bits-backstage-prod:us-east4:backstage-prod # kpt-set: ${instance_connection_name}
           securityContext:
             # The default Cloud SQL Auth Proxy image runs as the
             # "nonroot" user and group (uid: 65532) by default.
@@ -118,38 +119,38 @@ spec:
             # Recommended configurations for health check probes.
             # Probe parameters can be adjusted to best fit the requirements of your application.
             # For details, see https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/
-            startupProbe:
-              # We recommend adding a startup probe to the proxy sidecar
-              # container. This will ensure that service traffic will be routed to
-              # the pod only after the proxy has successfully started.
-              httpGet:
-                path: /startup
-                port: 9090
-              periodSeconds: 1
-              timeoutSeconds: 5
-              failureThreshold: 20
-            livenessProbe:
-              # We recommend adding a liveness probe to the proxy sidecar container.
-              httpGet:
-                path: /liveness
-                port: 9801
-              # Number of seconds after the container has started before the first probe is scheduled. Defaults to 0.
-              # Not necessary when the startup probe is in use.
-              initialDelaySeconds: 0
-              # Frequency of the probe.
-              periodSeconds: 60
-              # Number of seconds after which the probe times out.
-              timeoutSeconds: 30
-              # Number of times the probe is allowed to fail before the transition
-              # from healthy to failure state.
-              #
-              # If periodSeconds = 60, 5 tries will result in five minutes of
-              # checks. The proxy starts to refresh a certificate five minutes
-              # before its expiration. If those five minutes lapse without a
-              # successful refresh, the liveness probe will fail and the pod will be
-              # restarted.
-              failureThreshold: 5
-            # We do not recommend adding a readiness probe under most circumstances
+          startupProbe:
+            # We recommend adding a startup probe to the proxy sidecar
+            # container. This will ensure that service traffic will be routed to
+            # the pod only after the proxy has successfully started.
+            httpGet:
+              path: /startup
+              port: 9090
+            periodSeconds: 1
+            timeoutSeconds: 5
+            failureThreshold: 20
+          livenessProbe:
+            # We recommend adding a liveness probe to the proxy sidecar container.
+            httpGet:
+              path: /liveness
+              port: 9801
+            # Number of seconds after the container has started before the first probe is scheduled. Defaults to 0.
+            # Not necessary when the startup probe is in use.
+            initialDelaySeconds: 0
+            # Frequency of the probe.
+            periodSeconds: 60
+            # Number of seconds after which the probe times out.
+            timeoutSeconds: 30
+            # Number of times the probe is allowed to fail before the transition
+            # from healthy to failure state.
+            #
+            # If periodSeconds = 60, 5 tries will result in five minutes of
+            # checks. The proxy starts to refresh a certificate five minutes
+            # before its expiration. If those five minutes lapse without a
+            # successful refresh, the liveness probe will fail and the pod will be
+            # restarted.
+            failureThreshold: 5
+          # We do not recommend adding a readiness probe under most circumstances
 
       volumes:
         - name: backstage-secrets
