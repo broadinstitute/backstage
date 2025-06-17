@@ -108,13 +108,13 @@ spec:
               # The proxy's memory use scales linearly with the number of active
               # connections. Fewer open connections will use less memory. Adjust
               # this value based on your application's requirements.
-              memory: "2G"
+              memory: "4G"
               # The proxy's CPU use scales linearly with the amount of IO between
               # the database and the application. Adjust this value based on your
               # application's requirements.
               cpu: "1"
             limits:
-              memory: "2G"
+              memory: "4G"
               cpu: "1"
             # Recommended configurations for health check probes.
             # Probe parameters can be adjusted to best fit the requirements of your application.
