@@ -64,7 +64,7 @@ spec:
           description: >-
             Set up Config Connector for this namespace. This allows managing GCP resources
             (like service accounts, databases) directly from Kubernetes using the specified GCP Project.
-            Enabling this feature will add additional cost to your namespace. 
+            Enabling this feature will add additional cost to your namespace.
           default: false
         gcpProject:
           title: 'Google Cloud Project (for KCC)'
@@ -98,10 +98,10 @@ spec:
               "apiVersion": "v1",
               "kind": "Namespace",
               "metadata": {
-                "name": $$.data.namespaceName
+                "name": $.namespaceName
               }
             };
-            $$.data.includeKcc and $$.data.gcpProject ? $merge([$base, {"metadata": {"annotations": {"cnrm.cloud.google.com/project-id": $$.data.gcpProject}}}]) : $base
+            $.includeKcc and $.gcpProject ? $merge([$base, {"metadata": {"name": $.namespaceName, "annotations": {"cnrm.cloud.google.com/project-id": $.gcpProject}}}]) : $base
           )
     - action: roadiehq:utils:serialize:yaml
       id: Namespace # ID remains 'Namespace' for dependent steps
