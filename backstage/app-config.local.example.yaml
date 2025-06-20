@@ -61,6 +61,33 @@ catalog:
       target: "https://github.com/broadinstitute/backstage/blob/${BRANCH_NAME}/backstage/templates/scaffolder/python-package/template.yaml"
       rules:
         - allow: [Template]
+  # Providers are required so that users will populate and RBAC roles will
+  # work. If you don't enable the githubOrg and github providers, you will
+  # run into problems running your local installation where pages will
+  # sometimes just not load without any error messages explaining why.
+  providers:
+    githubOrg:
+      - id: production
+        githubUrl: https://github.com
+        orgs: ['broadinstitute']
+        schedule:
+          initialDelay: PT30S
+          frequency: PT1H
+          timeout: PT5M
+    github:
+      # the provider ID can be any camelCase string
+      providerId:
+        organization: 'broadinstitute'  # string
+        catalogPath: '/catalog-info.yaml'  # string
+        validateLocationsExist: true
+        filters:
+          branch: 'main'  # string
+          repository: '.*'  # Regex
+        schedule:  # same options as in TaskScheduleDefinition
+          # supports cron, ISO duration, "human duration" as used in code
+          frequency: PT30M
+          # supports ISO duration, "human duration" as used in code
+          timeout: PT3M
 
 pagerDuty:
   oauth:

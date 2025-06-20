@@ -1,0 +1,10 @@
+---
+site_name: '${{ values.name }} Documentation'
+
+nav:
+  - Home: README.md
+  - Usage: usage.md
+  - MediaWiki: mediawiki.md
+
+plugins:
+  - techdocs-core

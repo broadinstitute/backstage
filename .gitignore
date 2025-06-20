@@ -184,3 +184,6 @@ dist
 .pnp.*
 .terraform
 .vscode
+
+# Custom ignores
+*.expanded.yaml
