@@ -96,10 +96,10 @@ const useStyles = makeStyles(theme => ({
     },
     supportButton: {
         '& button': {
-            color: '#ffffff',
-            backgroundColor: '#1976d2',
+            color: theme.palette.common.white,
+            backgroundColor: theme.palette.primary.main,
             '&:hover': {
-                backgroundColor: '#1565c0',
+                backgroundColor: theme.palette.primary.dark,
             },
         },
     },
