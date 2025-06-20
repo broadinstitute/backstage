@@ -29,7 +29,9 @@ import {
     GitHubIcon,
     HelpIcon,
     DashboardIcon,
+    Header,
 } from '@backstage/core-components';
+import { Box } from '@material-ui/core';
 import {
     starredEntitiesApiRef,
     entityRouteRef,
@@ -45,6 +47,7 @@ import {
 import Grid from '@material-ui/core/Grid';
 import { makeStyles } from '@material-ui/core/styles';
 import React, { ComponentType, PropsWithChildren } from 'react';
+import { SupportButton } from '@backstage/core-components';
 
 export default {
     title: 'Backstage Home Page',
@@ -91,6 +94,15 @@ const useStyles = makeStyles(theme => ({
     searchBarOutline: {
         borderStyle: 'none',
     },
+    supportButton: {
+        '& button': {
+            color: '#ffffff',
+            backgroundColor: '#1976d2',
+            '&:hover': {
+                backgroundColor: '#1565c0',
+            },
+        },
+    },
 }));
 
 const useLogoStyles = makeStyles(theme => ({
@@ -113,6 +125,11 @@ export const HomePage = () => {
     return (
         <SearchContextProvider>
             <Page themeId="home">
+                <Header title="Welcome to Backstage" pageTitleOverride="Home">
+                    <Box className={classes.supportButton}>
+                        <SupportButton />
+                    </Box>
+                </Header>
                 <Content>
                     <Grid container justifyContent="center" spacing={6}>
                         <HomePageCompanyLogo
