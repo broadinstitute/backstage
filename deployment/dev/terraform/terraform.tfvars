@@ -145,6 +145,11 @@ additional_databases = [
     charset   = ""
     collation = ""
   },
+  {
+    name      = "backstage_plugin_copilot"
+    charset   = ""
+    collation = ""
+  },
 ]
 
 database_flags = [
