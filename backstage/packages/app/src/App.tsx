@@ -53,6 +53,7 @@ import { HomepageCompositionRoot } from '@backstage/plugin-home';
 import { HomePage } from './components/home/HomePage';
 import { Mermaid } from "backstage-plugin-techdocs-addon-mermaid";
 import elkLayouts from '@mermaid-js/layout-elk';
+import { CopilotIndexPage } from '@backstage-community/plugin-copilot';
 
 interface SignInProviderConfig {
     id: string;
@@ -193,6 +194,7 @@ const routes = (
             element={<SoundcheckRoutingPage title='Production Readiness' />}
         />
         <Route path="/rbac" element={<RBACRoot />} />
+        <Route path="/copilot" element={<CopilotIndexPage />} />
     </FlatRoutes>
 );
 

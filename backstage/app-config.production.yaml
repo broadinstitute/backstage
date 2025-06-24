@@ -281,3 +281,15 @@ permission:
       $include: ./plugin-configs/fallback-rbac-policy.yaml
     defaultPolicy:
       $include: ./plugin-configs/foundational-permission-policy.yaml
+
+copilot:
+  scheduler:
+    frequency:
+      hours: 12
+    timeout:
+      minutes: 2
+    initialDelay:
+      seconds: 15
+  host: github.com
+  # enterprise: broadinstitute
+  organization: broadinstitute

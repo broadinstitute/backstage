@@ -32,6 +32,7 @@ import SchoolIcon from '@material-ui/icons/School';
 import DoneAllIcon from '@material-ui/icons/DoneAll';
 import { RBACSidebarItem } from '@spotify/backstage-plugin-rbac';
 import CategoryIcon from '@material-ui/icons/Category';
+import { CopilotSidebar } from '@backstage-community/plugin-copilot';
 
 const useSidebarLogoStyles = makeStyles({
     root: {
@@ -95,6 +96,7 @@ export const Root = ({ children }: PropsWithChildren<{}>) => (
                         text="Tech Radar"
                     />
                     {/* <SidebarItem icon={MoneyIcon} to="cost-insights" text="Cost Insights" /> */}
+                    <CopilotSidebar />
                     <SidebarItem icon={SchoolIcon} to="skill-exchange" text="Skill Exchange" />
                     <SidebarItem icon={DoneAllIcon} to='soundcheck' text='Soundcheck' />
                     <InsightsSidebarItem />
