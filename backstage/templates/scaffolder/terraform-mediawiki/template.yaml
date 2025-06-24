@@ -1,0 +1,199 @@
+---
+apiVersion: scaffolder.backstage.io/v1beta3
+kind: Template
+metadata:
+  name: terraform-cloud-run-mediawiki
+  title: Deploy a MediaWiki with Google Cloud Run and Terraform
+  description: >-
+    This template provides a base for deploying and managing MediaWiki
+    with Google Cloud Run via Terraform. It uses the Terraform conventions
+    provided more generally by `terraform-control-module-template`.
+  tags:
+    - cloud-run
+    - gcp
+    - mediawiki
+    - production
+    - terraform
+
+spec:
+  owner: group:devnull
+  type: service
+  parameters:
+    - $yaml: ../defaults/parameters/resource-info.yaml
+    - $yaml: ../defaults/parameters/annotations.yaml
+    - title: Github settings
+      required:
+        - githubTeam
+        - repoUrl
+      properties:
+        githubTeam:
+          title: GitHub Team
+          type: string
+          ui:field: OwnerPicker
+          description: The GitHub team that owns the repository.
+          ui:options:
+            catalogFilter:
+              - kind: Group
+                spec.type: team
+        repoUrl:
+          title: Repository Location
+          type: string
+          ui:field: RepoUrlPicker
+          default: github.com?owner=broadinstitute
+          ui:options:
+            allowedHosts:
+              - github.com
+            allowedOwners:
+              - broadinstitute
+
+        visibility:
+          title: Repo Visibility
+          type: string
+          description: >-
+            Should people outside of the Broad be able to see this repo? If
+            you're unsure, please err on the side of caution and leave this
+            setting as 'Private'. It can be changed later.
+          default: private
+          enum:
+            - public
+            - private
+          enumNames:
+            - Public
+            - Private
+
+    - title: Terraform Configuration
+      required:
+        - gcpRegion
+        - gcpProject
+        - gcsTerraformBucket
+        - applicationDomain
+      properties:
+        gcpRegion:
+          title: GCP Region
+          type: string
+          default: us-east4
+          description: >-
+            The default region for the Google provider. If you don't have an
+            existing preference for a specific region, the default will be
+            fine.
+        gcpProject:
+          title: Production GCP Project
+          type: string
+          description: >-
+            GCP project managed by the default/primary provider.
+            This value will set default values in the template, but will not
+            create new projects or otherwise touch existing projects.
+        gcsTerraformBucket:
+          title: GCS Terraform Bucket
+          type: string
+          description: >-
+            The name of the GCS bucket to use for this service. It will be used
+            to store Terraform state files.
+        applicationDomain:
+          title: Application Domain
+          type: string
+          description: >-
+            The domain to use for this application. Typically, this is under
+            the web.broadinstitute.org subdomain, but you can use a custom
+            domain if you have one reserved.
+        applicationImageTag:
+          title: Container Image Tag
+          type: string
+          default: stable
+          description: >-
+            The tag of the MediaWiki container image to deploy with Cloud Run.
+            The image used is docker.io/library/mediawiki. If you don't know what
+            tag to use, the default will be "stable" and you can update in the
+            repository later.
+        gcsCloudSQLSize:
+          title: Cloud SQL instance size
+          type: string
+          default: db-f1-micro
+          description: >-
+            The size of the Cloud SQL instance to create for this service. The
+            default is db-f1-micro, which is the smallest instance size.
+        applicationPort:
+          title: Application Port
+          type: integer
+          default: 80
+          description: >-
+            Port number the container listens on. Must be a valid TCP port
+            number between 1 and 65535, inclusive. If you are using an Apache-based
+            MediaWiki image, this is likely 80. If you are using a different
+            web server or application, you may need to change this value.
+        applicationVolumePath:
+          title: Bucket Mount Path
+          type: string
+          default: /local
+          description: >-
+            Absolute path within the container to mount the GCS bucket. This
+            should be where your application expects to find the data.
+        applicationMaxInstances:
+          title: Maximum Instances
+          type: integer
+          default: 3
+          description: >-
+            The maximum number of instances that will run for the application.
+        googleProviderVersion:
+          title: Google Provider Version
+          type: string
+          default: 6.40.0
+          description: >-
+            The version of the Google provider to use in the Terraform
+            configuration. Dependabot will be enabled by default and will open
+            a PR to update this immediately upon creation of the repository.
+        terraformVersion:
+          title: Terraform Version
+          type: string
+          default: 1.12.0
+          description: >-
+            The version of Terraform to use in the Terraform configuration.
+            Dependabot will be enabled by default and will open a PR to update
+            this immediately upon creation of the repository.
+
+  steps:
+    - id: fetchTemplate
+      name: Generate Template
+      action: fetch:template
+      input:
+        url: ./content
+        values:
+          name: ${{ parameters.name }}
+          gcpRegion: ${{ parameters.gcpRegion }}
+          gcpProject: ${{ parameters.gcpProject }}
+          gcsTerraformBucket: ${{ parameters.gcsTerraformBucket }}
+          applicationDomain: ${{ parameters.applicationDomain }}
+          applicationImageTag: ${{ parameters.applicationImageTag }}
+          gcsCloudSQLSize: ${{ parameters.gcsCloudSQLSize }}
+          applicationPort: ${{ parameters.applicationPort }}
+          applicationVolumePath: ${{ parameters.applicationVolumePath }}
+          applicationMaxInstances: ${{ parameters.applicationMaxInstances }}
+          googleProviderVersion: ${{ parameters.googleProviderVersion }}
+          terraformVersion: ${{ parameters.terraformVersion }}
+          repoOwner: >-
+            ${{ parameters.repoUrl | parseRepoUrl | pick('owner') }}/${{ parameters.githubTeam | parseEntityRef | pick('name') }}
+
+    - $yaml: ../defaults/steps/write-catalog.yaml
+    - $yaml: ../defaults/steps/system.yaml
+    - $yaml: ../defaults/steps/system-write.yaml
+    - $yaml: ../defaults/steps/domain.yaml
+    - $yaml: ../defaults/steps/domain-write.yaml
+    - $yaml: ../defaults/steps/links.yaml
+    - $yaml: ../defaults/steps/links-write.yaml
+    - $yaml: ../defaults/steps/annotations/techdocs.yaml
+    - $yaml: ../defaults/steps/annotations/techdocs-write.yaml
+    - $yaml: ../defaults/steps/annotations/kubernetes.yaml
+    - $yaml: ../defaults/steps/annotations/kubernetes-write.yaml
+    - $yaml: ../defaults/steps/annotations/cloudbuild.yaml
+    - $yaml: ../defaults/steps/annotations/cloudbuild-write.yaml
+    - $yaml: ../defaults/steps/annotations/pagerduty.yaml
+    - $yaml: ../defaults/steps/publish.yaml
+    - $yaml: ../defaults/steps/register.yaml
+
+  output:
+    links:
+      - title: Repository
+        url: ${{ steps['publish'].output.remoteUrl }}
+      - title: Open in catalog
+        icon: catalog
+        entityRef: ${{ steps['register'].output.entityRef }}
