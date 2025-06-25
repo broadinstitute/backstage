@@ -22,7 +22,7 @@ metadata:
     backstage.io/techdocs-ref: dir:.
 spec:
   type: service
-  system: backstage
+  system: idp
   domain: orchestration
   owner: devnull
   lifecycle: production
@@ -35,6 +35,28 @@ metadata:
   title: Backstage
   description: |
     The Backstage Internal Developer Platform
+    This System is being depricated in favor of the `idp` System.
+  links:
+    - url: https://backstage.broadinstitute.org
+      title: Backstage
+      icon: dashboard
+  tags:
+    - bits
+    - bits-tools
+  annotations:
+    backstage.io/techdocs-ref: dir:.
+spec:
+  owner: devnull
+  domain: orchestration
+
+---
+apiVersion: backstage.io/v1alpha1
+kind: System
+metadata:
+  name: idp
+  title: Broad Engineering Platform
+  description: |
+    The Broad [Internal Engineering Platform](https://internaldeveloperplatform.org/what-is-an-internal-developer-platform/)
   links:
     - url: https://backstage.broadinstitute.org
       title: Backstage
