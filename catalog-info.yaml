@@ -35,7 +35,7 @@ metadata:
   title: Backstage
   description: |
     The Backstage Internal Developer Platform
-    This System is being depricated in favor of the `idp` System.
+    This System is being deprecated in favor of the 'idp' System.
   links:
     - url: https://backstage.broadinstitute.org
       title: Backstage
