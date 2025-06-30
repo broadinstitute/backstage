@@ -189,6 +189,11 @@ export const HomePage = () => {
                                             label: 'Grafana (DevNull)',
                                             icon: <DashboardIcon />,
                                         },
+                                        {
+                                            url: 'https://www.cloudskillsboost.google/',
+                                            label: 'No Cost Training (Google)',
+                                            icon: <DashboardIcon />,
+                                        },
                                     ]}
                                 />
                             </Grid>
