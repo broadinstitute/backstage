@@ -16,11 +16,11 @@ When updating a provider, run the following command to update the lock file. Thi
 
 ```Shell
 terraform providers lock \
-  -platform=darwin_amd64 \
-  -platform=darwin_arm64 \
-  -platform=linux_amd64 \
-  -platform=linux_arm64 \
-  -platform=windows_amd64
+    -platform=linux_arm64 \
+    -platform=linux_amd64 \
+    -platform=darwin_amd64 \
+    -platform=darwin_arm64 \
+    -platform=windows_amd64
 ```
 
 ## Update Docs

@@ -1,4 +1,5 @@
-# Write Good Commit Messages
+---
+## Write Good Commit Messages
 
 [The seven rules of a great Git commit message](https://cbea.ms/git-commit/)
 

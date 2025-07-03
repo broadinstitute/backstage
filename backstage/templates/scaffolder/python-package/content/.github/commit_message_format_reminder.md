@@ -1,9 +1,10 @@
-# Write Good Commit Messages
+---
+## Write Good Commit Messages
 
 [The seven rules of a great Git commit message](https://cbea.ms/git-commit/)
 
 * Separate subject from body with a blank line
-* Limit the subject line to 50 characters
+* Limit the subject line to 72 characters
 * Capitalize the subject line
 * Do not end the subject line with a period
 * Use the imperative mood in the subject line
