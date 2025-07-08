@@ -1,4 +1,4 @@
-FROM gcr.io/buildpacks/google-22/run@sha256:dbd742d70aa15e60bd220548eb0298481607dc28c19b3faef8b57e9008f49353
+FROM gcr.io/buildpacks/google-22/run@sha256:8fcb8c1e59e084c4f0fda3c479c842e9309fc6604c8517164cc759db9bc9879a
 ENV PYTHON=/usr/bin/python3
 USER root
 RUN apt-get update && apt-get install -y --no-install-recommends \
