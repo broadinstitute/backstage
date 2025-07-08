@@ -233,3 +233,67 @@ must be created by Terraform, rather then from the backstage application
 resolved in the future. For now, if you add a Backstage plugin that requires a
 database, you will need to add the database to the terraform file, and run
 terraform apply in a PR.
+
+#### Update Providers
+
+When updating a provider, run the following command to update the lock file.
+This will ensure that the provider is available for all platforms.
+
+```Shell
+terraform providers lock \
+  -platform=linux_arm64 \
+  -platform=linux_amd64 \
+  -platform=darwin_amd64 \
+  -platform=darwin_arm64 \
+  -platform=windows_amd64
+```
+
+#### Update Docs
+
+When updating docs, run the following command in the directory you want to
+update (dev/prod). This will ensure that the docs are available for all
+platforms.
+
+```Shell
+podman run --rm --volume "$(pwd):/terraform-docs" -u $(id -u) quay.io/terraform-docs/terraform-docs:latest --output-file README.md --output-mode inject /terraform-docs
+```
+
+#### Using the development environment
+
+This project has two near-identical directories named `dev` and `prod` that
+refer to the development and production environments, respectively. BITS
+encourages the use of testing environments wherever possible to reduce downtime
+and prevent emergency outages on critical infrastructure.
+
+To apply changes from the `dev` directory to `prod`, you can use the following
+git workflow:
+
+1. Make changes that _only_ affect the `dev` directory. Commit them normally.
+1. Run this git command from the project root:
+
+   ```Shell
+   git apply --directory=prod <(git format-patch -1 --relative=dev --stdout)
+   ```
+
+   This takes all changes from the most recent commit and applies them to the
+   prod directory. The changes will not be staged or committed yet, so you can
+   review them to make sure everything is right.
+
+1. Run this git command:
+
+   ```Shell
+   git add -A; git commit -m "$(git log -1 --pretty="format:Apply %h to prod%n%n%B")"
+   ```
+
+   This stages all changes in the repository and commits them with a formatted
+   message:
+
+   ```Text
+   Apply <git hash> to prod
+
+   <Full text of referenced commit message>
+   ```
+
+Managing changes like this prevents human error when applying changes between
+environments. It also allows for easy, atomic rollback of specific environments
+using `git-revert (1)` if that's ever necessary.
