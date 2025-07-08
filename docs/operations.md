@@ -272,7 +272,7 @@ git workflow:
 1. Run this git command from the project root:
 
    ```Shell
-   git apply --directory=prod <(git format-patch -1 --relative=dev --stdout)
+   git apply --directory  deployment/prod/terraform <(git format-patch -1 --relative=deployment/dev/terraform --stdout)
    ```
 
    This takes all changes from the most recent commit and applies them to the
