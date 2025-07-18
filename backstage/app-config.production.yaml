@@ -46,6 +46,10 @@ techdocs:
     type: 'googleGcs'
     googleGcs:
       bucketName: ${TECHDOCS_STORAGE_BUCKET}
+  sanitizer:
+    allowedIframeHosts:
+      - broadinstitute.org
+
 auth:
   # see https://backstage.io/docs/auth/ to learn about auth providers
   environment: ${NODE_ENV}
