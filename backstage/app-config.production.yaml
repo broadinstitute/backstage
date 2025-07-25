@@ -93,6 +93,7 @@ catalog:
   # Overrides the default list locations from app-config.yaml as these contain example data.
   # See https://backstage.io/docs/features/software-catalog/#adding-components-to-the-catalog for more details
   # on how to get entities into the catalog.
+  orphanStrategy: delete
   import:
     entityFilename: catalog-info.yaml
     pullRequestBranchName: backstage-integration
@@ -180,6 +181,7 @@ catalog:
           frequency: PT30M
           # supports ISO duration, "human duration" as used in code
           timeout: PT3M
+          initialDelay: PT5M
       importDSP:
         organization: 'broadinstitute'  # string
         catalogPath: '/foundation.yaml'  # string
@@ -192,6 +194,7 @@ catalog:
           frequency: PT90M
           # supports ISO duration, "human duration" as used in code
           timeout: PT3M
+          initialDelay: PT15M
 pagerDuty:
   oauth:
     clientId:
