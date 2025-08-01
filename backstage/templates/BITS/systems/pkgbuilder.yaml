@@ -1,0 +1,23 @@
+---
+apiVersion: backstage.io/v1alpha1
+kind: System
+metadata:
+  name: pkgbuilder
+  description: |
+    Automated Pipeline to Build RPMs
+
+  title: "RPM Builder"
+  links:
+    - url: "https://broad.service-now.com/now/nav/ui/classic/params/target/kb_view.do%3Fsysparm_article%3DKB0011091"
+      title: "Service Now Docs"
+  tags:
+  - rpm
+  - packaging
+  - pkgbuilder
+
+  annotations:
+    backstage.io/managed-by: backstage
+spec:
+  owner: devnull
+  domain: ci-cd
+  lifecycle: production

@@ -10,6 +10,7 @@ spec:
     - ./systems/hpc-comm.yaml
     - ./systems/hpc-drag.yaml
     - ./systems/kubernetes.yaml
+    - ./systems/pkgbuilder.yaml
     - ./systems/sap.yaml
     - ./systems/scisoft.yaml
     - ./systems/seqprod.yaml
