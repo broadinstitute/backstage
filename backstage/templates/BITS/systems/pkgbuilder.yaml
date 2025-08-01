@@ -8,7 +8,7 @@ metadata:
 
   title: "RPM Builder"
   links:
-    - url: "Service Now Docs"
+    - url: "https://broad.service-now.com/now/nav/ui/classic/params/target/kb_view.do%3Fsysparm_article%3DKB0011091"
       title: "Service Now Docs"
   tags:
   - rpm
