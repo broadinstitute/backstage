@@ -1,25 +1,25 @@
 ---
 version: 2
 updates:
-  - package-ecosystem: 'github-actions'
+  - package-ecosystem: "github-actions"
     commit-message:
       prefix: fix
-    directory: '/'
+    directory: "/"
     groups:
       actions:
         patterns:
-          - '*'
+          - "*"
     schedule:
-      # Check for updates to GitHub Actions every week
-      interval: 'weekly'
-  - package-ecosystem: 'terraform'
+      # Check for updates to GitHub Actions every month
+      interval: monthly
+  - package-ecosystem: "terraform"
     commit-message:
       prefix: fix
-    directory: '/'
+    directory: "/"
     groups:
       terraform:
         patterns:
-          - '*'
+          - "*"
     schedule:
-      # Check for updates to Terraform every week
-      interval: 'weekly'
+      # Check for updates to Terraform every month
+      interval: monthly

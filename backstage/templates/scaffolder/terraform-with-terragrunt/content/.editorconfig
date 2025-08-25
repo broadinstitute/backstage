@@ -1,0 +1,25 @@
+# http://editorconfig.org
+
+root = true
+
+[*]
+insert_final_newline = true
+trim_trailing_whitespace = true
+
+[LICENSE.txt]
+insert_final_newline = false
+
+[*.{diff,patch}]
+trim_trailing_whitespace = false
+
+[*.md]
+indent_size = 2
+indent_style = space
+
+[*.{json,yml,yaml}]
+indent_size = 2
+indent_style = space
+
+[*.{hcl,tf}]
+indent_size = 2
+indent_style = space
