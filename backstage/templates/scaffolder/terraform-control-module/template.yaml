@@ -98,13 +98,13 @@ spec:
         googleProviderVersion:
           title: Google Provider Version
           type: string
-          default: 6.18.1
+          default: 6.49.2
           description: The version of the Google provider to use in the Terraform configuration.
 
         terraformVersion:
           title: Terraform Version
           type: string
-          default: 1.10.5
+          default: 1.12.2
           description: The version of Terraform to use in the Terraform configuration.
 
     - $yaml: ../defaults/parameters/pagerduty.yaml
@@ -119,6 +119,7 @@ spec:
         url: ./content
         values:
           name: ${{ parameters.name }}
+          description: ${{ parameters.description }}
           gcpRegion: ${{ parameters.gcpRegion }}
           gcpProjectDev: ${{ parameters.gcpProjectDev }}
           gcpProjectProd: ${{ parameters.gcpProjectProd }}
