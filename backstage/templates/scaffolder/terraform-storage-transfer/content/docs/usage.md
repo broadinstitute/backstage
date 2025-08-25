@@ -4,17 +4,17 @@
 
 ### Install Terraform
 
-This project uses [Terraform](https://www.terraform.io/) to deploy
-and manage the cloud infrastructure for Google Cloud Storage Transfer Service.
-To execute the automation in this repository,
+This project uses [Terraform](https://www.terraform.io/) to deploy and manage
+the cloud infrastructure for Google Cloud Storage Transfer Service. To execute
+the automation in this repository,
 [download and install](https://developer.hashicorp.com/terraform/install)
 Terraform following the instructions appropriate to your workstation operating
 system.
 
 BITS also recommends [`tfenv`](https://github.com/tfutils/tfenv) for easier
 management of multiple concurrent versions of Terraform. This can be especially
-useful if you have multiple Terraform projects that each have their own
-specific version requirements. `tfenv` is not required to run anything in this
+useful if you have multiple Terraform projects that each have their own specific
+version requirements. `tfenv` is not required to run anything in this
 repository.
 
 ### Set up a GCP project
@@ -24,20 +24,20 @@ Before the automation in this repo can be executed, the GCP project
 your workstation. To create a new project go to the
 [project creation page](https://console.cloud.google.com/projectcreate) on the
 Google cloud console and fill out the form. You will need a billing account.
-Please be aware that virtually all operations in GCP cost money, and cloud
-bills can add up quickly.
+Please be aware that virtually all operations in GCP cost money, and cloud bills
+can add up quickly.
 
 ### Authenticate to GCP
 
-Terraform is able to automatically pull credentials from a well-configured
-local `gcloud` CLI to authenticate to GCP. This is the authentication method
+Terraform is able to automatically pull credentials from a well-configured local
+`gcloud` CLI to authenticate to GCP. This is the authentication method
 recommended by BITS due to its simplicity and security. You can
 [download and install the `gcloud` CLI](https://cloud.google.com/sdk/docs/install)
 according to the instructions from Google as appropriate for your workstation
 operating system. After installing, run the following commands and follow the
 prompts to authenticate:
 
-```sh
+```Shell
 gcloud init
 gcloud auth application-default login
 ```
@@ -50,7 +50,7 @@ and [documentation](https://developer.hashicorp.com/terraform/docs) for those
 interested. The automation in this repository, however, requires knowledge of
 only three commands. Run from the project root, they are:
 
-```sh
+```Shell
 terraform -chdir=prod init
 terraform -chdir=prod plan
 terraform -chdir=prod apply
@@ -62,19 +62,18 @@ Transfer Service.
 
 ### Confounding factors
 
-This list is a work in progress. Please let BITS know if you hit
-any issues with the Terraform deployment that may be generalizable to other
-teams.
+This list is a work in progress. Please let BITS know if you hit any issues with
+the Terraform deployment that may be generalizable to other teams.
 
 #### Pre-existing resources
 
 Terraform expects and requires exclusive control of all cloud resources it
-references, and stores their state. If a resource already exists, or it has
-been manually modified in some way, you may need to import it into Terraform.
-For example, if you have an existing bucket you want to use instead of creating
-a new bucket, you may run:
+references, and stores their state. If a resource already exists, or it has been
+manually modified in some way, you may need to import it into Terraform. For
+example, if you have an existing bucket you want to use instead of creating a
+new bucket, you may run:
 
-```
+```Shell
 terraform -chdir=prod import google_storage_bucket.default <bucket-id>
 ```
 
@@ -87,12 +86,12 @@ it relies on the installation and execution of an agent on the remote system.
 
 In order to install and run the agent, the user on the host system must have:
 
-* podman installed
-* memlock ulimit set to "unlimited", or a value greater than 64Gb
-* A reasonable allotment of subuids and subgids. This template was tested with
-  2 ** 16.
-* Access to space on the local filesystem for storing containers.
-* Access to the desired content for upload (doesn't need to be local).
+- podman installed
+- memlock ulimit set to "unlimited", or a value greater than 64Gb
+- A reasonable allotment of subuids and subgids. This template was tested with 2
+  \*\* 16.
+- Access to space on the local filesystem for storing containers.
+- Access to the desired content for upload (doesn't need to be local).
 
 ### Credentials
 
@@ -100,28 +99,27 @@ The Terraform automation will set up a service account, assign correct
 permissions to it, and generate a key. This key will need to be deployed to the
 host server. To access this key, run the following command on Linux or MacOS:
 
-```sh
+```Shell
 terraform -chdir=prod output service_account_key | base64 -d - > secret.json
 ```
 
 on Windows:
 
-```sh
+```Shell
 terraform -chdir=prod output service_account_key > raw_secret
 certutil -decode raw_secret secret.json
 ```
 
-*Caution:* Anyone with access to this key will be able to upload arbitrary
-types and amounts of data into your bucket. Once the secret is deployed to the
-server, please delete it from your local machine to prevent accidental
-mishandling.
+_Caution:_ Anyone with access to this key will be able to upload arbitrary types
+and amounts of data into your bucket. Once the secret is deployed to the server,
+please delete it from your local machine to prevent accidental mishandling.
 
 ### Run the agent
 
 The agent is a container and can be downloaded and run with podman. The command
 to do so is:
 
-```
+```Shell
 podman run \
     --ulimit memlock=64000000 \
     --detach \
