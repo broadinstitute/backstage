@@ -145,7 +145,7 @@ spec:
         googleProviderVersion:
           title: Google Provider Version
           type: string
-          default: 6.32.0
+          default: 6.49.2
           description: >-
             The version of the Google provider to use in the Terraform
             configuration. Dependabot will be enabled by default and will open
@@ -153,7 +153,7 @@ spec:
         terraformVersion:
           title: Terraform Version
           type: string
-          default: 1.7.4
+          default: 1.12.2
           description: >-
             The version of Terraform to use in the Terraform configuration.
             Dependabot will be enabled by default and will open a PR to update
@@ -167,6 +167,7 @@ spec:
         url: ./content
         values:
           name: ${{ parameters.name }}
+          description: ${{ parameters.description }}
           gcpRegion: ${{ parameters.gcpRegion }}
           gcpProjectDev: ${{ parameters.gcpProjectDev }}
           gcpProjectProd: ${{ parameters.gcpProjectProd }}

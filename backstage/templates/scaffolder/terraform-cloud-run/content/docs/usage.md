@@ -19,13 +19,14 @@ repository.
 
 ### Set up a GCP project
 
-Before the automation in this repo can be executed, the GCP projects `${{
-values.gcpProjectDev }}` and `${{ values.gcpProjectProd }}` must exist and you
-must be able to write to it from your workstation. To create a new project go to
-the [project creation page](https://console.cloud.google.com/projectcreate) on
-the Google cloud console and fill out the form. You will need a billing
-account. Please be aware that virtually all operations in GCP cost money, and
-cloud bills can add up quickly.
+Before the automation in this repo can be executed, the GCP projects
+`${{ values.gcpProjectDev }}` and `${{ values.gcpProjectProd }}` must exist and
+you must be able to write to it from your workstation. To create a new project
+go to the
+[project creation page](https://console.cloud.google.com/projectcreate) on the
+Google cloud console and fill out the form. You will need a billing account.
+Please be aware that virtually all operations in GCP cost money, and cloud bills
+can add up quickly.
 
 ### Authenticate to GCP
 
@@ -37,7 +38,7 @@ according to the instructions from Google as appropriate for your workstation
 operating system. After installing, run the following commands and follow the
 prompts to authenticate:
 
-```sh
+```Shell
 gcloud init
 gcloud auth application-default login
 ```
@@ -58,7 +59,7 @@ that your Cloud Run deployment can access. To deploy an artifact to Google
 Artifact Registry, navigate to the directory of your project with the
 `Containerfile` and run the following commands:
 
-```bash
+```Shell
 gcloud services enable cloudbuild.googleapis.com
 gcloud builds submit --tag gcr.io/<cloud_run_project_id>/<image_name>:<tag> .
 ```
@@ -75,7 +76,7 @@ and [documentation](https://developer.hashicorp.com/terraform/docs) for those
 interested. The automation in this repository, however, requires knowledge of
 only three commands. Run from the project root, they are:
 
-```sh
+```Shell
 terraform -chdir=<dev/prod> init
 terraform -chdir=<dev/prod> plan
 terraform -chdir=<dev/prod> apply
@@ -84,7 +85,7 @@ terraform -chdir=<dev/prod> apply
 After deploying with `terraform apply`, the URL at which your application is
 available will be displayed on the console:
 
-```
+```HCL
 url = "https://my-app-amhxpwocza-ue.a.run.app"
 ```
 
@@ -107,7 +108,7 @@ manually modified in some way, you may need to import it into Terraform. For
 example, if you have an existing bucket you want to use instead of creating a
 new bucket, you may run:
 
-```
+```Shell
 terraform -chdir=prod import google_storage_bucket.default <bucket-id>
 ```
 
@@ -132,28 +133,28 @@ git workflow:
 1. Make changes that _only_ affect the `dev` directory. Commit them normally.
 1. Run this git command from the project root:
 
-    ```bash
-    git apply --directory=prod <(git format-patch -1 --relative=dev --stdout)
-    ```
+   ```Shell
+   git apply --directory=prod <(git format-patch -1 --relative=dev --stdout)
+   ```
 
-    This takes all changes from the most recent commit and applies them to the
-    prod directory. The changes will not be staged or committed yet, so you can
-    review them to make sure everything is right.
+   This takes all changes from the most recent commit and applies them to the
+   prod directory. The changes will not be staged or committed yet, so you can
+   review them to make sure everything is right.
 
 1. Run this git command:
 
-    ```bash
-    git add -A; git commit -m "$(git log -1 --pretty="format:Apply %h to prod%n%n%B")"
-    ```
+   ```Shell
+   git add -A; git commit -m "$(git log -1 --pretty="format:Apply %h to prod%n%n%B")"
+   ```
 
-    This stages all changes in the repository and commits them with a formatted
-    message:
+   This stages all changes in the repository and commits them with a formatted
+   message:
 
-    ```
-    Apply <git hash> to prod
+   ```Text
+   Apply <git hash> to prod
 
-    <Full text of referenced commit message>
-    ```
+   <Full text of referenced commit message>
+   ```
 
 Managing changes like this prevents human error when applying changes between
 environments. It also allows for easy, atomic rollback of specific environments
