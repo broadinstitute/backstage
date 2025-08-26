@@ -1,5 +1,5 @@
 ---
-site_name: '${{ values.name }} Documentation'
+site_name: "${{ values.name }} Documentation"
 
 nav:
   - Home: README.md

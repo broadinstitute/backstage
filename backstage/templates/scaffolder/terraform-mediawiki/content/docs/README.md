@@ -1,10 +1,8 @@
 # ${{ values.name }}
 
-{% if values.description -%}
-${{ values.description }}
+{% if values.description -%}${{ values.description }}
 
-{% endif -%}
-The rendered documentation is hosted under the
+{% endif -%}The rendered documentation is hosted under the
 [component](https://backstage.broadinstitute.org/docs/default/Component/${{values.name}})
 created in Backstage.
 

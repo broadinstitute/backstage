@@ -8,7 +8,7 @@ updates:
         patterns:
           - "*"
     schedule:
-      interval: weekly
+      interval: monthly
   - package-ecosystem: terraform
     directory: /terraform
     groups:
@@ -16,4 +16,4 @@ updates:
         patterns:
           - "*"
     schedule:
-      interval: weekly
+      interval: monthly

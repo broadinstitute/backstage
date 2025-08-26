@@ -1,30 +1,30 @@
 ---
 version: 2
 updates:
-  - package-ecosystem: 'github-actions'
-    directory: '/'
+  - package-ecosystem: "github-actions"
+    directory: "/"
     groups:
       actions:
         patterns:
-          - '*'
+          - "*"
     schedule:
-      # Check for updates to GitHub Actions every week
-      interval: 'weekly'
-  - package-ecosystem: 'terraform'
-    directory: '/dev'
+      # Check for updates to GitHub Actions every month
+      interval: monthly
+  - package-ecosystem: "terraform"
+    directory: "/dev"
     groups:
       terraform_dev:
         patterns:
-          - '*'
+          - "*"
     schedule:
-      # Check for updates to Terraform every week
-      interval: 'weekly'
-  - package-ecosystem: 'terraform'
-    directory: '/prod'
+      # Check for updates to Terraform every month
+      interval: monthly
+  - package-ecosystem: "terraform"
+    directory: "/prod"
     groups:
       terraform_prod:
         patterns:
-          - '*'
+          - "*"
     schedule:
-      # Check for updates to Terraform every week
-      interval: 'weekly'
+      # Check for updates to Terraform every month
+      interval: monthly

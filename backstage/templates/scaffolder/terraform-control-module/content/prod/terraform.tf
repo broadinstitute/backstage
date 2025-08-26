@@ -1,9 +1,5 @@
 terraform {
   required_version = "${{ values.terraformVersion }}"
-  backend "gcs" {
-    bucket = "${{ values.gcsBucket }}"
-    prefix = "${{ values.name }}/prod"
-  }
 
   required_providers {
     google = {

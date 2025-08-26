@@ -1,15 +1,17 @@
 ---
 name: checks
-
+permissions:
+  contents: read
+  pull-requests: read
 "on":
   pull_request:
     branches:
       - main
 
 jobs:
-  validation:
-    uses: broadinstitute/shared-workflows/.github/workflows/terraform-validate.yaml@v2.6.1
   linting:
-    uses: broadinstitute/shared-workflows/.github/workflows/terraform-lint.yaml@v2.6.1
+    uses: broadinstitute/shared-workflows/.github/workflows/terraform-lint.yaml@v5.0.1
     with:
       tflint_config_path: .tflint.hcl
+  validation:
+    uses: broadinstitute/shared-workflows/.github/workflows/terraform-validate.yaml@v5.0.1

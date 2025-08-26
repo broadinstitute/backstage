@@ -136,13 +136,13 @@ spec:
         googleProviderVersion:
           title: Google Provider Version
           type: string
-          default: 5.17.0
+          default: 6.49.2
           description: The version of the Google provider to use in the Terraform configuration.
 
         terraformVersion:
           title: Terraform Version
           type: string
-          default: 1.7.4
+          default: 1.12.2
           description: The version of Terraform to use in the Terraform configuration.
 
     # todo: ask if we should create the pagerduty integration and if not, ask for the optional key.
@@ -158,6 +158,7 @@ spec:
         url: ./content
         values:
           name: ${{ parameters.name }}
+          description: ${{ parameters.description }}
           gcpRegion: ${{ parameters.gcpRegion }}
           gcpZone: ${{ parameters.gcpZone }}
           gcpProjectDev: ${{ parameters.gcpProjectDev }}

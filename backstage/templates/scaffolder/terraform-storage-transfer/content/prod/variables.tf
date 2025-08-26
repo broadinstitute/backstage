@@ -1,15 +1,15 @@
 variable "api_services" {
-  description = "List of API services to enable"
-  type        = list(string)
   default = [
     "iam.googleapis.com",
-    "storagetransfer.googleapis.com",
     "storage.googleapis.com",
+    "storagetransfer.googleapis.com",
   ]
+  description = "List of API services to enable"
+  type        = list(string)
 }
 
 variable "core_project" {
+  default     = "${{ values.gcpProject }}"
   description = "GCP project managed by the default/primary provider"
   type        = string
-  default     = "${{ values.gcpProject }}"
 }
