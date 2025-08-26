@@ -7,4 +7,4 @@ name: "Close stale issues and PRs"
 
 jobs:
   stale:
-    uses: broadinstitute/shared-workflows/.github/workflows/close-stale.yaml@v5.0.0
+    uses: broadinstitute/shared-workflows/.github/workflows/close-stale.yaml@v5.0.1
