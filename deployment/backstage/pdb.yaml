@@ -9,7 +9,7 @@ metadata:
     environment: prod
     app: backstage
 spec:
-  minAvailable: 1
+  minAvailable: 0
   selector:
     matchLabels:
       app: backstage
