@@ -9,7 +9,7 @@ metadata:
     environment: prod
     app: backstage
 spec:
-  minAvailable: 1
+  minAvailable: 1 # kpt-set: ${pdb_min_available}
   selector:
     matchLabels:
       app: backstage
