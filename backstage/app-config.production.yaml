@@ -98,7 +98,7 @@ catalog:
     entityFilename: catalog-info.yaml
     pullRequestBranchName: backstage-integration
   rules:
-    - allow: [Component, System, API, Resource, Location]
+    - allow: [Component, System, API, Resource, Location, Template]
   locations:
     - type: file
       target: ../../templates/BITS/domains.yaml
@@ -195,6 +195,14 @@ catalog:
           # supports ISO duration, "human duration" as used in code
           timeout: PT3M
           initialDelay: PT15M
+      templateDiscovery:
+        organization: 'broadinstitute'
+        catalogPath: '/scaffolder/**/*.yaml'
+        filters:
+          repository: 'software-templates'
+        scheduler:
+          frequency: PT1M
+
 pagerDuty:
   oauth:
     clientId:
