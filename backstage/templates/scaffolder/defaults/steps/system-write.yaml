@@ -1,7 +1,0 @@
-id: systemWriteFile
-name: Update catalog-info.yaml with System
-action: roadiehq:utils:merge
-if: ${{ parameters.system }}
-input:
-  path: catalog-info.yaml
-  content: ${{ steps['addSystem'].output.result }}

@@ -1,7 +1,0 @@
-id: kubernetesAnnotation
-name: Kubernetes Annotation
-action: roadiehq:utils:jsonata:yaml:transform
-if: ${{ parameters.kubernetesAnnotation == true }}
-input:
-  path: catalog-info.yaml
-  expression: '$ ~> | $ | { "metadata": { "annotations": $merge([metadata.annotations, { "backstage.io/kubernetes-id": "${{ parameters.name }}" }]) } } |'

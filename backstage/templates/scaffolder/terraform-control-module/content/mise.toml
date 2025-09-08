@@ -1,5 +1,0 @@
-[tools]
-"aqua:hashicorp/terraform" = "${{ values.terraformVersion }}"
-"cargo:adrs" = "latest"
-"npm:prettier" = "latest"
-node = "latest"

@@ -1,7 +1,0 @@
-id: domainWriteFile
-name: Update catalog-info.yaml with Domain
-action: roadiehq:utils:merge
-if: ${{ parameters.domain }}
-input:
-  path: catalog-info.yaml
-  content: ${{ steps['addDomain'].output.result }}

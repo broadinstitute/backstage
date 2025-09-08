@@ -1,9 +1,0 @@
----
-site_name: '${{ values.name }} Documentation'
-
-nav:
-  - Home: README.md
-  - ADRs: adr/README.md
-
-plugins:
-  - techdocs-core
