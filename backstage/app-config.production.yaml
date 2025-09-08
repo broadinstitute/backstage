@@ -153,7 +153,7 @@ catalog:
         filters:
           repository: 'software-templates'
         scheduler:
-          frequency: PT1M
+          frequency: PT5M
 
 pagerDuty:
   oauth:
