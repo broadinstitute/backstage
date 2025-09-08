@@ -111,6 +111,8 @@ catalog:
         - allow: [Location, System]
 
   providers:
+    rules:
+      - allow: [Template]
     githubOrg:
       - id: production
         githubUrl: https://github.com
@@ -152,7 +154,7 @@ catalog:
         catalogPath: '/scaffolder/**/*.yaml'
         filters:
           repository: 'software-templates'
-          branch: init
+          branch: 'init'
         scheduler:
           frequency: PT5M
 
