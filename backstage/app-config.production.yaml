@@ -152,6 +152,7 @@ catalog:
         catalogPath: '/scaffolder/**/*.yaml'
         filters:
           repository: 'software-templates'
+          branch: init
         scheduler:
           frequency: PT5M
 
