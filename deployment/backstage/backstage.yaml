@@ -31,7 +31,7 @@ spec:
       containers:
         - name: backstage
           image: us-east4-docker.pkg.dev/bits-gke-clusters/bits/backstage:latest
-          imagePullPolicy: IfNotPresent
+          imagePullPolicy: Always
           env:
             - name: NODE_ENV
               value: production # In this context production means "running in GKE"
