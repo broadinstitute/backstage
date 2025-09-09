@@ -150,6 +150,8 @@ catalog:
           timeout: PT3M
           initialDelay: PT15M
       templateDiscovery:
+        rules:
+          - allow: [Template]
         organization: 'broadinstitute'
         catalogPath: '/scaffolder/*/*.yaml'
         filters:
