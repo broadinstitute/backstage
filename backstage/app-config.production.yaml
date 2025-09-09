@@ -151,7 +151,7 @@ catalog:
           initialDelay: PT15M
       templateDiscovery:
         organization: 'broadinstitute'
-        catalogPath: '/scaffolder/**/*.yaml'
+        catalogPath: '/scaffolder/*/*.yaml'
         filters:
           repository: 'software-templates'
           branch: 'init'
