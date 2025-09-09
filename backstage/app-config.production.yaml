@@ -153,7 +153,8 @@ catalog:
         rules:
           - allow: [Template]
         organization: 'broadinstitute'
-        catalogPath: '/scaffolder/*/*.yaml'
+        catalogPath: '/scaffolder/example/template.yaml'
+        #catalogPath: '/scaffolder/*/*.yaml'
         filters:
           repository: 'software-templates'
           branch: 'init'
