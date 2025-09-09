@@ -1,7 +1,0 @@
-id: addDomain
-name: Add Domain to catalog-info.yaml
-action: roadiehq:utils:jsonata:yaml:transform
-if: ${{ parameters.domain }}
-input:
-  path: catalog-info.yaml
-  expression: '$ ~> | $ | { "spec": { "domain": "${{ parameters.domain | parseEntityRef | pick("name") }}" } } |'

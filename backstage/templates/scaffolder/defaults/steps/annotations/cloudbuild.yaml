@@ -1,7 +1,0 @@
-id: cloudbuildAnnotation
-name: Cloud Build Annotation
-action: roadiehq:utils:jsonata:yaml:transform
-if: ${{ parameters.cloudbuildAnnotation == true }}
-input:
-  path: catalog-info.yaml
-  expression: '$ ~> | $ | { "metadata": { "annotations": $merge([metadata.annotations, { "google.com/cloudbuild-repo-name": "${{ parameters.name }}", "google.com/cloudbuild-project-slug": "bits-gke-clusters", "google.com/cloudbuild-location": "us-east4" }]) } } |'

@@ -1,7 +1,0 @@
-id: addSystem
-name: Add System to catalog-info.yaml
-action: roadiehq:utils:jsonata:yaml:transform
-if: ${{ parameters.system }}
-input:
-  path: catalog-info.yaml
-  expression: '$ ~> | $ | { "spec": { "system": "${{ parameters.system | parseEntityRef | pick("name") }}" } } |'

@@ -1,9 +1,0 @@
-id: pagerdutyService
-name: Create PagerDuty Service
-if: ${{ parameters.createPagerduty }}
-action: pagerduty:service:create
-input:
-  name: ${{ parameters.name }}
-  description: ${{ parameters.description }}
-  escalationPolicyId: ${{ parameters.escalationPolicyId }}
-  alertGrouping: ${{ parameters.alertGrouping }}

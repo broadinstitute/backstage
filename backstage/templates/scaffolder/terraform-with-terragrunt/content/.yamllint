@@ -1,8 +1,0 @@
----
-extends: default
-rules:
-  indentation:
-    spaces: 2
-  line-length:
-    level: warning
-    max: 300

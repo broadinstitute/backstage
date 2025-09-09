@@ -1,7 +1,0 @@
-id: pagerDutyAnnotation
-name: PagerDuty Annotation
-action: roadiehq:utils:jsonata:yaml:transform
-if: ${{ parameters.pagerdutyIntegrationKey != null }}
-input:
-  path: catalog-info.yaml
-  expression: '$ ~> | $ | { "metadata": { "annotations": $merge([metadata.annotations, { "pagerduty.com/integration-key": "${{ parameters.pagerdutyIntegrationKey }}", "google.com/cloudbuild-project-slug": "bits-gke-clusters", "google.com/cloudbuild-location": "us-east4" }]) } } |'
