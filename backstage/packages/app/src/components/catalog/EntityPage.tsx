@@ -284,6 +284,9 @@ const defaultEntityPage = (
         <EntityLayout.Route path="/pull-requests" title="Pull Requests">
             <EntityGithubPullRequestsContent />
         </EntityLayout.Route>
+        <EntityLayout.Route path="/soundcheck" title="Soundcheck">
+            <EntitySoundcheckContent />
+        </EntityLayout.Route>
     </EntityLayout>
 );
 
