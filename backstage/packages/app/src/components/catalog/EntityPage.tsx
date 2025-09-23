@@ -73,8 +73,13 @@ const techdocsContent = (
     <EntityTechdocsContent>
         <TechDocsAddons>
             <ReportIssue />
-            <Mermaid config={{ theme: "forest", themeVariables: { lineColor: "#000000" } }} />
-            <Mermaid layoutLoaders={elkLayouts} config={{layout: 'elk'}} />
+            <Mermaid
+                config={{
+                    theme: 'forest',
+                    themeVariables: { lineColor: '#000000' },
+                }}
+            />
+            <Mermaid layoutLoaders={elkLayouts} config={{ layout: 'elk' }} />
         </TechDocsAddons>
     </EntityTechdocsContent>
 );
@@ -84,7 +89,7 @@ import {
     EntitySoundcheckCard,
 } from '@spotify/backstage-plugin-soundcheck';
 import { GroupSoundcheckContent } from '@spotify/backstage-plugin-soundcheck';
-import { Mermaid } from "backstage-plugin-techdocs-addon-mermaid";
+import { Mermaid } from 'backstage-plugin-techdocs-addon-mermaid';
 import elkLayouts from '@mermaid-js/layout-elk';
 
 const cicdContent = (
@@ -189,6 +194,10 @@ const serviceEntityPage = (
         <EntityLayout.Route path="/ci-cd" title="CI/CD">
             {cicdContent}
         </EntityLayout.Route>
+        <EntityLayout.Route path="/pull-requests" title="Pull Requests">
+            <EntityGithubPullRequestsContent />
+        </EntityLayout.Route>
+
         <EntityLayout.Route path="/soundcheck" title="Soundcheck">
             <EntitySoundcheckContent />
         </EntityLayout.Route>
@@ -220,10 +229,6 @@ const serviceEntityPage = (
         </EntityLayout.Route>
         <EntityLayout.Route path="/kubernetes" title="Kubernetes">
             <EntityKubernetesContent refreshIntervalMs={30000} />
-        </EntityLayout.Route>
-
-        <EntityLayout.Route path="/pull-requests" title="Pull Requests">
-            <EntityGithubPullRequestsContent />
         </EntityLayout.Route>
     </EntityLayout>
 );
@@ -278,6 +283,9 @@ const defaultEntityPage = (
 
         <EntityLayout.Route path="/pull-requests" title="Pull Requests">
             <EntityGithubPullRequestsContent />
+        </EntityLayout.Route>
+        <EntityLayout.Route path="/soundcheck" title="Soundcheck">
+            <EntitySoundcheckContent />
         </EntityLayout.Route>
     </EntityLayout>
 );
