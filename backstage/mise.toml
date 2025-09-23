@@ -18,11 +18,14 @@ SKILLS_EXCHANGE_SLACK_SIGNING_SECRET = "{{ exec(command='op --account broadinsti
 SOUNDCHECK_SLACK_BOT_TOKEN = "{{ exec(command='op --account broadinstitute.1password.com read \"op://BITS - Backstage/Sound Check Slack App/bot-token\"', cache_key='backstage_soundcheck_bot_token') }}"
 SOUNDCHECK_SLACK_APP_TOKEN = "{{ exec(command='op --account broadinstitute.1password.com read \"op://BITS - Backstage/Sound Check Slack App/app-token\"', cache_key='backstage_soundcheck_app_token') }}"
 SOUNDCHECK_SLACK_SIGNING_SECRET = "{{ exec(command='op --account broadinstitute.1password.com read \"op://BITS - Backstage/Sound Check Slack App/signing-secret\"', cache_key='backstage_soundcheck_signing_secret') }}"
+PD_CLIENT_ID="{{ exec(command='op --account broadinstitute.1password.com read \"op://BITS - Backstage/PagerDuty Scoped OAuth/client_id\"', cache_key='backstage_pd_client_id') }}"
+PD_CLIENT_SECRET="{{ exec(command='op --account broadinstitute.1password.com read \"op://BITS - Backstage/PagerDuty Scoped OAuth/client_secret\"', cache_key='backstage_pd_client_secret') }}"
 
 [vars]
 onepassword_account = "broadinstitute.1password.com"
 onepassword_vault = "BITS - Backstage"
 onepassword_item = "github-app-backstage-bits-dev-credentials"
+PD_ACCOUNT_SUBDOMAIN="broadinstitute"
 
 [tasks."github:credentials"]
 description = "Fetch GitHub App credentials from 1Password"
