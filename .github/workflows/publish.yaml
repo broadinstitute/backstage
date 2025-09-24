@@ -1,0 +1,25 @@
+---
+name: "publish-release"
+permissions:
+  contents: read
+  pull-requests: write
+
+"on":
+  schedule:
+    # Create a release on the first day of each month at noon UTC
+    - cron: "0 12 1 * *"
+
+jobs:
+  create_release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: "Checkout repo"
+        uses: "actions/checkout@v5"
+      - name: Get current date
+        id: get-date
+        run: echo "DATE=$(date +'%Y.%m.%d')" >> $GITHUB_OUTPUT
+      - name: Create Monthly Release
+        run:
+          gh release create ${{ steps.get-date.outputs.DATE }} --generate-notes
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
