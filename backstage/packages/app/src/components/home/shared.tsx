@@ -14,6 +14,7 @@
  * limitations under the License.
  */
 
+import React from 'react';
 import { TemplateBackstageLogoIcon } from '@backstage/plugin-home';
 import { makeStyles } from '@material-ui/core/styles';
 import {
