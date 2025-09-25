@@ -1,27 +1,15 @@
-/*
- * Copyright 2021 The Backstage Authors
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
 import {
-    HomePageToolkit,
     HomePageCompanyLogo,
-    HomePageStarredEntities,
     TemplateBackstageLogo,
+    HomePageStarredEntities,
+    HomePageToolkit,
+    HomePageTopVisited,
+    HomePageRecentlyVisited,
+    WelcomeTitle,
+    HeaderWorldClock,
+    ClockConfig,
     TemplateBackstageLogoIcon,
 } from '@backstage/plugin-home';
-import { wrapInTestApp, TestApiProvider } from '@backstage/test-utils';
 import {
     Content,
     Page,
@@ -48,39 +36,10 @@ import Grid from '@material-ui/core/Grid';
 import { makeStyles } from '@material-ui/core/styles';
 import React, { ComponentType, PropsWithChildren } from 'react';
 import { SupportButton } from '@backstage/core-components';
+import { tools, useLogoStyles } from './shared';
 
 export default {
     title: 'Backstage Home Page',
-    // decorators: [
-    //   (Story: ComponentType<PropsWithChildren<{}>>) =>
-    //     wrapInTestApp(
-    //       <>
-    //         <TestApiProvider
-    //           apis={[
-    //             [catalogApiRef, catalogApi],
-    //             [starredEntitiesApiRef, starredEntitiesApi],
-    //             [searchApiRef, { query: () => Promise.resolve({ results: [] }) }],
-    //             [
-    //               configApiRef,
-    //               new ConfigReader({
-    //                 stackoverflow: {
-    //                   baseUrl: 'https://api.stackexchange.com/2.2',
-    //                 },
-    //               }),
-    //             ],
-    //           ]}
-    //         >
-    //           <Story />
-    //         </TestApiProvider>
-    //       </>,
-    //       {
-    //         mountedRoutes: {
-    //           '/hello-company': searchPlugin.routes.root,
-    //           '/catalog/:namespace/:kind/:name': entityRouteRef,
-    //         },
-    //       },
-    //     ),
-    // ],
 };
 
 const useStyles = makeStyles(theme => ({
@@ -105,18 +64,30 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 
-const useLogoStyles = makeStyles(theme => ({
-    container: {
-        margin: theme.spacing(5, 0),
+const clockConfigs: ClockConfig[] = [
+    {
+        label: 'NYC',
+        timeZone: 'America/New_York',
     },
-    svg: {
-        width: 'auto',
-        height: 100,
+    {
+        label: 'UTC',
+        timeZone: 'UTC',
     },
-    path: {
-        fill: '#7df3e1',
+    {
+        label: 'STO',
+        timeZone: 'Europe/Stockholm',
     },
-}));
+    {
+        label: 'TYO',
+        timeZone: 'Asia/Tokyo',
+    },
+];
+
+const timeFormat: Intl.DateTimeFormatOptions = {
+    hour: '2-digit',
+    minute: '2-digit',
+    hour12: false,
+};
 
 export const HomePage = () => {
     const classes = useStyles();
@@ -125,13 +96,17 @@ export const HomePage = () => {
     return (
         <SearchContextProvider>
             <Page themeId="home">
-                <Header title="Welcome to Backstage" pageTitleOverride="Home">
+                <Header title={<WelcomeTitle />} pageTitleOverride="Home">
+                    <HeaderWorldClock
+                        clockConfigs={clockConfigs}
+                        customTimeFormat={timeFormat}
+                    />
                     <Box className={classes.supportButton}>
                         <SupportButton />
                     </Box>
                 </Header>
                 <Content>
-                    <Grid container justifyContent="center" spacing={6}>
+                    <Grid container justifyContent="center" spacing={2}>
                         <HomePageCompanyLogo
                             className={container}
                             logo={
@@ -154,48 +129,18 @@ export const HomePage = () => {
                         </Grid>
                         <Grid container item xs={12}>
                             <Grid item xs={12} md={6}>
-                                <HomePageStarredEntities />
+                                <HomePageTopVisited />
                             </Grid>
                             <Grid item xs={12} md={6}>
-                                <HomePageToolkit
-                                    tools={[
-                                        {
-                                            url: '#',
-                                            label: 'Backstage',
-                                            icon: <TemplateBackstageLogoIcon />,
-                                        },
-                                        {
-                                            url: 'https://github.com/broadinstitute',
-                                            label: 'Broad Institute',
-                                            icon: <GitHubIcon />,
-                                        },
-                                        {
-                                            url: 'https://broad.service-now.com/esc?id=ec_pro_dashboard',
-                                            label: 'ServiceNow',
-                                            icon: <HelpIcon />,
-                                        },
-                                        {
-                                            url: 'https://netbox.broadinstitute.org/',
-                                            label: 'Netbox',
-                                            icon: <DashboardIcon />,
-                                        },
-                                        {
-                                            url: 'https://ddi.broadinstitute.org/',
-                                            label: 'DNS, DHCP, IPAM (DDI)',
-                                            icon: <DashboardIcon />,
-                                        },
-                                        {
-                                            url: 'https://grafana-devnull.broadinstitute.org/',
-                                            label: 'Grafana (DevNull)',
-                                            icon: <DashboardIcon />,
-                                        },
-                                        {
-                                            url: 'https://www.cloudskillsboost.google/',
-                                            label: 'No Cost Training (Google)',
-                                            icon: <DashboardIcon />,
-                                        },
-                                    ]}
-                                />
+                                <HomePageRecentlyVisited />
+                            </Grid>
+                        </Grid>
+                        <Grid container item xs={12}>
+                            <Grid item xs={6} md={6}>
+                                <HomePageStarredEntities />
+                            </Grid>
+                            <Grid item xs={6} md={6}>
+                                <HomePageToolkit tools={tools} />
                             </Grid>
                             <Grid item xs={12} md={6}>
                                 <InfoCard title="Getting Started Documentation">
@@ -244,12 +189,6 @@ export const HomePage = () => {
                                             </a>
                                         </li>
                                     </ul>
-                                    <div style={{ height: 370 }} />
-                                </InfoCard>
-                            </Grid>
-                            <Grid item xs={12} md={6}>
-                                <InfoCard title="Composable Section">
-                                    {/* pl</EntitySwitch.Case> placeholder for content */}
                                 </InfoCard>
                             </Grid>
                         </Grid>
