@@ -101,6 +101,9 @@ export const HomePage = () => {
                         clockConfigs={clockConfigs}
                         customTimeFormat={timeFormat}
                     />
+                    <Box className={classes.supportButton}>
+                        <SupportButton />
+                    </Box>
                 </Header>
                 <Content>
                     <Grid container justifyContent="center" spacing={2}>
