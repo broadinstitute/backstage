@@ -6,10 +6,10 @@ metadata:
   description: |
     Google Cloud Platform (GCP) is Broad Institute's primary cloud provider.
     It hosts a variety of Broad services and platforms.
-  title: "Google Cloud Platform"
+  title: 'Google Cloud Platform'
   tags:
-  - gcp
-  - cloud
+    - gcp
+    - cloud
   annotations:
     backstage.io/managed-by: backstage
 spec:

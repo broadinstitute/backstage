@@ -7,22 +7,22 @@ metadata:
     Broad Institute's GitHub systems, including both the main
     organization and the development organization.
 
-  title: "GitHub"
+  title: 'GitHub'
   links:
-    - url: "https://github.com/"
-      title: "GitHub"
+    - url: 'https://github.com/'
+      title: 'GitHub'
       icon: github
-    - url: "https://github.com/broadinstitute"
-      title: "Broad GitHub Organization"
+    - url: 'https://github.com/broadinstitute'
+      title: 'Broad GitHub Organization'
       icon: github
-    - url: "https://github.com/broadinstitute-dev"
-      title: "Broad GitHub Dev Organization"
+    - url: 'https://github.com/broadinstitute-dev'
+      title: 'Broad GitHub Dev Organization'
       icon: github
-    - url: "https://github.com/enterprises/broadinstitute"
-      title: "Broad GitHub Enterprise"
+    - url: 'https://github.com/enterprises/broadinstitute'
+      title: 'Broad GitHub Enterprise'
       icon: github
   tags:
-  - github
+    - github
   annotations:
     backstage.io/managed-by: backstage
 spec:
