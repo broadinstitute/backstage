@@ -1,0 +1,18 @@
+---
+apiVersion: backstage.io/v1alpha1
+kind: System
+metadata:
+  name: gcp
+  description: |
+    Google Cloud Platform (GCP) is Broad Institute's primary cloud provider.
+    It hosts a variety of Broad services and platforms.
+  title: "Google Cloud Platform"
+  tags:
+  - gcp
+  - cloud
+  annotations:
+    backstage.io/managed-by: backstage
+spec:
+  owner: devnull
+  domain: paas
+  lifecycle: production

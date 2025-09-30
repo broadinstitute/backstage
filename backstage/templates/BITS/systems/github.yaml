@@ -1,0 +1,31 @@
+---
+apiVersion: backstage.io/v1alpha1
+kind: System
+metadata:
+  name: github
+  description: |
+    Broad Institute's GitHub systems, including both the main
+    organization and the development organization.
+
+  title: "GitHub"
+  links:
+    - url: "https://github.com/"
+      title: "GitHub"
+      icon: github
+    - url: "https://github.com/broadinstitute"
+      title: "Broad GitHub Organization"
+      icon: github
+    - url: "https://github.com/broadinstitute-dev"
+      title: "Broad GitHub Dev Organization"
+      icon: github
+    - url: "https://github.com/enterprises/broadinstitute"
+      title: "Broad GitHub Enterprise"
+      icon: github
+  tags:
+  - github
+  annotations:
+    backstage.io/managed-by: backstage
+spec:
+  owner: devnull
+  domain: paas
+  lifecycle: production
