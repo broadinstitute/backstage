@@ -7,11 +7,13 @@ metadata:
     - url: https://backstage.broadinstitute.org
       title: Backstage
       icon: dashboard
-  description: Broad Institute Engineering Portal is an Internal Developer Platform (Spotify Backstage by another name)
+  description:
+    Broad Institute Engineering Portal is an Internal Developer Platform
+    (Spotify Backstage by another name)
   tags:
-  - bits
-  - kubernetes
-  - bits-tools
+    - bits
+    - kubernetes
+    - bits-tools
   annotations:
     backstage.io/kubernetes-id: backstage
     pagerduty.com/integration-key: 2dfe75f325ae4b0bd0735b72b4c08f32
@@ -26,28 +28,6 @@ spec:
   domain: orchestration
   owner: devnull
   lifecycle: production
-
----
-apiVersion: backstage.io/v1alpha1
-kind: System
-metadata:
-  name: backstage
-  title: Backstage
-  description: |
-    The Backstage Internal Developer Platform
-    This System is being deprecated in favor of the 'idp' System.
-  links:
-    - url: https://backstage.broadinstitute.org
-      title: Backstage
-      icon: dashboard
-  tags:
-    - bits
-    - bits-tools
-  annotations:
-    backstage.io/techdocs-ref: dir:.
-spec:
-  owner: devnull
-  domain: orchestration
 
 ---
 apiVersion: backstage.io/v1alpha1
