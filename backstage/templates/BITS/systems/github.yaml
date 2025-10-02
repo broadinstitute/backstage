@@ -6,7 +6,6 @@ metadata:
   description: |
     Broad Institute's GitHub systems, including both the main
     organization and the development organization.
-
   title: 'GitHub'
   links:
     - url: 'https://github.com/'
