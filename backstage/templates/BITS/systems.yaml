@@ -14,3 +14,6 @@ spec:
     - ./systems/sap.yaml
     - ./systems/scisoft.yaml
     - ./systems/seqprod.yaml
+    - ./systems/aws.yaml
+    - ./systems/gcp.yaml
+    - ./systems/github.yaml

@@ -1,0 +1,17 @@
+---
+apiVersion: backstage.io/v1alpha1
+kind: System
+metadata:
+  name: aws
+  description: |
+    Amazon Web Services (AWS)
+  title: 'Amazon Web Services'
+  tags:
+    - aws
+    - cloud
+  annotations:
+    backstage.io/managed-by: backstage
+spec:
+  owner: devnull
+  domain: paas
+  lifecycle: production
