@@ -8,8 +8,9 @@ nav:
   - TechDocs: techdocs.md
   - "Software Templates": templates.md
   - "Backstage Plugins": plugins.md
-  - ADRs: adr/README.md
   - Operations: operations.md
+  - Release Notes: release-updates.md
+  - ADRs: adr/README.md
 
 plugins:
   - techdocs-core
