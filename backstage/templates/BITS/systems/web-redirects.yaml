@@ -1,0 +1,18 @@
+---
+apiVersion: backstage.io/v1alpha1
+kind: System
+metadata:
+  name: web-redirects
+  description: |
+    Applications and infrastructure used to manage web redirects.
+  title: "Web Redirects"
+  tags:
+  - bits
+  - redirects
+  - web
+  annotations:
+    backstage.io/managed-by: backstage
+spec:
+  owner: devnull
+  domain: web-hosting
+  lifecycle: production

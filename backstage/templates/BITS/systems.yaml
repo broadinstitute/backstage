@@ -17,3 +17,4 @@ spec:
     - ./systems/aws.yaml
     - ./systems/gcp.yaml
     - ./systems/github.yaml
+    - ./systems/web-redirects.yaml
