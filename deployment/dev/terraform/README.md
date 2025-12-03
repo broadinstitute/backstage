@@ -34,8 +34,8 @@ terraform providers lock -platform=linux_amd64 -platform=darwin_amd64 -platform=
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_db_service_accounts"></a> [db\_service\_accounts](#module\_db\_service\_accounts) | terraform-google-modules/service-accounts/google | 4.5.4 |
-| <a name="module_postgres"></a> [postgres](#module\_postgres) | GoogleCloudPlatform/sql-db/google//modules/postgresql | 26.1.0 |
+| <a name="module_db_service_accounts"></a> [db\_service\_accounts](#module\_db\_service\_accounts) | terraform-google-modules/service-accounts/google | 4.6.0 |
+| <a name="module_postgres"></a> [postgres](#module\_postgres) | GoogleCloudPlatform/sql-db/google//modules/postgresql | 27.0.0 |
 
 ## Resources
 
