@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: "Checkout repo"
-        uses: "actions/checkout@v5"
+        uses: "actions/checkout@v6"
       - name: Get current date
         id: pr-date
         run: echo "PR_DATE=$(date +'%Y.%m.%d')" >> $GITHUB_OUTPUT
