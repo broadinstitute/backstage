@@ -4,14 +4,9 @@ permissions:
   contents: write
   packages: write
 
-# "on":
-#   schedule:
-#     - cron: "0 0 1 * *"
-
-'on':
-  pull_request:
-    branches:
-      - 'main'
+"on":
+  schedule:
+    - cron: "0 0 1 * *"
 
 jobs:
   create_release:
@@ -23,6 +18,6 @@ jobs:
         id: pr-date
         run: echo "PR_DATE=$(date +'%Y.%m.%d')" >> $GITHUB_OUTPUT
       - name: Create Release
-        run: gh release create --draft ${{ steps.pr-date.outputs.PR_DATE }}-rc --generate-notes --title ${{ steps.pr-date.outputs.PR_DATE }}-rc
+        run: gh release create ${{ steps.pr-date.outputs.PR_DATE }} --generate-notes --title ${{ steps.pr-date.outputs.PR_DATE }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
