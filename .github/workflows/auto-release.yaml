@@ -1,19 +1,19 @@
 ---
 name: "Monthly Release"
 permissions:
-  contents: read
-  pull-requests: write
+  contents: write
+  packages: write
 
 "on":
   schedule:
     - cron: "0 0 1 * *"
 
 jobs:
-  create_pr:
+  create_release:
     runs-on: ubuntu-latest
     steps:
       - name: "Checkout repo"
-        uses: "actions/checkout@v5"
+        uses: "actions/checkout@v6"
       - name: Get current date
         id: pr-date
         run: echo "PR_DATE=$(date +'%Y.%m.%d')" >> $GITHUB_OUTPUT
