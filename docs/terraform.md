@@ -75,7 +75,7 @@ terraform providers lock -platform=linux_amd64 -platform=darwin_amd64 -platform=
 No outputs.
 <!-- END_TF_DOCS -->
 
-``mermaid
+```mermaid
 ---
 query: architecture diagram
 references:
@@ -120,3 +120,4 @@ flowchart LR
 
         %% Layout
             linkStyle default interpolate basis;
+```
