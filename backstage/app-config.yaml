@@ -21,7 +21,6 @@ app:
           - url: https://broad.io/help
             title: 'Service Now Ticket'
 
-
 organization:
   name: Broad Institute
 
@@ -73,11 +72,11 @@ proxy:
 # and an external cloud storage when deploying TechDocs for production use-case.
 # https://backstage.io/docs/features/techdocs/how-to-guides#how-to-migrate-from-techdocs-basic-to-recommended-deployment-approach
 techdocs:
-  builder: 'local'  # Alternatives - 'external'
+  builder: 'local' # Alternatives - 'external'
   generator:
-    runIn: 'docker'  # Alternatives - 'local'
+    runIn: 'docker' # Alternatives - 'local'
   publisher:
-    type: 'local'  # Alternatives - 'googleGcs' or 'awsS3'. Read documentation for using alternatives.
+    type: 'local' # Alternatives - 'googleGcs' or 'awsS3'. Read documentation for using alternatives.
 
 scaffolder:
   # see https://backstage.io/docs/features/software-templates/configuration for software template options
@@ -89,6 +88,16 @@ catalog:
   rules:
     - allow: [Component, System, API, Resource, Location, Template]
 kubernetes:
+  customResources:
+    - group: 'gateway.networking.k8s.io'
+      apiVersion: 'v1'
+      plural: 'gateways'
+    - group: 'gateway.networking.k8s.io'
+      apiVersion: 'v1'
+      plural: 'httproutes'
+    - group: opentelemetry.io
+      apiVersion: 'v1beta1'
+      plural: 'opentelemetrycollectors'
   serviceLocatorMethod:
     type: 'multiTenant'
   clusterLocatorMethods:
@@ -104,6 +113,5 @@ kubernetes:
       skipTLSVerify: true
       skipMetricsLookup: false
       exposeDashboard: true
-
 costInsights:
   engineerCost: 200000
