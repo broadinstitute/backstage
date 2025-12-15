@@ -110,14 +110,14 @@ spec:
               # The proxy's memory use scales linearly with the number of active
               # connections. Fewer open connections will use less memory. Adjust
               # this value based on your application's requirements.
-              memory: "38MiB"
+              memory: "64Mi"
               # The proxy's CPU use scales linearly with the amount of IO between
               # the database and the application. Adjust this value based on your
               # application's requirements.
-              cpu: "35m"
+              cpu: "50m"
             limits:
-              memory: "38MiB"
-              cpu: "35m"
+              memory: "64Mi"
+              cpu: "50m"
             # Recommended configurations for health check probes.
             # Probe parameters can be adjusted to best fit the requirements of your application.
             # For details, see https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/
