@@ -78,3 +78,6 @@ if ! "${CONTAINER_APP}" ps -a | grep -q 'backstage-dev-pg'; then
         postgres
 fi
 """
+
+[tools]
+node = "22"
