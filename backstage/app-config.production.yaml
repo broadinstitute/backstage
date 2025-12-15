@@ -206,6 +206,8 @@ skillExchange:
       - https://backstage.spotify.com/docs/assets/files/default-skills-1b9f68a18ea48146f2f562bd9b3f4978.yaml
 
 soundcheck:
+  flags:
+    - backstage-ui
   programs:
     $include: ./soundcheck-tracks.yaml
   results:
