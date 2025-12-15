@@ -169,10 +169,8 @@ permission:
     authorizedUsers:
       - group:default/devnull
       - user:default/tfhartmann
-      - user:default/lihu-zhong
       - user:default/coreone
       - user:default/hjfbynara
-      - user:default/pssaluja
     fallbackPolicy:
       $include: ./plugin-configs/fallback-rbac-policy.yaml
     defaultPolicy:
