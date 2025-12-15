@@ -16,9 +16,14 @@ exclude = [
     "op.bash",
     "examples",
 ]
+cache = [
+    { build = true, launch = true, paths = ["node_modules/.cache"] },
+    { build = true, launch = false, paths = ["~/.yarn/cache"] }
+]
 
 [[io.buildpacks.group]]
 id = "google.nodejs.runtime"
+version = "22"
 
 [[io.buildpacks.group]]
 id = "google.nodejs.yarn"
