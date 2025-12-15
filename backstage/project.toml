@@ -7,6 +7,8 @@ version = "0.0.1"
 source-url = "https://github.com/broadinstitute/backstage"
 documentation-url = "https://backstage.broadinstitute.org/catalog/default/component/backstage/docs"
 
+[types]
+cache = true
 
 [io.buildpacks]
 builder = "gcr.io/buildpacks/builder@sha256:99ea417bcd8b0f576e5387926dc792db609b07642404e2236db4dd1b05f05daf"
@@ -15,10 +17,6 @@ exclude = [
     "app-config.local.yaml",
     "op.bash",
     "examples",
-]
-cache = [
-    { build = true, launch = true, paths = ["node_modules/.cache"] },
-    { build = true, launch = false, paths = ["~/.yarn/cache"] }
 ]
 
 [[io.buildpacks.group]]
