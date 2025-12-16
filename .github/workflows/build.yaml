@@ -42,6 +42,10 @@ jobs:
         with:
           version: ">= 506.0.0"
 
+      - name: "gcloud docker config"
+        run: |-
+          gcloud auth configure-docker us-east4-docker.pkg.dev
+
       - name: Mise override
         run: |
           mise_override="$(pwd)/mise.toml"
