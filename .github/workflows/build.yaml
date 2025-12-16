@@ -47,8 +47,7 @@ jobs:
         name: Install Dependencies
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          working_directory: ./backstage
-
+ 
       - name: Get yarn cache directory path
         id: yarn-cache-dir-path
         working-directory: ./backstage
