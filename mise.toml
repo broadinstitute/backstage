@@ -2,3 +2,4 @@
 node = "22"
 yarn = "4.5.1"
 werf = "latest"
+pack = "latest"

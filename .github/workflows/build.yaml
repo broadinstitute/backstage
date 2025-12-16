@@ -18,11 +18,12 @@ env:
   _REGISTRY_PROJECT: bits-packaging-prod
   _REGISTRY_NAME: bits-container-hub
   _ARTIFACT_BUCKET: pipeline-temporary-artifact-storage-e938
+  PACK_VOLUME_KEY: backstage-buildpack-cache
 
 jobs:
   build:
     if: github.event.pull_request.draft == false
-    name: "Build and Test Docker Image"
+    name: "Build and Test Image"
     runs-on: ubuntu-latest
     permissions:
       contents: "read"
@@ -76,6 +77,33 @@ jobs:
           key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
           restore-keys: |
             ${{ runner.os }}-yarn-
+
+      - name: Build Backstage Image
+        id: build-image
+        working-directory: ./backstage
+        run: |
+          pack build us-east4-docker.pkg.dev/${_REGISTRY_PROJECT}/${_REGISTRY_NAME}/${_APP}:${GITHUB_SHA} \
+            -t us-east4-docker.pkg.dev/${_REGISTRY_PROJECT}/${_REGISTRY_NAME}/${_APP}:${{ github.event.number }} \
+            --run-image us-east4-docker.pkg.dev/${_REGISTRY_PROJECT}/${_REGISTRY_NAME}/${_APP}-run-image:${GITHUB_SHA} \
+            --cache-image us-east4-docker.pkg.dev/${_REGISTRY_PROJECT}/${_REGISTRY_NAME}/${_APP}-cache-image:latest \
+            --publish \
+            --env NODE_OPTIONS="--max-old-space-size=3686"
+
+          # env:
+          # - 'NODE_OPTIONS="--max-old-space-size=3686"'
+          # - 'PACK_VOLUME_KEY=backstage-buildpack-cache'
+          # args:
+          # - 'build'
+          # - '${LOCATION}-docker.pkg.dev/${_REGISTRY_PROJECT}/${_REGISTRY_NAME}/${_APP}:${_GITHUB_SHA}'
+          # - '-t'
+          # - '${LOCATION}-docker.pkg.dev/${_REGISTRY_PROJECT}/${_REGISTRY_NAME}/${_APP}:${_PR}'
+          # - '--run-image'
+          # - '${LOCATION}-docker.pkg.dev/${_REGISTRY_PROJECT}/${_REGISTRY_NAME}/${_APP}-run-image:${_GITHUB_SHA}'
+          # - '--cache-image'
+          # - '${LOCATION}-docker.pkg.dev/${_REGISTRY_PROJECT}/${_REGISTRY_NAME}/${_APP}-cache-image:latest'
+          # - '--publish'
+          # - '--env'
+          # - 'NODE_OPTIONS'
 
       # - id: build-run-image
       #   name: 'gcr.io/kaniko-project/executor:latest'
