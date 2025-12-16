@@ -42,12 +42,18 @@ jobs:
         with:
           version: ">= 506.0.0"
 
+      - name: Mise override
+        run: |
+          mise_override="$(pwd)/mise.toml"
+          echo "MISE_OVERRIDE_CONFIG_FILENAMES=$mise_override" >> $GITHUB_ENV
+        shell: bash
+
       - uses: jdx/mise-action@v3
         id: mise
         name: Install Dependencies
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
- 
+
       - name: Get yarn cache directory path
         id: yarn-cache-dir-path
         working-directory: ./backstage
