@@ -55,7 +55,7 @@ spec:
               value: backstage
           resources:
             limits:
-              cpu: "390m"
+              cpu: "1000m"
               memory: "3G"
             requests:
               cpu: "390m"
