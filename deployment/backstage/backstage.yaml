@@ -116,8 +116,8 @@ spec:
               # application's requirements.
               cpu: "50m"
             limits:
-              memory: "4G"
-              cpu: "1000m"
+              memory: "500m"
+              cpu: "500m"
             # Recommended configurations for health check probes.
             # Probe parameters can be adjusted to best fit the requirements of your application.
             # For details, see https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/
