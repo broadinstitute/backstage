@@ -28,6 +28,7 @@ pipeline:
         project-id: bits-backstage-prod
         sslPolicy: modern-tls12
         min_replicas: "2"
+        max_replicas: "5"
         pdb_min_available: "1"
         secrets: |
           - resourceName: "projects/bits-backstage-prod/secrets/github-app-backstage-bits-credentials/versions/latest"

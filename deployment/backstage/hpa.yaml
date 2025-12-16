@@ -14,7 +14,7 @@ spec:
     kind: Deployment
     name: backstage
   minReplicas: 2 # kpt-set: ${min_replicas}
-  maxReplicas: 5
+  maxReplicas: 5 # kpt-set: ${max_replicas}
   metrics:
   - type: Resource
     resource:
