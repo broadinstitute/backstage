@@ -72,7 +72,7 @@ spec:
             httpGet:
               port: 7007
               path: /.backstage/health/v1/readiness
-            initialDelaySeconds: 180
+            initialDelaySeconds: 120
               #          livenessProbe:
               #            httpGet:
               #              port: 7007
@@ -116,7 +116,7 @@ spec:
               # application's requirements.
               cpu: "50m"
             limits:
-              memory: "1G"
+              memory: "4G"
               cpu: "1000m"
             # Recommended configurations for health check probes.
             # Probe parameters can be adjusted to best fit the requirements of your application.
