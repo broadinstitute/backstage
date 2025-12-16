@@ -1,0 +1,6 @@
+project: backstage
+configVersion: 1
+
+---
+image: run-image
+dockerfile: run.Dockerfile
