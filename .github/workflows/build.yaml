@@ -85,7 +85,6 @@ jobs:
     uses: ./.github/workflows/hydrate.yaml
     needs: build
     with:
-      deploy: false
       environment: development
 
   deploy:
