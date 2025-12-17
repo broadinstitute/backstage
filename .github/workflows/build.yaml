@@ -73,9 +73,9 @@ jobs:
         id: build-image
         working-directory: ./backstage
         run: |
-          pack build us-east4-docker.pkg.dev/${{vars._REGISTRY_PROJECT}}/${{vars._REGISTRY_NAME}}/${{vars._APP}}:${{env.GITHUB_SHA}} \
+          pack build us-east4-docker.pkg.dev/${{vars._REGISTRY_PROJECT}}/${{vars._REGISTRY_NAME}}/${{vars._APP}}:${{ github.sha }} \
             -t us-east4-docker.pkg.dev/${{vars._REGISTRY_PROJECT}}/${{vars._REGISTRY_NAME}}/${{vars._APP}}:${{ github.event.number }} \
-            --run-image us-east4-docker.pkg.dev/${{vars._REGISTRY_PROJECT}}/${{vars._REGISTRY_NAME}}/${{vars._APP}}-run-image:${{env.GITHUB_SHA}} \
+            --run-image us-east4-docker.pkg.dev/${{vars._REGISTRY_PROJECT}}/${{vars._REGISTRY_NAME}}/${{vars._APP}}-run-image:${{ github.sha }} \
             --cache-image us-east4-docker.pkg.dev/${{vars._REGISTRY_PROJECT}}/${{vars._REGISTRY_NAME}}/${{vars._APP}}-cache-image:latest \
             --publish \
             --env NODE_OPTIONS="--max-old-space-size=3686"
