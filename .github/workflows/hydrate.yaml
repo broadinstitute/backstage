@@ -22,6 +22,7 @@ env:
 
 jobs:
   hydrate:
+    environment: ${{ inputs.environment }}
     name: "Hydrate Manifests"
     runs-on: ubuntu-latest
     steps:
