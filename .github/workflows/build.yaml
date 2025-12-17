@@ -80,21 +80,6 @@ jobs:
             --publish \
             --env NODE_OPTIONS="--max-old-space-size=3686"
 
-          # env:
-          # - 'NODE_OPTIONS="--max-old-space-size=3686"'
-          # - 'PACK_VOLUME_KEY=backstage-buildpack-cache'
-          # args:
-          # - 'build'
-          # - '${LOCATION}-docker.pkg.dev/${_REGISTRY_PROJECT}/${_REGISTRY_NAME}/${_APP}:${_GITHUB_SHA}'
-          # - '-t'
-          # - '${LOCATION}-docker.pkg.dev/${_REGISTRY_PROJECT}/${_REGISTRY_NAME}/${_APP}:${_PR}'
-          # - '--run-image'
-          # - '${LOCATION}-docker.pkg.dev/${_REGISTRY_PROJECT}/${_REGISTRY_NAME}/${_APP}-run-image:${_GITHUB_SHA}'
-          # - '--cache-image'
-          # - '${LOCATION}-docker.pkg.dev/${_REGISTRY_PROJECT}/${_REGISTRY_NAME}/${_APP}-cache-image:latest'
-          # - '--publish'
-          # - '--env'
-          # - 'NODE_OPTIONS'
   hydrate:
     if: github.event.pull_request.draft == false
     uses: ./.github/workflows/hydrate.yaml
