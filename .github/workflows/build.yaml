@@ -1,5 +1,5 @@
 ---
-name: "Cloud Build"
+name: "Build"
 "on":
   pull_request:
     branches:
@@ -12,7 +12,7 @@ name: "Cloud Build"
 jobs:
   build:
     if: github.event.pull_request.draft == false
-    name: "Build and Test Image"
+    name: "Build Backstage"
     runs-on: ubuntu-latest
     environment: development
     permissions:
