@@ -1,0 +1,42 @@
+---
+name: "Hydrate Kubernetes Manifests"
+"on":
+  workflow_call:
+    inputs:
+      environment:
+        default: ""
+        description: The environment name being used
+        required: true
+        type: string
+      working_directory:
+        description: The working directory where all jobs should be executed.
+        default: "."
+        required: false
+        type: string
+permissions:
+  contents: read
+  id-token: write # This is required for requesting the JWT
+  pull-requests: read
+env:
+  DEPLOY_PATH: deployment/backstage
+
+jobs:
+  hydrate:
+    name: "Hydrate Manifests"
+    runs-on: ubuntu-latest
+    steps:
+      - name: Copy Kptfile to App Deployment Directory
+        run: cp ./deployment/${{ vars.ENV }}/Kptfile ${{ env.DEPLOY_PATH }}/${{ vars._APP }}/Kptfile
+      - name: Render App Manifests
+        run: |
+          kpt fn render ${{ env.DEPLOY_PATH }}/${{ vars._APP }}
+      - name: Set Environment Label
+        run: |
+          kpt fn eval ${{ env.DEPLOY_PATH }}/${{ vars._APP }} \
+            --image gcr.io/kpt-fn/set-labels:v0.2.0 \
+            -- environment=${{ vars.ENV }}
+      - name: Set Branch Environment Variable
+        run: |
+          kpt fn eval ${{ env.DEPLOY_PATH }}/${{ vars._APP }} \
+            --image gcr.io/kpt-fn/apply-setters:v0.2.0 \
+            -- branch_name=${{ github.event.number }}
