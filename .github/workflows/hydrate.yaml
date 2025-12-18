@@ -10,7 +10,7 @@ name: "Hydrate Kubernetes Manifests"
         type: string
       working_directory:
         description: The working directory where all jobs should be executed.
-        default: ${{ github.workspace }}
+        default: "."
         required: false
         type: string
 permissions:
@@ -22,6 +22,9 @@ env:
 
 jobs:
   hydrate:
+    defaults:
+      run:
+        working-directory: ${{ inputs.working_directory }}
     environment: ${{ inputs.environment }}
     name: "Hydrate Manifests"
     runs-on: ubuntu-latest

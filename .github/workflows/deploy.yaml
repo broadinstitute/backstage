@@ -15,7 +15,7 @@ name: "Kubernetes Deployment"
         type: string
       working_directory:
         description: The working directory where all jobs should be executed.
-        default: ${{ github.workspace }}
+        default: "."
         required: false
         type: string
 permissions:
@@ -29,6 +29,9 @@ env:
 
 jobs:
   deploy:
+    defaults:
+      run:
+        working-directory: ${{ inputs.working_directory }}
     environment: ${{ inputs.environment }}
     if: ${{ github.event.pull_request.merged == true }}
     name: "Deploy to Kubernetes"
