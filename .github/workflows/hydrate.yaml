@@ -29,6 +29,13 @@ jobs:
     name: "Hydrate Manifests"
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout repo
+        uses: actions/checkout@v6
+      # - name: Authenticate to Workload Identity
+      #   uses: google-github-actions/auth@v3
+      #   with:
+      #     service_account: ${{ vars._SERVICE_ACCOUNT }}
+      #     workload_identity_provider: ${{ vars._WORKLOAD_IDENTITY_PROVIDER }}
       - name: Copy Kptfile to App Deployment Directory
         run: |
           echo $(pwd)
