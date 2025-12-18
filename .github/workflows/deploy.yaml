@@ -67,6 +67,7 @@ jobs:
             -- branch_name=${{ github.event.number }}
 
   deploy:
+    needs: hydrate
     defaults:
       run:
         working-directory: ${{ inputs.working_directory }}
