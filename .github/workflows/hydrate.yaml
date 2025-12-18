@@ -22,9 +22,6 @@ env:
 
 jobs:
   hydrate:
-    defaults:
-      run:
-        working-directory: ${{ inputs.working_directory }}
     environment: ${{ inputs.environment }}
     name: "Hydrate Manifests"
     runs-on: ubuntu-latest
