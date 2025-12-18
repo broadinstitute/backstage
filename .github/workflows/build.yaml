@@ -53,7 +53,7 @@ jobs:
         working-directory: ./backstage
         run: |
           source "$(werf ci-env github --as-file)"
-          werf build --repo us-east4-docker.pkg.dev/${{vars._REGISTRY_PROJECT}}/${{vars._REGISTRY_NAME}}/${{vars._APP}}-run-image
+          werf build --repo us-east4-docker.pkg.dev/${{vars._REGISTRY_PROJECT}}/${{vars._REGISTRY_NAME}}/${{vars._APP}}-run-image --add-custom-tag ${{ github.sha }}
           # werf cleanup --repo us-east4-docker.pkg.dev/${{vars._REGISTRY_PROJECT}}/${{vars._REGISTRY_NAME}}/${{vars._APP}}-run-image
 
       - name: Get yarn cache directory path
