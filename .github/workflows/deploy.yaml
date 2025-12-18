@@ -15,7 +15,7 @@ name: "Kubernetes Deployment"
         type: string
       working_directory:
         description: The working directory where all jobs should be executed.
-        default: "."
+        default: ${{ github.workspace }}
         required: false
         type: string
 permissions:
