@@ -33,7 +33,7 @@ jobs:
       run:
         working-directory: ${{ inputs.working_directory }}
     environment: ${{ inputs.environment }}
-    name: "Hydrate Manifests"
+    name: "Hydrate and deploy Manifests"
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repo
@@ -44,11 +44,6 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
 
-      # - name: Authenticate to Workload Identity
-      #   uses: google-github-actions/auth@v3
-      #   with:
-      #     service_account: ${{ vars._SERVICE_ACCOUNT }}
-      #     workload_identity_provider: ${{ vars._WORKLOAD_IDENTITY_PROVIDER }}
       - name: Copy Kptfile to App Deployment Directory
         run: |
           cp ${{env.DEPLOY_PATH}}/${{ vars.ENV }}/Kptfile ${{ env.DEPLOY_PATH }}/${{ vars._APP }}/Kptfile
@@ -66,31 +61,12 @@ jobs:
             --image gcr.io/kpt-fn/apply-setters:v0.2.0 \
             -- branch_name=${{ github.event.number }}
 
-  deploy:
-    needs: hydrate
-    defaults:
-      run:
-        working-directory: ${{ inputs.working_directory }}
-    environment: ${{ inputs.environment }}
-    name: "Deploy to Kubernetes"
-    runs-on: ubuntu-latest
-    permissions:
-      contents: "read"
-      id-token: "write"
-    steps:
-      # - name: Set _REPONAME environment variable
-      #   run: echo "_REPONAME=${GITHUB_REPOSITORY#"broadinstitute/"}" >> $GITHUB_ENV
-
-      - uses: "actions/checkout@v6"
-      # - uses: jdx/mise-action@v3
-      #   id: mise
-      #   name: Install Dependencies
-      #   with:
-      #     github_token: ${{ secrets.GITHUB_TOKEN }}
-      - uses: "google-github-actions/auth@v3"
+      - name: Authenticate to Workload Identity
+        uses: google-github-actions/auth@v3
         with:
-          workload_identity_provider: ${{ vars._WORKLOAD_IDENTITY_PROVIDER }}
           service_account: ${{ vars._SERVICE_ACCOUNT }}
+          workload_identity_provider: ${{ vars._WORKLOAD_IDENTITY_PROVIDER }}
+
       - name: "Set up Cloud SDK"
         uses: "google-github-actions/setup-gcloud@v3"
         with:
@@ -101,10 +77,12 @@ jobs:
           cluster_name: gke-autopilot-01-prod
           location: us-east4
           project_id: bits-gke-clusters
+
       - name: GKE Deploy - Dry Run
         if: ${{ inputs.deploy == false }}
         run: kubectl apply -f ${{ env.DEPLOY_PATH }}/${{ vars._APP }} --recursive --dry-run=client
       - name: GKE Deploy - Apply
+
         if: ${{ inputs.deploy == true }}
         uses: docker://gcr.io/cloud-builders/gke-deploy:latest
         with:
