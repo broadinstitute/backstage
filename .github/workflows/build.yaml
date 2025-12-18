@@ -86,7 +86,7 @@ jobs:
     needs: build
     with:
       environment: development
-      working-directory: ../
+      working_directory: ../
 
   deploy:
     name: "Deploy to Development"
@@ -96,4 +96,4 @@ jobs:
     with:
       deploy: false
       environment: development
-      working-directory: ../
+      working_directory: ../
