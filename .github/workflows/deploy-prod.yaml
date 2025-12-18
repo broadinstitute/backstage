@@ -1,0 +1,49 @@
+---
+name: "Production Environment"
+'on':
+  pull_request_target:
+    types:
+      - closed
+jobs:
+  deploy:
+    name: "Deploy to Production"
+    if: ${{ github.event.pull_request.merged == true }}
+    permissions:
+      contents: read
+      id-token: write # This is required for requesting the JWT
+      pull-requests: read
+    uses: ./.github/workflows/deploy.yaml
+    with:
+      deploy: true
+      environment: production
+
+  deploy2:
+    if: ${{ github.event.pull_request.merged == true }}
+    runs-on: ubuntu-latest
+    permissions:
+      contents: "read"
+      id-token: "write"
+    steps:
+      - name: Set _REPONAME environment variable
+        run: echo "_REPONAME=${GITHUB_REPOSITORY#"broadinstitute/"}" >> $GITHUB_ENV
+
+      - uses: "actions/checkout@v6"
+      - uses: "google-github-actions/auth@v3"
+        with:
+          workload_identity_provider: "projects/1087551700560/locations/global/workloadIdentityPools/github-pool/providers/github-provider"
+          service_account: "container-image-cloudbuild@bits-packaging-prod.iam.gserviceaccount.com"
+      - name: "Set up Cloud SDK"
+        uses: "google-github-actions/setup-gcloud@v3"
+        with:
+          version: ">= 506.0.0"
+      - name: "Run Cloud Build"
+        run: |-
+          gcloud builds submit \
+            projects/${_BUILDER_PROJECT}/locations/us-east4/connections/github/repositories/${_REPONAME} \
+            --revision=$GITHUB_SHA \
+            --git-source-revision=$GITHUB_SHA \
+            --service-account='projects/${_BUILDER_PROJECT}/serviceAccounts/${_SERVICE_ACCOUNT}' \
+            --config=.cloudbuild/gke-deploy.yaml \
+            --region=us-east4 \
+            --substitutions=_APP=${_APP},_REGISTRY_PROJECT=${_REGISTRY_PROJECT},_REGISTRY_NAME=${_REGISTRY_NAME},_BUILDER_PROJECT=${_BUILDER_PROJECT},_SERVICE_ACCOUNT=${_SERVICE_ACCOUNT},_IMAGE_TAG=${{ github.event.number }},_BRANCH="main",_ENV="prod" \
+            --project=${_BUILDER_PROJECT}

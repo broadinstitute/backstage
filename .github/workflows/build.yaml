@@ -79,14 +79,6 @@ jobs:
             --cache-image us-east4-docker.pkg.dev/${{vars._REGISTRY_PROJECT}}/${{vars._REGISTRY_NAME}}/${{vars._APP}}-cache-image:latest \
             --publish \
             --env NODE_OPTIONS="--max-old-space-size=3686"
-
-  # hydrate:
-  #   if: github.event.pull_request.draft == false
-  #   uses: ./.github/workflows/hydrate.yaml
-  #   needs: build
-  #   with:
-  #     environment: development
-
   deploy:
     name: "Deploy to Development"
     if: github.event.pull_request.draft == false
@@ -95,3 +87,4 @@ jobs:
     with:
       deploy: false
       environment: development
+      dry_run: "server"

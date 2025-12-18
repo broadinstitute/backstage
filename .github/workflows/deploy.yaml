@@ -18,6 +18,11 @@ name: "Kubernetes Deployment"
         default: "."
         required: false
         type: string
+      dry_run:
+        description: Whether dry run is serverside or clientside
+        default: "client"
+        required: false
+        type: string
 permissions:
   contents: read
   id-token: write # This is required for requesting the JWT
@@ -47,19 +52,30 @@ jobs:
       - name: Copy Kptfile to App Deployment Directory
         run: |
           cp ${{env.DEPLOY_PATH}}/${{ vars.ENV }}/Kptfile ${{ env.DEPLOY_PATH }}/${{ vars._APP }}/Kptfile
+
       - name: Render App Manifests
         run: |
           kpt fn render ${{ env.DEPLOY_PATH }}/${{ vars._APP }}
+
       - name: Set Environment Label
         run: |
           kpt fn eval ${{ env.DEPLOY_PATH }}/${{ vars._APP }} \
             --image gcr.io/kpt-fn/set-labels:v0.2.0 \
             -- environment=${{ vars.ENV }}
+
       - name: Set Branch Environment Variable
         run: |
           kpt fn eval ${{ env.DEPLOY_PATH }}/${{ vars._APP }} \
             --image gcr.io/kpt-fn/apply-setters:v0.2.0 \
             -- branch_name=${{ github.event.number }}
+
+      - name: Set Image
+        run: |
+          kpt fn eval ${{ env.DEPLOY_PATH }}/${{ vars._APP }} \
+            --image gcr.io/kpt-fn/set-image:v0.1.1 \
+            -- name=${{ vars._LOCATION }}-docker.pkg.dev/bits-gke-clusters/bits/backstage:latest \
+            newName=${{ vars._LOCATION }}-docker.pkg.dev/${{ vars._REGISTRY_PROJECT }}/${{ vars._REGISTRY_NAME }}/${{ vars._APP }} \
+            newTag=${{ github.event.number }}
 
       - name: Authenticate to Workload Identity
         uses: google-github-actions/auth@v3
@@ -71,6 +87,7 @@ jobs:
         uses: "google-github-actions/setup-gcloud@v3"
         with:
           version: ">= 506.0.0"
+
       - name: Authenticate to GKE cluster
         uses: google-github-actions/get-gke-credentials@v3
         with:
@@ -80,7 +97,7 @@ jobs:
 
       - name: GKE Deploy - Dry Run
         if: ${{ inputs.deploy == false }}
-        run: kubectl apply -f ${{ env.DEPLOY_PATH }}/${{ vars._APP }} --recursive --dry-run=client
+        run: kubectl apply -f ${{ env.DEPLOY_PATH }}/${{ vars._APP }} --recursive --dry-run=${{ inputs.dry_run }}
       - name: GKE Deploy - Apply
 
         if: ${{ inputs.deploy == true }}
