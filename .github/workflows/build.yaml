@@ -80,18 +80,18 @@ jobs:
             --publish \
             --env NODE_OPTIONS="--max-old-space-size=3686"
 
-  hydrate:
-    if: github.event.pull_request.draft == false
-    uses: ./.github/workflows/hydrate.yaml
-    needs: build
-    with:
-      environment: development
+  # hydrate:
+  #   if: github.event.pull_request.draft == false
+  #   uses: ./.github/workflows/hydrate.yaml
+  #   needs: build
+  #   with:
+  #     environment: development
 
   deploy:
     name: "Deploy to Development"
     if: github.event.pull_request.draft == false
     uses: ./.github/workflows/deploy.yaml
-    needs: hydrate
+    needs: build
     with:
       deploy: false
       environment: development

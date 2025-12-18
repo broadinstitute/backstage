@@ -28,6 +28,44 @@ env:
   DEPLOY_PATH: deployment
 
 jobs:
+  hydrate:
+    defaults:
+      run:
+        working-directory: ${{ inputs.working_directory }}
+    environment: ${{ inputs.environment }}
+    name: "Hydrate Manifests"
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v6
+      - uses: jdx/mise-action@v3
+        id: mise
+        name: Install Dependencies
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+
+      # - name: Authenticate to Workload Identity
+      #   uses: google-github-actions/auth@v3
+      #   with:
+      #     service_account: ${{ vars._SERVICE_ACCOUNT }}
+      #     workload_identity_provider: ${{ vars._WORKLOAD_IDENTITY_PROVIDER }}
+      - name: Copy Kptfile to App Deployment Directory
+        run: |
+          cp ${{env.DEPLOY_PATH}}/${{ vars.ENV }}/Kptfile ${{ env.DEPLOY_PATH }}/${{ vars._APP }}/Kptfile
+      - name: Render App Manifests
+        run: |
+          kpt fn render ${{ env.DEPLOY_PATH }}/${{ vars._APP }}
+      - name: Set Environment Label
+        run: |
+          kpt fn eval ${{ env.DEPLOY_PATH }}/${{ vars._APP }} \
+            --image gcr.io/kpt-fn/set-labels:v0.2.0 \
+            -- environment=${{ vars.ENV }}
+      - name: Set Branch Environment Variable
+        run: |
+          kpt fn eval ${{ env.DEPLOY_PATH }}/${{ vars._APP }} \
+            --image gcr.io/kpt-fn/apply-setters:v0.2.0 \
+            -- branch_name=${{ github.event.number }}
+
   deploy:
     defaults:
       run:
@@ -39,15 +77,15 @@ jobs:
       contents: "read"
       id-token: "write"
     steps:
-      - name: Set _REPONAME environment variable
-        run: echo "_REPONAME=${GITHUB_REPOSITORY#"broadinstitute/"}" >> $GITHUB_ENV
+      # - name: Set _REPONAME environment variable
+      #   run: echo "_REPONAME=${GITHUB_REPOSITORY#"broadinstitute/"}" >> $GITHUB_ENV
 
-      - uses: "actions/checkout@v6"
-      - uses: jdx/mise-action@v3
-        id: mise
-        name: Install Dependencies
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+      # - uses: "actions/checkout@v6"
+      # - uses: jdx/mise-action@v3
+      #   id: mise
+      #   name: Install Dependencies
+      #   with:
+      #     github_token: ${{ secrets.GITHUB_TOKEN }}
       - uses: "google-github-actions/auth@v3"
         with:
           workload_identity_provider: ${{ vars._WORKLOAD_IDENTITY_PROVIDER }}
