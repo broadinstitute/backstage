@@ -18,7 +18,7 @@ permissions:
   id-token: write # This is required for requesting the JWT
   pull-requests: read
 env:
-  DEPLOY_PATH: deployment/backstage
+  DEPLOY_PATH: deployment
 
 jobs:
   hydrate:
@@ -27,7 +27,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Copy Kptfile to App Deployment Directory
-        run: cp deployment/${{ vars.ENV }}/Kptfile ${{ env.DEPLOY_PATH }}/${{ vars._APP }}/Kptfile
+        run: cp /${{env.DEPLOY_PATH}}/${{ vars.ENV }}/Kptfile /${{ env.DEPLOY_PATH }}/${{ vars._APP }}/Kptfile
       - name: Render App Manifests
         run: |
           kpt fn render ${{ env.DEPLOY_PATH }}/${{ vars._APP }}

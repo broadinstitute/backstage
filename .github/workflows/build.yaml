@@ -88,6 +88,7 @@ jobs:
       environment: development
 
   deploy:
+    name: "Deploy to Development"
     if: github.event.pull_request.draft == false
     uses: ./.github/workflows/deploy.yaml
     needs: hydrate
