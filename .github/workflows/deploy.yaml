@@ -57,12 +57,12 @@ jobs:
           project_id: bits-gke-clusters
       - name: GKE Deploy - Dry Run
         if: ${{ inputs.deploy == false }}
-        run: kubectl apply -f /${{ env.DEPLOY_PATH }}/${{ vars._APP }} --recursive --dry-run=client
+        run: kubectl apply -f ${{ env.DEPLOY_PATH }}/${{ vars._APP }} --recursive --dry-run=client
       - name: GKE Deploy - Apply
         if: ${{ inputs.deploy == true }}
         uses: docker://gcr.io/cloud-builders/gke-deploy:latest
         with:
           args:
-            apply --recursive --filename=/${{ env.DEPLOY_PATH }}/${{ vars._APP }} --location=${{
+            apply --recursive --filename=${{ env.DEPLOY_PATH }}/${{ vars._APP }} --location=${{
             vars._LOCATION }} --project=${{ vars._GKE_PROJECT }} --cluster=gke-autopilot-01-prod
             --timeout=10m

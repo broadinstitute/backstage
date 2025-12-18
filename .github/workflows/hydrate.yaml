@@ -29,7 +29,7 @@ jobs:
       - name: Copy Kptfile to App Deployment Directory
         run: |
           echo $(pwd)
-          cp /${{env.DEPLOY_PATH}}/${{ vars.ENV }}/Kptfile /${{ env.DEPLOY_PATH }}/${{ vars._APP }}/Kptfile
+          cp ${{env.DEPLOY_PATH}}/${{ vars.ENV }}/Kptfile ${{ env.DEPLOY_PATH }}/${{ vars._APP }}/Kptfile
       - name: Render App Manifests
         run: |
           kpt fn render ${{ env.DEPLOY_PATH }}/${{ vars._APP }}
