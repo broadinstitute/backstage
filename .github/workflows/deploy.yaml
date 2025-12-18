@@ -22,6 +22,9 @@ permissions:
   contents: read
   id-token: write # This is required for requesting the JWT
   pull-requests: read
+defaults:
+  run:
+    working-directory: ${{ inputs.working_directory }}
 # The below environment variables are used to set up the Cloud Build trigger
 # and can be changed from the defaults if the common build environment doesn't meet the needs of the service
 env:
