@@ -44,8 +44,6 @@ jobs:
       #     workload_identity_provider: ${{ vars._WORKLOAD_IDENTITY_PROVIDER }}
       - name: Copy Kptfile to App Deployment Directory
         run: |
-          echo $(pwd)
-          ls -l
           cp ${{env.DEPLOY_PATH}}/${{ vars.ENV }}/Kptfile ${{ env.DEPLOY_PATH }}/${{ vars._APP }}/Kptfile
       - name: Render App Manifests
         run: |

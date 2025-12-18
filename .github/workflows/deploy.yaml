@@ -33,7 +33,6 @@ jobs:
       run:
         working-directory: ${{ inputs.working_directory }}
     environment: ${{ inputs.environment }}
-    if: ${{ github.event.pull_request.merged == true }}
     name: "Deploy to Kubernetes"
     runs-on: ubuntu-latest
     permissions:
