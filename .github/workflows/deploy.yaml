@@ -1,6 +1,6 @@
 ---
 name: "Kubernetes Deployment"
-'on':
+"on":
   workflow_call:
     inputs:
       deploy:
@@ -44,6 +44,11 @@ jobs:
         run: echo "_REPONAME=${GITHUB_REPOSITORY#"broadinstitute/"}" >> $GITHUB_ENV
 
       - uses: "actions/checkout@v6"
+      - uses: jdx/mise-action@v3
+        id: mise
+        name: Install Dependencies
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
       - uses: "google-github-actions/auth@v3"
         with:
           workload_identity_provider: ${{ vars._WORKLOAD_IDENTITY_PROVIDER }}
