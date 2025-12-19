@@ -77,4 +77,3 @@ pipeline:
     - image: ghcr.io/kptdev/krm-functions-catalog/kubeconform:v0.1
       configMap:
         ignore_missing_schemas: "true"
-# Comment
