@@ -61,19 +61,19 @@ jobs:
       - name: Set Environment Label
         run: |
           kpt fn eval ${{ env.DEPLOY_PATH }}/${{ vars._APP }} \
-            --image gcr.io/kpt-fn/set-labels:v0.2.0 \
+            --image ghcr.io/kptdev/krm-functions-catalog/set-labels:v0.2 \
             -- environment=${{ vars.ENV }}
 
       - name: Set Branch Environment Variable
         run: |
           kpt fn eval ${{ env.DEPLOY_PATH }}/${{ vars._APP }} \
-            --image gcr.io/kpt-fn/apply-setters:v0.2.0 \
-            -- branch_name="${{ github.event.number }}"
+            --image ghcr.io/kptdev/krm-functions-catalog/apply-setters:v0.2 \
+            -- branch_name="${GITHUB_HEAD_REF:-main}"
 
       - name: Set Image
         run: |
           kpt fn eval ${{ env.DEPLOY_PATH }}/${{ vars._APP }} \
-            --image gcr.io/kpt-fn/set-image:v0.1.1 \
+            --image ghcr.io/kptdev/krm-functions-catalog/set-image:v0.1.1 \
             -- name=${{ vars._LOCATION }}-docker.pkg.dev/bits-gke-clusters/bits/backstage:latest \
             newName=${{ vars._LOCATION }}-docker.pkg.dev/${{ vars._REGISTRY_PROJECT }}/${{ vars._REGISTRY_NAME }}/${{ vars._APP }} \
             newTag=${{ github.event.number }}
