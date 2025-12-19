@@ -1,0 +1,18 @@
+---
+name: "Production Environment"
+'on':
+  pull_request_target:
+    types:
+      - closed
+jobs:
+  deploy:
+    name: "Deploy to Production"
+    if: ${{ github.event.pull_request.merged == true }}
+    permissions:
+      contents: read
+      id-token: write # This is required for requesting the JWT
+      pull-requests: read
+    uses: ./.github/workflows/deploy.yaml
+    with:
+      deploy: true
+      environment: production

@@ -1,0 +1,77 @@
+---
+name: "Build"
+"on":
+  pull_request:
+    branches:
+      - main
+    paths:
+      - "backstage/**"
+      - "deployment/backstage/**"
+      - ".cloudbuild/**"
+
+jobs:
+  build:
+    if: github.event.pull_request.draft == false
+    name: "Build Backstage"
+    runs-on: ubuntu-latest
+    environment: development
+    permissions:
+      contents: "read"
+      id-token: "write"
+
+    steps:
+      - name: Set _REPONAME environment variable
+        run: echo "_REPONAME=${GITHUB_REPOSITORY#"broadinstitute/"}" >> $GITHUB_ENV
+
+      - uses: "actions/checkout@v6"
+      - uses: "google-github-actions/auth@v3"
+        with:
+          workload_identity_provider: ${{ vars._WORKLOAD_IDENTITY_PROVIDER }}
+          service_account: ${{ vars._SERVICE_ACCOUNT }}
+      - name: "Set up Cloud SDK"
+        uses: "google-github-actions/setup-gcloud@v3"
+        with:
+          version: ">= 506.0.0"
+
+      - name: "gcloud docker config"
+        run: |-
+          gcloud auth configure-docker us-east4-docker.pkg.dev
+
+      - name: Mise override
+        run: |
+          mise_override="$(pwd)/mise.toml"
+          echo "MISE_OVERRIDE_CONFIG_FILENAMES=$mise_override" >> $GITHUB_ENV
+        shell: bash
+
+      - uses: jdx/mise-action@v3
+        id: mise
+        name: Install Dependencies
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build Pack Run Image
+        working-directory: ./backstage
+        run: |
+          source "$(werf ci-env github --as-file)"
+          werf build --repo us-east4-docker.pkg.dev/${{vars._REGISTRY_PROJECT}}/${{vars._REGISTRY_NAME}}/${{vars._APP}}-run-image --add-custom-tag ${{ github.sha }}
+          # werf cleanup --repo us-east4-docker.pkg.dev/${{vars._REGISTRY_PROJECT}}/${{vars._REGISTRY_NAME}}/${{vars._APP}}-run-image
+
+      - name: Build Backstage Image
+        id: build-image
+        working-directory: ./backstage
+        run: |
+          pack build us-east4-docker.pkg.dev/${{vars._REGISTRY_PROJECT}}/${{vars._REGISTRY_NAME}}/${{vars._APP}}:${{ github.sha }} \
+            -t us-east4-docker.pkg.dev/${{vars._REGISTRY_PROJECT}}/${{vars._REGISTRY_NAME}}/${{vars._APP}}:${{ github.event.number }} \
+            --run-image us-east4-docker.pkg.dev/${{vars._REGISTRY_PROJECT}}/${{vars._REGISTRY_NAME}}/${{vars._APP}}-run-image:${{ github.sha }} \
+            --cache-image us-east4-docker.pkg.dev/${{vars._REGISTRY_PROJECT}}/${{vars._REGISTRY_NAME}}/${{vars._APP}}-cache-image:latest \
+            --publish \
+            --env NODE_OPTIONS="--max-old-space-size=3686"
+  deploy:
+    name: "Deploy to Development"
+    if: github.event.pull_request.draft == false
+    uses: ./.github/workflows/deploy.yaml
+    needs: build
+    with:
+      deploy: false
+      environment: development
+      dry_run: "server"

@@ -58,7 +58,7 @@ spec:
               cpu: "1000m"
               memory: "3G"
             requests:
-              cpu: "1000m"
+              cpu: "390m"
               memory: "3G"
           volumeMounts:
             - name: backstage-secrets
@@ -72,7 +72,7 @@ spec:
             httpGet:
               port: 7007
               path: /.backstage/health/v1/readiness
-            initialDelaySeconds: 60
+            initialDelaySeconds: 120
               #          livenessProbe:
               #            httpGet:
               #              port: 7007
@@ -81,7 +81,7 @@ spec:
         - name: cloud-sql-proxy
           # It is recommended to use the latest version of the Cloud SQL Auth Proxy
           # Make sure to update on a regular schedule!
-          image: gcr.io/cloud-sql-connectors/cloud-sql-proxy:2.19.0
+          image: gcr.io/cloud-sql-connectors/cloud-sql-proxy:2.20.0
           restartPolicy: Always # Run as a sidecar container
           args:
             # If connecting from a VPC-native GKE cluster, you can use the
@@ -110,14 +110,14 @@ spec:
               # The proxy's memory use scales linearly with the number of active
               # connections. Fewer open connections will use less memory. Adjust
               # this value based on your application's requirements.
-              memory: "4G"
+              memory: "64Mi"
               # The proxy's CPU use scales linearly with the amount of IO between
               # the database and the application. Adjust this value based on your
               # application's requirements.
-              cpu: "1000m"
+              cpu: "50m"
             limits:
-              memory: "4G"
-              cpu: "1000m"
+              memory: "500m"
+              cpu: "500m"
             # Recommended configurations for health check probes.
             # Probe parameters can be adjusted to best fit the requirements of your application.
             # For details, see https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/

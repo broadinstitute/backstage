@@ -12,14 +12,13 @@ info:
     - Backstage
 pipeline:
   mutators:
-    - image: gcr.io/kpt-fn/set-namespace:v0.4.1
-      configMap:
+    - image: ghcr.io/kptdev/krm-functions-catalog/set-namespace:v0.4
         namespace: backstage
-    - image: gcr.io/kpt-fn/set-labels:v0.2.0
+    - image: ghcr.io/kptdev/krm-functions-catalog/set-labels:v0.2
       configMap:
         app.kubernetes.io/managed-by: gcp-cloud-build-deploy
         backstage.io/kubernetes-id: backstage
-    - image: gcr.io/kpt-fn/apply-setters:v0.2.0
+    - image: ghcr.io/kptdev/krm-functions-catalog/apply-setters:v0.2
       configMap:
         cert-name: backstage.broadinstitute.org
         backstage_application_base_url: https://backstage.broadinstitute.org
@@ -28,6 +27,7 @@ pipeline:
         project-id: bits-backstage-prod
         sslPolicy: modern-tls12
         min_replicas: "2"
+        max_replicas: "5"
         pdb_min_available: "1"
         secrets: |
           - resourceName: "projects/bits-backstage-prod/secrets/github-app-backstage-bits-credentials/versions/latest"
@@ -63,7 +63,7 @@ pipeline:
           - resourceName: "projects/bits-backstage-prod/secrets/backstage-soundcheck-http-collector-token/versions/latest"
             path: "backstage-soundcheck-http-collector-token"
 
-    - image: gcr.io/kpt-fn/set-annotations:v0.1.4
+    - image: ghcr.io/kptdev/krm-functions-catalog/set-annotations:v0.1
       configMap:
         iam.gke.io/gcp-service-account: backstage@bits-backstage-prod.iam.gserviceaccount.com
       name: set-service-account-annotations
@@ -71,6 +71,6 @@ pipeline:
         - kind: ServiceAccount
           name: backstage
   validators:
-    - image: gcr.io/kpt-fn/kubeval:v0.3
+    - image: ghcr.io/kptdev/krm-functions-catalog/kubeconform:v0.1
       configMap:
         ignore_missing_schemas: "true"
