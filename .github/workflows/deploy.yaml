@@ -97,7 +97,9 @@ jobs:
 
       - name: GKE Deploy - Dry Run
         if: ${{ inputs.deploy == false }}
-        run: kubectl apply -f ${{ env.DEPLOY_PATH }}/${{ vars._APP }} --recursive --dry-run=${{ inputs.dry_run }}
+        run: |
+          kubectl diff -R -f ${{ env.DEPLOY_PATH }}/${{ vars._APP }}
+          kubectl apply -f ${{ env.DEPLOY_PATH }}/${{ vars._APP }} --recursive --dry-run=${{ inputs.dry_run }}
       - name: GKE Deploy - Apply
 
         if: ${{ inputs.deploy == true }}
