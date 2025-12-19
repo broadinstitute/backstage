@@ -102,7 +102,7 @@ jobs:
       - name: GKE Deploy - Apply
 
         if: ${{ inputs.deploy == true }}
-        uses: gcr.io/cloud-builders/gke-deploy:latest
+        uses: docker://gcr.io/cloud-builders/gke-deploy:latest
         with:
           args:
             run --recursive --filename=${{ env.DEPLOY_PATH }}/${{ vars._APP }} --location=${{
