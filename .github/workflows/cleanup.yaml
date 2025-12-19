@@ -4,9 +4,6 @@ on:
   pull_request_target:
       types:
           - closed
-  # The below environment variables are used to set up the Cloud Build trigger
-# and can be changed from the defaults if the common build environment doesn't meet the needs of the service
-
 jobs:
   cleanup:
     if: ${{ github.event.pull_request.merged == true }}
