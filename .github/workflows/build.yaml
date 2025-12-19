@@ -7,6 +7,8 @@ name: "Build"
     paths:
       - "backstage/**"
       - "deployment/backstage/**"
+      - "deployment/dev/**"
+      - "deployment/prod/**"
       - ".cloudbuild/**"
 
 jobs:
