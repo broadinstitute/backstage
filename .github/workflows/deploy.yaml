@@ -52,6 +52,7 @@ jobs:
       - name: Copy Kptfile to App Deployment Directory
         run: |
           cp ${{env.DEPLOY_PATH}}/${{ vars.ENV }}/Kptfile ${{ env.DEPLOY_PATH }}/${{ vars._APP }}/Kptfile
+          ls -l ${{ env.DEPLOY_PATH }}/${{ vars._APP }}/
 
       - name: Render App Manifests
         run: |
@@ -67,7 +68,7 @@ jobs:
         run: |
           kpt fn eval ${{ env.DEPLOY_PATH }}/${{ vars._APP }} \
             --image gcr.io/kpt-fn/apply-setters:v0.2.0 \
-            -- branch_name=${{ github.event.number }}
+            -- branch_name="${{ github.event.number }}"
 
       - name: Set Image
         run: |
