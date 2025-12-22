@@ -99,12 +99,23 @@ jobs:
         if: ${{ inputs.deploy == false }}
         run: |
           kubectl apply -f ${{ env.DEPLOY_PATH }}/${{ vars._APP }} --recursive --dry-run=${{ inputs.dry_run }}
-      - name: GKE Deploy - Apply
-        if: ${{ inputs.deploy == true }}
-        run: |
-          kubectl apply -f ${{ env.DEPLOY_PATH }}/${{ vars._APP }} --recursive
+      # - name: GKE Deploy - Apply
+      #   if: ${{ inputs.deploy == true }}
+      #   run: |
+      #     kubectl apply -f ${{ env.DEPLOY_PATH }}/${{ vars._APP }} --recursive
       # - name: GKE Deploy - Apply
       #   if: ${{ inputs.deploy == true }}
       #   uses: docker://gcr.io/cloud-builders/gke-deploy:latest
       #   with:
       #     args: run --recursive --filename=${{ env.DEPLOY_PATH }}/${{ vars._APP }} --location=${{ vars._LOCATION }} --project=${{ vars._GKE_PROJECT }} --cluster=gke-autopilot-01-prod --timeout=10m
+
+      - name: "GKE Deploy using Action"
+        if: ${{ inputs.deploy == true }}
+        uses: "google-github-actions/deploy-gke@v0"
+        with:
+          image: "${{ vars._LOCATION }}-docker.pkg.dev/${{ vars._REGISTRY_PROJECT }}/${{ vars._REGISTRY_NAME }}/${{ vars._APP }}:${{ github.event.number }}"
+          app_name: "${{ vars._APP }}"
+          region: "${{ vars._LOCATION }}"
+          cluster_name: "gke-autopilot-01-prod"
+          project_id: "${{ vars._GKE_PROJECT }}"
+          k8s_manifests: "${{ env.DEPLOY_PATH }}/${{ vars._APP }}"
