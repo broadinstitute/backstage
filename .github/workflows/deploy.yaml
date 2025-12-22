@@ -43,11 +43,16 @@ jobs:
     steps:
       - name: Checkout repo
         uses: actions/checkout@v6
-      - uses: jdx/mise-action@v3
-        id: mise
-        name: Install Dependencies
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+      # - uses: jdx/mise-action@v3
+      #   id: mise
+      #   name: Install Dependencies
+      #   with:
+      #     github_token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Install Kpt
+        run: |
+          wget https://github.com/kptdev/kpt/releases/download/v1.0.0-beta.59/kpt_linux_amd64 -O kpt
+          chmod +x kpt
 
       - name: Copy Kptfile to App Deployment Directory
         run: |
@@ -55,7 +60,7 @@ jobs:
 
       - name: Render App Manifests
         run: |
-          kpt fn render ${{ env.DEPLOY_PATH }}/${{ vars._APP }}
+          ./kpt fn render ${{ env.DEPLOY_PATH }}/${{ vars._APP }}
 
       - name: Set Environment Label
         run: |
@@ -65,13 +70,13 @@ jobs:
 
       - name: Set Branch Environment Variable
         run: |
-          kpt fn eval ${{ env.DEPLOY_PATH }}/${{ vars._APP }} \
+          ./kpt fn eval ${{ env.DEPLOY_PATH }}/${{ vars._APP }} \
             --image ghcr.io/kptdev/krm-functions-catalog/apply-setters:v0.2 \
             -- branch_name="${GITHUB_HEAD_REF:-main}"
 
       - name: Set Image
         run: |
-          kpt fn eval ${{ env.DEPLOY_PATH }}/${{ vars._APP }} \
+          ./kpt fn eval ${{ env.DEPLOY_PATH }}/${{ vars._APP }} \
             --image ghcr.io/kptdev/krm-functions-catalog/set-image:v0.1.1 \
             -- name=${{ vars._LOCATION }}-docker.pkg.dev/bits-gke-clusters/bits/backstage:latest \
             newName=${{ vars._LOCATION }}-docker.pkg.dev/${{ vars._REGISTRY_PROJECT }}/${{ vars._REGISTRY_NAME }}/${{ vars._APP }} \
