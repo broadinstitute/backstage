@@ -64,7 +64,7 @@ jobs:
 
       - name: Set Environment Label
         run: |
-          kpt fn eval ${{ env.DEPLOY_PATH }}/${{ vars._APP }} \
+          ./kpt fn eval ${{ env.DEPLOY_PATH }}/${{ vars._APP }} \
             --image ghcr.io/kptdev/krm-functions-catalog/set-labels:v0.2 \
             -- environment=${{ vars.ENV }}
 
