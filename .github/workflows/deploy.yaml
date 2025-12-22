@@ -123,22 +123,13 @@ jobs:
         run: |
           kubectl apply -f ${{ env.DEPLOY_PATH }}/${{ vars._APP }} --recursive --dry-run=${{ inputs.dry_run }}
 
-      # - name: GKE Deploy - Apply
-      #   if: ${{ inputs.deploy == true }}
-      #   run: |
-      #     kubectl apply -f ${{ env.DEPLOY_PATH }}/${{ vars._APP }} --recursive
-
-      # - name: Test
-      #   run: |
-      #     which kubectl
-      #     cat ${{ env.DEPLOY_PATH }}/${{ vars._APP }}/backstage.yaml
-
       - name: GKE Deploy - Apply
         if: ${{ inputs.deploy == true }}
         uses: docker://gcr.io/cloud-builders/gke-deploy:latest
         with:
           args:
             apply --recursive --filename=${{ env.DEPLOY_PATH }}/${{ vars._APP }} --location=${{ vars._LOCATION }} --project=${{ vars._GKE_PROJECT }} --cluster=gke-autopilot-01-prod --timeout=10m
+            
       # This errors here, but might work with a new deployment
       # - name: "GKE Deploy using Action"
       #   if: ${{ inputs.deploy == true }}
