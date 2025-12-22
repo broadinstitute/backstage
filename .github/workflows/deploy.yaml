@@ -105,15 +105,11 @@ jobs:
       #     kubectl apply -f ${{ env.DEPLOY_PATH }}/${{ vars._APP }} --recursive
       - name: Install gke-deploy
         run: |
-          echo "GOPATH"
-          go env GOPATH
-          echo "GOBIN"
-          go env GOBIN
           go install github.com/GoogleCloudPlatform/cloud-builders/gke-deploy@latest
       - name: GKE Deploy - Apply
         if: ${{ inputs.deploy == true }}
         run: |
-          gke-deploy run --recursive --filename=${{ env.DEPLOY_PATH }}/${{ vars._APP }} --location=${{ vars._LOCATION }} --project=${{ vars._GKE_PROJECT }} --cluster=gke-autopilot-01-prod --timeout=10m
+          ./go/bin/gke-deploy run --recursive --filename=${{ env.DEPLOY_PATH }}/${{ vars._APP }} --location=${{ vars._LOCATION }} --project=${{ vars._GKE_PROJECT }} --cluster=gke-autopilot-01-prod --timeout=10m
 
       # - name: "GKE Deploy using Action"
       #   if: ${{ inputs.deploy == true }}
