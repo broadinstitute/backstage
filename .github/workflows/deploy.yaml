@@ -97,6 +97,9 @@ jobs:
         uses: actions/download-artifact@v7
         with:
           name: Upload Deployment Directory
+          path: ${{ env.DEPLOY_PATH }}/${{ vars._APP }}
+          merge-multiple: true
+
       - name: Authenticate to Workload Identity
         uses: google-github-actions/auth@v3
         with:
@@ -128,13 +131,14 @@ jobs:
       - name: Test
         run: |
           which kubectl
+          cat ${{ env.DEPLOY_PATH }}/${{ vars._APP }}/backstage.yaml
 
       - name: GKE Deploy - Apply
         if: ${{ inputs.deploy == true }}
         uses: docker://gcr.io/cloud-builders/gke-deploy:latest
         with:
           args:
-            apply --recursive --filename=${{ env.DEPLOY_PATH }}/${{ vars._APP }} --location=${{ vars._LOCATION }} --project=${{ vars._GKE_PROJECT }} --cluster=gke-autopilot-01-prod --timeout=10m
+            apply --recursive --filename=${{ env.DEPLOY_PATH }}/${{ vars._APP }} --location=${{ vars._LOCATION }} --project=${{ vars._GKE_PROJECT }} --cluster=gke-autopilot-01-prod --timeout=10m --server-dry-run
       # This errors here, but might work with a new deployment
       # - name: "GKE Deploy using Action"
       #   if: ${{ inputs.deploy == true }}
