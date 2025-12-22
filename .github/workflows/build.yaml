@@ -58,16 +58,16 @@ jobs:
           werf build --repo us-east4-docker.pkg.dev/${{vars._REGISTRY_PROJECT}}/${{vars._REGISTRY_NAME}}/${{vars._APP}}-run-image --add-custom-tag ${{ github.sha }}
           # werf cleanup --repo us-east4-docker.pkg.dev/${{vars._REGISTRY_PROJECT}}/${{vars._REGISTRY_NAME}}/${{vars._APP}}-run-image
 
-      - name: Build Backstage Image
-        id: build-image
-        working-directory: ./backstage
-        run: |
-          pack build us-east4-docker.pkg.dev/${{vars._REGISTRY_PROJECT}}/${{vars._REGISTRY_NAME}}/${{vars._APP}}:${{ github.sha }} \
-            -t us-east4-docker.pkg.dev/${{vars._REGISTRY_PROJECT}}/${{vars._REGISTRY_NAME}}/${{vars._APP}}:${{ github.event.number }} \
-            --run-image us-east4-docker.pkg.dev/${{vars._REGISTRY_PROJECT}}/${{vars._REGISTRY_NAME}}/${{vars._APP}}-run-image:${{ github.sha }} \
-            --cache-image us-east4-docker.pkg.dev/${{vars._REGISTRY_PROJECT}}/${{vars._REGISTRY_NAME}}/${{vars._APP}}-cache-image:latest \
-            --publish \
-            --env NODE_OPTIONS="--max-old-space-size=3686"
+      # - name: Build Backstage Image
+      #   id: build-image
+      #   working-directory: ./backstage
+      #   run: |
+      #     pack build us-east4-docker.pkg.dev/${{vars._REGISTRY_PROJECT}}/${{vars._REGISTRY_NAME}}/${{vars._APP}}:${{ github.sha }} \
+      #       -t us-east4-docker.pkg.dev/${{vars._REGISTRY_PROJECT}}/${{vars._REGISTRY_NAME}}/${{vars._APP}}:${{ github.event.number }} \
+      #       --run-image us-east4-docker.pkg.dev/${{vars._REGISTRY_PROJECT}}/${{vars._REGISTRY_NAME}}/${{vars._APP}}-run-image:${{ github.sha }} \
+      #       --cache-image us-east4-docker.pkg.dev/${{vars._REGISTRY_PROJECT}}/${{vars._REGISTRY_NAME}}/${{vars._APP}}-cache-image:latest \
+      #       --publish \
+      #       --env NODE_OPTIONS="--max-old-space-size=3686"
   deploy:
     name: "Deploy to Development"
     if: github.event.pull_request.draft == false
