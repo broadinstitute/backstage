@@ -107,7 +107,7 @@ jobs:
 
       - name: GKE Deploy - Apply
         if: ${{ inputs.deploy == true }}
-        uses: docker://gcr.io/cloud-builders/gke-deploy:deprecated-public-image-ed4bd8eeab0c6509b1563d3afb764e5fe7e0422b9869a921840310603202b5f8
+        uses: docker://gcr.io/cloud-builders/gke-deploy:deprecated-public-image-25cf034a46766d98241b894e6b9ecace2966bde8e48c1a6342c3839a60441664
         with:
           args:
             apply --recursive --filename=${{ env.DEPLOY_PATH }}/${{ vars._APP }} --location=${{ vars._LOCATION }} --project=${{ vars._GKE_PROJECT }} --cluster=gke-autopilot-01-prod --timeout=10m
