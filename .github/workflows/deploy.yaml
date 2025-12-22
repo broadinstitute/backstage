@@ -41,41 +41,41 @@ jobs:
     name: "Hydrate and deploy Manifests"
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout repo
-        uses: actions/checkout@v6
-      - uses: jdx/mise-action@v3
-        id: mise
-        name: Install Dependencies
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+      # - name: Checkout repo
+      #   uses: actions/checkout@v6
+      # - uses: jdx/mise-action@v3
+      #   id: mise
+      #   name: Install Dependencies
+      #   with:
+      #     github_token: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Copy Kptfile to App Deployment Directory
-        run: |
-          cp ${{env.DEPLOY_PATH}}/${{ vars.ENV }}/Kptfile ${{ env.DEPLOY_PATH }}/${{ vars._APP }}/Kptfile
+      # - name: Copy Kptfile to App Deployment Directory
+      #   run: |
+      #     cp ${{env.DEPLOY_PATH}}/${{ vars.ENV }}/Kptfile ${{ env.DEPLOY_PATH }}/${{ vars._APP }}/Kptfile
 
-      - name: Render App Manifests
-        run: |
-          kpt fn render ${{ env.DEPLOY_PATH }}/${{ vars._APP }}
+      # - name: Render App Manifests
+      #   run: |
+      #     kpt fn render ${{ env.DEPLOY_PATH }}/${{ vars._APP }}
 
-      - name: Set Environment Label
-        run: |
-          kpt fn eval ${{ env.DEPLOY_PATH }}/${{ vars._APP }} \
-            --image ghcr.io/kptdev/krm-functions-catalog/set-labels:v0.2 \
-            -- environment=${{ vars.ENV }}
+      # - name: Set Environment Label
+      #   run: |
+      #     kpt fn eval ${{ env.DEPLOY_PATH }}/${{ vars._APP }} \
+      #       --image ghcr.io/kptdev/krm-functions-catalog/set-labels:v0.2 \
+      #       -- environment=${{ vars.ENV }}
 
-      - name: Set Branch Environment Variable
-        run: |
-          kpt fn eval ${{ env.DEPLOY_PATH }}/${{ vars._APP }} \
-            --image ghcr.io/kptdev/krm-functions-catalog/apply-setters:v0.2 \
-            -- branch_name="${GITHUB_HEAD_REF:-main}"
+      # - name: Set Branch Environment Variable
+      #   run: |
+      #     kpt fn eval ${{ env.DEPLOY_PATH }}/${{ vars._APP }} \
+      #       --image ghcr.io/kptdev/krm-functions-catalog/apply-setters:v0.2 \
+      #       -- branch_name="${GITHUB_HEAD_REF:-main}"
 
-      - name: Set Image
-        run: |
-          kpt fn eval ${{ env.DEPLOY_PATH }}/${{ vars._APP }} \
-            --image ghcr.io/kptdev/krm-functions-catalog/set-image:v0.1.1 \
-            -- name=${{ vars._LOCATION }}-docker.pkg.dev/bits-gke-clusters/bits/backstage:latest \
-            newName=${{ vars._LOCATION }}-docker.pkg.dev/${{ vars._REGISTRY_PROJECT }}/${{ vars._REGISTRY_NAME }}/${{ vars._APP }} \
-            newTag=${{ github.event.number }}
+      # - name: Set Image
+      #   run: |
+      #     kpt fn eval ${{ env.DEPLOY_PATH }}/${{ vars._APP }} \
+      #       --image ghcr.io/kptdev/krm-functions-catalog/set-image:v0.1.1 \
+      #       -- name=${{ vars._LOCATION }}-docker.pkg.dev/bits-gke-clusters/bits/backstage:latest \
+      #       newName=${{ vars._LOCATION }}-docker.pkg.dev/${{ vars._REGISTRY_PROJECT }}/${{ vars._REGISTRY_NAME }}/${{ vars._APP }} \
+      #       newTag=${{ github.event.number }}
 
       - name: Authenticate to Workload Identity
         uses: google-github-actions/auth@v3
@@ -114,7 +114,7 @@ jobs:
         uses: docker://gcr.io/cloud-builders/gke-deploy:latest
         with:
           args:
-            apply --recursive --filename=${{ env.DEPLOY_PATH }}/${{ vars._APP }} --location=${{ vars._LOCATION }} --project=${{ vars._GKE_PROJECT }} --cluster=gke-autopilot-01-prod --timeout=10m
+            apply --recursive --filename=${{ env.DEPLOY_PATH }}/${{ vars._APP }} --location=${{ vars._LOCATION }} --project=${{ vars._GKE_PROJECT }} --cluster=gke-autopilot-01-prod --timeout=10m --server-dry-run
 
       # This errors here, but might work with a new deployment
       # - name: "GKE Deploy using Action"
