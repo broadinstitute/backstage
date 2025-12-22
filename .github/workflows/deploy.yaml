@@ -124,4 +124,4 @@ jobs:
           cluster_name: "gke-autopilot-01-prod"
           project_id: "${{ vars._GKE_PROJECT }}"
           k8s_manifests: "${{ env.DEPLOY_PATH }}/${{ vars._APP }}"
-          namespace:
+          namespace: "${{ inputs.namespace }}"
