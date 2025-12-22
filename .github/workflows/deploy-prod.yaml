@@ -1,6 +1,6 @@
 ---
 name: "Production Environment"
-'on':
+"on":
   pull_request_target:
     types:
       - closed
@@ -16,4 +16,3 @@ jobs:
     with:
       deploy: true
       environment: production
-      namespace: ${{ vars._APP }}

@@ -36,4 +36,4 @@ jobs:
 
       - id: "scale-down-pods"
         name: "Scale Down Dev Deployment"
-        run: kubectl scale deployment ${{ vars._APP }} -n ${{ vars._APP }}-dev --replicas=0
+        run: kubectl scale deployment ${{ vars._APP }} -n ${{ vars._NAMESPACE }} --replicas=0
