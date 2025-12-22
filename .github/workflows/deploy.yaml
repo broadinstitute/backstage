@@ -41,8 +41,8 @@ jobs:
     name: "Hydrate and deploy Manifests"
     runs-on: ubuntu-latest
     steps:
-      # - name: Checkout repo
-      #   uses: actions/checkout@v6
+      - name: Checkout repo
+        uses: actions/checkout@v6
       # - uses: jdx/mise-action@v3
       #   id: mise
       #   name: Install Dependencies
