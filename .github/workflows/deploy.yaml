@@ -134,8 +134,7 @@ jobs:
         uses: docker://gcr.io/cloud-builders/gke-deploy:latest
         with:
           args:
-            apply --recursive --filename=${{ env.DEPLOY_PATH }}/${{ vars._APP }} --location=${{ vars._LOCATION }} --project=${{ vars._GKE_PROJECT }} --cluster=gke-autopilot-01-prod --timeout=10m --server-dry-run
-
+            apply --recursive --filename=${{ env.DEPLOY_PATH }}/${{ vars._APP }} --location=${{ vars._LOCATION }} --project=${{ vars._GKE_PROJECT }} --cluster=gke-autopilot-01-prod --timeout=10m
       # This errors here, but might work with a new deployment
       # - name: "GKE Deploy using Action"
       #   if: ${{ inputs.deploy == true }}
