@@ -95,9 +95,6 @@ jobs:
           location: ${{ vars._LOCATION }}
           project_id: ${{ vars._GKE_PROJECT }}
 
-      - name: Add custom directory to PATH
-        run: echo "/google-cloud-sdk/bin" >> $GITHUB_PATH
-
       - name: GKE Deploy - Dry Run
         if: ${{ inputs.deploy == false }}
         run: |
@@ -110,11 +107,11 @@ jobs:
 
       - name: GKE Deploy - Apply
         if: ${{ inputs.deploy == true }}
-        uses: docker://gcr.io/cloud-builders/gke-deploy:latest
+        uses: docker://gcr.io/cloud-builders/gke-deploy:deprecated-public-image-ed4bd8eeab0c6509b1563d3afb764e5fe7e0422b9869a921840310603202b5f8
         with:
           args:
             apply --recursive --filename=${{ env.DEPLOY_PATH }}/${{ vars._APP }} --location=${{ vars._LOCATION }} --project=${{ vars._GKE_PROJECT }} --cluster=gke-autopilot-01-prod --timeout=10m
-           
+
       # This errors here, but might work with a new deployment
       # - name: "GKE Deploy using Action"
       #   if: ${{ inputs.deploy == true }}
