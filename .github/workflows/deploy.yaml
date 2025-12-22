@@ -105,7 +105,9 @@ jobs:
       #     kubectl apply -f ${{ env.DEPLOY_PATH }}/${{ vars._APP }} --recursive
       - name: Install gke-deploy
         run: |
+          echo "GOPATH"
           go env GOPATH
+          echo "GOBIN"
           go env GOBIN
           go install github.com/GoogleCloudPlatform/cloud-builders/gke-deploy@latest
       - name: GKE Deploy - Apply
