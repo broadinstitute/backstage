@@ -105,6 +105,10 @@ jobs:
       #   run: |
       #     kubectl apply -f ${{ env.DEPLOY_PATH }}/${{ vars._APP }} --recursive
 
+      - name: Mise deactivate
+        run: |
+          mise deactivate
+          
       - name: GKE Deploy - Apply
         if: ${{ inputs.deploy == true }}
         uses: docker://gcr.io/cloud-builders/gke-deploy:latest
