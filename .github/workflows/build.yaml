@@ -76,4 +76,5 @@ jobs:
     with:
       deploy: true
       environment: development
+      namespace: ${{ vars._APP }}-dev
       dry_run: "server"

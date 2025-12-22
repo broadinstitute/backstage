@@ -16,3 +16,4 @@ jobs:
     with:
       deploy: true
       environment: production
+      namespace: ${{ vars._APP }}

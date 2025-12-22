@@ -23,6 +23,11 @@ name: "Kubernetes Deployment"
         default: "client"
         required: false
         type: string
+      namespace:
+        description: The Kubernetes namespace to deploy to
+        default: "default"
+        required: false
+        type: string
 permissions:
   contents: read
   id-token: write # This is required for requesting the JWT
@@ -119,3 +124,4 @@ jobs:
           cluster_name: "gke-autopilot-01-prod"
           project_id: "${{ vars._GKE_PROJECT }}"
           k8s_manifests: "${{ env.DEPLOY_PATH }}/${{ vars._APP }}"
+          namespace:
