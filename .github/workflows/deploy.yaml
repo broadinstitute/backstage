@@ -38,7 +38,7 @@ jobs:
       run:
         working-directory: ${{ inputs.working_directory }}
     environment: ${{ inputs.environment }}
-    name: "Hydrate and deploy Manifests"
+    name: "Hydrate Manifests"
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repo
@@ -48,11 +48,6 @@ jobs:
         name: Install Dependencies
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Install Kpt
-        run: |
-          wget https://github.com/kptdev/kpt/releases/download/v1.0.0-beta.59/kpt_linux_amd64 -O kpt
-          chmod +x kpt
 
       - name: Copy Kptfile to App Deployment Directory
         run: |
@@ -82,6 +77,26 @@ jobs:
             newName=${{ vars._LOCATION }}-docker.pkg.dev/${{ vars._REGISTRY_PROJECT }}/${{ vars._REGISTRY_NAME }}/${{ vars._APP }} \
             newTag=${{ github.event.number }}
 
+      - uses: actions/upload-artifact@v6
+        with:
+          name: Upload Deployment Directory
+          path: ${{ env.DEPLOY_PATH }}/${{ vars._APP }}
+          retention-days: 5
+  deploy:
+    defaults:
+      run:
+        working-directory: ${{ inputs.working_directory }}
+    environment: ${{ inputs.environment }}
+    name: "Deploy Manifests"
+    runs-on: ubuntu-latest
+    needs: hydrate
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v6
+      - name: Download Deployment Directory
+        uses: actions/download-artifact@v7
+        with:
+          name: Upload Deployment Directory
       - name: Authenticate to Workload Identity
         uses: google-github-actions/auth@v3
         with:
