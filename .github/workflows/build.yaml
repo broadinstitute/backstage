@@ -74,6 +74,6 @@ jobs:
     uses: ./.github/workflows/deploy.yaml
     needs: build
     with:
-      deploy: false
+      deploy: true
       environment: development
       dry_run: "server"
