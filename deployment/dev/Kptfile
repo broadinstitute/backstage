@@ -5,7 +5,9 @@ metadata:
   annotations:
     config.kubernetes.io/local-config: "true"
 info:
-  description: Broad Institute Engineering Portal is an Internal Developer Platform (Spotify Backstage by another name)
+  description:
+    Broad Institute Engineering Portal is an Internal Developer Platform
+    (Spotify Backstage by another name)
   keywords:
     - GKE
     - GCP

@@ -23,6 +23,11 @@ name: "Kubernetes Deployment"
         default: "client"
         required: false
         type: string
+      image_tag:
+        description: The image tag to deploy
+        default: "latest"
+        required: false
+        type: string
 permissions:
   contents: read
   id-token: write # This is required for requesting the JWT
@@ -38,7 +43,7 @@ jobs:
       run:
         working-directory: ${{ inputs.working_directory }}
     environment: ${{ inputs.environment }}
-    name: "Hydrate and deploy Manifests"
+    name: "Hydrate Manifests"
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repo
@@ -75,7 +80,30 @@ jobs:
             --image ghcr.io/kptdev/krm-functions-catalog/set-image:v0.1.1 \
             -- name=${{ vars._LOCATION }}-docker.pkg.dev/bits-gke-clusters/bits/backstage:latest \
             newName=${{ vars._LOCATION }}-docker.pkg.dev/${{ vars._REGISTRY_PROJECT }}/${{ vars._REGISTRY_NAME }}/${{ vars._APP }} \
-            newTag=${{ github.event.number }}
+            newTag=${{ inputs.image_tag }}
+
+      - uses: actions/upload-artifact@v6
+        with:
+          name: Upload Deployment Directory
+          path: ${{ env.DEPLOY_PATH }}/${{ vars._APP }}
+          retention-days: 5
+  deploy:
+    defaults:
+      run:
+        working-directory: ${{ inputs.working_directory }}
+    environment: ${{ inputs.environment }}
+    name: "Deploy Manifests"
+    runs-on: ubuntu-latest
+    needs: hydrate
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v6
+      - name: Download Deployment Directory
+        uses: actions/download-artifact@v7
+        with:
+          name: Upload Deployment Directory
+          path: ${{ env.DEPLOY_PATH }}/${{ vars._APP }}
+          merge-multiple: true
 
       - name: Authenticate to Workload Identity
         uses: google-github-actions/auth@v3
@@ -99,12 +127,21 @@ jobs:
         if: ${{ inputs.deploy == false }}
         run: |
           kubectl apply -f ${{ env.DEPLOY_PATH }}/${{ vars._APP }} --recursive --dry-run=${{ inputs.dry_run }}
-      - name: GKE Deploy - Apply
 
+      - name: GKE Deploy - Apply
         if: ${{ inputs.deploy == true }}
         uses: docker://gcr.io/cloud-builders/gke-deploy:latest
         with:
-          args:
-            apply --recursive --filename=${{ env.DEPLOY_PATH }}/${{ vars._APP }} --location=${{
-            vars._LOCATION }} --project=${{ vars._GKE_PROJECT }} --cluster=gke-autopilot-01-prod
-            --timeout=10m
+          args: run --recursive --filename=${{ env.DEPLOY_PATH }}/${{ vars._APP }} --location=${{ vars._LOCATION }} --project=${{ vars._GKE_PROJECT }} --cluster=gke-autopilot-01-prod --timeout=10m
+      # This errors here, but might work with a new deployment
+      # - name: "GKE Deploy using Action"
+      #   if: ${{ inputs.deploy == true }}
+      #   uses: "google-github-actions/deploy-gke@v0"
+      #   with:
+      #     image: "${{ vars._LOCATION }}-docker.pkg.dev/${{ vars._REGISTRY_PROJECT }}/${{ vars._REGISTRY_NAME }}/${{ vars._APP }}:${{ github.event.number }}"
+      #     app_name: "${{ vars._APP }}"
+      #     region: "${{ vars._LOCATION }}"
+      #     cluster_name: "gke-autopilot-01-prod"
+      #     project_id: "${{ vars._GKE_PROJECT }}"
+      #     k8s_manifests: "${{ env.DEPLOY_PATH }}/${{ vars._APP }}"
+      #     namespace: "${{ vars._NAMESPACE }}"
