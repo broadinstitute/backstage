@@ -16,3 +16,4 @@ jobs:
     with:
       deploy: true
       environment: production
+      image_tag: ${{ github.event.number }}

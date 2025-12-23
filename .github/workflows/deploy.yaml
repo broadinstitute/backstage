@@ -23,6 +23,11 @@ name: "Kubernetes Deployment"
         default: "client"
         required: false
         type: string
+      image_tag:
+        description: The image tag to deploy
+        default: "latest"
+        required: false
+        type: string
 permissions:
   contents: read
   id-token: write # This is required for requesting the JWT
@@ -75,7 +80,7 @@ jobs:
             --image ghcr.io/kptdev/krm-functions-catalog/set-image:v0.1.1 \
             -- name=${{ vars._LOCATION }}-docker.pkg.dev/bits-gke-clusters/bits/backstage:latest \
             newName=${{ vars._LOCATION }}-docker.pkg.dev/${{ vars._REGISTRY_PROJECT }}/${{ vars._REGISTRY_NAME }}/${{ vars._APP }} \
-            newTag=${{ github.event.number }}
+            newTag=${{ inputs.image_tag }}
 
       - uses: actions/upload-artifact@v6
         with:

@@ -77,3 +77,4 @@ jobs:
       deploy: true
       environment: development
       dry_run: "server"
+      image_tag: ${{ github.sha }}
