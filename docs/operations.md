@@ -320,7 +320,7 @@ and `bits-backstage-dev` GCP Projects respectively.
 Once the secrets are updated in Google Secret Manager, you will need to redeploy
 the Backstage application for the changes to take effect.
 
-You can redeploy the Backstage application by with no changes by running the
+You can redeploy the Backstage application with no changes by running the
 following command:
 
 ```shell
