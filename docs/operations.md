@@ -215,7 +215,7 @@ gcloud secrets versions add auth-google-client-id --data-file=<(echo -n $AUTH_GO
 gcloud secrets versions add auth-google-client-secret --data-file=<(echo -n $AUTH_GOOGLE_CLIENT_SECRET)
 ```
 
-### Terraform
+## Terraform
 
 Terraform is used to create a number of GCP resources for backstage. The
 terraform files are in the `deployment/<env>/terraform` folder. When creating
@@ -234,7 +234,7 @@ resolved in the future. For now, if you add a Backstage plugin that requires a
 database, you will need to add the database to the terraform file, and run
 terraform apply in a PR.
 
-#### Update Providers
+### Update Providers
 
 When updating a provider, run the following command to update the lock file.
 This will ensure that the provider is available for all platforms.
@@ -248,7 +248,7 @@ terraform providers lock \
   -platform=windows_amd64
 ```
 
-#### Update Docs
+### Update Terraform Docs
 
 When updating docs, run the following command in the directory you want to
 update (dev/prod). This will ensure that the docs are available for all
@@ -258,7 +258,7 @@ platforms.
 podman run --rm --volume "$(pwd):/terraform-docs" -u $(id -u) quay.io/terraform-docs/terraform-docs:latest --output-file README.md --output-mode inject /terraform-docs
 ```
 
-#### Using the development environment
+### Using the development environment
 
 This project has two near-identical directories named `dev` and `prod` that
 refer to the development and production environments, respectively. BITS
@@ -297,3 +297,32 @@ git workflow:
 Managing changes like this prevents human error when applying changes between
 environments. It also allows for easy, atomic rollback of specific environments
 using `git-revert (1)` if that's ever necessary.
+
+## Update Backstage Insights API Token
+
+The Backstage Cost Insights plugin requires an API token to function. This token
+expires every 90 days and needs to be updated periodically. You can generate a
+new token by following the instructions on the
+[Backstage Plugin website.](https://backstage.spotify.com/docs/plugins/insights)
+
+Existing tokens can be viewed and managed on the
+[Backstage Support page.](https://backstage.spotify.com/account/tokens/)
+
+Use the support page to generate a new token for the Cost Insights plugin.
+
+The token will then need to be updated in the 1Password vault used for Backstage
+secrets. You can find the vault at
+`"op://BITS - Backstage/backstage-insights-token/credential"`. After updating
+the token in 1Password, you will need to update the secret in the Kubernetes
+cluster. This can be done by updating the secret in the `bits-backstage-prod`
+and `bits-backstage-dev` GCP Projects respectively.
+
+Once the secrets are updated in Google Secret Manager, you will need to redeploy
+the Backstage application for the changes to take effect.
+
+You can redeploy the Backstage application with no changes by running the
+following command:
+
+```shell
+kubectl rollout restart deployment/backstage -n backstage
+```
