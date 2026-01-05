@@ -323,6 +323,6 @@ the Backstage application for the changes to take effect.
 You can redeploy the Backstage application by with no changes by running the
 following command:
 
-```Shell
+```shell
 kubectl rollout restart deployment/backstage -n backstage
 ```
