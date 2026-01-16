@@ -1,0 +1,22 @@
+---
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  labels:
+    gateway-access: "true"
+  name: backstage
+  namespace: backstage
+spec:
+  hostnames:
+    - backstage-dev.broadinstitute.org  # kpt-set: ${cert-name}
+  parentRefs:
+    - name: external-gw-01
+      namespace: mcp
+  rules:
+    - backendRefs:
+        - name: backstage
+          port: 80
+      matches:
+        - path:
+            type: PathPrefix
+            value: /
