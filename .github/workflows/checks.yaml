@@ -8,18 +8,18 @@ name: 'checks'
 
 jobs:
   conventional-commits:
-    uses: broadinstitute/shared-workflows/.github/workflows/conventional-commit.yaml@v5.0.1
+    uses: broadinstitute/shared-workflows/.github/workflows/conventional-commit.yaml@v6.0.0
   validation:
-    uses: broadinstitute/shared-workflows/.github/workflows/terraform-validate.yaml@v5.0.1
+    uses: broadinstitute/shared-workflows/.github/workflows/terraform-validate.yaml@v6.0.0
   linting:
-    uses: broadinstitute/shared-workflows/.github/workflows/terraform-lint.yaml@v5.0.1
+    uses: broadinstitute/shared-workflows/.github/workflows/terraform-lint.yaml@v6.0.0
     with:
       tflint_config_path: '.tflint.hcl'
   terraform-docs:
-    uses: broadinstitute/shared-workflows/.github/workflows/terraform-docs.yaml@v5.0.1
+    uses: broadinstitute/shared-workflows/.github/workflows/terraform-docs.yaml@v6.0.0
     with:
       working_directory: './deployment/dev/terraform/,./deployment/prod/terraform/'
   adr-check-toc:
-    uses: broadinstitute/shared-workflows/.github/workflows/adr-check-toc.yaml@v5.0.1
+    uses: broadinstitute/shared-workflows/.github/workflows/adr-check-toc.yaml@v6.0.0
     with:
       toc_file: docs/adr/README.md
