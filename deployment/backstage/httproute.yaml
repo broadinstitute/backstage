@@ -15,7 +15,7 @@ spec:
   rules:
     - backendRefs:
         - name: backstage
-          port: 7007
+          port: 80
       matches:
         - path:
             type: PathPrefix
