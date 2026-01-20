@@ -21,7 +21,7 @@ spec:
     config:
       type: HTTP
       httpHealthCheck:
-        port: 80
+        port: 7007
         requestPath: /.backstage/health/v1/readiness
   targetRef:
     group: ""
