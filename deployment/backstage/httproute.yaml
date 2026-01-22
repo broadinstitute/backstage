@@ -8,7 +8,7 @@ metadata:
   namespace: backstage
 spec:
   hostnames:
-    - backstage-dev.broadinstitute.org  # kpt-set: ${cert-name}
+    - backstage.broadinstitute.org  # kpt-set: ${cert-name}
   parentRefs:
     - name: external-gw-01
       namespace: mcp

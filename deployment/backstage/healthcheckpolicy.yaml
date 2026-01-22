@@ -6,7 +6,7 @@ metadata:
   labels:
     app.kubernetes.io/managed-by: gcp-cloud-build-deploy
     backstage.io/kubernetes-id: backstage
-    environment: prod
+    environment: dev
     team: devnull
     app: backstage
 
