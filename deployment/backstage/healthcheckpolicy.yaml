@@ -1,0 +1,29 @@
+apiVersion: networking.gke.io/v1
+kind: HealthCheckPolicy
+metadata:
+  name: backstage
+  namespace: backstage
+  labels:
+    app.kubernetes.io/managed-by: gcp-cloud-build-deploy
+    backstage.io/kubernetes-id: backstage
+    environment: dev
+    team: devnull
+    app: backstage
+
+spec:
+  default:
+    checkIntervalSec: 15  # The default value is 15 seconds.
+    timeoutSec: 5
+    healthyThreshold: 3
+    unhealthyThreshold: 10
+    logConfig:
+      enabled: true
+    config:
+      type: HTTP
+      httpHealthCheck:
+        port: 7007
+        requestPath: /.backstage/health/v1/readiness
+  targetRef:
+    group: ""
+    kind: Service
+    name: backstage
