@@ -77,6 +77,14 @@ in your local environment, this environment variable will be set for you
 automatically. The variable is also set if you are using the `source op.bash`
 method.
 
+### OpenTelemetry Configuration
+
+Backstage is configured with OpenTelemetry (OTEL) for observability and tracing.
+The production deployment sets the `OTEL_SERVICE_NAME` environment variable to
+`backstage` for identification in monitoring systems. If you need to test OTEL
+integration locally, you can set this environment variable in your local config
+or `mise.toml`.
+
 ### Setting up a local postgres instance
 
 Backstage relies on having access to a local database. The example local config
