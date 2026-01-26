@@ -2,8 +2,6 @@
 apiVersion: gateway.networking.k8s.io/v1
 kind: HTTPRoute
 metadata:
-  labels:
-    gateway-access: "true"
   name: backstage
   namespace: backstage
 spec:
