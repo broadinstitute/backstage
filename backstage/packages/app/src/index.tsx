@@ -5,4 +5,3 @@ import '@backstage/ui/css/styles.css';
 import app from './App';
 
 ReactDOM.createRoot(document.getElementById('root')!).render(app);
-

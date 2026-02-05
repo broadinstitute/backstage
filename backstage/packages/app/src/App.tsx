@@ -50,7 +50,6 @@ import { SkillExchangePage } from '@spotify/backstage-plugin-skill-exchange';
 import { SoundcheckRoutingPage } from '@spotify/backstage-plugin-soundcheck';
 import { RBACRoot } from '@spotify/backstage-plugin-rbac';
 import { HomepageCompositionRoot } from '@backstage/plugin-home';
-import homePlugin from '@backstage/plugin-home/alpha';
 import { HomePage } from './components/home/HomePage';
 import { Mermaid } from 'backstage-plugin-techdocs-addon-mermaid';
 import elkLayouts from '@mermaid-js/layout-elk';
@@ -199,16 +198,13 @@ const convertedRootFeatures = convertLegacyAppRoot(
         <AlertDisplay />
         <OAuthRequestDialog />
         <AppRouter>
+            <InsightsSurveyLoader />
             <Root>{routes}</Root>
         </AppRouter>
     </>,
 );
 
 const app = createApp({
-    features: [
-        // ...
-        ...convertedRootFeatures,
-        convertedOptionsModule,
-    ],
+    features: [...convertedRootFeatures, convertedOptionsModule],
 });
 export default app.createRoot();
