@@ -58,6 +58,7 @@
   },
   "packageManager": "yarn@4.5.1",
   "dependencies": {
+    "@backstage/frontend-plugin-api": "backstage:^",
     "@backstage/plugin-search-backend-module-catalog": "backstage:^",
     "@testing-library/dom": "^10.4.0",
     "@types/react-dom": "^18.3.1",

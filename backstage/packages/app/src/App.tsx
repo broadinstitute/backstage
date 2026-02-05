@@ -28,7 +28,7 @@ import { searchPage } from './components/search/SearchPage';
 import { Root } from './components/Root';
 
 import { AlertDisplay, OAuthRequestDialog } from '@backstage/core-components';
-import { createApp } from '@backstage/app-defaults';
+import { createApp } from '@backstage/frontend-defaults';
 import { AppRouter, FlatRoutes } from '@backstage/core-app-api';
 import { CatalogGraphPage } from '@backstage/plugin-catalog-graph';
 import { RequirePermission } from '@backstage/plugin-permission-react';
@@ -50,10 +50,16 @@ import { SkillExchangePage } from '@spotify/backstage-plugin-skill-exchange';
 import { SoundcheckRoutingPage } from '@spotify/backstage-plugin-soundcheck';
 import { RBACRoot } from '@spotify/backstage-plugin-rbac';
 import { HomepageCompositionRoot } from '@backstage/plugin-home';
+import homePlugin from '@backstage/plugin-home/alpha';
 import { HomePage } from './components/home/HomePage';
-import { Mermaid } from "backstage-plugin-techdocs-addon-mermaid";
+import { Mermaid } from 'backstage-plugin-techdocs-addon-mermaid';
 import elkLayouts from '@mermaid-js/layout-elk';
 import { CopilotIndexPage } from '@backstage-community/plugin-copilot';
+import {
+    convertLegacyAppOptions,
+    convertLegacyAppRoot,
+} from '@backstage/core-compat-api';
+import { createFrontendModule } from '@backstage/frontend-plugin-api';
 
 interface SignInProviderConfig {
     id: string;
@@ -69,7 +75,7 @@ const googleProvider: SignInProviderConfig = {
     apiRef: googleAuthApiRef,
 };
 
-const app = createApp({
+const convertedOptionsModule = convertLegacyAppOptions({
     components: {
         SignInPage: props => (
             <SignInPage
@@ -85,26 +91,6 @@ const app = createApp({
         ),
     },
     apis,
-    bindRoutes({ bind }) {
-        bind(catalogPlugin.externalRoutes, {
-            createComponent: scaffolderPlugin.routes.root,
-            viewTechDoc: techdocsPlugin.routes.docRoot,
-            createFromTemplate: scaffolderPlugin.routes.selectedTemplate,
-        });
-        bind(apiDocsPlugin.externalRoutes, {
-            registerApi: catalogImportPlugin.routes.importPage,
-        });
-        bind(scaffolderPlugin.externalRoutes, {
-            registerComponent: catalogImportPlugin.routes.importPage,
-            viewTechDoc: techdocsPlugin.routes.docRoot,
-        });
-        bind(orgPlugin.externalRoutes, {
-            catalogIndex: catalogPlugin.routes.catalogIndex,
-        });
-        bind(insightsPlugin.externalRoutes, {
-            searchPage: searchPlugin.routes.root,
-        });
-    },
 });
 
 const routes = (
@@ -118,7 +104,9 @@ const routes = (
         <Route path="/catalog" element={<CatalogIndexPage />} />
         <Route
             path="/skill-exchange"
-            element={<SkillExchangePage enableEmbeds enableHacks enableMentorships />}
+            element={
+                <SkillExchangePage enableEmbeds enableHacks enableMentorships />
+            }
         />
         <Route
             path="/catalog/:namespace/:kind/:name"
@@ -133,8 +121,16 @@ const routes = (
         >
             <TechDocsAddons>
                 <ReportIssue />
-                <Mermaid config={{ theme: "forest", themeVariables: { lineColor: "#000000" } }} />
-                <Mermaid layoutLoaders={elkLayouts} config={{layout: 'elk'}} />
+                <Mermaid
+                    config={{
+                        theme: 'forest',
+                        themeVariables: { lineColor: '#000000' },
+                    }}
+                />
+                <Mermaid
+                    layoutLoaders={elkLayouts}
+                    config={{ layout: 'elk' }}
+                />
             </TechDocsAddons>
         </Route>
         <Route
@@ -190,21 +186,29 @@ const routes = (
         <Route path="/settings" element={<UserSettingsPage />} />
         <Route path="/catalog-graph" element={<CatalogGraphPage />} />
         <Route
-            path='/soundcheck'
-            element={<SoundcheckRoutingPage title='Production Readiness' />}
+            path="/soundcheck"
+            element={<SoundcheckRoutingPage title="Production Readiness" />}
         />
         <Route path="/rbac" element={<RBACRoot />} />
         <Route path="/copilot" element={<CopilotIndexPage />} />
     </FlatRoutes>
 );
 
-export default app.createRoot(
+const convertedRootFeatures = convertLegacyAppRoot(
     <>
         <AlertDisplay />
         <OAuthRequestDialog />
         <AppRouter>
-            <InsightsSurveyLoader />
             <Root>{routes}</Root>
         </AppRouter>
     </>,
 );
+
+const app = createApp({
+    features: [
+        // ...
+        ...convertedRootFeatures,
+        convertedOptionsModule,
+    ],
+});
+export default app.createRoot();
