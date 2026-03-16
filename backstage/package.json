@@ -33,6 +33,7 @@
   },
   "devDependencies": {
     "@backstage/cli": "backstage:^",
+    "@types/jsdom": "^27",
     "@types/multer": "^2",
     "@types/pbkdf2": "^3",
     "@types/react": "^18.3.11",
@@ -60,8 +61,12 @@
   "dependencies": {
     "@backstage/frontend-plugin-api": "backstage:^",
     "@backstage/plugin-search-backend-module-catalog": "backstage:^",
+    "@jest/environment-jsdom-abstract": "^30",
     "@testing-library/dom": "^10.4.0",
+    "@types/jest": "^30",
     "@types/react-dom": "^18.3.1",
+    "jest": "^30",
+    "jsdom": "^27",
     "multer": "^2.0.2",
     "pbkdf2": "^3.1.3",
     "react": "^18.3.1"
