@@ -148,7 +148,7 @@ backend.add(import('@backstage/plugin-search-backend-module-pg'));
 
 // search collators
 backend.add(import('@backstage/plugin-search-backend-module-catalog'));
-backend.add(import('@backstage/plugin-search-backend-module-techdocs'));
+//backend.add(import('@backstage/plugin-search-backend-module-techdocs'));
 
 // kubernetes
 backend.add(import('@backstage/plugin-kubernetes-backend'));
