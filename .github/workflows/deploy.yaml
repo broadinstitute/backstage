@@ -48,7 +48,7 @@ jobs:
     steps:
       - name: Checkout repo
         uses: actions/checkout@v6
-      - uses: jdx/mise-action@v3
+      - uses: jdx/mise-action@v4
         id: mise
         name: Install Dependencies
         with:
@@ -82,7 +82,7 @@ jobs:
             newName=${{ vars._LOCATION }}-docker.pkg.dev/${{ vars._REGISTRY_PROJECT }}/${{ vars._REGISTRY_NAME }}/${{ vars._APP }} \
             newTag=${{ inputs.image_tag }}
 
-      - uses: actions/upload-artifact@v6
+      - uses: actions/upload-artifact@v7
         with:
           name: Upload Deployment Directory
           path: ${{ env.DEPLOY_PATH }}/${{ vars._APP }}
@@ -99,7 +99,7 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v6
       - name: Download Deployment Directory
-        uses: actions/download-artifact@v7
+        uses: actions/download-artifact@v8
         with:
           name: Upload Deployment Directory
           path: ${{ env.DEPLOY_PATH }}/${{ vars._APP }}
