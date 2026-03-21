@@ -36,6 +36,7 @@
     "@backstage/plugin-catalog-backend-module-github": "backstage:^",
     "@backstage/plugin-catalog-backend-module-github-org": "backstage:^",
     "@backstage/plugin-catalog-backend-module-logs": "backstage:^",
+    "@backstage/plugin-catalog-backend-module-scaffolder-entity-model": "backstage:^",
     "@backstage/plugin-kubernetes-backend": "backstage:^",
     "@backstage/plugin-permission-backend": "backstage:^",
     "@backstage/plugin-permission-backend-module-allow-all-policy": "backstage:^",

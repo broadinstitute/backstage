@@ -33,6 +33,7 @@
   },
   "devDependencies": {
     "@backstage/cli": "backstage:^",
+    "@backstage/cli-defaults": "backstage:^",
     "@types/jsdom": "^27",
     "@types/multer": "^2",
     "@types/pbkdf2": "^3",
