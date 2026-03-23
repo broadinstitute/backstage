@@ -7,8 +7,7 @@ import {
 export const myVerifiedUserTransformer: UserTransformer = async (user, ctx) => {
     const backstageUser = await defaultUserTransformer(user, ctx);
     if (backstageUser && user.organizationVerifiedDomainEmails?.length) {
-        backstageUser.spec.profile!.email =
-            user.organizationVerifiedDomainEmails[0];
+        backstageUser.spec.profile!.email = user.organizationVerifiedDomainEmails[0];
     }
     return backstageUser;
 };
