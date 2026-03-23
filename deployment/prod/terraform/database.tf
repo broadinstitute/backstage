@@ -109,3 +109,10 @@ resource "postgresql_grant" "table_permissions" {
   }
   depends_on = [module.postgres]
 }
+
+# cloudsqlsuperuser
+resource "postgresql_grant_role" "grant_root" {
+  role              = trimsuffix(module.postgres.iam_users[0].email, ".gserviceaccount.com")
+  grant_role        = "cloudsqlsuperuser"
+  with_admin_option = true
+}
