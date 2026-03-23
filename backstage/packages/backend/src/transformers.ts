@@ -7,6 +7,7 @@ import {
 export const myVerifiedUserTransformer: UserTransformer = async (user, ctx) => {
     const backstageUser = await defaultUserTransformer(user, ctx);
     if (backstageUser && user.organizationVerifiedDomainEmails?.length) {
+        // @ts-expect-error TS18048 + TS2339: runtime shape is guaranteed here
         backstageUser.spec.profile!.email = user.organizationVerifiedDomainEmails[0];
     }
     return backstageUser;
