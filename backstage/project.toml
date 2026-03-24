@@ -3,7 +3,7 @@ schema-version = "0.2"
 id = "org.broadinstitute.backstage"
 name = "BITS Backstage"
 authors = ["devnull@broadinstitute.org"]
-version = "0.0.1"
+version = "0.0.2"
 source-url = "https://github.com/broadinstitute/backstage"
 documentation-url = "https://backstage.broadinstitute.org/catalog/default/component/backstage/docs"
 
