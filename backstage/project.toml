@@ -11,7 +11,7 @@ documentation-url = "https://backstage.broadinstitute.org/catalog/default/compon
 cache = true
 
 [io.buildpacks]
-builder = "gcr.io/buildpacks/builder@sha256:99ea417bcd8b0f576e5387926dc792db609b07642404e2236db4dd1b05f05daf"
+builder = "gcr.io/buildpacks/builder@sha256:7755d0fdecdc0cae6419d4dee27969ce1a8c83cc06b5b86e867b5be1aa4d76ad"
 exclude = [
     "github-app*",
     "app-config.local.yaml",
