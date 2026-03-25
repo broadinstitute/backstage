@@ -88,6 +88,5 @@ ephemeral "random_password" "mcp_token" {
 
 resource "google_secret_manager_secret_version" "mcp_token" {
   secret                 = google_secret_manager_secret.backstage-bits-credentials["backstage-mcp-token"].id
-  secret_data_wo_version = "lastest"
   secret_data_wo         = ephemeral.random_password.mcp_token.result
 }
