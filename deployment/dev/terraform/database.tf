@@ -102,7 +102,7 @@ resource "postgresql_grant" "table_permissions" {
   database    = each.value
   object_type = "table"
   role        = trimsuffix(module.postgres.iam_users[0].email, ".gserviceaccount.com")
-  privileges  = ["SELECT", "INSERT", "UPDATE", "DELETE"]
+  privileges  = ["ALL"] #["SELECT", "INSERT", "UPDATE", "DELETE"]
   schema      = "public"
   lifecycle {
     ignore_changes = all
@@ -111,9 +111,9 @@ resource "postgresql_grant" "table_permissions" {
 }
 
 # cloudsqlsuperuser
-resource "postgresql_grant_role" "grant_root" {
-  provider          = postgresql.database
-  role              = trimsuffix(module.postgres.iam_users[0].email, ".gserviceaccount.com")
-  grant_role        = "cloudsqlsuperuser"
-  with_admin_option = true
-}
+# resource "postgresql_grant_role" "grant_root" {
+#   provider          = postgresql.database
+#   role              = trimsuffix(module.postgres.iam_users[0].email, ".gserviceaccount.com")
+#   grant_role        = "cloudsqlsuperuser"
+#   with_admin_option = true
+# }
