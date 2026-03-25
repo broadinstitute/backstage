@@ -76,9 +76,9 @@ resource "postgresql_grant" "database_connect" {
   role        = trimsuffix(module.postgres.iam_users[0].email, ".gserviceaccount.com")
   privileges  = ["ALL"]
   schema      = "public"
-#   lifecycle {
-#     ignore_changes = all
-#   }
+  lifecycle {
+    ignore_changes = all
+  }
   depends_on = [module.postgres]
 }
 
@@ -90,9 +90,9 @@ resource "postgresql_grant" "schema_usage_create" {
   role        = trimsuffix(module.postgres.iam_users[0].email, ".gserviceaccount.com")
   privileges  = ["ALL"]
   schema      = "public"
-#   lifecycle {
-#     ignore_changes = all
-#   }
+  lifecycle {
+    ignore_changes = all
+  }
   depends_on = [module.postgres]
 }
 
@@ -104,16 +104,8 @@ resource "postgresql_grant" "table_permissions" {
   role        = trimsuffix(module.postgres.iam_users[0].email, ".gserviceaccount.com")
   privileges  = ["ALL"] #["SELECT", "INSERT", "UPDATE", "DELETE"]
   schema      = "public"
-#   lifecycle {
-#     ignore_changes = all
-#   }
+  lifecycle {
+    ignore_changes = all
+  }
   depends_on = [module.postgres]
 }
-
-# cloudsqlsuperuser
-# resource "postgresql_grant_role" "grant_root" {
-#   provider          = postgresql.database
-#   role              = trimsuffix(module.postgres.iam_users[0].email, ".gserviceaccount.com")
-#   grant_role        = "cloudsqlsuperuser"
-#   with_admin_option = true
-# }
