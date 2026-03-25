@@ -74,6 +74,10 @@ google_secret_manager_secrets = {
     service = "backstage"
     type    = "string"
   },
+  backstage-mcp-token = {
+    service = "backstage"
+    type    = "string"
+  },
 }
 
 additional_databases = [

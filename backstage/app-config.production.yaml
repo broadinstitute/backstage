@@ -88,7 +88,16 @@ auth:
         signIn:
           resolvers:
           - resolver: usernameMatchingUserEntityName
-
+  externalAccess:
+    - type: static
+      options:
+        token:
+          $file: ./secrets/backstage-mcp-token
+        subject: mcp-clients
+      accessRestrictions:
+        - plugin: mcp-actions
+        - plugin: catalog
+        - plugin: scaffolder
 catalog:
   # Overrides the default list locations from app-config.yaml as these contain example data.
   # See https://backstage.io/docs/features/software-catalog/#adding-components-to-the-catalog for more details

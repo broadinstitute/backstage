@@ -9,6 +9,7 @@ nav:
   - "Software Templates": templates.md
   - "Backstage Plugins": plugins.md
   - Operations: operations.md
+  - MCP Actions: mcp.md
   - Release Notes: release-updates.md
   - ADRs: adr/README.md
 

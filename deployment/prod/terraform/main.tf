@@ -19,6 +19,8 @@ provider "google" {
   region  = "us-east4"
 }
 
+provider "random" {}
+
 resource "google_project_service" "api_services" {
   for_each                   = toset(var.api_services)
   project                    = var.core_project
@@ -77,4 +79,15 @@ resource "google_storage_bucket_iam_member" "service-account" {
   bucket = google_storage_bucket.tech-docs.name
   role   = "roles/storage.admin"
   member = "serviceAccount:${module.db_service_accounts.service_accounts_map[local.application_name]["email"]}"
+}
+
+ephemeral "random_password" "mcp_token" {
+  length  = 32    # 32 chars ≈ 24 bytes of entropy, same as your Node command
+  special = false # base64-safe chars only; set true if your consumer accepts symbols
+}
+
+resource "google_secret_manager_secret_version" "mcp_token" {
+  secret                 = google_secret_manager_secret.backstage-bits-credentials["backstage-mcp-token"].id
+  secret_data_wo_version = "lastest"
+  secret_data_wo         = ephemeral.random_password.mcp_token.result
 }
