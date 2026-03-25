@@ -32,7 +32,7 @@ resource "google_service_account_iam_member" "db_workload_identity" {
 # Create a CloudSQL instance for App to use
 module "postgres" {
   source                      = "GoogleCloudPlatform/sql-db/google//modules/postgresql"
-  version                     = "27.2.0"
+  version                     = "28.0.0"
   database_version            = "POSTGRES_15"
   name                        = "${local.application_name}-${var.env}"
   project_id                  = var.core_project
@@ -74,7 +74,7 @@ resource "postgresql_grant" "database_connect" {
   database    = each.value
   object_type = "database"
   role        = trimsuffix(module.postgres.iam_users[0].email, ".gserviceaccount.com")
-  privileges  = ["CONNECT", "CREATE"]
+  privileges  = ["ALL"]
   schema      = "public"
   lifecycle {
     ignore_changes = all
@@ -88,7 +88,7 @@ resource "postgresql_grant" "schema_usage_create" {
   database    = each.value
   object_type = "schema"
   role        = trimsuffix(module.postgres.iam_users[0].email, ".gserviceaccount.com")
-  privileges  = ["USAGE", "CREATE"]
+  privileges  = ["ALL"]
   schema      = "public"
   lifecycle {
     ignore_changes = all
@@ -102,7 +102,7 @@ resource "postgresql_grant" "table_permissions" {
   database    = each.value
   object_type = "table"
   role        = trimsuffix(module.postgres.iam_users[0].email, ".gserviceaccount.com")
-  privileges  = ["SELECT", "INSERT", "UPDATE", "DELETE"]
+  privileges  = ["ALL"] #["SELECT", "INSERT", "UPDATE", "DELETE"]
   schema      = "public"
   lifecycle {
     ignore_changes = all

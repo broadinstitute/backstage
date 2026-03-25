@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "engines": {
-    "node": "18 || 20 || 22"
+    "node": "22 || 24"
   },
   "scripts": {
     "dev": "backstage-cli repo start",
@@ -33,6 +33,7 @@
   },
   "devDependencies": {
     "@backstage/cli": "backstage:^",
+    "@backstage/cli-defaults": "backstage:^",
     "@types/jsdom": "^27",
     "@types/multer": "^2",
     "@types/pbkdf2": "^3",

@@ -1,5 +1,5 @@
 [tools]
-node = "22"
+node = "24"
 yarn = "4.5.1"
 werf = "latest"
 pack = "latest"
