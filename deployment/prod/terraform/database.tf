@@ -74,11 +74,11 @@ resource "postgresql_grant" "database_connect" {
   database    = each.value
   object_type = "database"
   role        = trimsuffix(module.postgres.iam_users[0].email, ".gserviceaccount.com")
-  privileges  = ["CONNECT", "CREATE"]
+  privileges  = ["ALL"]
   schema      = "public"
-  lifecycle {
-    ignore_changes = all
-  }
+#   lifecycle {
+#     ignore_changes = all
+#   }
   depends_on = [module.postgres]
 }
 
@@ -88,11 +88,11 @@ resource "postgresql_grant" "schema_usage_create" {
   database    = each.value
   object_type = "schema"
   role        = trimsuffix(module.postgres.iam_users[0].email, ".gserviceaccount.com")
-  privileges  = ["USAGE", "CREATE"]
+  privileges  = ["ALL"]
   schema      = "public"
-  lifecycle {
-    ignore_changes = all
-  }
+#   lifecycle {
+#     ignore_changes = all
+#   }
   depends_on = [module.postgres]
 }
 
@@ -104,9 +104,9 @@ resource "postgresql_grant" "table_permissions" {
   role        = trimsuffix(module.postgres.iam_users[0].email, ".gserviceaccount.com")
   privileges  = ["ALL"] #["SELECT", "INSERT", "UPDATE", "DELETE"]
   schema      = "public"
-  lifecycle {
-    ignore_changes = all
-  }
+#   lifecycle {
+#     ignore_changes = all
+#   }
   depends_on = [module.postgres]
 }
 
