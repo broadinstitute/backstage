@@ -153,6 +153,11 @@ additional_databases = [
     charset   = ""
     collation = ""
   },
+  {
+    name      = "backstage_plugin_mcp-actions"
+    charset   = ""
+    collation = ""
+  },
 ]
 
 database_flags = [
