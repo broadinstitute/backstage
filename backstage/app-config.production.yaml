@@ -18,7 +18,20 @@ backend:
     origin: ${BACKSTAGE_APPLICATION_BASE_URL}
     methods: [GET, HEAD, PATCH, POST, PUT, DELETE]
     credentials: true
-
+  actions:
+    pluginSources:
+      - 'catalog'
+      - 'scaffolder'
+  auth:
+    externalAccess:
+      - type: static
+        options:
+          token: ./secrets/backstage-mcp-token
+          subject: mcp-clients
+        accessRestrictions:
+          - plugin: mcp-actions
+          - plugin: catalog
+          - plugin: scaffolder
   reading:
     allow:
       - host: 'raw.githubusercontent.com'
@@ -49,11 +62,6 @@ techdocs:
   sanitizer:
     allowedIframeHosts:
       - broadinstitute.org
-
-actions:
-  pluginSources:
-    - 'catalog'
-    - 'scaffolder'
 
 auth:
   # see https://backstage.io/docs/auth/ to learn about auth providers
@@ -93,16 +101,7 @@ auth:
         signIn:
           resolvers:
             - resolver: usernameMatchingUserEntityName
-  externalAccess:
-    - type: static
-      options:
-        token:
-          $file: ./secrets/backstage-mcp-token
-        subject: mcp-clients
-      accessRestrictions:
-        - plugin: mcp-actions
-        - plugin: catalog
-        - plugin: scaffolder
+
 catalog:
   # Overrides the default list locations from app-config.yaml as these contain example data.
   # See https://backstage.io/docs/features/software-catalog/#adding-components-to-the-catalog for more details
