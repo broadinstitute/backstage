@@ -39,9 +39,9 @@ backend:
       #     $file: <file-path>/ca/server.crt
 
 techdocs:
-  builder: 'local'  # Alternatives - 'external'
+  builder: 'local' # Alternatives - 'external'
   generator:
-    runIn: 'local'  # Alternatives - 'local'
+    runIn: 'local' # Alternatives - 'local'
   publisher:
     type: 'googleGcs'
     googleGcs:
@@ -49,6 +49,11 @@ techdocs:
   sanitizer:
     allowedIframeHosts:
       - broadinstitute.org
+
+actions:
+  pluginSources:
+    - 'catalog'
+    - 'scaffolder'
 
 auth:
   # see https://backstage.io/docs/auth/ to learn about auth providers
@@ -69,7 +74,7 @@ auth:
           $file: ./secrets/auth-google-client-secret
         signIn:
           resolvers:
- #           - resolver: emailMatchingUserEntityProfileEmail
+    #           - resolver: emailMatchingUserEntityProfileEmail
     github:
       development:
         clientId:
@@ -87,7 +92,7 @@ auth:
           $file: ./secrets/auth-github-client-secret
         signIn:
           resolvers:
-          - resolver: usernameMatchingUserEntityName
+            - resolver: usernameMatchingUserEntityName
   externalAccess:
     - type: static
       options:
@@ -133,26 +138,26 @@ catalog:
     github:
       # the provider ID can be any camelCase string
       providerId:
-        organization: 'broadinstitute'  # string
-        catalogPath: '/catalog-info.yaml'  # string
+        organization: 'broadinstitute' # string
+        catalogPath: '/catalog-info.yaml' # string
         validateLocationsExist: true
         filters:
-          branch: 'main'  # string
-          repository: '.*'  # Regex
-        schedule:  # same options as in TaskScheduleDefinition
+          branch: 'main' # string
+          repository: '.*' # Regex
+        schedule: # same options as in TaskScheduleDefinition
           # supports cron, ISO duration, "human duration" as used in code
           frequency: PT30M
           # supports ISO duration, "human duration" as used in code
           timeout: PT3M
           initialDelay: PT5M
       importDSP:
-        organization: 'broadinstitute'  # string
-        catalogPath: '/foundation.yaml'  # string
+        organization: 'broadinstitute' # string
+        catalogPath: '/foundation.yaml' # string
         validateLocationsExist: true
         filters:
-          branch: 'main'  # string
-          repository: '.*'  # Regex
-        schedule:  # same options as in TaskScheduleDefinition
+          branch: 'main' # string
+          repository: '.*' # Regex
+        schedule: # same options as in TaskScheduleDefinition
           # supports cron, ISO duration, "human duration" as used in code
           frequency: PT90M
           # supports ISO duration, "human duration" as used in code
@@ -184,7 +189,7 @@ integrations:
         - $include: ./secrets/github-app-backstage-bits-credentials.yaml
 
 techRadar:
-  url: "https://github.com/broadinstitute/backstage/blob/${BRANCH_NAME}/backstage/plugin-configs/tech-radar.json"
+  url: 'https://github.com/broadinstitute/backstage/blob/${BRANCH_NAME}/backstage/plugin-configs/tech-radar.json'
 
 spotify:
   licenseKey:
