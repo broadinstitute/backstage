@@ -26,7 +26,8 @@ backend:
     externalAccess:
       - type: static
         options:
-          token: ./secrets/backstage-mcp-token
+          token:
+            $file: ./secrets/backstage-mcp-token
           subject: mcp-clients
         accessRestrictions:
           - plugin: mcp-actions
