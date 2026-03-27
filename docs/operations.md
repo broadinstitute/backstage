@@ -10,6 +10,21 @@ configuration when running locally. There is an example
 `app-config.local.example.yaml` included in this repo. You can copy it to
 `app-config.local.yaml` and edit it as needed for development and testing.
 
+### MCP Actions
+
+Backstage MCP support is enabled via `@backstage/plugin-mcp-actions-backend`.
+
+Current repo implementation:
+
+- The backend registers the plugin in `packages/backend/src/index.ts`.
+- The MCP endpoint is `http://localhost:7007/api/mcp-actions/v1`.
+- Exposed MCP tools are controlled by `backend.actions.pluginSources`.
+- External client auth is configured in `backend.auth.externalAccess`.
+- VS Code client wiring is defined in `.vscode/mcp.json`.
+
+For full setup and troubleshooting details, see
+[MCP Actions Documentation](mcp.md).
+
 ## Local Development
 
 In order to run backstage locally, you need to set up a few things after cloning

@@ -65,6 +65,8 @@ pipeline:
             path: "backstage-soundcheck-slack-signing-secret"
           - resourceName: "projects/bits-backstage-dev/secrets/backstage-soundcheck-http-collector-token/versions/latest"
             path: "backstage-soundcheck-http-collector-token"
+          - resourceName: "projects/bits-backstage-dev/secrets/backstage-mcp-token/versions/latest"
+            path: "backstage-mcp-token"
 
     - image: ghcr.io/kptdev/krm-functions-catalog/set-annotations:v0.1
       configMap:

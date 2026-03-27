@@ -74,6 +74,10 @@ google_secret_manager_secrets = {
     service = "backstage"
     type    = "string"
   },
+  backstage-mcp-token = {
+    service = "backstage"
+    type    = "string"
+  },
 }
 additional_databases = [
   { name      = "backstage_plugin_app",
@@ -146,6 +150,11 @@ additional_databases = [
   },
   {
     name      = "backstage_plugin_copilot"
+    charset   = ""
+    collation = ""
+  },
+  {
+    name      = "backstage_plugin_mcp-actions"
     charset   = ""
     collation = ""
   },

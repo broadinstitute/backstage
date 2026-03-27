@@ -185,7 +185,8 @@ backend.add(
   );
   backend.add(import('@spotify/backstage-plugin-rbac-backend'));
   backend.add(import('@spotify/backstage-plugin-permission-backend-module-rbac'));
-// Github Copilot Ussage
+// Github Copilot Usage
 backend.add(import('@backstage-community/plugin-copilot-backend'));
+backend.add(import('@backstage/plugin-mcp-actions-backend'));
 
 backend.start();

@@ -1,5 +1,5 @@
 terraform {
-  required_version = "1.10.5"
+  required_version = "1.14.8"
   backend "gcs" {
     bucket = "broad-atlantis-terraform-prod"
     prefix = "backstage/dev"
@@ -16,6 +16,10 @@ terraform {
     postgresql = {
       source  = "cyrilgdn/postgresql"
       version = "1.25.0"
+    }
+    random = {
+      source  = "hashicorp/random"
+      version = "3.8.1"
     }
   }
 }

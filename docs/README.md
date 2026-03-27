@@ -54,3 +54,4 @@ For more detailed information about specific features and configurations, see:
 - [Operations Documentation](operations.md) - Deployment and operational
   information
 - [Kubernetes Documentation](kubernetes.md) - Kubernetes integration details
+- [MCP Actions Documentation](mcp.md) - Backstage MCP and VS Code setup
