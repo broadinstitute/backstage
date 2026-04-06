@@ -142,10 +142,10 @@ spec:
       - title: Integration Key
         content: |
           PagerDuty Integration Key: ${{ steps['pagerdutyService'].output.integrationKey }}
-          Should this can be added as an annotation to the catalog-info.yaml
-          file, however we recomend using the serviceID annotation instead.
+          This can be added as an annotation to the catalog-info.yaml file;
+          however, we recommend using the service ID annotation instead.
           A PR will be created with the service ID annotation.
-          example annotation:
+          Example annotation:
           ```yaml
           pagerduty.com/integration-key: ${{ steps['pagerdutyService'].output.integrationKey }}
           ```
