@@ -3,7 +3,7 @@ ci:
   skip: [terraform_tflint]
 repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v4.6.0
+    rev: v6.0.0
     hooks:
       - id: check-added-large-files
       - id: check-case-conflict
@@ -24,14 +24,14 @@ repos:
       - id: trailing-whitespace
         exclude: '.*\.gitignore'
   - repo: https://github.com/antonbabenko/pre-commit-terraform
-    rev: v1.81.0
+    rev: v1.105.0
     hooks:
       - id: terraform_tflint
         exclude: 'backstage/templates/.*'
         args:
           - --args=--recursive
   - repo: https://github.com/compilerla/conventional-pre-commit
-    rev: v2.3.0
+    rev: v4.4.0
     hooks:
       - id: conventional-pre-commit
         stages: [commit-msg]
