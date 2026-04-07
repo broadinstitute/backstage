@@ -177,10 +177,8 @@ const overviewContent = (
                 </Grid>
             </EntitySwitch.Case>
         </EntitySwitch>
-        <Grid container spacing={3}>
-            <Grid item md={6} xs={12}>
-                <EntityGithubPullRequestsOverviewCard />
-            </Grid>
+        <Grid item md={6} xs={12}>
+            <EntityGithubPullRequestsOverviewCard />
         </Grid>
     </Grid>
 );
