@@ -127,14 +127,54 @@ export const HomePage = () => {
                                 placeholder="Search"
                             />
                         </Grid>
-                        <Grid container item xs={12}>
-                            <Grid item xs={12} md={6}>
-                                <HomePageTopVisited />
-                            </Grid>
-                            <Grid item xs={12} md={6}>
-                                <HomePageRecentlyVisited />
-                            </Grid>
+                        <Grid item xs={12} md={6}>
+                            <InfoCard title="Getting Started Documentation">
+                                Pages to get started
+                                <ul>
+                                    <li>
+                                        <a href="/docs/default/system/backstage">
+                                            Getting started with Backstage
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="/docs/default/component/bits-adr">
+                                            Getting started with Architecture
+                                            Decision Records (ADRs)
+                                        </a>
+                                    </li>
+
+                                    <li>
+                                        <a href="/docs/default/component/kubernetes-configs">
+                                            Getting started with Kubernetes
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="/docs/default/component/shared-workflows">
+                                            Getting started with Broad curated
+                                            GitHub Actions
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="/docs/default/component/bits-packaging-pipeline/spack-quickstart">
+                                            Getting started with Spack Packages
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="/docs/default/component/ge-user-docs">
+                                            Getting started with Grid Engine
+                                        </a>
+                                    </li>
+
+                                    <li>
+                                        <a href="/docs/default/component/disco-docs">
+                                            Getting started with DISCO (Being
+                                            retired)
+                                        </a>
+                                    </li>
+                                </ul>
+                            </InfoCard>
                         </Grid>
+
                         <Grid container item xs={12}>
                             <Grid item xs={6} md={6}>
                                 <HomePageStarredEntities />
@@ -142,54 +182,14 @@ export const HomePage = () => {
                             <Grid item xs={6} md={6}>
                                 <HomePageToolkit tools={tools} />
                             </Grid>
-                            <Grid item xs={12} md={6}>
-                                <InfoCard title="Getting Started Documentation">
-                                    Pages to get started
-                                    <ul>
-                                        <li>
-                                            <a href="/docs/default/system/backstage">
-                                                Getting started with Backstage
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="/docs/default/component/bits-adr">
-                                                Getting started with
-                                                Architecture Decision Records
-                                                (ADRs)
-                                            </a>
-                                        </li>
 
-                                        <li>
-                                            <a href="/docs/default/component/kubernetes-configs">
-                                                Getting started with Kubernetes
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="/docs/default/component/shared-workflows">
-                                                Getting started with Broad
-                                                curated GitHub Actions
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="/docs/default/component/bits-packaging-pipeline/spack-quickstart">
-                                                Getting started with Spack
-                                                Packages
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="/docs/default/component/ge-user-docs">
-                                                Getting started with Grid Engine
-                                            </a>
-                                        </li>
-
-                                        <li>
-                                            <a href="/docs/default/component/disco-docs">
-                                                Getting started with DISCO
-                                                (Being retired)
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </InfoCard>
+                            <Grid container item xs={12}>
+                                <Grid item xs={12} md={6}>
+                                    <HomePageTopVisited />
+                                </Grid>
+                                <Grid item xs={12} md={6}>
+                                    <HomePageRecentlyVisited />
+                                </Grid>
                             </Grid>
                         </Grid>
                     </Grid>

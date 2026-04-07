@@ -67,7 +67,7 @@ import { EntityGithubPullRequestsOverviewCard } from '@roadiehq/backstage-plugin
 import { EntityTeamPullRequestsContent } from '@backstage-community/plugin-github-pull-requests-board';
 import {
     isPluginApplicableToEntity as isPagerDutyAvailable,
-    EntityPagerDutyCard,
+    EntityPagerDutySmallCard,
 } from '@pagerduty/backstage-plugin';
 const techdocsContent = (
     <EntityTechdocsContent>
@@ -167,21 +167,19 @@ const overviewContent = (
         <Grid item md={8} xs={12}>
             <EntityHasSubcomponentsCard />
         </Grid>
-        <Grid container spacing={3}>
-            <Grid item md={6}>
-                <EntityGithubPullRequestsOverviewCard />
-            </Grid>
-        </Grid>
         <Grid item md={6} xs={12}>
             <EntitySoundcheckCard />
         </Grid>
         <EntitySwitch>
             <EntitySwitch.Case if={isPagerDutyAvailable}>
-                <Grid item md={6}>
-                    <EntityPagerDutyCard />
+                <Grid item md={6} xs={12}>
+                    <EntityPagerDutySmallCard />
                 </Grid>
             </EntitySwitch.Case>
         </EntitySwitch>
+        <Grid item md={6} xs={12}>
+            <EntityGithubPullRequestsOverviewCard />
+        </Grid>
     </Grid>
 );
 
@@ -190,7 +188,9 @@ const serviceEntityPage = (
         <EntityLayout.Route path="/" title="Overview">
             {overviewContent}
         </EntityLayout.Route>
-
+        <EntityLayout.Route path="/docs" title="Docs">
+            {techdocsContent}
+        </EntityLayout.Route>
         <EntityLayout.Route path="/ci-cd" title="CI/CD">
             {cicdContent}
         </EntityLayout.Route>
@@ -222,10 +222,6 @@ const serviceEntityPage = (
                     <EntityDependsOnResourcesCard />
                 </Grid>
             </Grid>
-        </EntityLayout.Route>
-
-        <EntityLayout.Route path="/docs" title="Docs">
-            {techdocsContent}
         </EntityLayout.Route>
         <EntityLayout.Route path="/kubernetes" title="Kubernetes">
             <EntityKubernetesContent refreshIntervalMs={30000} />

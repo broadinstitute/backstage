@@ -58,7 +58,7 @@ import {
     convertLegacyAppOptions,
     convertLegacyAppRoot,
 } from '@backstage/core-compat-api';
-import { createFrontendModule } from '@backstage/frontend-plugin-api';
+import { PagerDutyPage } from '@pagerduty/backstage-plugin';
 
 interface SignInProviderConfig {
     id: string;
@@ -190,6 +190,7 @@ const routes = (
         />
         <Route path="/rbac" element={<RBACRoot />} />
         <Route path="/copilot" element={<CopilotIndexPage />} />
+        <Route path="/pagerduty" element={<PagerDutyPage />} />
     </FlatRoutes>
 );
 

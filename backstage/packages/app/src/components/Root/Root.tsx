@@ -97,8 +97,16 @@ export const Root = ({ children }: PropsWithChildren<{}>) => (
                     />
                     {/* <SidebarItem icon={MoneyIcon} to="cost-insights" text="Cost Insights" /> */}
                     <CopilotSidebar />
-                    <SidebarItem icon={SchoolIcon} to="skill-exchange" text="Skill Exchange" />
-                    <SidebarItem icon={DoneAllIcon} to='soundcheck' text='Soundcheck' />
+                    <SidebarItem
+                        icon={SchoolIcon}
+                        to="skill-exchange"
+                        text="Skill Exchange"
+                    />
+                    <SidebarItem
+                        icon={DoneAllIcon}
+                        to="soundcheck"
+                        text="Soundcheck"
+                    />
                     <InsightsSidebarItem />
                     <RBACSidebarItem />
                 </SidebarScrollWrapper>
