@@ -8,11 +8,13 @@ spec:
   type: file
   targets:
     - ./systems/aws.yaml
+    - ./systems/data-transfer.yaml
     - ./systems/gcp.yaml
     - ./systems/github.yaml
     - ./systems/hpc-comm.yaml
     - ./systems/hpc-drag.yaml
     - ./systems/kubernetes.yaml
+    - ./systems/network-access.yaml
     - ./systems/pagerduty.yaml
     - ./systems/pkgbuilder.yaml
     - ./systems/sap.yaml
