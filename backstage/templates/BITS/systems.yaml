@@ -14,7 +14,7 @@ spec:
     - ./systems/hpc-comm.yaml
     - ./systems/hpc-drag.yaml
     - ./systems/kubernetes.yaml
-    - ./systems/nac.yaml
+    - ./systems/network-access.yaml
     - ./systems/pagerduty.yaml
     - ./systems/pkgbuilder.yaml
     - ./systems/sap.yaml
