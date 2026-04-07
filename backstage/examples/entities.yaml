@@ -13,7 +13,8 @@ kind: Component
 metadata:
   name: example-website
   annotations:
-    pagerduty.com/integration-key: b14f2c8afb49400bd0ddb48d216ada5a
+    # pagerduty.com/integration-key: 2d1172060b13480cc015494f21157a09
+    # pagerduty.com/service-id: PWN72I3
     google.com/cloudbuild-project-slug: bits-gke-clusters
     google.com/cloudbuild-repo-name: backstage
     google.com/cloudbuild-location: us-east4

@@ -168,6 +168,7 @@ backend.add(customAuth);
 // PagerDuty plugins
 backend.add(import('@pagerduty/backstage-plugin-backend'));
 backend.add(import('@pagerduty/backstage-plugin-scaffolder-actions'));
+backend.add(import('@pagerduty/backstage-plugin-entity-processor'));
 
 // Tech Radar
 backend.add(import('@backstage-community/plugin-tech-radar-backend'));
@@ -188,5 +189,6 @@ backend.add(
 // Github Copilot Usage
 backend.add(import('@backstage-community/plugin-copilot-backend'));
 backend.add(import('@backstage/plugin-mcp-actions-backend'));
+backend.add(import('@backstage-community/plugin-scaffolder-backend-module-annotator'));
 
 backend.start();

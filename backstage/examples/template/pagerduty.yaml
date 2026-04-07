@@ -4,35 +4,39 @@ kind: Template
 metadata:
   name: create-pagerduty-service
   title: Create PagerDuty Service
-  description: Creates service in PagerDuty
+  description: >-
+    Creates service in PagerDuty based on the selected Backstage entity.
+    The template will annotate the Backstage entity with the PagerDuty
+    service ID.
+    This template assumes that your catalog-info.yaml only contains a single
+    entity.
+    Note: You can only select entities that are owned by your team.
+  annotations:
+    backstage.io/time-saved: PT30M
   tags:
     - pagerduty
     - incident-management
     - alerting
 spec:
-  owner: devnull
+  owner: bits
   type: service
 
   parameters:
     - title: PagerDuty Service
       required:
         - name
-        - description
       properties:
         name:
           title: Service Name
           type: string
           description: >-
-            The name of the service. Note: You can only select services
+            The name of the component. Note: You can only select entities
             that are owned by your team.
           ui:field: OwnedEntityPicker
           ui:options:
-            catalogFilter:
-              - kind: Component
-        description:
-          title: Description
-          type: string
-          description: The description of the service
+            Kind:
+              - Component
+              - API
         createPagerduty:
           type: boolean
           default: true
@@ -54,22 +58,22 @@ spec:
                   ui:options:
                     title: PagerDuty Escalation Policy
                     description: Select an escalation policy from PagerDuty
-                    path: 'pagerduty/escalation_policies'
-                    labelSelector: 'label'
-                    valueSelector: 'value'
-                    placeholder: '---'
+                    path: pagerduty/escalation_policies
+                    labelSelector: label
+                    valueSelector: value
+                    placeholder: "---"
                 alertGrouping:
                   title: Alert Grouping
                   type: string
                   description: Reduce noise by grouping similar alerts - Defaults to 'None'.
                   enum:
-                    - 'time'
-                    - 'intelligent'
-                    - 'content_based'
+                    - time
+                    - intelligent
+                    - content_based
                   enumNames:
-                    - 'Time-based grouping'
-                    - 'Intelligent grouping'
-                    - 'Content-based grouping'
+                    - Time-based grouping
+                    - Intelligent grouping
+                    - Content-based grouping
 
 
             - properties:
@@ -82,20 +86,73 @@ spec:
                   type: string
 
   steps:
+    - id: fetch-component
+      name: Fetch Backstage Entity from Catalog
+      action: catalog:fetch
+      input:
+        entityRef: ${{ parameters.name}}
+
     - id: pagerdutyService
       name: Create PagerDuty Service
       if: ${{ parameters.createPagerduty }}
       action: pagerduty:service:create
       input:
         name: ${{ parameters.name | parseEntityRef | pick("name")}}
-        description: ${{ parameters.description }}
+        description: ${{ steps['fetch-component'].output.entity.metadata.description }}
         escalationPolicyId: ${{ parameters.escalationPolicyId }}
         alertGrouping: ${{ parameters.alertGrouping }}
+
+    - id: fetchCatalogFile
+      name: Download Catalog File
+      action: fetch:plain:file
+      input:
+        url: ${{ steps['fetch-component'].output.entity.metadata.annotations['backstage.io/view-url'] }}
+        targetPath: ${{ steps['fetch-component'].output.entity.metadata.annotations['backstage.io/view-url'] | replace(r/.*?tree\/(.*?\/)/g, "") }}
+
+    - id: annotateComponent
+      name: Annotate Backstage Entity
+      action: catalog:annotate
+      input:
+        entityFilePath: ${{ steps['fetch-component'].output.entity.metadata.annotations['backstage.io/view-url'] | replace(r/.*?tree\/(.*?\/)/g, "") }}
+        writeToFile: ${{ steps['fetch-component'].output.entity.metadata.annotations['backstage.io/view-url'] | replace(r/.*?tree\/(.*?\/)/g, "") }}
+        annotations:
+          pagerduty.com/service-id: ${{ steps['pagerdutyService'].output.serviceId }}
+
+    - id: createPullRequest
+      name: Create Pull Request
+      action: publish:github:pull-request
+      input:
+        repoUrl: github.com?repo=${{ steps['fetch-component'].output.entity.metadata.annotations['backstage.io/edit-url'] | replace("https://github.com/broadinstitute/", "") | replace(r/\/edit.*/g, "") }}&owner=broadinstitute
+        branchName: add-pagerduty-service
+        title: 'feat: Add PagerDuty Service for ${{ parameters.name }}'
+        description: >-
+          This PR adds the PagerDuty service for ${{ parameters.name }}.
+          The service is created in PagerDuty and associated with the specified
+          escalation policy.
 
   output:
     links:
       - title: Open in PagerDuty
         url: ${{ steps['pagerdutyService'].output.serviceUrl }}
+      - title: View the pull request on GitHub
+        icon: github
+        url: ${{ steps['createPullRequest'].output.remoteUrl }}
+
     text:
       - title: Integration Key
-        text: ${{ steps['pagerdutyService'].output.integrationKey }}
+        content: |
+          PagerDuty Integration Key: ${{ steps['pagerdutyService'].output.integrationKey }}
+          This can be added as an annotation to the catalog-info.yaml file;
+          however, we recommend using the service ID annotation instead.
+          A PR will be created with the service ID annotation.
+          Example annotation:
+          ```yaml
+          pagerduty.com/integration-key: ${{ steps['pagerdutyService'].output.integrationKey }}
+          ```
+      - title: Service ID Annotation
+        content: |
+          Add this annotation to your catalog-info.yaml file to link the entity
+          to the PagerDuty service:
+          ```yaml
+          pagerduty.com/service-id: ${{ steps['pagerdutyService'].output.serviceId }}
+          ```
