@@ -58,7 +58,6 @@ import {
     convertLegacyAppOptions,
     convertLegacyAppRoot,
 } from '@backstage/core-compat-api';
-import { createFrontendModule } from '@backstage/frontend-plugin-api';
 import { PagerDutyPage } from '@pagerduty/backstage-plugin';
 
 interface SignInProviderConfig {

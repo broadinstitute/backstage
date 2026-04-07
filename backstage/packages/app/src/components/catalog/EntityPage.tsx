@@ -67,7 +67,6 @@ import { EntityGithubPullRequestsOverviewCard } from '@roadiehq/backstage-plugin
 import { EntityTeamPullRequestsContent } from '@backstage-community/plugin-github-pull-requests-board';
 import {
     isPluginApplicableToEntity as isPagerDutyAvailable,
-    EntityPagerDutyCard,
     EntityPagerDutySmallCard,
 } from '@pagerduty/backstage-plugin';
 const techdocsContent = (
@@ -179,7 +178,7 @@ const overviewContent = (
             </EntitySwitch.Case>
         </EntitySwitch>
         <Grid container spacing={3}>
-            <Grid item md={6}>
+            <Grid item md={6} xs={12}>
                 <EntityGithubPullRequestsOverviewCard />
             </Grid>
         </Grid>
