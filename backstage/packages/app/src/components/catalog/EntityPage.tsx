@@ -173,7 +173,7 @@ const overviewContent = (
         </Grid>
         <EntitySwitch>
             <EntitySwitch.Case if={isPagerDutyAvailable}>
-                <Grid item md={6}>
+                <Grid item md={6} xs={12}>
                     <EntityPagerDutySmallCard />
                 </Grid>
             </EntitySwitch.Case>
