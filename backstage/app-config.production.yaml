@@ -205,6 +205,9 @@ backstageInsights:
   debug: false
 
 skillExchange:
+  enableEmbeds: true
+  enableHacks: true
+  enableMentorships: true
   hackUpdateNotificationsCron: '0 17 * * 1'
   slack:
     token:

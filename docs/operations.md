@@ -323,7 +323,7 @@ using `git-revert (1)` if that's ever necessary.
 
 ## Update Backstage Insights API Token
 
-The Backstage Cost Insights plugin requires an API token to function. This token
+The Backstage Insights plugin requires an API token to function. This token
 expires every 90 days and needs to be updated periodically. You can generate a
 new token by following the instructions on the
 [Backstage Plugin website.](https://backstage.spotify.com/docs/plugins/insights)
@@ -331,7 +331,7 @@ new token by following the instructions on the
 Existing tokens can be viewed and managed on the
 [Backstage Support page.](https://backstage.spotify.com/account/tokens/)
 
-Use the support page to generate a new token for the Cost Insights plugin.
+Use the support page to generate a new token for the Insights plugin.
 
 The token will then need to be updated in the 1Password vault used for Backstage
 secrets. You can find the vault at

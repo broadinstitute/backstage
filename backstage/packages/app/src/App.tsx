@@ -1,82 +1,47 @@
 import React from 'react';
-import { Navigate, Route } from 'react-router-dom';
-import { apiDocsPlugin, ApiExplorerPage } from '@backstage/plugin-api-docs';
-import {
-    CatalogEntityPage,
-    CatalogIndexPage,
-    catalogPlugin,
-} from '@backstage/plugin-catalog';
-import {
-    CatalogImportPage,
-    catalogImportPlugin,
-} from '@backstage/plugin-catalog-import';
-import { ScaffolderPage, scaffolderPlugin } from '@backstage/plugin-scaffolder';
-import { orgPlugin } from '@backstage/plugin-org';
-import { SearchPage, searchPlugin } from '@backstage/plugin-search';
-import { TechRadarPage } from '@backstage-community/plugin-tech-radar';
+import { ScaffolderPage } from '@backstage/plugin-scaffolder';
 import {
     TechDocsIndexPage,
-    techdocsPlugin,
     TechDocsReaderPage,
 } from '@backstage/plugin-techdocs';
-import { TechDocsAddons } from '@backstage/plugin-techdocs-react';
-import { ReportIssue } from '@backstage/plugin-techdocs-module-addons-contrib';
-import { UserSettingsPage } from '@backstage/plugin-user-settings';
-import { apis } from './apis';
-import { entityPage } from './components/catalog/EntityPage';
 import { searchPage } from './components/search/SearchPage';
-import { Root } from './components/Root';
 
-import { AlertDisplay, OAuthRequestDialog } from '@backstage/core-components';
 import { createApp } from '@backstage/frontend-defaults';
-import { AppRouter, FlatRoutes } from '@backstage/core-app-api';
-import { CatalogGraphPage } from '@backstage/plugin-catalog-graph';
-import { RequirePermission } from '@backstage/plugin-permission-react';
-import { catalogEntityCreatePermission } from '@backstage/plugin-catalog-common/alpha';
 import { googleAuthApiRef } from '@backstage/core-plugin-api';
 import { SignInPage } from '@backstage/core-components';
-import { GcpProjectsPage } from '@backstage-community/plugin-gcp-projects';
-import { githubAuthApiRef } from '@backstage/core-plugin-api';
 import { ScaffolderFieldExtensions } from '@backstage/plugin-scaffolder-react';
 import { SelectFieldFromApiExtension } from '@roadiehq/plugin-scaffolder-frontend-module-http-request-field';
-import { CostInsightsPage } from '@backstage-community/plugin-cost-insights';
 import { GithubTeamPickerExtension } from './scaffolder/GithubTeamPicker/GithubTeamPicker';
-import {
-    InsightsPage,
-    insightsPlugin,
-    InsightsSurveyLoader,
-} from '@spotify/backstage-plugin-insights';
-import { SkillExchangePage } from '@spotify/backstage-plugin-skill-exchange';
-import { SoundcheckRoutingPage } from '@spotify/backstage-plugin-soundcheck';
-import { RBACRoot } from '@spotify/backstage-plugin-rbac';
-import { HomepageCompositionRoot } from '@backstage/plugin-home';
+import skillExchangePlugin from '@spotify/backstage-plugin-skill-exchange/alpha';
+import soundcheckPlugin from '@spotify/backstage-plugin-soundcheck/alpha';
 import { HomePage } from './components/home/HomePage';
-import { Mermaid } from 'backstage-plugin-techdocs-addon-mermaid';
-import elkLayouts from '@mermaid-js/layout-elk';
-import { CopilotIndexPage } from '@backstage-community/plugin-copilot';
-import {
-    convertLegacyAppOptions,
-    convertLegacyAppRoot,
-} from '@backstage/core-compat-api';
-import { PagerDutyPage } from '@pagerduty/backstage-plugin';
+import githubPullRequestsBoardPlugin from '@backstage-community/plugin-github-pull-requests-board/alpha';
+import { createFrontendModule } from '@backstage/frontend-plugin-api';
+import { SignInPageBlueprint } from '@backstage/plugin-app-react';
+import { navModule } from './modules/nav';
+import catalogPlugin from '@backstage/plugin-catalog/alpha';
+import apiDocsPlugin from '@backstage/plugin-api-docs/alpha';
+import catalogGraphPlugin from '@backstage/plugin-catalog-graph/alpha';
+import userSettingsPlugin from '@backstage/plugin-user-settings/alpha';
+import insightsPlugin from '@spotify/backstage-plugin-insights/alpha';
+import rbacPlugin from '@spotify/backstage-plugin-rbac/alpha';
+import pagerDutyPlugin from '@pagerduty/backstage-plugin/alpha';
+import homePlugin from '@backstage/plugin-home/alpha';
+import searchPlugin from '@backstage/plugin-search/alpha';
+import techdocsPlugin from '@backstage/plugin-techdocs/alpha';
+import scaffolderPlugin from '@backstage/plugin-scaffolder/alpha';
+import catalogImportPlugin from '@backstage/plugin-catalog-import/alpha';
+import techRadarPlugin from '@backstage-community/plugin-tech-radar/alpha';
+import githubActionsPlugin from '@backstage-community/plugin-github-actions/alpha';
+import copilotPlugin from '@backstage-community/plugin-copilot/alpha';
+import kubernetesPlugin from '@backstage/plugin-kubernetes/alpha';
+import { catalogEntityModule } from './modules/catalog';
+import { techdocsAddonsModule } from './modules/techdocs';
+import orgPlugin from '@backstage/plugin-org/alpha';
 
-interface SignInProviderConfig {
-    id: string;
-    title: string;
-    message: string;
-    apiRef: any;
-}
-
-const googleProvider: SignInProviderConfig = {
-    id: 'google-auth-provider',
-    title: 'Google',
-    message: 'Sign in using Google',
-    apiRef: googleAuthApiRef,
-};
-
-const convertedOptionsModule = convertLegacyAppOptions({
-    components: {
-        SignInPage: props => (
+const signInPageExtension = SignInPageBlueprint.make({
+    params: {
+        loader: async () => props => (
             <SignInPage
                 {...props}
                 auto
@@ -89,123 +54,152 @@ const convertedOptionsModule = convertLegacyAppOptions({
             />
         ),
     },
-    apis,
 });
 
-const routes = (
-    <FlatRoutes>
-        {/* <Route path="/" element={<Navigate to="catalog" />} /> */}
-        <Route path="/" element={<HomepageCompositionRoot />}>
-            <HomePage />
-        </Route>
-        <Route path="/insights" element={<InsightsPage />} />
-        <Route path="/cost-insights" element={<CostInsightsPage />} />
-        <Route path="/catalog" element={<CatalogIndexPage />} />
-        <Route
-            path="/skill-exchange"
-            element={
-                <SkillExchangePage enableEmbeds enableHacks enableMentorships />
-            }
-        />
-        <Route
-            path="/catalog/:namespace/:kind/:name"
-            element={<CatalogEntityPage />}
-        >
-            {entityPage}
-        </Route>
-        <Route path="/docs" element={<TechDocsIndexPage />} />
-        <Route
-            path="/docs/:namespace/:kind/:name/*"
-            element={<TechDocsReaderPage />}
-        >
-            <TechDocsAddons>
-                <ReportIssue />
-                <Mermaid
-                    config={{
-                        theme: 'forest',
-                        themeVariables: { lineColor: '#000000' },
-                    }}
-                />
-                <Mermaid
-                    layoutLoaders={elkLayouts}
-                    config={{ layout: 'elk' }}
-                />
-            </TechDocsAddons>
-        </Route>
-        <Route
-            path="/create"
-            element={
-                <ScaffolderPage
-                    groups={[
-                        {
-                            title: 'Recommended',
-                            filter: entity =>
-                                entity?.metadata?.tags?.includes(
-                                    'recommended',
-                                ) ?? false,
-                        },
-                        {
-                            title: 'Terraform',
-                            filter: entity =>
-                                entity?.metadata?.tags?.includes('terraform') ??
-                                false,
-                        },
-                        {
-                            title: 'Python',
-                            filter: entity =>
-                                entity?.metadata?.tags?.includes('python') ??
-                                false,
-                        },
-                    ]}
-                />
-            }
-        >
-            <ScaffolderFieldExtensions>
-                <SelectFieldFromApiExtension />
-                <GithubTeamPickerExtension />
-            </ScaffolderFieldExtensions>
-        </Route>
-        <Route path="/api-docs" element={<ApiExplorerPage />} />
-        <Route path="/gcp-projects" element={<GcpProjectsPage />} />
-        <Route
-            path="/tech-radar"
-            element={<TechRadarPage width={1500} height={800} />}
-        />
-        <Route
-            path="/catalog-import"
-            element={
-                <RequirePermission permission={catalogEntityCreatePermission}>
-                    <CatalogImportPage />
-                </RequirePermission>
-            }
-        />
-        <Route path="/search" element={<SearchPage />}>
-            {searchPage}
-        </Route>
-        <Route path="/settings" element={<UserSettingsPage />} />
-        <Route path="/catalog-graph" element={<CatalogGraphPage />} />
-        <Route
-            path="/soundcheck"
-            element={<SoundcheckRoutingPage title="Production Readiness" />}
-        />
-        <Route path="/rbac" element={<RBACRoot />} />
-        <Route path="/copilot" element={<CopilotIndexPage />} />
-        <Route path="/pagerduty" element={<PagerDutyPage />} />
-    </FlatRoutes>
-);
+const appModule = createFrontendModule({
+    pluginId: 'app',
+    extensions: [signInPageExtension],
+});
 
-const convertedRootFeatures = convertLegacyAppRoot(
-    <>
-        <AlertDisplay />
-        <OAuthRequestDialog />
-        <AppRouter>
-            <InsightsSurveyLoader />
-            <Root>{routes}</Root>
-        </AppRouter>
-    </>,
-);
+const homeModuleOverrides = createFrontendModule({
+    pluginId: 'home',
+    extensions: [
+        homePlugin.getExtension('api:home/visits').override({
+            disabled: false,
+        }),
+        homePlugin
+            .getExtension('app-root-element:home/visit-listener')
+            .override({
+                disabled: false,
+            }),
+        homePlugin.getExtension('page:home').override({
+            params: {
+                path: '/',
+                routeRef: homePlugin.routes.root,
+                loader: async () => <HomePage />,
+            },
+        }),
+    ],
+});
+
+const searchModuleOverrides = createFrontendModule({
+    pluginId: 'search',
+    extensions: [
+        searchPlugin.getExtension('page:search').override({
+            params: {
+                routeRef: searchPlugin.routes.root,
+                loader: async () => searchPage,
+            },
+        }),
+    ],
+});
+
+const techdocsModuleOverrides = createFrontendModule({
+    pluginId: 'techdocs',
+    extensions: [
+        techdocsPlugin.getExtension('page:techdocs').override({
+            params: {
+                routeRef: techdocsPlugin.routes.root,
+                loader: async () => <TechDocsIndexPage />,
+            },
+        }),
+        techdocsPlugin.getExtension('page:techdocs/reader').override({
+            params: {
+                path: '/docs/:namespace/:kind/:name',
+                routeRef: techdocsPlugin.routes.docRoot,
+                loader: async () => <TechDocsReaderPage />,
+            },
+        }),
+    ],
+});
+
+const scaffolderModuleOverrides = createFrontendModule({
+    pluginId: 'scaffolder',
+    extensions: [
+        scaffolderPlugin.getExtension('page:scaffolder').override({
+            params: {
+                routeRef: scaffolderPlugin.routes.root,
+                loader: async () => (
+                    <>
+                        <ScaffolderPage
+                            groups={[
+                                {
+                                    title: 'Recommended',
+                                    filter: entity =>
+                                        entity?.metadata?.tags?.includes(
+                                            'recommended',
+                                        ) ?? false,
+                                },
+                                {
+                                    title: 'Terraform',
+                                    filter: entity =>
+                                        entity?.metadata?.tags?.includes(
+                                            'terraform',
+                                        ) ?? false,
+                                },
+                                {
+                                    title: 'Python',
+                                    filter: entity =>
+                                        entity?.metadata?.tags?.includes(
+                                            'python',
+                                        ) ?? false,
+                                },
+                            ]}
+                        />
+                        <ScaffolderFieldExtensions>
+                            <SelectFieldFromApiExtension />
+                            <GithubTeamPickerExtension />
+                        </ScaffolderFieldExtensions>
+                    </>
+                ),
+            },
+        }),
+    ],
+});
+
+const githubActionsModuleOverrides = createFrontendModule({
+    pluginId: 'github-actions',
+    extensions: [
+        githubActionsPlugin.getExtension('entity-content:github-actions').override({
+            params: {
+                path: '/ci-cd',
+                title: 'CI/CD',
+            },
+        }),
+    ],
+});
 
 const app = createApp({
-    features: [...convertedRootFeatures, convertedOptionsModule],
+    features: [
+        appModule,
+        navModule,
+        catalogPlugin,
+        catalogEntityModule,
+        apiDocsPlugin,
+        catalogGraphPlugin,
+        orgPlugin,
+        userSettingsPlugin,
+        insightsPlugin,
+        rbacPlugin,
+        pagerDutyPlugin,
+        homePlugin,
+        homeModuleOverrides,
+        searchPlugin,
+        searchModuleOverrides,
+        techdocsPlugin,
+        techdocsModuleOverrides,
+        techdocsAddonsModule,
+        techRadarPlugin,
+        githubActionsPlugin,
+        githubActionsModuleOverrides,
+        kubernetesPlugin,
+        scaffolderPlugin,
+        scaffolderModuleOverrides,
+        copilotPlugin,
+        githubPullRequestsBoardPlugin,
+        skillExchangePlugin,
+        soundcheckPlugin,
+        catalogImportPlugin,
+    ],
 });
 export default app.createRoot();

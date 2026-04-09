@@ -46,7 +46,15 @@
   },
   "resolutions": {
     "@types/react": "^18",
-    "@types/react-dom": "^18"
+    "@types/react-dom": "^18",
+    "@backstage/catalog-model": "1.7.7",
+    "@backstage/core-components": "0.18.8",
+    "@backstage/core-plugin-api": "1.12.4",
+    "@backstage/integration-react": "1.2.16",
+    "@backstage/plugin-catalog-react": "2.1.0",
+    "@backstage/plugin-home-react": "0.1.36",
+    "react-aria-components": "1.16.0",
+    "@react-aria/collections": "3.0.3"
   },
   "prettier": "@backstage/cli/config/prettier",
   "lint-staged": {
