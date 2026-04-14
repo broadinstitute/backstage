@@ -49,6 +49,7 @@
     "@backstage/plugin-scaffolder-backend-module-github": "backstage:^",
     "@backstage/plugin-search-backend": "backstage:^",
     "@backstage/plugin-search-backend-module-pg": "backstage:^",
+    "@backstage/plugin-search-backend-module-techdocs": "backstage:^",
     "@backstage/plugin-search-backend-node": "backstage:^",
     "@backstage/plugin-techdocs-backend": "backstage:^",
     "@opentelemetry/auto-instrumentations-node": "^0.72.0",
