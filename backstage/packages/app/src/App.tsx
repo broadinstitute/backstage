@@ -160,12 +160,14 @@ const scaffolderModuleOverrides = createFrontendModule({
 const githubActionsModuleOverrides = createFrontendModule({
     pluginId: 'github-actions',
     extensions: [
-        githubActionsPlugin.getExtension('entity-content:github-actions').override({
-            params: {
-                path: '/ci-cd',
-                title: 'CI/CD',
-            },
-        }),
+        githubActionsPlugin
+            .getExtension('entity-content:github-actions')
+            .override({
+                params: {
+                    path: '/ci-cd',
+                    title: 'CI/CD',
+                },
+            }),
     ],
 });
 
