@@ -1,4 +1,4 @@
-import { z } from 'zod';
+import { z } from 'zod/v3';
 import { makeFieldSchema } from '@backstage/plugin-scaffolder-react';
 
 const output = (zImpl: typeof z) => zImpl.string().min(1);

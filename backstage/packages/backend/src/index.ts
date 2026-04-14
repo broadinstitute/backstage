@@ -114,7 +114,6 @@ backend.add(import('@backstage/plugin-app-backend'));
 backend.add(import('@backstage/plugin-proxy-backend'));
 backend.add(import('@backstage/plugin-scaffolder-backend'));
 backend.add(import('@backstage/plugin-techdocs-backend'));
-
 // auth plugin
 backend.add(import('@backstage/plugin-auth-backend'));
 // See https://backstage.io/docs/backend-system/building-backends/migrating#the-auth-plugin
@@ -177,18 +176,23 @@ backend.add(import('@backstage-community/plugin-tech-radar-backend'));
 backend.add(import('@spotify/backstage-plugin-insights-backend'));
 backend.add(import('@spotify/backstage-plugin-skill-exchange-backend'));
 backend.add(
-  import('@spotify/backstage-plugin-search-backend-module-skill-exchange'),
+    import('@spotify/backstage-plugin-search-backend-module-skill-exchange'),
+);
+backend.add(
+    import('@spotify/backstage-plugin-skill-exchange-backend-module-actions'),
 );
 backend.add(import('@spotify/backstage-plugin-soundcheck-backend'));
 backend.add(import('@spotify/backstage-plugin-soundcheck-backend-module-scm'));
 backend.add(
     import('@spotify/backstage-plugin-soundcheck-backend-module-github'),
-  );
-  backend.add(import('@spotify/backstage-plugin-rbac-backend'));
-  backend.add(import('@spotify/backstage-plugin-permission-backend-module-rbac'));
+);
+backend.add(import('@spotify/backstage-plugin-rbac-backend'));
+backend.add(import('@spotify/backstage-plugin-permission-backend-module-rbac'));
 // Github Copilot Usage
 backend.add(import('@backstage-community/plugin-copilot-backend'));
 backend.add(import('@backstage/plugin-mcp-actions-backend'));
-backend.add(import('@backstage-community/plugin-scaffolder-backend-module-annotator'));
+backend.add(
+    import('@backstage-community/plugin-scaffolder-backend-module-annotator'),
+);
 
 backend.start();
