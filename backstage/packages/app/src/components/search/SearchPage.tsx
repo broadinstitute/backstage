@@ -1,5 +1,6 @@
 import React from 'react';
 import { makeStyles, Theme, Grid, Paper } from '@material-ui/core';
+import { useLocation } from 'react-router-dom';
 
 import { CatalogSearchResultListItem } from '@backstage/plugin-catalog';
 import {
@@ -43,8 +44,17 @@ const useStyles = makeStyles((theme: Theme) => ({
 
 const SearchPage = () => {
     const classes = useStyles();
-    const { types } = useSearch();
+    const { types, term, setTerm } = useSearch();
     const catalogApi = useApi(catalogApiRef);
+    const location = useLocation();
+
+    React.useEffect(() => {
+        const searchParams = new URLSearchParams(location.search);
+        const queryParam = searchParams.get('query');
+        if (queryParam) {
+            setTerm(queryParam);
+        }
+    }, [location.search, setTerm]);
 
     return (
         <Page themeId="home">

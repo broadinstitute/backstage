@@ -19,7 +19,7 @@ import {
     DashboardIcon,
     Header,
 } from '@backstage/core-components';
-import { Box } from '@material-ui/core';
+import { Box, TextField } from '@material-ui/core';
 import {
     starredEntitiesApiRef,
     entityRouteRef,
@@ -32,10 +32,12 @@ import {
     searchApiRef,
     SearchContextProvider,
 } from '@backstage/plugin-search-react';
+import { useRouteRef } from '@backstage/core-plugin-api';
 import Grid from '@material-ui/core/Grid';
 import { makeStyles } from '@material-ui/core/styles';
 import React, { ComponentType, PropsWithChildren } from 'react';
 import { SupportButton } from '@backstage/core-components';
+import { useNavigate } from 'react-router-dom';
 import { tools, useLogoStyles } from './shared';
 
 export default {
@@ -92,6 +94,13 @@ const timeFormat: Intl.DateTimeFormatOptions = {
 export const HomePage = () => {
     const classes = useStyles();
     const { svg, path, container } = useLogoStyles();
+    const searchRouteRef = useRouteRef(searchPlugin.routes.root);
+    const navigate = useNavigate();
+
+    const handleSearchSubmit = (query: string) => {
+        const searchUrl = `${searchRouteRef()}?query=${encodeURIComponent(query)}`;
+        navigate(searchUrl);
+    };
 
     return (
         <SearchContextProvider>
@@ -116,16 +125,35 @@ export const HomePage = () => {
                             }
                         />
                         <Grid container item xs={12} justifyContent="center">
-                            <HomePageSearchBar
-                                InputProps={{
-                                    classes: {
-                                        root: classes.searchBarInput,
-                                        notchedOutline:
-                                            classes.searchBarOutline,
-                                    },
+                            <Box
+                                component="form"
+                                onSubmit={(e: React.FormEvent<HTMLFormElement>) => {
+                                    e.preventDefault();
+                                    const formData = new FormData(e.currentTarget);
+                                    const query = formData.get('query') as string;
+                                    if (query) {
+                                        handleSearchSubmit(query);
+                                    }
                                 }}
-                                placeholder="Search"
-                            />
+                                sx={{
+                                    maxWidth: '60vw',
+                                    width: '100%',
+                                }}
+                            >
+                                <TextField
+                                    fullWidth
+                                    name="query"
+                                    placeholder="Search"
+                                    variant="outlined"
+                                    InputProps={{
+                                        classes: {
+                                            root: classes.searchBarInput,
+                                            notchedOutline:
+                                                classes.searchBarOutline,
+                                        },
+                                    }}
+                                />
+                            </Box>
                         </Grid>
                         <Grid item xs={12} md={6}>
                             <InfoCard title="Getting Started Documentation">
