@@ -127,10 +127,16 @@ export const HomePage = () => {
                         <Grid container item xs={12} justifyContent="center">
                             <Box
                                 component="form"
-                                onSubmit={(e: React.FormEvent<HTMLFormElement>) => {
+                                onSubmit={(
+                                    e: React.FormEvent<HTMLFormElement>,
+                                ) => {
                                     e.preventDefault();
-                                    const formData = new FormData(e.currentTarget);
-                                    const query = formData.get('query') as string;
+                                    const formData = new FormData(
+                                        e.currentTarget,
+                                    );
+                                    const query = formData.get(
+                                        'query',
+                                    ) as string;
                                     if (query) {
                                         handleSearchSubmit(query);
                                     }
