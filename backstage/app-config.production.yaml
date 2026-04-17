@@ -161,6 +161,7 @@ catalog:
           branch: 'main'
         schedule:
           frequency: PT5M
+          timeout: PT3M
       domainDiscovery:
         rules:
           - allow: [Location, Domain]
