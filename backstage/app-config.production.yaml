@@ -159,7 +159,7 @@ catalog:
         filters:
           repository: 'software-templates'
           branch: 'main'
-        scheduler:
+        schedule:
           frequency: PT5M
       domainDiscovery:
         rules:
