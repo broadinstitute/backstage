@@ -111,22 +111,10 @@ catalog:
   import:
     entityFilename: catalog-info.yaml
     pullRequestBranchName: backstage-integration
-  rules:
-    - allow: [Component, System, API, Resource, Location, Template]
-  locations:
-    - type: file
-      target: ../../templates/BITS/domains.yaml
-      rules:
-        - allow: [Location, Domain]
-
-    - type: file
-      target: ../../templates/BITS/systems.yaml
-      rules:
-        - allow: [Location, System]
 
   providers:
     rules:
-      - allow: [Template]
+      - allow: [Template, Location, Domain, System]
     githubOrg:
       - id: production
         githubUrl: https://github.com
@@ -171,8 +159,31 @@ catalog:
         filters:
           repository: 'software-templates'
           branch: 'main'
-        scheduler:
+        schedule:
           frequency: PT5M
+          timeout: PT3M
+      domainDiscovery:
+        rules:
+          - allow: [Location, Domain]
+        organization: 'broadinstitute'
+        catalogPath: '/domains/*.yaml'
+        filters:
+          branch: 'main'
+          repository: 'software-templates'
+        schedule:
+          frequency: PT5M
+          timeout: PT3M
+      systemDiscovery:
+        rules:
+          - allow: [Location, System]
+        organization: 'broadinstitute'
+        catalogPath: '/systems/*.yaml'
+        filters:
+          branch: 'main'
+          repository: 'software-templates'
+        schedule:
+          frequency: PT5M
+          timeout: PT3M
 
 pagerDuty:
   oauth:
