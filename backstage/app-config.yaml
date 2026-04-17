@@ -86,7 +86,7 @@ catalog:
     entityFilename: catalog-info.yaml
     pullRequestBranchName: backstage-integration
   rules:
-    - allow: [Component, System, API, Resource, Location, Template]
+    - allow: [Component, System, Domain, API, Resource, Location, Template]
 kubernetes:
   customResources:
     - group: 'gateway.networking.k8s.io'
