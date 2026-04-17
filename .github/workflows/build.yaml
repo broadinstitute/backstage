@@ -11,6 +11,10 @@ name: "Build"
       - "deployment/prod/**"
       - ".cloudbuild/**"
 
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   build:
     if: github.event.pull_request.draft == false
