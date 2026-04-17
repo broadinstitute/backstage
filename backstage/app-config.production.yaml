@@ -163,7 +163,7 @@ catalog:
           frequency: PT5M
       domainDiscovery:
         rules:
-          - allow: [Template, Location, Domain]
+          - allow: [Location, Domain]
         organization: 'broadinstitute'
         catalogPath: '/domains/*.yaml'
         filters:
@@ -174,7 +174,7 @@ catalog:
           timeout: PT3M
       systemDiscovery:
         rules:
-          - allow: [Template, Location, System]
+          - allow: [Location, System]
         organization: 'broadinstitute'
         catalogPath: '/systems/*.yaml'
         filters:
