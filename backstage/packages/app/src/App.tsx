@@ -35,6 +35,7 @@ import techRadarPlugin from '@backstage-community/plugin-tech-radar/alpha';
 import githubActionsPlugin from '@backstage-community/plugin-github-actions/alpha';
 import copilotPlugin from '@backstage-community/plugin-copilot/alpha';
 import kubernetesPlugin from '@backstage/plugin-kubernetes/alpha';
+import { KubernetesLandingPage } from './components/kubernetes/KubernetesLandingPage';
 import { catalogEntityModule } from './modules/catalog';
 import { techdocsAddonsModule } from './modules/techdocs';
 import orgPlugin from '@backstage/plugin-org/alpha';
@@ -171,6 +172,17 @@ const githubActionsModuleOverrides = createFrontendModule({
     ],
 });
 
+const kubernetesModuleOverrides = createFrontendModule({
+    pluginId: 'kubernetes',
+    extensions: [
+        kubernetesPlugin.getExtension('page:kubernetes').override({
+            params: {
+                loader: async () => <KubernetesLandingPage />,
+            },
+        }),
+    ],
+});
+
 const app = createApp({
     features: [
         appModule,
@@ -195,6 +207,7 @@ const app = createApp({
         githubActionsPlugin,
         githubActionsModuleOverrides,
         kubernetesPlugin,
+        kubernetesModuleOverrides,
         scaffolderPlugin,
         scaffolderModuleOverrides,
         copilotPlugin,
