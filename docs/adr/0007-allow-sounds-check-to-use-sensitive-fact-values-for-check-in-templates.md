@@ -1,4 +1,4 @@
-# 7. Allow Soundcheck to use sensitive fact values for check in templates
+# 7. Allow Soundcheck to use sensitive fact values in check result message templates
 
 Date: 2026-05-07
 
