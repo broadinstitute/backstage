@@ -6,3 +6,4 @@
 1. [Add Skills Exchange Plugin](0004-add-skills-exchange-plugin.md)
 1. [Tag external-facing templates with "Recommended" tag](0005-recommended-tag.md)
 1. [Migrate Build Pipeline to Github Actions](0006-migrate-build-pipeline-to-github-actions.md)
+1. [Allow Soundcheck to use sensitive fact values for check in templates](0007-allow-sounds-check-to-use-sensitive-fact-values-for-check-in-templates.md)

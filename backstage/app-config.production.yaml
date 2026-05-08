@@ -244,6 +244,7 @@ soundcheck:
       retentionTimeInDays: 90
       cleanupFrequencyCron: '0 0 0 * * *'
       cleanupTimeoutInMinutes: 5
+    dangerouslyAllowSensitiveFactMessageTemplating: true
   certifications:
     history:
       enable: true
