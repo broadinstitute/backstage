@@ -27,7 +27,6 @@ PD_ACCOUNT_SUBDOMAIN = "broadinstitute"
 onepassword_account = "broadinstitute.1password.com"
 onepassword_vault = "BITS - Backstage"
 onepassword_item = "github-app-backstage-bits-dev-credentials"
-PD_ACCOUNT_SUBDOMAIN = "broadinstitute"
 
 [tasks."github:credentials"]
 description = "Fetch GitHub App credentials from 1Password"
