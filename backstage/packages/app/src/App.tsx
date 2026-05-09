@@ -121,37 +121,36 @@ const scaffolderModuleOverrides = createFrontendModule({
             params: {
                 routeRef: scaffolderPlugin.routes.root,
                 loader: async () => (
-                    <>
-                        <ScaffolderPage
-                            groups={[
-                                {
-                                    title: 'Recommended',
-                                    filter: entity =>
-                                        entity?.metadata?.tags?.includes(
-                                            'recommended',
-                                        ) ?? false,
-                                },
-                                {
-                                    title: 'Terraform',
-                                    filter: entity =>
-                                        entity?.metadata?.tags?.includes(
-                                            'terraform',
-                                        ) ?? false,
-                                },
-                                {
-                                    title: 'Python',
-                                    filter: entity =>
-                                        entity?.metadata?.tags?.includes(
-                                            'python',
-                                        ) ?? false,
-                                },
-                            ]}
-                        />
+                    <ScaffolderPage
+                        groups={[
+                            {
+                                title: 'Recommended',
+                                filter: entity =>
+                                    entity?.metadata?.tags?.includes(
+                                        'recommended',
+                                    ) ?? false,
+                            },
+                            {
+                                title: 'Terraform',
+                                filter: entity =>
+                                    entity?.metadata?.tags?.includes(
+                                        'terraform',
+                                    ) ?? false,
+                            },
+                            {
+                                title: 'Python',
+                                filter: entity =>
+                                    entity?.metadata?.tags?.includes(
+                                        'python',
+                                    ) ?? false,
+                            },
+                        ]}
+                    >
                         <ScaffolderFieldExtensions>
                             <SelectFieldFromApiExtension />
                             <GithubTeamPickerExtension />
                         </ScaffolderFieldExtensions>
-                    </>
+                    </ScaffolderPage>
                 ),
             },
         }),
