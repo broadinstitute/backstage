@@ -1,4 +1,4 @@
-FROM gcr.io/buildpacks/google-24/run@sha256:6d790893393f96d90faa7d96c5017d70933a7ee171f4655a013f6f814e2e414c
+FROM gcr.io/buildpacks/google-24/run@sha256:c3b243e62b15334518e2cb41b8a7bb1dadef3bd68031c6669aab8e80cb15cb39
 USER root
 RUN apt-get update && apt-get install -y --no-install-recommends \
     python3 python3-pip python3-venv g++ build-essential && \
