@@ -12,6 +12,7 @@ import { SignInPage } from '@backstage/core-components';
 import { ScaffolderFieldExtensions } from '@backstage/plugin-scaffolder-react';
 import { SelectFieldFromApiExtension } from '@roadiehq/plugin-scaffolder-frontend-module-http-request-field';
 import { GithubTeamPickerExtension } from './scaffolder/GithubTeamPicker/GithubTeamPicker';
+import { GoogleAccessTokenFieldExtension } from './scaffolder/GoogleAccessTokenFieldExtension';
 import skillExchangePlugin from '@spotify/backstage-plugin-skill-exchange/alpha';
 import soundcheckPlugin from '@spotify/backstage-plugin-soundcheck/alpha';
 import { HomePage } from './components/home/HomePage';
@@ -149,6 +150,7 @@ const scaffolderModuleOverrides = createFrontendModule({
                         <ScaffolderFieldExtensions>
                             <SelectFieldFromApiExtension />
                             <GithubTeamPickerExtension />
+                            <GoogleAccessTokenFieldExtension />
                         </ScaffolderFieldExtensions>
                     </ScaffolderPage>
                 ),

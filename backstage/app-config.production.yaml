@@ -74,6 +74,8 @@ auth:
           $file: ./secrets/auth-google-client-id
         clientSecret:
           $file: ./secrets/auth-google-client-secret
+        additionalScopes:
+          - https://www.googleapis.com/auth/cloud-platform
         signIn:
           resolvers:
       production:
@@ -81,6 +83,8 @@ auth:
           $file: ./secrets/auth-google-client-id
         clientSecret:
           $file: ./secrets/auth-google-client-secret
+        additionalScopes:
+          - https://www.googleapis.com/auth/cloud-platform
         signIn:
           resolvers:
     #           - resolver: emailMatchingUserEntityProfileEmail
