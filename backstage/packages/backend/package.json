@@ -52,6 +52,7 @@
     "@backstage/plugin-search-backend-module-techdocs": "backstage:^",
     "@backstage/plugin-search-backend-node": "backstage:^",
     "@backstage/plugin-techdocs-backend": "backstage:^",
+    "@datolabs/plugin-scaffolder-backend-module-gcp": "^0.4.0",
     "@opentelemetry/auto-instrumentations-node": "^0.72.0",
     "@opentelemetry/exporter-prometheus": "^0.214.0",
     "@opentelemetry/exporter-trace-otlp-http": "^0.214.0",
