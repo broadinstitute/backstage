@@ -34,7 +34,7 @@
     "@backstage/plugin-auth-backend-module-guest-provider": "backstage:^",
     "@backstage/plugin-auth-node": "backstage:^",
     "@backstage/plugin-catalog-backend": "backstage:^",
-    "@backstage/plugin-catalog-backend-module-ai-model": "^0.1.0",
+    "@backstage/plugin-catalog-backend-module-ai-model": "backstage^",
     "@backstage/plugin-catalog-backend-module-github": "backstage:^",
     "@backstage/plugin-catalog-backend-module-github-org": "backstage:^",
     "@backstage/plugin-catalog-backend-module-logs": "backstage:^",
