@@ -196,5 +196,6 @@ backend.add(
     import('@backstage-community/plugin-scaffolder-backend-module-annotator'),
 );
 backend.add(import('@datolabs/plugin-scaffolder-backend-module-gcp'));
+backend.add(import('@backstage/plugin-catalog-backend-module-ai-model'));
 
 backend.start();
