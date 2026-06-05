@@ -6138,7 +6138,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@backstage/plugin-catalog-backend-module-ai-model@npm:^0.1.0":
+"@backstage/plugin-catalog-backend-module-ai-model@backstage:^::backstage=1.51.1&npm=0.1.0, @backstage/plugin-catalog-backend-module-ai-model@npm:^0.1.0":
   version: 0.1.0
   resolution: "@backstage/plugin-catalog-backend-module-ai-model@npm:0.1.0"
   dependencies:
@@ -27240,7 +27240,7 @@ __metadata:
     "@backstage/plugin-auth-backend-module-guest-provider": "backstage:^"
     "@backstage/plugin-auth-node": "backstage:^"
     "@backstage/plugin-catalog-backend": "backstage:^"
-    "@backstage/plugin-catalog-backend-module-ai-model": "npm:^0.1.0"
+    "@backstage/plugin-catalog-backend-module-ai-model": "backstage:^"
     "@backstage/plugin-catalog-backend-module-github": "backstage:^"
     "@backstage/plugin-catalog-backend-module-github-org": "backstage:^"
     "@backstage/plugin-catalog-backend-module-logs": "backstage:^"
