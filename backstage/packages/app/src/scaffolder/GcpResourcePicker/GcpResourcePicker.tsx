@@ -21,7 +21,7 @@
  * `ui:field: GcpResourcePicker`.
  * --------------------------------------------------------------------------
  */
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   useApi,
   googleAuthApiRef,
@@ -29,7 +29,6 @@ import {
 } from '@backstage/core-plugin-api';
 import { TextField, FormControl } from '@material-ui/core';
 import { Autocomplete } from '@material-ui/lab';
-import useAsync from 'react-use/lib/useAsync';
 import useDebounce from 'react-use/lib/useDebounce';
 import { GcpResourcePickerProps } from './schema';
 
@@ -218,6 +217,7 @@ export const GcpResourcePicker = (props: GcpResourcePickerProps) => {
     onChange,
     rawErrors,
     required,
+    formData,
     schema: { title, description },
     uiSchema,
   } = props;
@@ -235,52 +235,105 @@ export const GcpResourcePicker = (props: GcpResourcePickerProps) => {
   const [inputValue, setInputValue] = useState('');
   const [query, setQuery] = useState('');
   const [selected, setSelected] = useState<GcpResourceOption | null>(null);
+  const [result, setResult] = useState<SearchResult>({
+    options: [],
+    hasMore: false,
+  });
+  const [loading, setLoading] = useState(false);
+
+  // Keep the displayed selection in sync with the field's stored value. The
+  // form may seed `formData` (a configured default, or a value restored when
+  // the user navigates back to this step) before any search has run. Prefer a
+  // fully-labelled option from the loaded search results; otherwise fall back
+  // to a placeholder built from the raw value so the stored value still shows.
+  // An existing placeholder for the same value is reused so we don't downgrade
+  // a richer selection on every render.
+  useEffect(() => {
+    setSelected(prev => {
+      if (!formData) {
+        return prev ? null : prev;
+      }
+      const match = result.options.find(option => option.value === formData);
+      if (match) {
+        return match;
+      }
+      if (prev?.value === formData) {
+        return prev;
+      }
+      return { label: formData, secondary: formData, value: formData };
+    });
+  }, [formData, result.options]);
 
   // Debounce the typed input so we don't fire a request per keystroke.
   useDebounce(() => setQuery(inputValue), 300, [inputValue]);
 
-  const { loading, value: result } = useAsync(
-    async (): Promise<SearchResult> => {
-      const controller = new AbortController();
+  // Run the search whenever the debounced query (or relevant config) changes.
+  // The AbortController is aborted on cleanup, so when the user keeps typing —
+  // or any dependency changes — the previous, possibly slower request is
+  // cancelled before a new one starts. Without this, an older response could
+  // resolve after a newer one and overwrite the UI with stale results.
+  useEffect(() => {
+    const controller = new AbortController();
+    const { signal } = controller;
+    setLoading(true);
+    (async () => {
       try {
         const token = await googleAuth.getAccessToken(scopes);
-        if (resourceType === 'folder') {
-          return await searchFolders(
-            token,
-            query,
-            parent,
-            pageSize,
-            outputFormat,
-            controller.signal,
-          );
+        const next =
+          resourceType === 'folder'
+            ? await searchFolders(
+                token,
+                query,
+                parent,
+                pageSize,
+                outputFormat,
+                signal,
+              )
+            : await searchProjects(
+                token,
+                query,
+                pageSize,
+                outputFormat,
+                signal,
+              );
+        if (!signal.aborted) {
+          setResult(next);
         }
-        return await searchProjects(
-          token,
-          query,
-          pageSize,
-          outputFormat,
-          controller.signal,
-        );
       } catch (e) {
-        errorApi.post(e as Error);
-        return { options: [], hasMore: false };
+        // A cleanup-triggered abort rejects the fetch; that's expected, so
+        // only surface genuine failures from the still-current request.
+        if (!signal.aborted) {
+          errorApi.post(e as Error);
+          setResult({ options: [], hasMore: false });
+        }
+      } finally {
+        if (!signal.aborted) {
+          setLoading(false);
+        }
       }
-      // Re-run whenever the debounced query (or relevant config) changes.
-      // eslint-disable-next-line react-hooks/exhaustive-deps
-    },
-    [query, resourceType, parent, pageSize, outputFormat],
-  );
+    })();
+    return () => controller.abort();
+  }, [
+    query,
+    resourceType,
+    parent,
+    pageSize,
+    outputFormat,
+    scopes,
+    googleAuth,
+    errorApi,
+  ]);
 
   const updateChange = (
     _: React.ChangeEvent<{}>,
-    value: GcpResourceOption | null,
+    option: GcpResourceOption | null,
   ) => {
-    setSelected(value);
-    onChange(value?.value ?? '');
+    setSelected(option);
+    onChange(option?.value ?? '');
   };
 
   const noun = resourceType === 'folder' ? 'folder' : 'project';
-  const hasMore = result?.hasMore ?? false;
+  const hasMore = result.hasMore;
   const helperText = hasMore
     ? `Showing the first ${pageSize} matches — refine your search to narrow results.`
     : description;
@@ -293,7 +346,7 @@ export const GcpResourcePicker = (props: GcpResourcePickerProps) => {
     >
       <Autocomplete
         id="GcpResourcePicker"
-        options={result?.options ?? []}
+        options={result.options}
         value={selected}
         loading={loading}
         onChange={updateChange}
