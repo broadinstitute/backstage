@@ -25,6 +25,7 @@ describe('<GcpResourcePicker />', () => {
     error$: jest.fn(),
   };
   const fetchMock = jest.fn();
+  const originalFetch = global.fetch;
 
   const okJson = (body: unknown) => ({
     ok: true,
@@ -75,6 +76,10 @@ describe('<GcpResourcePicker />', () => {
     fetchMock.mockReset();
     fetchMock.mockResolvedValue(okJson({ projects: [] }));
     (global as any).fetch = fetchMock;
+  });
+
+  afterEach(() => {
+    (global as any).fetch = originalFetch;
   });
 
   it('searches projects on mount and lists the results', async () => {
