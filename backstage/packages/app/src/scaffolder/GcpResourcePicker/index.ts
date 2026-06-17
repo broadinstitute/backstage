@@ -1,0 +1,1 @@
+export { GcpResourcePickerExtension } from './extensions';
