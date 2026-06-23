@@ -40,7 +40,7 @@ import kubernetesPlugin from '@backstage/plugin-kubernetes/alpha';
 import { KubernetesLandingPage } from './components/kubernetes/KubernetesLandingPage';
 import { catalogEntityModule } from './modules/catalog';
 import { techdocsAddonsModule } from './modules/techdocs';
-import { techDocsMermaidAddonModule } from "backstage-plugin-techdocs-addon-mermaid";
+import { techDocsMermaidAddonModule } from 'backstage-plugin-techdocs-addon-mermaid';
 import orgPlugin from '@backstage/plugin-org/alpha';
 
 const signInPageExtension = SignInPageBlueprint.make({
