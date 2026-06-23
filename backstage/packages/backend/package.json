@@ -16,7 +16,7 @@
     "build-image": "docker build ../.. -f Dockerfile --tag backstage"
   },
   "dependencies": {
-    "@backstage-community/plugin-copilot-backend": "^0.18.3",
+    "@backstage-community/plugin-copilot-backend": "^1.0.0",
     "@backstage-community/plugin-scaffolder-backend-module-annotator": "^2.15.0",
     "@backstage-community/plugin-tech-radar-backend": "^1.2.0",
     "@backstage/backend-app-api": "backstage:^",

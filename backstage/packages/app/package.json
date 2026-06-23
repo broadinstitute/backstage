@@ -18,7 +18,7 @@
     "cy:run": "cypress run --browser chrome"
   },
   "dependencies": {
-    "@backstage-community/plugin-copilot": "^0.19.1",
+    "@backstage-community/plugin-copilot": "^1.1.0",
     "@backstage-community/plugin-github-actions": "^0.22.0",
     "@backstage-community/plugin-github-pull-requests-board": "^0.16.0",
     "@backstage-community/plugin-tech-radar": "^1.17.0",

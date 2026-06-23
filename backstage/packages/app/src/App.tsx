@@ -1,9 +1,6 @@
 import React from 'react';
 import { ScaffolderPage } from '@backstage/plugin-scaffolder';
-import {
-    TechDocsIndexPage,
-    TechDocsReaderPage,
-} from '@backstage/plugin-techdocs';
+import { TechDocsIndexPage } from '@backstage/plugin-techdocs';
 import { searchPage } from './components/search/SearchPage';
 
 import { createApp } from '@backstage/frontend-defaults';
@@ -107,13 +104,14 @@ const techdocsModuleOverrides = createFrontendModule({
                 loader: async () => <TechDocsIndexPage />,
             },
         }),
-        techdocsPlugin.getExtension('page:techdocs/reader').override({
-            params: {
-                path: '/docs/:namespace/:kind/:name',
-                routeRef: techdocsPlugin.routes.docRoot,
-                loader: async () => <TechDocsReaderPage />,
-            },
-        }),
+        // NOTE: We intentionally do NOT override 'page:techdocs/reader'.
+        // The default extension's factory wires TechDocs addons (Mermaid,
+        // ReportIssue, ...) into the standalone reader by wrapping its content
+        // in the TechDocsAddons provider. Overriding the loader with a plain
+        // TechDocsReaderPage component bypasses that wiring, so addons like
+        // Mermaid would silently stop rendering on the standalone docs route
+        // (/docs/:namespace/:kind/:name) while still working on the
+        // catalog-embedded docs route.
     ],
 });
 
