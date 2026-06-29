@@ -1,12 +1,17 @@
 ---
-name: "Production Environment"
+name: Production Environment
+
 "on":
   pull_request_target:
     types:
       - closed
+permissions:
+  contents: read
+  pull-requests: read
+
 jobs:
   deploy:
-    name: "Deploy to Production"
+    name: Deploy to Production
     if: ${{ github.event.pull_request.merged == true }}
     permissions:
       contents: read

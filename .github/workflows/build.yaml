@@ -1,5 +1,9 @@
 ---
 name: "Build"
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
 "on":
   pull_request:
     branches:
@@ -10,10 +14,9 @@ name: "Build"
       - "deployment/dev/**"
       - "deployment/prod/**"
       - ".cloudbuild/**"
-
-concurrency:
-  group: ci-${{ github.ref }}
-  cancel-in-progress: true
+permissions:
+  contents: read
+  pull-requests: read
 
 jobs:
   build:
@@ -27,9 +30,10 @@ jobs:
 
     steps:
       - name: Set _REPONAME environment variable
-        run: echo "_REPONAME=${GITHUB_REPOSITORY#"broadinstitute/"}" >> $GITHUB_ENV
+        run:
+          echo "_REPONAME=${GITHUB_REPOSITORY#"broadinstitute/"}" >> $GITHUB_ENV
 
-      - uses: "actions/checkout@v6"
+      - uses: "actions/checkout@v7"
       - uses: "google-github-actions/auth@v3"
         with:
           workload_identity_provider: ${{ vars._WORKLOAD_IDENTITY_PROVIDER }}

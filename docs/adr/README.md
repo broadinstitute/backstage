@@ -1,9 +1,7 @@
-# Architecture Decision Records
-
-1. [Record architecture decisions](0001-record-architecture-decisions.md)
-1. [catalog-taxonomy](0002-catalog-taxonomy.md)
-1. [Add insights plugin](0003-add-insights-plugin.md)
-1. [Add Skills Exchange Plugin](0004-add-skills-exchange-plugin.md)
-1. [Tag external-facing templates with "Recommended" tag](0005-recommended-tag.md)
-1. [Migrate Build Pipeline to Github Actions](0006-migrate-build-pipeline-to-github-actions.md)
-1. [Allow Soundcheck to use sensitive fact values in check result message templates](0007-allow-sounds-check-to-use-sensitive-fact-values-for-check-in-templates.md)
+1. [1. Record architecture decisions](0001-record-architecture-decisions.md)
+2. [2. catalog-taxonomy](0002-catalog-taxonomy.md)
+3. [3. Add insights plugin](0003-add-insights-plugin.md)
+4. [4. Add Skills Exchange Plugin](0004-add-skills-exchange-plugin.md)
+5. [5. Tag external-facing templates with "Recommended" tag](0005-tag-external-facing-templates-with-recommended-tag.md)
+6. [6. Migrate Build Pipeline to Github Actions](0006-migrate-build-pipeline-to-github-actions.md)
+7. [7. Allow Soundcheck to use sensitive fact values in check result message templates](0007-allow-soundcheck-to-use-sensitive-fact-values-in-check-result-message-templates.md)

@@ -1,6 +1,9 @@
 ---
 extends: default
+ignore:
+  - .terraform/
 rules:
+  comments: disable
   comments-indentation: disable
   indentation:
     indent-sequences: whatever

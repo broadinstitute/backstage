@@ -1,14 +1,24 @@
-# terraform repo for backstage
-Terraform Repo for backstage
+## Terraform Docs
 
-[Terraform Docs](https://terraform-docs.io/) created by running:
+[Terraform Docs](https://terraform-docs.io/) created by running the following
+from the root of the repository:
 
-```Shell
-docker run --rm --volume "$(pwd):/terraform-docs" -u $(id -u) quay.io/terraform-docs/terraform-docs:latest --output-file README.md --output-mode inject /terraform-docs
+```shell
+podman run --rm -u $(id -u) \
+    --volume "$(pwd):/terraform-docs" \
+    -w /terraform-docs \
+    quay.io/terraform-docs/terraform-docs:latest \
+    --output-file /terraform-docs/deployment/prod/terraform/README.md \
+    --output-mode inject /terraform-docs/deployment/prod/terraform
 ```
 
 Remember update the dependency lock file for different architectures:
 
-```Shell
-terraform providers lock -platform=linux_amd64 -platform=darwin_amd64 -platform=darwin_arm64 -platform=windows_amd64
+```shell
+terraform providers lock \
+    -platform=linux_amd64 \
+    -platform=linux_arm64 \
+    -platform=darwin_amd64 \
+    -platform=darwin_arm64 \
+    -platform=windows_amd64
 ```

@@ -1,6 +1,14 @@
+[tasks."adr:toc"]
+description = "Generate a table of contents and update the ADR README.md file"
+run = "adrs generate toc --ordered > docs/adr/README.md | prettier -w docs/adr/README.md"
+
 [tools]
-node = "24"
-yarn = "4.5.1"
-werf = "latest"
-pack = "latest"
 "aqua:kptdev/kpt" = "latest"
+"github:joshrotenberg/adrs" = "latest"
+"npm:prettier" = "latest"
+kubectx = "latest"
+node = "24"
+pack = "latest"
+werf = "latest"
+yamllint = "latest"
+yarn = "4.5.1"
