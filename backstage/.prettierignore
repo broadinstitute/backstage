@@ -1,4 +1,8 @@
+.vscode
+.yarnrc.yml
+coverage
 dist
 dist-types
-coverage
-.vscode
+node_modules/*
+packages/app
+packages/backend

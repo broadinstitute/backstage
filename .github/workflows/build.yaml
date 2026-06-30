@@ -1,5 +1,5 @@
 ---
-name: "Build"
+name: Build and deploy
 
 concurrency:
   group: ci-${{ github.ref }}
@@ -13,7 +13,6 @@ concurrency:
       - "deployment/backstage/**"
       - "deployment/dev/**"
       - "deployment/prod/**"
-      - ".cloudbuild/**"
 permissions:
   contents: read
   pull-requests: read
@@ -21,51 +20,48 @@ permissions:
 jobs:
   build:
     if: github.event.pull_request.draft == false
-    name: "Build Backstage"
+    name: Build Backstage
     runs-on: ubuntu-latest
     environment: development
     permissions:
-      contents: "read"
-      id-token: "write"
+      contents: read
+      id-token: write
 
     steps:
       - name: Set _REPONAME environment variable
-        run:
+        run: |
           echo "_REPONAME=${GITHUB_REPOSITORY#"broadinstitute/"}" >> $GITHUB_ENV
-
-      - uses: "actions/checkout@v7"
-      - uses: "google-github-actions/auth@v3"
+      - name: Checkout repo
+        uses: actions/checkout@v7
+      - name: Authenticate to Workload Identity
+        uses: google-github-actions/auth@v3
         with:
           workload_identity_provider: ${{ vars._WORKLOAD_IDENTITY_PROVIDER }}
           service_account: ${{ vars._SERVICE_ACCOUNT }}
-      - name: "Set up Cloud SDK"
-        uses: "google-github-actions/setup-gcloud@v3"
+      - name: Set up Cloud SDK
+        uses: google-github-actions/setup-gcloud@v3
         with:
           version: ">= 506.0.0"
-
-      - name: "gcloud docker config"
+      - name: gcloud docker config
         run: |-
           gcloud auth configure-docker us-east4-docker.pkg.dev
-
       - name: Mise override
         run: |
           mise_override="$(pwd)/mise.toml"
           echo "MISE_OVERRIDE_CONFIG_FILENAMES=$mise_override" >> $GITHUB_ENV
         shell: bash
-
       - uses: jdx/mise-action@v4
         id: mise
         name: Install Dependencies
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-
       - name: Build Pack Run Image
         working-directory: ./backstage
         run: |
           source "$(werf ci-env github --as-file)"
-          werf build --repo us-east4-docker.pkg.dev/${{vars._REGISTRY_PROJECT}}/${{vars._REGISTRY_NAME}}/${{vars._APP}}-run-image --add-custom-tag ${{ github.sha }}
+          werf build --repo us-east4-docker.pkg.dev/${{vars._REGISTRY_PROJECT}}/${{vars._REGISTRY_NAME}}/${{vars._APP}}-run-image \
+            --add-custom-tag ${{ github.sha }}
           # werf cleanup --repo us-east4-docker.pkg.dev/${{vars._REGISTRY_PROJECT}}/${{vars._REGISTRY_NAME}}/${{vars._APP}}-run-image
-
       - name: Build Backstage Image
         id: build-image
         working-directory: ./backstage
@@ -77,12 +73,16 @@ jobs:
             --publish \
             --env NODE_OPTIONS="--max-old-space-size=3686 --trace-deprecation"
   deploy:
-    name: "Deploy to Development"
     if: github.event.pull_request.draft == false
-    uses: ./.github/workflows/deploy.yaml
+    name: Deploy to Development
     needs: build
+    permissions:
+      contents: read
+      id-token: write
+      pull-requests: read
+    uses: ./.github/workflows/deploy.yaml
     with:
       deploy: true
+      dry_run: server
       environment: development
-      dry_run: "server"
       image_tag: ${{ github.sha }}

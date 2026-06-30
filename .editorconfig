@@ -20,7 +20,7 @@ indent_style = space
 [.gitignore]
 trim_trailing_whitespace = false
 
-[*.{hcl,json,md,tf,tfvars,yaml,yml}]
+[*.{hcl,js,json,md,tf,tfvars,yaml,yml}]
 indent_size = 2
 indent_style = space
 

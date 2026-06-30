@@ -1,0 +1,48 @@
+---
+version: 2
+updates:
+  - package-ecosystem: github-actions
+    directory: /
+    groups:
+      actions:
+        patterns:
+          - "*"
+    schedule:
+      # Check for updates to GitHub Actions every month
+      interval: monthly
+  - package-ecosystem: terraform
+    directory: /deployment/dev/terraform
+    groups:
+      terraform_dev:
+        patterns:
+          - "*"
+    schedule:
+      # Check for updates to Terraform every month
+      interval: monthly
+  - package-ecosystem: terraform
+    directory: /deployment/prod/terraform
+    groups:
+      terraform_prod:
+        patterns:
+          - "*"
+    schedule:
+      # Check for updates to Terraform every month
+      interval: monthly
+  - package-ecosystem: docker
+    directory: /deployment/backstage
+    groups:
+      kubernetes:
+        patterns:
+          - "*"
+    schedule:
+      # Check for updates to Docker images every month
+      interval: monthly
+  - package-ecosystem: docker
+    directory: /backstage
+    groups:
+      buildpack:
+        patterns:
+          - "*"
+    schedule:
+      # Check for updates to Docker images every month
+      interval: monthly

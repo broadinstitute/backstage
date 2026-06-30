@@ -52,15 +52,15 @@ Here is an example of a mkdocs.yml file:
 site_name: "BITS Backstage Documentation"
 
 nav:
-    - Home: index.md
-    - catalog: catalog.md
-    - kubernetes: kubernetes.md
-    - techdocs: techdocs.md
-    - plugins: plugins.md
-    - ADRs: adr/README.md
+  - Home: index.md
+  - catalog: catalog.md
+  - kubernetes: kubernetes.md
+  - techdocs: techdocs.md
+  - plugins: plugins.md
+  - ADRs: adr/README.md
 
 plugins:
-    - techdocs-core
+  - techdocs-core
 ```
 
 ### Mermaid Diagrams

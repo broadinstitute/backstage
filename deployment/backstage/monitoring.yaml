@@ -13,5 +13,5 @@ spec:
     matchLabels:
       app: backstage
   endpoints:
-  - port: 9464
-    interval: 30s
+    - port: 9464
+      interval: 30s

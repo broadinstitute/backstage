@@ -1,5 +1,5 @@
 ---
-site_name: 'BITS Backstage Documentation'
+site_name: BITS Backstage Documentation
 
 nav:
   - Home: README.md

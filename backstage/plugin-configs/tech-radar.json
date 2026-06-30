@@ -270,24 +270,24 @@
       "quadrant": "infrastructure"
     },
     {
-        "timeline": [
-          {
-            "ringId": "adopt",
-            "date": "2020-08-06T00:00:00.000Z",
-            "description": "virtualization platform"
-          }
-        ],
-        "links": [
-          {
-            "url": "https://www.vmware.com",
-            "title": "Learn more"
-          }
-        ],
-        "key": "vmware",
-        "id": "vmware",
-        "title": "VMWare",
-        "quadrant": "infrastructure"
-      },
+      "timeline": [
+        {
+          "ringId": "adopt",
+          "date": "2020-08-06T00:00:00.000Z",
+          "description": "virtualization platform"
+        }
+      ],
+      "links": [
+        {
+          "url": "https://www.vmware.com",
+          "title": "Learn more"
+        }
+      ],
+      "key": "vmware",
+      "id": "vmware",
+      "title": "VMWare",
+      "quadrant": "infrastructure"
+    },
     {
       "timeline": [
         {
