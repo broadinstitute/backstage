@@ -4,16 +4,16 @@
 skills:
   - name: HPC
     category: DISCIPLINE
-  - name: "Scientific Computing"
+  - name: Scientific Computing
     category: DISCIPLINE
-  - name: "Spack Packages"
+  - name: Spack Packages
     category: INFRASTRUCTURE
     subset: TOOLS
 
 locations:
   - Remote
-  - "On Site - Burlington"
-  - "On Site - Cambridge"
+  - On Site - Burlington
+  - On Site - Cambridge
 
 # # Optional: Embed priority labels in the skill exchange plugin
 # embedPriorityLabels:

@@ -5,6 +5,11 @@ name: Production Environment
   pull_request_target:
     types:
       - closed
+    paths:
+      - "backstage/**"
+      - "deployment/backstage/**"
+      - "deployment/dev/**"
+      - "deployment/prod/**"
 permissions:
   contents: read
   pull-requests: read

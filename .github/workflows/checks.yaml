@@ -10,13 +10,13 @@ permissions:
   pull-requests: read
 
 jobs:
+  adr-check-toc:
+    uses: broadinstitute/shared-workflows/.github/workflows/adr-check-toc.yaml@v6
   conventional-commits:
     permissions:
       contents: read
       pull-requests: write
     uses: broadinstitute/shared-workflows/.github/workflows/conventional-commit.yaml@v6
-  validation:
-    uses: broadinstitute/shared-workflows/.github/workflows/terraform-validate.yaml@v6
   linting:
     uses: broadinstitute/shared-workflows/.github/workflows/terraform-lint.yaml@v6
     with:
@@ -25,5 +25,5 @@ jobs:
     uses: broadinstitute/shared-workflows/.github/workflows/terraform-docs.yaml@v6
     with:
       working_directory: ./deployment/dev/terraform/,./deployment/prod/terraform/
-  adr-check-toc:
-    uses: broadinstitute/shared-workflows/.github/workflows/adr-check-toc.yaml@v6
+  validation:
+    uses: broadinstitute/shared-workflows/.github/workflows/terraform-validate.yaml@v6

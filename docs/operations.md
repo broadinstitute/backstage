@@ -52,7 +52,7 @@ If you don't have `mise` but do have the 1Password CLI, you can also manually
 source the secrets by running the following commands from the app root (i.e the
 `backstage/` directory in the repo):
 
-```Shell
+```shell
 source op.bash
 ```
 
@@ -64,7 +64,7 @@ populate the expected environment variables.
 You can also use the `github:credentials` task to create the
 `github-app-backstage-bits-dev-credentials.yaml`:
 
-```Shell
+```shell
 mise run github:credentials
 ```
 
@@ -106,7 +106,7 @@ Backstage relies on having access to a local database. The example local config
 is set up to access a postgres database. If you are using `mise`, you can start
 the database using a [mise task](https://mise.jdx.dev/tasks/):
 
-```Shell
+```shell
 mise run backstage:pg
 ```
 
@@ -115,7 +115,7 @@ database container is running before attempting to start the Backstage instance.
 
 If you are not using `mise`, you can set one up easily using `podman`:
 
-```Shell
+```shell
 podman run \
     --rm \
     --publish 5432:5432 \
@@ -131,7 +131,7 @@ podman run \
 If you are using `mise`, you can install all the Backstage dependencies with a
 [mise task](https://mise.jdx.dev/tasks/):
 
-```Shell
+```shell
 mise run backstage:install
 ```
 
@@ -140,7 +140,7 @@ dependencies are installed before attempting to start the Backstage instance.
 
 To use the manual method, you can run:
 
-```Shell
+```shell
 yarn install
 ```
 
@@ -149,7 +149,7 @@ yarn install
 If you are using `mise`, you start the local backstage instance using a
 [mise task](https://mise.jdx.dev/tasks/).
 
-```Shell
+```shell
 mise run backstage:dev
 ```
 
@@ -165,7 +165,7 @@ Backstage.
 
 To start the app using the manual method, run:
 
-```Shell
+```shell
 yarn dev
 ```
 
@@ -198,7 +198,7 @@ repo, the backstage root folder is `backstage/backstage`
 
 Build Docker Image for Backstage (From backstage root)
 
-```Shell
+```shell
 yarn build:backend --config ../../app-config.yaml
 yarn tsc
 docker image build . -f packages/backend/Dockerfile --tag backstage
@@ -213,7 +213,7 @@ environment variables, and a local file, from 1Password.
 github-app-backstage-bits-credential auth-github-client-id
 auth-github-client-secret auth-google-client-id auth-google-client-secret
 
-```Shell
+```shell
 kubectl -n backstage create secret generic github-app-backstage-bits-credentials --from-file=github-app-backstage-bits-credentials.yaml
 kubectl -n backstage create secret generic auth-github-client-id --from-literal=AUTH_GITHUB_CLIENT_ID=$AUTH_GITHUB_CLIENT_ID
 kubectl -n backstage create secret generic auth-github-client-secret --from-literal=AUTH_GITHUB_CLIENT_SECRET=$AUTH_GITHUB_CLIENT_SECRET
@@ -230,7 +230,7 @@ not populate them.
 
 Secrets can be added to secret manager either through the GUI, or the CLI.
 
-```Shell
+```shell
 gcloud secrets versions add github-app-backstage-bits-credentials --data-file="github-app-backstage-bits-credentials.yaml"
 gcloud secrets versions add auth-github-client-id --data-file=<(echo -n $AUTH_GITHUB_CLIENT_ID)
 gcloud secrets versions add auth-github-client-secret --data-file=<(echo -n $AUTH_GITHUB_CLIENT_SECRET)
@@ -262,7 +262,7 @@ terraform apply in a PR.
 When updating a provider, run the following command to update the lock file.
 This will ensure that the provider is available for all platforms.
 
-```Shell
+```shell
 terraform providers lock \
   -platform=linux_arm64 \
   -platform=linux_amd64 \
@@ -277,8 +277,14 @@ When updating docs, run the following command in the directory you want to
 update (dev/prod). This will ensure that the docs are available for all
 platforms.
 
-```Shell
-podman run --rm --volume "$(pwd):/terraform-docs" -u $(id -u) quay.io/terraform-docs/terraform-docs:latest --output-file README.md --output-mode inject /terraform-docs
+```shell
+podman run --rm \
+  --volume "$(pwd):/terraform-docs" \
+  -w /terraform-docs \
+  -u $(id -u) \
+  quay.io/terraform-docs/terraform-docs:latest \
+  --output-file README.md \
+  --output-mode inject /terraform-docs
 ```
 
 ### Using the development environment
@@ -294,7 +300,7 @@ git workflow:
 1. Make changes that _only_ affect the `dev` directory. Commit them normally.
 1. Run this git command from the project root:
 
-   ```Shell
+   ```shell
    git apply --directory  deployment/prod/terraform <(git format-patch -1 --relative=deployment/dev/terraform --stdout)
    ```
 
@@ -304,14 +310,14 @@ git workflow:
 
 1. Run this git command:
 
-   ```Shell
+   ```shell
    git add -A; git commit -m "$(git log -1 --pretty="format:Apply %h to prod%n%n%B")"
    ```
 
    This stages all changes in the repository and commits them with a formatted
    message:
 
-   ```Text
+   ```text
    Apply <git hash> to prod
 
    <Full text of referenced commit message>
@@ -349,3 +355,53 @@ following command:
 ```shell
 kubectl rollout restart deployment/backstage -n backstage
 ```
+
+## Rolling Back a Failing Deployment
+
+If your PR rolls out a new deployment and it errors out and will not deploy as
+expected, you should roll the deployment back to its previous release. To do
+this you can use the following method.
+
+1. Check to see that the deployment is failing. If it is, you should see
+   something like the following:
+
+   ```shell
+   kubectl -n backstage get all
+   ```
+
+   ```text
+   NAME                             READY   STATUS             RESTARTS   AGE
+   pod/backstage-56bd7646f5-46xd5   1/2     ImagePullBackOff   0          56s
+   pod/backstage-56bd7646f5-6sxrz   1/2     ErrImagePull       0          30s
+   pod/backstage-56bd7646f5-bbmf5   0/2     Init:0/1           0          24s
+   pod/backstage-75f4b67699-kwq5t   1/2     Running            0          30s
+   pod/backstage-75f4b67699-p6rjc   2/2     Running            0          6d17h
+   pod/backstage-75f4b67699-vt4h6   2/2     Running            0          4d2h
+   pod/backstage-75f4b67699-vtnxj   1/2     Running            0          24s
+   ```
+
+2. Roll back to the previous release.
+
+   ```shell
+   kubectl -n backstage rollout undo deployment.apps/backstage
+   ```
+
+   ```text
+   deployment.apps/backstage rolled back
+   ```
+
+3. When you check again, you should see that the pods that were erroring out are
+   gone.
+
+   ```shell
+   kubectl -n backstage get all
+   ```
+
+   ```text
+   NAME                             READY   STATUS            RESTARTS   AGE
+   pod/backstage-75f4b67699-htktx   1/2     PodInitializing   0          2s
+   pod/backstage-75f4b67699-kwq5t   2/2     Running           0          5m25s
+   pod/backstage-75f4b67699-p6rjc   2/2     Running           0          6d17h
+   pod/backstage-75f4b67699-vt4h6   2/2     Running           0          4d2h
+   pod/backstage-75f4b67699-vtnxj   2/2     Running           0          5m19s
+   ```

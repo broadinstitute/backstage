@@ -2,6 +2,9 @@
 extends: default
 ignore:
   - .terraform/
+  - backstage/examples/template
+  - node_modules/
+  - template.expanded.yaml
 rules:
   comments: disable
   comments-indentation: disable
@@ -10,4 +13,4 @@ rules:
     spaces: 2
   line-length:
     level: warning
-    max: 130
+    max: 150

@@ -5,12 +5,10 @@ metadata:
   name: create-pagerduty-service
   title: Create PagerDuty Service
   description: >-
-    Creates service in PagerDuty based on the selected Backstage entity.
-    The template will annotate the Backstage entity with the PagerDuty
-    service ID.
+    Creates service in PagerDuty based on the selected Backstage entity. The
+    template will annotate the Backstage entity with the PagerDuty service ID.
     This template assumes that your catalog-info.yaml only contains a single
-    entity.
-    Note: You can only select entities that are owned by your team.
+    entity. Note: You can only select entities that are owned by your team.
   annotations:
     backstage.io/time-saved: PT30M
   tags:
@@ -30,8 +28,8 @@ spec:
           title: Service Name
           type: string
           description: >-
-            The name of the component. Note: You can only select entities
-            that are owned by your team.
+            The name of the component. Note: You can only select entities that
+            are owned by your team.
           ui:field: OwnedEntityPicker
           ui:options:
             Kind:
@@ -53,7 +51,9 @@ spec:
                 escalationPolicyId:
                   title: Escalation Policy ID
                   type: string
-                  description: The ID of the escalation policy to associate with the service
+                  description:
+                    The ID of the escalation policy to associate with the
+                    service
                   ui:field: SelectFieldFromApi
                   ui:options:
                     title: PagerDuty Escalation Policy
@@ -61,11 +61,13 @@ spec:
                     path: pagerduty/escalation_policies
                     labelSelector: label
                     valueSelector: value
-                    placeholder: "---"
+                    placeholder: '---'
                 alertGrouping:
                   title: Alert Grouping
                   type: string
-                  description: Reduce noise by grouping similar alerts - Defaults to 'None'.
+                  description:
+                    Reduce noise by grouping similar alerts - Defaults to
+                    'None'.
                   enum:
                     - time
                     - intelligent
@@ -75,14 +77,15 @@ spec:
                     - Intelligent grouping
                     - Content-based grouping
 
-
             - properties:
                 createPagerduty:
                   enum:
                     - false
                 pagerdutyIntegrationKey:
                   title: PagerDuty integration key
-                  description: This value is ignored if you selected "Yes" for the previous question.
+                  description:
+                    This value is ignored if you selected "Yes" for the previous
+                    question.
                   type: string
 
   steps:
@@ -106,15 +109,23 @@ spec:
       name: Download Catalog File
       action: fetch:plain:file
       input:
-        url: ${{ steps['fetch-component'].output.entity.metadata.annotations['backstage.io/view-url'] }}
-        targetPath: ${{ steps['fetch-component'].output.entity.metadata.annotations['backstage.io/view-url'] | replace(r/.*?tree\/(.*?\/)/g, "") }}
+        url: ${{
+          steps['fetch-component'].output.entity.metadata.annotations['backstage.io/view-url']
+          }}
+        targetPath: ${{
+          steps['fetch-component'].output.entity.metadata.annotations['backstage.io/view-url']
+          | replace(r/.*?tree\/(.*?\/)/g, "") }}
 
     - id: annotateComponent
       name: Annotate Backstage Entity
       action: catalog:annotate
       input:
-        entityFilePath: ${{ steps['fetch-component'].output.entity.metadata.annotations['backstage.io/view-url'] | replace(r/.*?tree\/(.*?\/)/g, "") }}
-        writeToFile: ${{ steps['fetch-component'].output.entity.metadata.annotations['backstage.io/view-url'] | replace(r/.*?tree\/(.*?\/)/g, "") }}
+        entityFilePath: ${{
+          steps['fetch-component'].output.entity.metadata.annotations['backstage.io/view-url']
+          | replace(r/.*?tree\/(.*?\/)/g, "") }}
+        writeToFile: ${{
+          steps['fetch-component'].output.entity.metadata.annotations['backstage.io/view-url']
+          | replace(r/.*?tree\/(.*?\/)/g, "") }}
         annotations:
           pagerduty.com/service-id: ${{ steps['pagerdutyService'].output.serviceId }}
 
@@ -122,12 +133,15 @@ spec:
       name: Create Pull Request
       action: publish:github:pull-request
       input:
-        repoUrl: github.com?repo=${{ steps['fetch-component'].output.entity.metadata.annotations['backstage.io/edit-url'] | replace("https://github.com/broadinstitute/", "") | replace(r/\/edit.*/g, "") }}&owner=broadinstitute
+        repoUrl: github.com?repo=${{
+          steps['fetch-component'].output.entity.metadata.annotations['backstage.io/edit-url']
+          | replace("https://github.com/broadinstitute/", "") |
+          replace(r/\/edit.*/g, "") }}&owner=broadinstitute
         branchName: add-pagerduty-service
         title: 'feat: Add PagerDuty Service for ${{ parameters.name }}'
         description: >-
-          This PR adds the PagerDuty service for ${{ parameters.name }}.
-          The service is created in PagerDuty and associated with the specified
+          This PR adds the PagerDuty service for ${{ parameters.name }}. The
+          service is created in PagerDuty and associated with the specified
           escalation policy.
 
   output:

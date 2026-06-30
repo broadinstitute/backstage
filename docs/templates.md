@@ -23,14 +23,14 @@ tags.
 ### Local Development of Software Templates
 
 Our software templates are stored in a
-[separate repository](/catalog/default/component/software-templates). Because
-we have split software templates into reusable parts, make sure that you run the `expand_template`
-workflow to replace placeholders with actual values during development and
-testing.
+[separate repository](/catalog/default/component/software-templates). Because we
+have split software templates into reusable parts, make sure that you run the
+`expand_template` workflow to replace placeholders with actual values during
+development and testing.
 
-This link has more information about [reusable components](https://backstage.io/docs/features/software-templates/input-examples#use-placeholders-to-reference-remote-files),
+This link has more information about
+[reusable components](https://backstage.io/docs/features/software-templates/input-examples#use-placeholders-to-reference-remote-files),
 and how we use the `url` field in the app-config.yaml to reference templates.
-
 
 This means that when you are developing a new template, you need to push your
 changes to a branch in order to test them. You can also create a monolithic

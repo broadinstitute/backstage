@@ -1,3 +1,4 @@
+---
 # kubernetes/backstage.yaml
 apiVersion: apps/v1
 kind: Deployment
@@ -73,10 +74,10 @@ spec:
               port: 7007
               path: /.backstage/health/v1/readiness
             initialDelaySeconds: 120
-              #          livenessProbe:
-              #            httpGet:
-              #              port: 7007
-              #              path: /healthcheck
+          # livenessProbe:
+          #   httpGet:
+          #     port: 7007
+          #     path: /healthcheck
       initContainers:
         - name: cloud-sql-proxy
           # It is recommended to use the latest version of the Cloud SQL Auth Proxy
@@ -120,7 +121,8 @@ spec:
               cpu: "500m"
             # Recommended configurations for health check probes.
             # Probe parameters can be adjusted to best fit the requirements of your application.
-            # For details, see https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/
+            # For details, see
+            # https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/
           # startupProbe:
           #   # We recommend adding a startup probe to the proxy sidecar
           #   # container. This will ensure that service traffic will be routed to

@@ -24,5 +24,5 @@ We will be able to find the right catalog item more easily, and associate it
 with the right category and team. We will also be able to use the taxonomy to
 create a better search experience.
 
--   Risk: We might need to change the taxonomy as we go along.
--   Risk: We might already have a conflicting taxonomy in place.
+- Risk: We might need to change the taxonomy as we go along.
+- Risk: We might already have a conflicting taxonomy in place.

@@ -76,7 +76,6 @@ explicitly enabled.
 - **Message Persistence**: Check result messages containing sensitive data are
   persisted until checks are updated. Messages may remain visible in the UI or
   notification history longer than desired.
-
   - _Mitigation_: Implement a policy for regularly reviewing and updating checks
     to regenerate messages; consider automation to refresh check results
     periodically
@@ -84,7 +83,6 @@ explicitly enabled.
 - **Notification Channel Security**: Slack messages and other notifications
   containing sensitive data require secure configuration and appropriate access
   controls.
-
   - _Mitigation_: Ensure Slack bot tokens are properly scoped and rotated;
     configure Slack workspace permissions to limit who can view channels with
     sensitive check messages; consider using private channels or threads for
@@ -93,7 +91,6 @@ explicitly enabled.
 - **Front-End Access Control**: Without careful RBAC configuration, sensitive
   data in check messages could be exposed to unauthorized users viewing the
   Soundcheck UI.
-
   - _Mitigation_: Use Backstage RBAC policies to restrict access to Soundcheck
     check results; implement complementary use of
     `dangerouslyAllowSensitiveFactReads` only for authorized users via the RBAC
@@ -101,7 +98,6 @@ explicitly enabled.
 
 - **Audit and Compliance**: Access to sensitive data in check messages should be
   auditable for compliance purposes.
-
   - _Mitigation_: Ensure Backstage audit logging is enabled and configured to
     capture access to Soundcheck resources; regularly review audit logs for
     unauthorized access patterns

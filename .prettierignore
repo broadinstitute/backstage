@@ -1,0 +1,8 @@
+backstage/.vscode
+backstage/.yarnrc.yml
+backstage/coverage
+backstage/dist
+backstage/dist-types
+backstage/packages/app
+backstage/packages/backend
+node_modules/*

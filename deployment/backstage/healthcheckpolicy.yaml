@@ -1,3 +1,4 @@
+---
 apiVersion: networking.gke.io/v1
 kind: HealthCheckPolicy
 metadata:
@@ -12,7 +13,7 @@ metadata:
 
 spec:
   default:
-    checkIntervalSec: 15  # The default value is 15 seconds.
+    checkIntervalSec: 15 # The default value is 15 seconds.
     timeoutSec: 5
     healthyThreshold: 3
     unhealthyThreshold: 10

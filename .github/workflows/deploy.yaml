@@ -49,32 +49,27 @@ jobs:
     steps:
       - name: Checkout repo
         uses: actions/checkout@v7
-      - uses: jdx/mise-action@v4
-        id: mise
+      - id: mise
         name: Install Dependencies
+        uses: jdx/mise-action@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-
       - name: Copy Kptfile to App Deployment Directory
         run: |
           cp ${{env.DEPLOY_PATH}}/${{ vars.ENV }}/Kptfile ${{ env.DEPLOY_PATH }}/${{ vars._APP }}/Kptfile
-
       - name: Render App Manifests
         run: |
           kpt fn render ${{ env.DEPLOY_PATH }}/${{ vars._APP }}
-
       - name: Set Environment Label
         run: |
           kpt fn eval ${{ env.DEPLOY_PATH }}/${{ vars._APP }} \
             --image ghcr.io/kptdev/krm-functions-catalog/set-labels:v0.2 \
             -- environment=${{ vars.ENV }}
-
       - name: Set Branch Environment Variable
         run: |
           kpt fn eval ${{ env.DEPLOY_PATH }}/${{ vars._APP }} \
             --image ghcr.io/kptdev/krm-functions-catalog/apply-setters:v0.2 \
             -- branch_name="${GITHUB_HEAD_REF:-main}"
-
       - name: Set Image
         run: |
           kpt fn eval ${{ env.DEPLOY_PATH }}/${{ vars._APP }} \
@@ -82,7 +77,6 @@ jobs:
             -- name=${{ vars._LOCATION }}-docker.pkg.dev/bits-gke-clusters/bits/backstage:latest \
             newName=${{ vars._LOCATION }}-docker.pkg.dev/${{ vars._REGISTRY_PROJECT }}/${{ vars._REGISTRY_NAME }}/${{ vars._APP }} \
             newTag=${{ inputs.image_tag }}
-
       - uses: actions/upload-artifact@v7
         with:
           name: Upload Deployment Directory
@@ -105,30 +99,25 @@ jobs:
           name: Upload Deployment Directory
           path: ${{ env.DEPLOY_PATH }}/${{ vars._APP }}
           merge-multiple: true
-
       - name: Authenticate to Workload Identity
         uses: google-github-actions/auth@v3
         with:
           service_account: ${{ vars._SERVICE_ACCOUNT }}
           workload_identity_provider: ${{ vars._WORKLOAD_IDENTITY_PROVIDER }}
-
       - name: Set up Cloud SDK
-        uses: "google-github-actions/setup-gcloud@v3"
+        uses: google-github-actions/setup-gcloud@v3
         with:
           version: ">= 506.0.0"
-
       - name: Authenticate to GKE cluster
         uses: google-github-actions/get-gke-credentials@v3
         with:
           cluster_name: gke-autopilot-01-prod
           location: ${{ vars._LOCATION }}
           project_id: ${{ vars._GKE_PROJECT }}
-
       - name: GKE Deploy - Dry Run
         if: ${{ inputs.deploy == false }}
         run: |
           kubectl apply -f ${{ env.DEPLOY_PATH }}/${{ vars._APP }} --recursive --dry-run=${{ inputs.dry_run }}
-
       - name: GKE Deploy - Apply
         if: ${{ inputs.deploy == true }}
         uses: docker://gcr.io/cloud-builders/gke-deploy@sha256:917cae73a8a6074fdb0312a71b120e1b2f487c734273e5730c39024ad9c2ad56
@@ -138,11 +127,11 @@ jobs:
             --location=${{ vars._LOCATION }} --project=${{ vars._GKE_PROJECT }}
             --cluster=gke-autopilot-01-prod --timeout=10m
       # This errors here, but might work with a new deployment
-      # - name: "GKE Deploy using Action"
+      # - name: GKE Deploy using Action
       #   if: ${{ inputs.deploy == true }}
-      #   uses: "google-github-actions/deploy-gke@v0"
+      #   uses: google-github-actions/deploy-gke@v0
       #   with:
-      #     image: "${{ vars._LOCATION }}-docker.pkg.dev/${{ vars._REGISTRY_PROJECT }}/${{ vars._REGISTRY_NAME }}/${{ vars._APP }}:${{ github.event.number }}"
+      #     image: "${{vars._LOCATION}}-docker.pkg.dev/${{vars._REGISTRY_PROJECT}}/${{vars._REGISTRY_NAME}}/${{vars._APP}}:${{github.event.number}}"
       #     app_name: "${{ vars._APP }}"
       #     region: "${{ vars._LOCATION }}"
       #     cluster_name: "gke-autopilot-01-prod"
