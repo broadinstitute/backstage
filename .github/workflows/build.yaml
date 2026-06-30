@@ -11,8 +11,8 @@ concurrency:
     paths:
       - "backstage/**"
       - "deployment/backstage/**"
-      - "deployment/dev/**"
-      - "deployment/prod/**"
+      - deployment/dev/Kptfile
+      - deployment/prod/Kptfile
 permissions:
   contents: read
   pull-requests: read
