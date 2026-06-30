@@ -1,23 +1,25 @@
 ---
 name: "Monthly Release"
-permissions:
-  contents: write
-  packages: write
 
 "on":
   schedule:
     - cron: "0 0 1 * *"
+permissions:
+  contents: write
+  packages: write
 
 jobs:
   create_release:
     runs-on: ubuntu-latest
     steps:
       - name: "Checkout repo"
-        uses: "actions/checkout@v6"
+        uses: "actions/checkout@v7"
       - name: Get current date
         id: pr-date
         run: echo "PR_DATE=$(date +'%Y.%m.%d')" >> $GITHUB_OUTPUT
       - name: Create Release
-        run: gh release create ${{ steps.pr-date.outputs.PR_DATE }} --generate-notes --title ${{ steps.pr-date.outputs.PR_DATE }}
+        run:
+          gh release create ${{ steps.pr-date.outputs.PR_DATE }}
+          --generate-notes --title ${{ steps.pr-date.outputs.PR_DATE }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

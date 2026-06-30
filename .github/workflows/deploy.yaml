@@ -1,5 +1,6 @@
 ---
-name: "Kubernetes Deployment"
+name: Kubernetes Deployment
+
 "on":
   workflow_call:
     inputs:
@@ -43,11 +44,11 @@ jobs:
       run:
         working-directory: ${{ inputs.working_directory }}
     environment: ${{ inputs.environment }}
-    name: "Hydrate Manifests"
+    name: Hydrate Manifests
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repo
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
       - uses: jdx/mise-action@v4
         id: mise
         name: Install Dependencies
@@ -92,12 +93,12 @@ jobs:
       run:
         working-directory: ${{ inputs.working_directory }}
     environment: ${{ inputs.environment }}
-    name: "Deploy Manifests"
+    name: Deploy Manifests
     runs-on: ubuntu-latest
     needs: hydrate
     steps:
       - name: Checkout repo
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
       - name: Download Deployment Directory
         uses: actions/download-artifact@v8
         with:
@@ -111,7 +112,7 @@ jobs:
           service_account: ${{ vars._SERVICE_ACCOUNT }}
           workload_identity_provider: ${{ vars._WORKLOAD_IDENTITY_PROVIDER }}
 
-      - name: "Set up Cloud SDK"
+      - name: Set up Cloud SDK
         uses: "google-github-actions/setup-gcloud@v3"
         with:
           version: ">= 506.0.0"
@@ -132,7 +133,10 @@ jobs:
         if: ${{ inputs.deploy == true }}
         uses: docker://gcr.io/cloud-builders/gke-deploy@sha256:917cae73a8a6074fdb0312a71b120e1b2f487c734273e5730c39024ad9c2ad56
         with:
-          args: run --recursive --filename=${{ env.DEPLOY_PATH }}/${{ vars._APP }} --location=${{ vars._LOCATION }} --project=${{ vars._GKE_PROJECT }} --cluster=gke-autopilot-01-prod --timeout=10m
+          args:
+            run --recursive --filename=${{ env.DEPLOY_PATH }}/${{ vars._APP }}
+            --location=${{ vars._LOCATION }} --project=${{ vars._GKE_PROJECT }}
+            --cluster=gke-autopilot-01-prod --timeout=10m
       # This errors here, but might work with a new deployment
       # - name: "GKE Deploy using Action"
       #   if: ${{ inputs.deploy == true }}

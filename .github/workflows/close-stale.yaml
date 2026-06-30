@@ -1,10 +1,15 @@
 ---
-name: "Close stale issues and PRs"
+name: Close stale issues and PRs
 
-'on':
+"on":
   schedule:
     - cron: "30 1 * * *"
+permissions:
+  actions: write
+  contents: read
+  issues: write
+  pull-requests: write
 
 jobs:
   stale:
-    uses: broadinstitute/shared-workflows/.github/workflows/close-stale.yaml@v6.0.0
+    uses: broadinstitute/shared-workflows/.github/workflows/close-stale.yaml@v6
