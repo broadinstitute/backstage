@@ -11,6 +11,7 @@ import { SelectFieldFromApiExtension } from '@roadiehq/plugin-scaffolder-fronten
 import { GithubTeamPickerExtension } from './scaffolder/GithubTeamPicker/GithubTeamPicker';
 import { GoogleAccessTokenFieldExtension } from './scaffolder/GoogleAccessTokenFieldExtension';
 import { GcpResourcePickerExtension } from './scaffolder/GcpResourcePicker';
+import { GcpBillingAccountPickerExtension } from './scaffolder/GcpBillingAccountPicker';
 import skillExchangePlugin from '@spotify/backstage-plugin-skill-exchange/alpha';
 import soundcheckPlugin from '@spotify/backstage-plugin-soundcheck/alpha';
 import { HomePage } from './components/home/HomePage';
@@ -152,6 +153,7 @@ const scaffolderModuleOverrides = createFrontendModule({
                             <GithubTeamPickerExtension />
                             <GoogleAccessTokenFieldExtension />
                             <GcpResourcePickerExtension />
+                            <GcpBillingAccountPickerExtension />
                         </ScaffolderFieldExtensions>
                     </ScaffolderPage>
                 ),

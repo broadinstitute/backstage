@@ -188,3 +188,4 @@ dist
 # Custom ignores
 *.expanded.yaml
 .backstage-tmp
+mise.local.toml
