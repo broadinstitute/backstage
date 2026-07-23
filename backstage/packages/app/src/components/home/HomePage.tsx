@@ -14,6 +14,7 @@ import {
     Page,
     InfoCard,
     Header,
+    Link,
 } from '@backstage/core-components';
 import {
     Box,
@@ -49,6 +50,11 @@ const useStyles = makeStyles(theme => ({
         padding: theme.spacing(5, 3),
         marginBottom: theme.spacing(4),
         textAlign: 'center',
+    },
+    searchForm: {
+        maxWidth: '60vw',
+        width: '100%',
+        margin: '0 auto',
     },
     searchBarInput: {
         maxWidth: '60vw',
@@ -204,11 +210,7 @@ export const HomePage = () => {
                                             handleSearchSubmit(query);
                                         }
                                     }}
-                                    sx={{
-                                        maxWidth: '60vw',
-                                        width: '100%',
-                                        margin: '0 auto',
-                                    }}
+                                    className={classes.searchForm}
                                 >
                                     <TextField
                                         fullWidth
@@ -237,8 +239,8 @@ export const HomePage = () => {
                                         <ListItem
                                             key={link.href}
                                             button
-                                            component="a"
-                                            href={link.href}
+                                            component={Link}
+                                            to={link.href}
                                             className={classes.docsListItem}
                                         >
                                             <ListItemIcon
