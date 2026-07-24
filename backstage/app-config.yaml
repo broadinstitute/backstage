@@ -99,15 +99,18 @@ catalog:
         ]
 kubernetes:
   customResources:
-    - group: 'gateway.networking.k8s.io'
-      apiVersion: 'v1'
-      plural: 'gateways'
-    - group: 'gateway.networking.k8s.io'
-      apiVersion: 'v1'
-      plural: 'httproutes'
+    - group: gateway.networking.k8s.io
+      apiVersion: v1
+      plural: gateways
+    - group: gateway.networking.k8s.io
+      apiVersion: v1
+      plural: httproutes
     - group: opentelemetry.io
-      apiVersion: 'v1beta1'
-      plural: 'opentelemetrycollectors'
+      apiVersion: v1beta1
+      plural: opentelemetrycollectors
+    - group: cert-manager.io
+      apiVersion: v1
+      plural: certificates
   serviceLocatorMethod:
     type: 'multiTenant'
   clusterLocatorMethods:
