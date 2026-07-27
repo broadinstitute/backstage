@@ -80,6 +80,19 @@ techdocs:
 
 scaffolder:
   # see https://backstage.io/docs/features/software-templates/configuration for software template options
+  groups:
+    - title: Recommended
+      filter:
+        metadata.tags:
+          $contains: recommended
+    - title: Terraform
+      filter:
+        metadata.tags:
+          $contains: terraform
+    - title: Python
+      filter:
+        metadata.tags:
+          $contains: python
 
 catalog:
   import:

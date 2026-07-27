@@ -1,10 +1,12 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { ScaffolderPage } from '@backstage/plugin-scaffolder';
-import { TechDocsIndexPage } from '@backstage/plugin-techdocs';
-import { searchPage } from './components/search/SearchPage';
 
 import { createApp } from '@backstage/frontend-defaults';
-import { googleAuthApiRef } from '@backstage/core-plugin-api';
+import { googleAuthApiRef, configApiRef, useApi } from '@backstage/core-plugin-api';
+import {
+    filterPredicateToFilterFunction,
+    readFilterPredicateFromConfig,
+} from '@backstage/filter-predicates';
 import { SignInPage } from '@backstage/core-components';
 import { ScaffolderFieldExtensions } from '@backstage/plugin-scaffolder-react';
 import { SelectFieldFromApiExtension } from '@roadiehq/plugin-scaffolder-frontend-module-http-request-field';
@@ -16,7 +18,10 @@ import skillExchangePlugin from '@spotify/backstage-plugin-skill-exchange/alpha'
 import soundcheckPlugin from '@spotify/backstage-plugin-soundcheck/alpha';
 import { HomePage } from './components/home/HomePage';
 import githubPullRequestsBoardPlugin from '@backstage-community/plugin-github-pull-requests-board/alpha';
-import { createFrontendModule } from '@backstage/frontend-plugin-api';
+import {
+    createFrontendModule,
+    PageBlueprint,
+} from '@backstage/frontend-plugin-api';
 import { SignInPageBlueprint } from '@backstage/plugin-app-react';
 import { navModule } from './modules/nav';
 import catalogPlugin from '@backstage/plugin-catalog/alpha';
@@ -84,37 +89,44 @@ const homeModuleOverrides = createFrontendModule({
     ],
 });
 
-const searchModuleOverrides = createFrontendModule({
-    pluginId: 'search',
-    extensions: [
-        searchPlugin.getExtension('page:search').override({
-            params: {
-                routeRef: searchPlugin.routes.root,
-                loader: async () => searchPage,
-            },
-        }),
-    ],
-});
+// Reads the template groupings shown on the Create page from
+// `scaffolder.groups` in app-config.yaml (title + a filter predicate, see
+// @backstage/filter-predicates) instead of hardcoding them here. We can't use
+// the scaffolder plugin's own native `sub-page:scaffolder/templates` groups
+// config for this, since that only applies to the *default* page:scaffolder
+// — this override replaces the whole page with the legacy <ScaffolderPage>
+// component (needed for our custom field extensions, notably
+// SelectFieldFromApiExtension, which has no new-frontend-system support), so
+// the default page's subpages and their config never render.
+const ScaffolderCreatePage = () => {
+    const configApi = useApi(configApiRef);
+    const groups = useMemo(
+        () =>
+            configApi
+                .getOptionalConfigArray('scaffolder.groups')
+                ?.map(groupConfig => ({
+                    title: groupConfig.getString('title'),
+                    filter: filterPredicateToFilterFunction(
+                        readFilterPredicateFromConfig(groupConfig, {
+                            key: 'filter',
+                        }),
+                    ),
+                })),
+        [configApi],
+    );
 
-const techdocsModuleOverrides = createFrontendModule({
-    pluginId: 'techdocs',
-    extensions: [
-        techdocsPlugin.getExtension('page:techdocs').override({
-            params: {
-                routeRef: techdocsPlugin.routes.root,
-                loader: async () => <TechDocsIndexPage />,
-            },
-        }),
-        // NOTE: We intentionally do NOT override 'page:techdocs/reader'.
-        // The default extension's factory wires TechDocs addons (Mermaid,
-        // ReportIssue, ...) into the standalone reader by wrapping its content
-        // in the TechDocsAddons provider. Overriding the loader with a plain
-        // TechDocsReaderPage component bypasses that wiring, so addons like
-        // Mermaid would silently stop rendering on the standalone docs route
-        // (/docs/:namespace/:kind/:name) while still working on the
-        // catalog-embedded docs route.
-    ],
-});
+    return (
+        <ScaffolderPage groups={groups}>
+            <ScaffolderFieldExtensions>
+                <SelectFieldFromApiExtension />
+                <GithubTeamPickerExtension />
+                <GoogleAccessTokenFieldExtension />
+                <GcpResourcePickerExtension />
+                <GcpBillingAccountPickerExtension />
+            </ScaffolderFieldExtensions>
+        </ScaffolderPage>
+    );
+};
 
 const scaffolderModuleOverrides = createFrontendModule({
     pluginId: 'scaffolder',
@@ -122,41 +134,7 @@ const scaffolderModuleOverrides = createFrontendModule({
         scaffolderPlugin.getExtension('page:scaffolder').override({
             params: {
                 routeRef: scaffolderPlugin.routes.root,
-                loader: async () => (
-                    <ScaffolderPage
-                        groups={[
-                            {
-                                title: 'Recommended',
-                                filter: entity =>
-                                    entity?.metadata?.tags?.includes(
-                                        'recommended',
-                                    ) ?? false,
-                            },
-                            {
-                                title: 'Terraform',
-                                filter: entity =>
-                                    entity?.metadata?.tags?.includes(
-                                        'terraform',
-                                    ) ?? false,
-                            },
-                            {
-                                title: 'Python',
-                                filter: entity =>
-                                    entity?.metadata?.tags?.includes(
-                                        'python',
-                                    ) ?? false,
-                            },
-                        ]}
-                    >
-                        <ScaffolderFieldExtensions>
-                            <SelectFieldFromApiExtension />
-                            <GithubTeamPickerExtension />
-                            <GoogleAccessTokenFieldExtension />
-                            <GcpResourcePickerExtension />
-                            <GcpBillingAccountPickerExtension />
-                        </ScaffolderFieldExtensions>
-                    </ScaffolderPage>
-                ),
+                loader: async () => <ScaffolderCreatePage />,
             },
         }),
     ],
@@ -176,15 +154,24 @@ const githubActionsModuleOverrides = createFrontendModule({
     ],
 });
 
+// The kubernetes plugin no longer registers a standalone page (it was
+// removed upstream as unintentional — see @backstage/plugin-kubernetes
+// CHANGELOG "Removed the default Kubernetes standalone page that was
+// registered at `/kubernetes`"), so we define our own page extension here
+// instead of overriding one.
+const kubernetesLandingPageExtension = PageBlueprint.make({
+    name: 'kubernetes-landing',
+    params: {
+        path: '/kubernetes',
+        title: 'Kubernetes',
+        routeRef: kubernetesPlugin.routes.kubernetes,
+        loader: async () => <KubernetesLandingPage />,
+    },
+});
+
 const kubernetesModuleOverrides = createFrontendModule({
     pluginId: 'kubernetes',
-    extensions: [
-        kubernetesPlugin.getExtension('page:kubernetes').override({
-            params: {
-                loader: async () => <KubernetesLandingPage />,
-            },
-        }),
-    ],
+    extensions: [kubernetesLandingPageExtension],
 });
 
 const app = createApp({
@@ -203,9 +190,7 @@ const app = createApp({
         homePlugin,
         homeModuleOverrides,
         searchPlugin,
-        searchModuleOverrides,
         techdocsPlugin,
-        techdocsModuleOverrides,
         techdocsAddonsModule,
         techDocsMermaidAddonModule,
         techRadarPlugin,

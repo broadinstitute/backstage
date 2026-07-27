@@ -82,8 +82,21 @@ export const SidebarContent = NavContentBlueprint.make({
             nav.take('page:tech-radar');
             nav.take('page:skill-exchange');
             nav.take('page:soundcheck');
-            nav.take('page:copilot');
-            nav.take('page:insights');
+            // @backstage-community/plugin-copilot's page extension declares
+            // an explicit `name: "copilot"` that duplicates its pluginId, so
+            // Backstage's namespace/name resolution produces the extension id
+            // `page:copilot/copilot` instead of the usual bare `page:<pluginId>`
+            // every other plugin here uses. Without matching that exact id,
+            // this take() is a no-op and the item leaks into nav.rest(),
+            // rendering a second "Copilot Insights" entry alongside the
+            // manually placed one below.
+            nav.take('page:copilot/copilot');
+            // @spotify/backstage-plugin-insights's pluginId is
+            // "backstage-insights" (not "insights"), so its real page
+            // extension id is `page:backstage-insights`. This take() was a
+            // no-op — harmless today since Insights has no manually placed
+            // duplicate to guard against, but it should match the real id.
+            nav.take('page:backstage-insights');
             nav.take('page:rbac');
             nav.take('page:pagerduty');
             nav.take('page:user-settings');
