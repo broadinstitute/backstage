@@ -93,11 +93,14 @@ export const SidebarContent = NavContentBlueprint.make({
             nav.take('page:copilot/copilot');
             // @spotify/backstage-plugin-insights's pluginId is
             // "backstage-insights" (not "insights"), so its real page
-            // extension id is `page:backstage-insights`. This take() was a
-            // no-op — harmless today since Insights has no manually placed
-            // duplicate to guard against, but it should match the real id.
-            nav.take('page:backstage-insights');
+            // extension id is `page:backstage-insights`. Captured (like
+            // homeItem) and rendered below instead of just taken, so fixing
+            // the id doesn't make the item silently vanish from the pool.
+            const insightsItem = nav.take('page:backstage-insights');
             nav.take('page:rbac');
+            // Taken but not rendered anywhere — intentionally hidden from
+            // the nav bar. Without this take(), it would otherwise leak
+            // into the nav.rest() catch-all below.
             nav.take('page:pagerduty');
             nav.take('page:user-settings');
 
@@ -161,6 +164,7 @@ export const SidebarContent = NavContentBlueprint.make({
                                 to="/rbac"
                                 text="RBAC"
                             />
+                            {insightsItem}
                             {nav.rest({ sortBy: 'title' })}
                         </SidebarScrollWrapper>
                     </SidebarGroup>
