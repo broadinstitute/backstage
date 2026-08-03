@@ -5,11 +5,7 @@ import {
     EntityCardBlueprint,
     EntityContentBlueprint,
 } from '@backstage/plugin-catalog-react/alpha';
-import {
-    EntityHasApisCard,
-    EntityConsumedApisCard,
-    EntityProvidedApisCard,
-} from '@backstage/plugin-api-docs';
+import { EntityHasApisCard } from '@backstage/plugin-api-docs';
 import {
     EntityDependsOnComponentsCard,
     EntityDependsOnResourcesCard,
@@ -19,7 +15,6 @@ import {
     EntityCatalogGraphCard,
 } from '@backstage/plugin-catalog-graph';
 import {
-    Entity,
     RELATION_API_CONSUMED_BY,
     RELATION_API_PROVIDED_BY,
     RELATION_CONSUMES_API,
@@ -62,26 +57,6 @@ const SystemDiagramEntityContent = () => (
     />
 );
 
-const ComponentApiEntityContent = () => (
-    <Grid container spacing={3} alignItems="stretch">
-        <Grid item md={6}>
-            <EntityProvidedApisCard />
-        </Grid>
-        <Grid item md={6}>
-            <EntityConsumedApisCard />
-        </Grid>
-    </Grid>
-);
-
-const isServiceOrWebsiteComponent = (entity: Entity): boolean => {
-    if (entity.kind.toLocaleLowerCase('en-US') !== 'component') {
-        return false;
-    }
-
-    const type = entity.spec?.type;
-    return type === 'service' || type === 'website';
-};
-
 export const catalogEntityModule = createFrontendModule({
     pluginId: 'catalog',
     extensions: [
@@ -90,17 +65,6 @@ export const catalogEntityModule = createFrontendModule({
             params: {
                 filter: 'kind:system',
                 loader: async () => <SystemHasApisEntityCard />,
-            },
-        }),
-        EntityContentBlueprint.make({
-            name: 'api-component',
-            params: {
-                path: '/api',
-                title: 'API',
-                filter: (entity: Entity) =>
-                    entity.kind.toLocaleLowerCase('en-US') === 'component' &&
-                    entity.spec?.type === 'service',
-                loader: async () => <ComponentApiEntityContent />,
             },
         }),
         EntityContentBlueprint.make({
