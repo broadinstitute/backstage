@@ -3,7 +3,7 @@ description = "Generate a table of contents and update the ADR README.md file"
 run = "adrs generate toc --ordered > docs/adr/README.md | prettier -w docs/adr/README.md"
 
 [tools]
-"aqua:kptdev/kpt" = "latest"
+"aqua:kptdev/kpt" = "v1.0.0-beta.67"
 "github:joshrotenberg/adrs" = "latest"
 "npm:prettier" = "latest"
 kubectx = "latest"
