@@ -276,6 +276,7 @@ permission:
     - scaffolder
     - soundcheck
     - backstage-insights
+    - kubernetes
   rbac:
     authorizedUsers:
       - group:default/devnull
