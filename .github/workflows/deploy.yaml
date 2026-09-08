@@ -29,6 +29,11 @@ name: Kubernetes Deployment
         default: "latest"
         required: false
         type: string
+      validate-gatekeeper:
+        description: Whether to validate gatekeeper policies
+        default: true
+        required: false
+        type: boolean
 permissions:
   contents: read
   id-token: write # This is required for requesting the JWT
@@ -82,6 +87,21 @@ jobs:
           name: Upload Deployment Directory
           path: ${{ env.DEPLOY_PATH }}/${{ vars._APP }}
           retention-days: 5
+
+  gatekeeper-policies:
+    needs: hydrate
+    permissions:
+      contents: read
+      id-token: write
+      packages: read
+      pull-requests: write
+    uses: broadinstitute/shared-workflows/.github/workflows/gatekeeper-policies.yaml@v6
+    with:
+      environment: ${{ inputs.environment }}
+      pr_number: ${{ github.event.pull_request.number }}
+      validate-policies: ${{ inputs['validate-gatekeeper'] }}
+      manifests_directory: deployment/backstage
+
   deploy:
     defaults:
       run:
@@ -89,7 +109,7 @@ jobs:
     environment: ${{ inputs.environment }}
     name: Deploy Manifests
     runs-on: ubuntu-latest
-    needs: hydrate
+    needs: gatekeeper-policies
     steps:
       - name: Checkout repo
         uses: actions/checkout@v7

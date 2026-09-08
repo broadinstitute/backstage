@@ -27,3 +27,4 @@ jobs:
       deploy: true
       environment: production
       image_tag: ${{ github.event.number }}
+      validate-gatekeeper: false

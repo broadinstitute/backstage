@@ -77,12 +77,14 @@ jobs:
     name: Deploy to Development
     needs: build
     permissions:
+      packages: read
       contents: read
       id-token: write
-      pull-requests: read
+      pull-requests: write
     uses: ./.github/workflows/deploy.yaml
     with:
       deploy: true
       dry_run: server
       environment: development
       image_tag: ${{ github.sha }}
+      validate-gatekeeper: true
