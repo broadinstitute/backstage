@@ -95,7 +95,7 @@ jobs:
       environment: ${{ inputs.environment }}
       pr_number: ${{ github.event.pull_request.number }}
       validate-policies: ${{ inputs.validate-gatekeeper }}
-      manifests_directory: ../${{ env.DEPLOY_PATH }}/${{ vars._APP }}
+      manifests_directory: ../deployment/backstage
   deploy:
     defaults:
       run:
