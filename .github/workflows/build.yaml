@@ -18,6 +18,13 @@ permissions:
   pull-requests: read
 
 jobs:
+  gatekeeper-policies:
+    uses: broadinstitute/shared-workflows/.github/workflows/gatekeeper-policies.yaml@v6
+    with:
+      environment: development
+      pr_number: ${{ github.event.pull_request.number }}
+      validate-policies: true
+      manifests_directory: deployment/backstage
   build:
     if: github.event.pull_request.draft == false
     name: Build Backstage
@@ -88,4 +95,4 @@ jobs:
       environment: development
       validate-gatekeeper: true
       image_tag: ${{ github.sha }}
-      
+
