@@ -79,10 +79,13 @@ jobs:
     permissions:
       contents: read
       id-token: write
-      pull-requests: read
+      pull-requests: write
+      packages: read
     uses: ./.github/workflows/deploy.yaml
     with:
       deploy: true
       dry_run: server
       environment: development
+      validate-gatekeeper: true
       image_tag: ${{ github.sha }}
+      

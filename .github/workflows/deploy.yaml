@@ -29,10 +29,16 @@ name: Kubernetes Deployment
         default: "latest"
         required: false
         type: string
+      validate-gatekeeper:
+        description: Whether to validate gatekeeper policies
+        default: true
+        required: false
+        type: boolean
 permissions:
   contents: read
   id-token: write # This is required for requesting the JWT
-  pull-requests: read
+  pull-requests: write
+  packages: read
 # The below environment variables are used to set up the Cloud Build trigger
 # and can be changed from the defaults if the common build environment doesn't meet the needs of the service
 env:
@@ -82,6 +88,14 @@ jobs:
           name: Upload Deployment Directory
           path: ${{ env.DEPLOY_PATH }}/${{ vars._APP }}
           retention-days: 5
+  gatekeeper-policies:
+    uses: broadinstitute/shared-workflows/.github/workflows/gatekeeper-policies.yaml@v6
+    needs: hydrate
+    with:
+      environment: ${{ inputs.environment }}
+      pr_number: ${{ github.event.pull_request.number }}
+      validate-policies: ${{ inputs.validate-gatekeeper }}
+      manifests_directory: deployment/backstage
   deploy:
     defaults:
       run:
@@ -89,7 +103,7 @@ jobs:
     environment: ${{ inputs.environment }}
     name: Deploy Manifests
     runs-on: ubuntu-latest
-    needs: hydrate
+    needs: gatekeeper-policies
     steps:
       - name: Checkout repo
         uses: actions/checkout@v7
