@@ -24,7 +24,9 @@ spec:
       labels:
         app: backstage
         environment: prod
+        app.kubernetes.io/managed-by: gcp-cloud-build-deploy
         backstage.io/kubernetes-id: backstage
+        team: devnull
     spec:
       serviceAccountName: backstage
       containers:
