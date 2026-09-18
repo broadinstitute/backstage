@@ -5,3 +5,4 @@
 5. [5. Tag external-facing templates with "Recommended" tag](0005-tag-external-facing-templates-with-recommended-tag.md)
 6. [6. Migrate Build Pipeline to Github Actions](0006-migrate-build-pipeline-to-github-actions.md)
 7. [7. Allow Soundcheck to use sensitive fact values in check result message templates](0007-allow-soundcheck-to-use-sensitive-fact-values-in-check-result-message-templates.md)
+8. [8. Deploy to Spot Instances](0008-deploy-to-spot-instances.md)
