@@ -155,7 +155,17 @@ spec:
           #   # restarted.
           #   failureThreshold: 5
           # We do not recommend adding a readiness probe under most circumstances
-
+      terminationGracePeriodSeconds: 15
+      affinity:
+        nodeAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+            - weight: 100
+              preference:
+                matchExpressions:
+                  - key: cloud.google.com/gke-spot
+                    operator: In
+                    values:
+                      - "true"
       volumes:
         - name: backstage-secrets
           csi:
