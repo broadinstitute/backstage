@@ -21,6 +21,7 @@ graph LR
         subgraph "Resilience & Scaling"
             I[HPA: backstage<br/>Min: 2, Max: 5<br/>CPU: 60%, Memory: 75%]
             PDB[PodDisruptionBudget<br/>Min Available: 1]
+            VPA[VPA: backstage<br/>Mode: Off recommend-only]
         end
         subgraph "Observability"
             J[PodMonitoring: backstage<br/>Port: 9464]
@@ -48,6 +49,7 @@ graph LR
     style HCPOL fill:#90ee90,stroke:#333,stroke-width:2px,color:#000
     style I fill:#ffcccb,stroke:#333,stroke-width:2px,color:#000
     style PDB fill:#ffcccb,stroke:#333,stroke-width:2px,color:#000
+    style VPA fill:#ffcccb,stroke:#333,stroke-width:2px,color:#000
     style J fill:#f0e68c,stroke:#333,stroke-width:2px,color:#000
     style K fill:#f0e68c,stroke:#333,stroke-width:2px,color:#000
     style L fill:#ffa500,stroke:#333,stroke-width:2px,color:#000
@@ -70,6 +72,7 @@ graph LR
     HCPOL -- monitors --> H
     I -- scales --> A
     PDB -- protects --> A
+    VPA -- recommends sizing for --> A
     J -- monitors port 9464 --> A
     L -- routes --> H
     GW -- hosts --> L
@@ -95,6 +98,9 @@ graph LR
 - **PodDisruptionBudget**: Ensures minimum 1 replica available during
   disruptions
 - **HealthCheckPolicy**: Monitors service health via HTTP readiness probe
+- **VerticalPodAutoscaler**: Runs in `Off` mode to provide sizing
+  recommendations only (no automatic resource changes), helping right-size
+  workloads on GKE Autopilot
 
 ### Networking
 

@@ -1,0 +1,12 @@
+apiVersion: autoscaling.k8s.io/v1
+kind: VerticalPodAutoscaler
+metadata:
+  name: backstage
+  namespace: backstage
+spec:
+  targetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: backstage
+  updatePolicy:
+    updateMode: "Off" # "Off" means collect data & recommend only
