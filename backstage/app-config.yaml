@@ -126,7 +126,7 @@ kubernetes:
       plural: certificates
     - group: autoscaling.k8s.io
       apiVersion: v1
-      plural: verticalpodautoscaler
+      plural: verticalpodautoscalers
   serviceLocatorMethod:
     type: 'multiTenant'
   clusterLocatorMethods:
