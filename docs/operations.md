@@ -343,8 +343,8 @@ The token will then need to be updated in the 1Password vault used for Backstage
 secrets. You can find the vault at
 `"op://BITS - Backstage/backstage-insights-token/credential"`. After updating
 the token in 1Password, you will need to update the secret in the Kubernetes
-cluster. This can be done by updating the secret in the `bits-backstage-prod`
-and `bits-backstage-dev` GCP Projects respectively.
+cluster. This can be done by updating the secret (`backstage-insights-token`) in
+the `bits-backstage-prod` and `bits-backstage-dev` GCP Projects respectively.
 
 Once the secrets are updated in Google Secret Manager, you will need to redeploy
 the Backstage application for the changes to take effect.
@@ -355,6 +355,11 @@ following command:
 ```shell
 kubectl rollout restart deployment/backstage -n backstage
 ```
+
+After the rollout is complete, you should check the
+[Insights page](https://backstage.broadinstitute.org/insights/headlines) to see
+if there are any errors. If you see metrics and no errors, then your update was
+successful.
 
 ## Rolling Back a Failing Deployment
 
