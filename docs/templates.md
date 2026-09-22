@@ -267,8 +267,8 @@ ID for every option, similar to the "Account name" / "ID" columns in the Cloud
 Billing console.
 
 Since the whole account list has to be fetched before it can be searched, the
-field shows a spinner in the input while that initial fetch is in flight
-(and "Loading billing accounts…" if opened before it finishes).
+field shows a spinner in the input while that initial fetch is in flight (and
+"Loading billing accounts…" if opened before it finishes).
 
 ```yaml
 parameters:
