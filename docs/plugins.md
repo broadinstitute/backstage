@@ -44,8 +44,6 @@ The following third-party plugins are currently installed in this repository.
 
 #### Backstage Community Plugins
 
-- Copilot: Adds the GitHub Copilot page and backend integration for Copilot in
-  Backstage.
 - GitHub Actions: Adds GitHub Actions workflow history to the CI/CD tab for
   entities with a `github.com/project-slug` annotation.
 - GitHub Pull Requests Board: Adds pull request views for teams and components.

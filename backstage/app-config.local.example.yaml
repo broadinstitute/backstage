@@ -95,18 +95,6 @@ pagerDuty:
     clientSecret: ${PD_CLIENT_SECRET}
     subDomain: ${PD_ACCOUNT_SUBDOMAIN}
 
-copilot:
-  scheduler:
-    frequency:
-      hours: 2
-    timeout:
-      minutes: 2
-    initialDelay:
-      seconds: 15
-  host: github.com
-  enterprise: broadinstitute
-  organization: broadinstitute
-
 spotify:
   licenseKey: ${SPOTIFY_BACKSTAGE_LICENSE_KEY}
   # For Backstage Insights

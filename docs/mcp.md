@@ -19,13 +19,16 @@ Relevant configuration and code:
 - Backend dependency: `backstage/packages/backend/package.json`
 - Action source exposure: `backstage/app-config.local.yaml` under
   `backend.actions.pluginSources`
-- External token auth: `backstage/app-config.local.yaml` under
-  `backend.auth.externalAccess`
+- Client auth: `backstage/app-config.local.yaml` under the top-level
+  `auth.clientIdMetadataDocuments` (Client ID Metadata Documents / CIMD) and,
+  optionally, `backend.auth.externalAccess` for static tokens
 - VS Code MCP client config: `.vscode/mcp.json`
 
 ## Backstage Configuration
 
-This repo currently uses static external access tokens for MCP clients.
+This repo currently enables Client ID Metadata Documents (CIMD) for MCP client
+auth. Static external access tokens are supported as a fallback but are
+commented out by default.
 
 Example configuration:
 
@@ -35,21 +38,31 @@ backend:
     pluginSources:
       - catalog
   auth:
-    externalAccess:
-      - type: static
-        options:
-          token: ${MCP_TOKEN}
-          subject: mcp-clients
-        accessRestrictions:
-          - plugin: mcp-actions
-          - plugin: catalog
+    # Static tokens are an alternative to CIMD; must remain an array.
+    externalAccess: []
+    # - type: static
+    #   options:
+    #     token: ${MCP_TOKEN}
+    #     subject: mcp-clients
+    #   accessRestrictions:
+    #     - plugin: mcp-actions
+    #     - plugin: catalog
+
+auth:
+  # Note: clientIdMetadataDocuments lives under the top-level `auth:` key,
+  # NOT under `backend.auth.externalAccess` — a common misconfiguration
+  # that fails backend startup with a config schema type error.
+  clientIdMetadataDocuments:
+    enabled: true
 ```
 
 Notes:
 
 - `pluginSources` controls which plugin actions are exposed as MCP tools.
-- `accessRestrictions` scopes what the static token can call.
-- The Authorization header must be `Bearer <token>`.
+- `backend.auth.externalAccess` must always be an array (or omitted); it
+  cannot hold `clientIdMetadataDocuments` or other objects.
+- If static tokens are enabled instead, `accessRestrictions` scopes what the
+  token can call, and the Authorization header must be `Bearer <token>`.
 
 ## VS Code Setup
 
@@ -60,25 +73,16 @@ This repo includes `.vscode/mcp.json` configured for MCP Actions.
   "servers": {
     "backstage-actions": {
       "type": "http",
-      "url": "http://localhost:7007/api/mcp-actions/v1",
-      "headers": {
-        "Authorization": "Bearer ${input:mcp-token}"
-      }
+      "url": "http://localhost:7007/api/mcp-actions/v1"
     }
-  },
-  "inputs": [
-    {
-      "type": "promptString",
-      "id": "mcp-token",
-      "description": "Backstage MCP static access token",
-      "password": true
-    }
-  ]
+  }
 }
 ```
 
-When VS Code prompts for `mcp-token`, provide the static token configured in
-Backstage `backend.auth.externalAccess`.
+If static token auth is enabled instead of CIMD, add a `headers` entry with
+`"Authorization": "Bearer ${input:mcp-token}"` and a corresponding `inputs`
+prompt, and provide the static token configured in
+`backend.auth.externalAccess`.
 
 ## Local Validation Steps
 
@@ -151,10 +155,11 @@ Run these checks after deployment, token rotation, or auth policy changes:
 
 - Do not commit real static tokens in config files.
 - Prefer `${MCP_TOKEN}` sourced from local environment or secret manager.
-- Keep `accessRestrictions` minimal (least privilege).
-- Rotate static tokens regularly.
-- Static token auth is documented as a temporary approach; track Backstage
-  guidance for dynamic client registration as it matures.
+- Keep `accessRestrictions` minimal (least privilege) if static tokens are used.
+- Rotate static tokens regularly if enabled.
+- CIMD (`auth.clientIdMetadataDocuments`) is the preferred, currently-enabled
+  approach; restrict `allowedClientIdPatterns` to trusted client URLs in
+  production.
 
 ## Optional Next Step: Split MCP Servers
 
