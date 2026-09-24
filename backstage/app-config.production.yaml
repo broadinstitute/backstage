@@ -22,6 +22,10 @@ backend:
     pluginSources:
       - 'catalog'
       - 'scaffolder'
+      - 'kubernetes'
+      - 'auth'
+      - 'notifications'
+      - 'search'
   auth:
     externalAccess: []
       # - type: static
