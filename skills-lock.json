@@ -1,0 +1,47 @@
+{
+  "version": 1,
+  "skills": {
+    "app-frontend-system-migration": {
+      "source": "backstage.io",
+      "sourceUrl": "https://backstage.io",
+      "sourceType": "well-known",
+      "computedHash": "7f2a78375dae9c7ea148cfee343d7ec1a6452f136256458209c2c4e4a9a29938",
+      "wellKnownDigest": "sha256:65aef79fb6fc522f41ee297a6da76b325b7c334c979b69385216a7486f776c3f"
+    },
+    "mui-to-bui-migration": {
+      "source": "backstage.io",
+      "sourceUrl": "https://backstage.io",
+      "sourceType": "well-known",
+      "computedHash": "1d0145b4e56ab15b2466ef057b1b5172b3e2de6838fa48eb3d902e8d6d97e4f7",
+      "wellKnownDigest": "sha256:6463be5f67556d9b37f784d3553ca560563d5c820dc0021263f776d8a6616fa4"
+    },
+    "onboard-to-openapi-server": {
+      "source": "backstage.io",
+      "sourceUrl": "https://backstage.io",
+      "sourceType": "well-known",
+      "computedHash": "737a0c72ab1621afce8e006644adbdca43d993c1eb2a68370ccf25ee89f1d8ab",
+      "wellKnownDigest": "sha256:bcb668b46e83299dd3c42cd07e3d052dc64b400352f994437bf0cb7584586820"
+    },
+    "plugin-analytics-instrumentation": {
+      "source": "backstage.io",
+      "sourceUrl": "https://backstage.io",
+      "sourceType": "well-known",
+      "computedHash": "b40326b59c2e6d59d781d0d619c4cbae85d833208241e2a700f5dc6af29fbff0",
+      "wellKnownDigest": "sha256:d86e3d2e53f8129a7105e3baea1a6cf958da177cde06975c129a9e9d59d5c6fc"
+    },
+    "plugin-full-frontend-system-migration": {
+      "source": "backstage.io",
+      "sourceUrl": "https://backstage.io",
+      "sourceType": "well-known",
+      "computedHash": "736da168b02ec38123ef7e15d268c8ca1ce513825477041249c59331a54ad83c",
+      "wellKnownDigest": "sha256:186d19938e85f24f3ac896421ac6c69180133515043a6e61442d008b73a64d3b"
+    },
+    "plugin-new-frontend-system-support": {
+      "source": "backstage.io",
+      "sourceUrl": "https://backstage.io",
+      "sourceType": "well-known",
+      "computedHash": "334795204db9f7447d085cf413035bf2b3399a3265353c5a2ef456cf755eed5d",
+      "wellKnownDigest": "sha256:b4b5b5a6368005177d0389fd8ef5de91af216b38fdba47cfea5320f4e9eaccd1"
+    }
+  }
+}

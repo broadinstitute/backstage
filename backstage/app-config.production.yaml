@@ -23,16 +23,16 @@ backend:
       - 'catalog'
       - 'scaffolder'
   auth:
-    externalAccess:
-      - type: static
-        options:
-          token:
-            $file: ./secrets/backstage-mcp-token
-          subject: mcp-clients
-        accessRestrictions:
-          - plugin: mcp-actions
-          - plugin: catalog
-          - plugin: scaffolder
+    externalAccess: []
+      # - type: static
+      #   options:
+      #     token:
+      #       $file: ./secrets/backstage-mcp-token
+      #     subject: mcp-clients
+      #   accessRestrictions:
+      #     - plugin: mcp-actions
+      #     - plugin: catalog
+      #     - plugin: scaffolder
   reading:
     allow:
       - host: 'raw.githubusercontent.com'
@@ -67,6 +67,8 @@ techdocs:
 auth:
   # see https://backstage.io/docs/auth/ to learn about auth providers
   environment: ${NODE_ENV}
+  clientIdMetadataDocuments:
+    enabled: true
   providers:
     google:
       development:
@@ -287,15 +289,3 @@ permission:
       $include: ./plugin-configs/fallback-rbac-policy.yaml
     defaultPolicy:
       $include: ./plugin-configs/foundational-permission-policy.yaml
-
-copilot:
-  scheduler:
-    frequency:
-      hours: 12
-    timeout:
-      minutes: 2
-    initialDelay:
-      seconds: 15
-  host: github.com
-  # enterprise: broadinstitute
-  organization: broadinstitute

@@ -38,13 +38,13 @@ import scaffolderPlugin from '@backstage/plugin-scaffolder/alpha';
 import catalogImportPlugin from '@backstage/plugin-catalog-import/alpha';
 import techRadarPlugin from '@backstage-community/plugin-tech-radar/alpha';
 import githubActionsPlugin from '@backstage-community/plugin-github-actions/alpha';
-import copilotPlugin from '@backstage-community/plugin-copilot/alpha';
 import kubernetesPlugin from '@backstage/plugin-kubernetes/alpha';
 import { KubernetesLandingPage } from './components/kubernetes/KubernetesLandingPage';
 import { catalogEntityModule } from './modules/catalog';
 import { techdocsAddonsModule } from './modules/techdocs';
 import { techDocsMermaidAddonModule } from 'backstage-plugin-techdocs-addon-mermaid';
 import orgPlugin from '@backstage/plugin-org/alpha';
+import authPlugin from '@backstage/plugin-auth';
 
 const signInPageExtension = SignInPageBlueprint.make({
     params: {
@@ -200,11 +200,11 @@ const app = createApp({
         kubernetesModuleOverrides,
         scaffolderPlugin,
         scaffolderModuleOverrides,
-        copilotPlugin,
         githubPullRequestsBoardPlugin,
         skillExchangePlugin,
         soundcheckPlugin,
         catalogImportPlugin,
+        authPlugin,
     ],
 });
 export default app.createRoot();
