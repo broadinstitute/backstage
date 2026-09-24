@@ -21,10 +21,11 @@ jobs:
     permissions:
       contents: read
       id-token: write # This is required for requesting the JWT
-      pull-requests: read
+      pull-requests: write
+      packages: read
     uses: ./.github/workflows/deploy.yaml
     with:
       deploy: true
       environment: production
       image_tag: ${{ github.event.number }}
-      validate-gatekeeper: false
+      validate-gatekeeper: true
