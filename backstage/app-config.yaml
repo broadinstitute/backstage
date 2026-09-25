@@ -147,4 +147,4 @@ costInsights:
 mcpActions:
   name: 'Broad Institute Engineering Portal (Backstage)' # defaults to "backstage"
   description: 'Tools for managing your software catalog, creating new services from templates, and exploring your developer portal' # optional
-  namespacedToolNames: false
+  namespacedToolNames: true
