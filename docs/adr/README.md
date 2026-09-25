@@ -6,3 +6,4 @@
 6. [6. Migrate Build Pipeline to Github Actions](0006-migrate-build-pipeline-to-github-actions.md)
 7. [7. Allow Soundcheck to use sensitive fact values in check result message templates](0007-allow-soundcheck-to-use-sensitive-fact-values-in-check-result-message-templates.md)
 8. [8. Deploy to Spot Instances](0008-deploy-to-spot-instances.md)
+9. [9. Remove Kubernetes MCP Plugin Source from Config](0009-remove-kubernetes-mcp-plugin-source-from-config.md)

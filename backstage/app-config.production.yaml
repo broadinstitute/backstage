@@ -22,7 +22,6 @@ backend:
     pluginSources:
       - 'catalog'
       - 'scaffolder'
-      - 'kubernetes'
       - 'auth'
       - 'notifications'
       - 'search'
