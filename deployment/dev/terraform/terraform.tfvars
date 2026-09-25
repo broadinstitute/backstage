@@ -164,6 +164,11 @@ additional_databases = [
     charset   = ""
     collation = ""
   },
+  {
+    name      = "backstage_plugin_notifications"
+    charset   = ""
+    collation = ""
+  },
 ]
 
 database_flags = [
