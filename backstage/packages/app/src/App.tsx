@@ -45,6 +45,8 @@ import { techdocsAddonsModule } from './modules/techdocs';
 import { techDocsMermaidAddonModule } from 'backstage-plugin-techdocs-addon-mermaid';
 import orgPlugin from '@backstage/plugin-org/alpha';
 import authPlugin from '@backstage/plugin-auth';
+import notificationsPlugin from '@backstage/plugin-notifications/alpha';
+import signalsPlugin from '@backstage/plugin-signals/alpha';
 
 const signInPageExtension = SignInPageBlueprint.make({
     params: {
@@ -205,6 +207,8 @@ const app = createApp({
         soundcheckPlugin,
         catalogImportPlugin,
         authPlugin,
+        signalsPlugin,
+        notificationsPlugin,
     ],
 });
 export default app.createRoot();

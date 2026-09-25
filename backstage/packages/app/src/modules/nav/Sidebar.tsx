@@ -24,6 +24,7 @@ import {
     UserSettingsSignInAvatar,
 } from '@backstage/plugin-user-settings';
 import { SidebarSearchModal } from '@backstage/plugin-search';
+import { NotificationsSidebarItem } from '@backstage/plugin-notifications';
 import { NavContentBlueprint } from '@backstage/plugin-app-react';
 import LogoFull from '../../components/Root/LogoFull';
 import LogoIcon from '../../components/Root/LogoIcon';
@@ -74,6 +75,10 @@ export const SidebarContent = NavContentBlueprint.make({
 
             // Search and primary pages are placed in fixed groups below.
             const homeItem = nav.take('page:home');
+            // Taken but not rendered via the generic item renderer above —
+            // rendered below via <NotificationsSidebarItem /> instead, which
+            // adds the unread badge and real-time toast popups.
+            nav.take('page:notifications');
             nav.take('page:search');
             nav.take('page:catalog');
             nav.take('page:api-docs');
@@ -108,6 +113,7 @@ export const SidebarContent = NavContentBlueprint.make({
                     <SidebarDivider />
                     <SidebarGroup label="Menu" icon={<MenuIcon />}>
                         {homeItem}
+                        <NotificationsSidebarItem />
                         <SidebarItem
                             icon={CategoryIcon}
                             to="/catalog"

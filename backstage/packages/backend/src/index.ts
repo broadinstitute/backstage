@@ -150,6 +150,11 @@ backend.add(import('@backstage/plugin-search-backend-module-pg'));
 backend.add(import('@backstage/plugin-search-backend-module-catalog'));
 backend.add(import('@backstage/plugin-search-backend-module-techdocs'));
 
+// notifications plugin
+// See https://backstage.io/docs/notifications/
+backend.add(import('@backstage/plugin-signals-backend'));
+backend.add(import('@backstage/plugin-notifications-backend'));
+
 // kubernetes
 backend.add(import('@backstage/plugin-kubernetes-backend'));
 
