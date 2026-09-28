@@ -59,8 +59,8 @@ spec:
               cpu: "1000m"
               memory: "3G"
             requests:
-              cpu: "390m"
-              memory: "3G"
+              cpu: "250m"
+              memory: "2500Mi"
           volumeMounts:
             - name: backstage-secrets
               mountPath: /workspace/secrets
@@ -111,14 +111,14 @@ spec:
               # The proxy's memory use scales linearly with the number of active
               # connections. Fewer open connections will use less memory. Adjust
               # this value based on your application's requirements.
-              memory: "64Mi"
+              memory: "35Mi"
               # The proxy's CPU use scales linearly with the amount of IO between
               # the database and the application. Adjust this value based on your
               # application's requirements.
-              cpu: "50m"
+              cpu: "25m"
             limits:
-              memory: "500m"
-              cpu: "500m"
+              memory: "100Mi"
+              cpu: "100m"
             # Recommended configurations for health check probes.
             # Probe parameters can be adjusted to best fit the requirements of your application.
             # For details, see
