@@ -20,7 +20,13 @@ app:
         links:
           - url: https://broad.io/help
             title: 'Service Now Ticket'
-
+  extensions:
+    - entity-card:catalog-graph/relations:
+        config:
+          height: 300        # cap the card height
+          maxDepth: 1        # fewer nodes for groups with many relations
+          zoom: enable-on-click   # stops the graph capturing scroll
+          
 organization:
   name: Broad Institute
 

@@ -70,7 +70,7 @@
     "@spotify/backstage-plugin-search-backend-module-skill-exchange": "^0.5.9",
     "@spotify/backstage-plugin-skill-exchange-backend": "^0.20.1",
     "@spotify/backstage-plugin-skill-exchange-backend-module-actions": "^0.2.4",
-    "@spotify/backstage-plugin-soundcheck-backend": "^0.32.0",
+    "@spotify/backstage-plugin-soundcheck-backend": "^0.33.1",
     "@spotify/backstage-plugin-soundcheck-backend-module-github": "^0.10.1",
     "@spotify/backstage-plugin-soundcheck-backend-module-http": "^0.6.1",
     "@spotify/backstage-plugin-soundcheck-backend-module-scm": "^0.17.0",
