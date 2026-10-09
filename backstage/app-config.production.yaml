@@ -72,6 +72,11 @@ auth:
   environment: ${NODE_ENV}
   clientIdMetadataDocuments:
     enabled: true
+    allowedRedirectUriPatterns:
+      - 'http://localhost:*/*'
+      - 'http://127.0.0.1:*/*'
+      - 'http://[::1]:*/*'
+      - 'https://claude.ai/api/mcp/auth_callback'
   providers:
     google:
       development:

@@ -28,7 +28,8 @@ spec:
   domain: orchestration
   owner: devnull
   lifecycle: production
-
+  providesApis:
+    - api:default/backstage-mcp
 ---
 apiVersion: backstage.io/v1alpha1
 kind: System
@@ -49,3 +50,29 @@ metadata:
 spec:
   owner: devnull
   domain: orchestration
+---
+apiVersion: backstage.io/v1alpha1
+kind: API
+metadata:
+  name: backstage-mcp
+  description:
+    MCP server exposing the Backstage catalog, scaffolder and search to AI
+    assistants.
+  title: Backstage MCP Server
+  links:
+    - url: https://backstage.broadinstitute.org/api/mcp-actions/v1
+      title: Backstage MCP endpoint
+  tags:
+    - mcp
+    - ai
+    - backstage
+  annotations:
+    backstage.io/managed-by: backstage
+spec:
+  type: mcp-server
+  lifecycle: production
+  owner: devnull
+  system: idp
+  remotes:
+    - type: streamable-http
+      url: https://backstage.broadinstitute.org/api/mcp-actions/v1
