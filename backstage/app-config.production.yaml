@@ -26,7 +26,8 @@ backend:
       - 'notifications'
       - 'search'
   auth:
-    externalAccess: []
+    externalAccess:
+      []
       # - type: static
       #   options:
       #     token:
@@ -152,6 +153,15 @@ catalog:
           # supports ISO duration, "human duration" as used in code
           timeout: PT3M
           initialDelay: PT5M
+      catalog-infoDirectoryDiscovery:
+        organization: 'broadinstitute'
+        catalogPath: '/catalog-info/*.yaml'
+        filters:
+          branch: 'main'
+          repository: '.*'
+        schedule:
+          frequency: PT5M
+          timeout: PT3M
       importDSP:
         organization: 'broadinstitute' # string
         catalogPath: '/foundation.yaml' # string
