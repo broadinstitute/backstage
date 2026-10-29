@@ -1,0 +1,20 @@
+---
+apiVersion: networking.gke.io/v1
+kind: GCPBackendPolicy
+metadata:
+  name: backstage
+  namespace: backstage
+  labels:
+    app.kubernetes.io/managed-by: gcp-cloud-build-deploy
+    backstage.io/kubernetes-id: backstage
+    app: backstage
+
+spec:
+  default:
+    # For WebSocket connections (signals) this is the maximum connection
+    # lifetime, not an idle timeout. The default of 30s drops sockets constantly.
+    timeoutSec: 3600
+  targetRef:
+    group: ""
+    kind: Service
+    name: backstage
