@@ -152,6 +152,9 @@ backend.add(import('@backstage/plugin-search-backend-module-techdocs'));
 
 // notifications plugin
 // See https://backstage.io/docs/notifications/
+// The events backend provides a database-backed event bus so signals reach
+// clients connected to any pod when running multiple replicas.
+backend.add(import('@backstage/plugin-events-backend'));
 backend.add(import('@backstage/plugin-signals-backend'));
 backend.add(import('@backstage/plugin-notifications-backend'));
 
