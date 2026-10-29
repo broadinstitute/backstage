@@ -26,7 +26,8 @@ backend:
       - 'notifications'
       - 'search'
   auth:
-    externalAccess: []
+    externalAccess:
+      []
       # - type: static
       #   options:
       #     token:
