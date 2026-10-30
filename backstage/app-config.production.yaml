@@ -123,6 +123,9 @@ catalog:
   # See https://backstage.io/docs/features/software-catalog/#adding-components-to-the-catalog for more details
   # on how to get entities into the catalog.
   orphanStrategy: delete
+  # Default is 100-150s per entity, which with ~4.5k locations made ~130k GitHub
+  # API calls/hour and exhausted the rate limit.
+  processingInterval: {hours: 3}
   import:
     entityFilename: catalog-info.yaml
     pullRequestBranchName: backstage-integration
