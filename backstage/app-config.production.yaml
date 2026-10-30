@@ -160,8 +160,8 @@ catalog:
           branch: 'main'
           repository: '.*'
         schedule:
-          frequency: PT5M
-          timeout: PT3M
+          frequency: PT360M
+          timeout: PT60M
       importDSP:
         organization: 'broadinstitute' # string
         catalogPath: '/foundation.yaml' # string
@@ -171,10 +171,10 @@ catalog:
           repository: '.*' # Regex
         schedule: # same options as in TaskScheduleDefinition
           # supports cron, ISO duration, "human duration" as used in code
-          frequency: PT90M
+          frequency: PT360M
           # supports ISO duration, "human duration" as used in code
           timeout: PT3M
-          initialDelay: PT15M
+          initialDelay: PT60M
       templateDiscovery:
         rules:
           - allow: [Template]
