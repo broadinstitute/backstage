@@ -161,7 +161,7 @@ catalog:
           repository: '.*'
         schedule:
           frequency: PT360M
-          timeout: PT60M
+          timeout: PT3M
       importDSP:
         organization: 'broadinstitute' # string
         catalogPath: '/foundation.yaml' # string
