@@ -25,6 +25,8 @@ backend:
       - 'auth'
       - 'notifications'
       - 'search'
+      - 'soundcheck'
+      - 'backstage-insights'
   auth:
     externalAccess:
       []
