@@ -6,7 +6,7 @@
           "moved": 0,
           "ringId": "adopt",
           "date": "2020-08-06T00:00:00.000Z",
-          "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua"
+          "description": "Used via TypeScript across the Backstage app and backend."
         }
       ],
       "key": "javascript",
@@ -23,7 +23,7 @@
           "title": "TypeScript"
         }
       ],
-      "description": "Excepteur **sint** occaecat *cupidatat* non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.\n\n```ts\nconst x = \"3\";\n```\n"
+      "description": "JavaScript is the runtime language underlying Backstage's frontend and backend. New code should be written in TypeScript."
     },
     {
       "timeline": [
@@ -31,7 +31,7 @@
           "moved": 0,
           "ringId": "adopt",
           "date": "2020-08-06T00:00:00.000Z",
-          "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua"
+          "description": "Used for TechDocs generation and general scripting."
         }
       ],
       "key": "python",
@@ -48,7 +48,7 @@
           "title": "Python Documentation"
         }
       ],
-      "description": "Excepteur **sint** occaecat *cupidatat* non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.\n\n```python\nx = 3\n```\n"
+      "description": "Python is used for TechDocs tooling (mkdocs-techdocs-core) in the Backstage runtime image."
     },
     {
       "timeline": [
@@ -56,21 +56,28 @@
           "moved": 0,
           "ringId": "adopt",
           "date": "2020-08-06T00:00:00.000Z",
-          "description": ""
+          "description": "Primary language for the Backstage app, backend and plugins."
         }
       ],
       "key": "typescript",
       "id": "typescript",
       "title": "TypeScript",
       "quadrant": "languages",
-      "description": "TypeScript (abbreviated as TS) is a free and open-source high-level programming language developed by Microsoft that adds static typing with optional type annotations to JavaScript."
+      "description": "TypeScript (abbreviated as TS) is a free and open-source high-level programming language developed by Microsoft that adds static typing with optional type annotations to JavaScript.",
+      "links": [
+        {
+          "url": "https://www.typescriptlang.org/",
+          "title": "Learn more"
+        }
+      ]
     },
     {
       "timeline": [
         {
           "moved": 0,
           "ringId": "adopt",
-          "date": "2020-08-06T00:00:00.000Z"
+          "date": "2020-08-06T00:00:00.000Z",
+          "description": "Backstage frontend framework."
         }
       ],
       "links": [
@@ -82,7 +89,8 @@
       "key": "react",
       "id": "react",
       "title": "React",
-      "quadrant": "frameworks"
+      "quadrant": "frameworks",
+      "description": "React powers the Backstage frontend."
     },
     {
       "timeline": [
@@ -192,7 +200,7 @@
         {
           "ringId": "adopt",
           "date": "2020-08-06T00:00:00.000Z",
-          "description": "long description"
+          "description": "CI/CD platform for builds, checks and deploys (see ADR 0006)."
         },
         {
           "ringId": "trial",
@@ -202,7 +210,7 @@
       ],
       "links": [
         {
-          "url": "https://github.com",
+          "url": "https://docs.github.com/en/actions",
           "title": "Learn more"
         }
       ],
@@ -216,7 +224,7 @@
         {
           "ringId": "adopt",
           "date": "2020-08-06T00:00:00.000Z",
-          "description": "long description"
+          "description": "Infrastructure as code for GCP resources, applied via Atlantis."
         }
       ],
       "links": [
@@ -230,7 +238,6 @@
       "title": "Terraform",
       "quadrant": "infrastructure"
     },
-
     {
       "timeline": [
         {
@@ -255,7 +262,7 @@
         {
           "ringId": "adopt",
           "date": "2020-08-06T00:00:00.000Z",
-          "description": "Managed Kubernetes service that automatically adjusts the resources allocated to your applications."
+          "description": "Managed Kubernetes service that automatically adjusts the resources allocated to your applications. Backstage runs on GKE, with Spot nodes preferred (ADR 0008)."
         }
       ],
       "links": [
@@ -331,7 +338,7 @@
         {
           "ringId": "adopt",
           "date": "2020-08-06T00:00:00.000Z",
-          "description": "long description"
+          "description": "Primary cloud platform: GKE, Cloud SQL, Artifact Registry, Secret Manager."
         }
       ],
       "links": [
@@ -347,6 +354,11 @@
     },
     {
       "timeline": [
+        {
+          "ringId": "hold",
+          "date": "2026-11-10T00:00:00.000Z",
+          "description": "Replaced by GitHub Actions for build pipelines (see ADR 0006). Not recommended for new pipelines."
+        },
         {
           "ringId": "adopt",
           "date": "2020-08-06T00:00:00.000Z",
@@ -407,7 +419,7 @@
         {
           "ringId": "adopt",
           "date": "2020-08-06T00:00:00.000Z",
-          "description": "long description"
+          "description": "Container runtime and image format used for application builds."
         }
       ],
       "links": [
@@ -426,7 +438,7 @@
         {
           "ringId": "adopt",
           "date": "2020-08-06T00:00:00.000Z",
-          "description": "long description"
+          "description": "Supported alternative to Docker for local development containers."
         }
       ],
       "links": [
@@ -439,6 +451,861 @@
       "id": "podman",
       "title": "Podman",
       "quadrant": "infrastructure"
+    },
+    {
+      "timeline": [
+        {
+          "ringId": "adopt",
+          "date": "2026-11-10T00:00:00.000Z",
+          "description": "Runtime for the Backstage backend; Node 22 and 24 are supported."
+        }
+      ],
+      "key": "nodejs",
+      "id": "nodejs",
+      "title": "Node.js",
+      "quadrant": "languages",
+      "links": [
+        {
+          "url": "https://nodejs.org/",
+          "title": "Learn more"
+        }
+      ]
+    },
+    {
+      "timeline": [
+        {
+          "ringId": "adopt",
+          "date": "2026-11-10T00:00:00.000Z",
+          "description": "Language used for Terraform configuration."
+        }
+      ],
+      "key": "hcl",
+      "id": "hcl",
+      "title": "HCL",
+      "quadrant": "languages",
+      "links": [
+        {
+          "url": "https://github.com/hashicorp/hcl",
+          "title": "Learn more"
+        }
+      ]
+    },
+    {
+      "timeline": [
+        {
+          "ringId": "adopt",
+          "date": "2026-11-10T00:00:00.000Z",
+          "description": "Configuration language for the catalog, Kubernetes manifests, workflows and app config."
+        }
+      ],
+      "key": "yaml",
+      "id": "yaml",
+      "title": "YAML",
+      "quadrant": "languages",
+      "links": [
+        {
+          "url": "https://yaml.org/",
+          "title": "Learn more"
+        }
+      ]
+    },
+    {
+      "timeline": [
+        {
+          "ringId": "adopt",
+          "date": "2026-11-10T00:00:00.000Z",
+          "description": "Developer portal framework behind the BITS software catalog, templates and TechDocs."
+        }
+      ],
+      "key": "backstage",
+      "id": "backstage",
+      "title": "Backstage",
+      "quadrant": "frameworks",
+      "links": [
+        {
+          "url": "https://backstage.io/",
+          "title": "Learn more"
+        }
+      ]
+    },
+    {
+      "timeline": [
+        {
+          "ringId": "adopt",
+          "date": "2026-11-10T00:00:00.000Z",
+          "description": "UI component library used by the Backstage frontend (@material-ui/core and @mui/material)."
+        }
+      ],
+      "key": "material-ui",
+      "id": "material-ui",
+      "title": "Material UI",
+      "quadrant": "frameworks",
+      "links": [
+        {
+          "url": "https://mui.com/",
+          "title": "Learn more"
+        }
+      ]
+    },
+    {
+      "timeline": [
+        {
+          "ringId": "adopt",
+          "date": "2026-11-10T00:00:00.000Z",
+          "description": "Unit test framework run via backstage-cli."
+        }
+      ],
+      "key": "jest",
+      "id": "jest",
+      "title": "Jest",
+      "quadrant": "frameworks",
+      "links": [
+        {
+          "url": "https://jestjs.io/",
+          "title": "Learn more"
+        }
+      ]
+    },
+    {
+      "timeline": [
+        {
+          "ringId": "trial",
+          "date": "2026-11-10T00:00:00.000Z",
+          "description": "End-to-end test framework configured for the Backstage app."
+        }
+      ],
+      "key": "cypress",
+      "id": "cypress",
+      "title": "Cypress",
+      "quadrant": "frameworks",
+      "links": [
+        {
+          "url": "https://www.cypress.io/",
+          "title": "Learn more"
+        }
+      ]
+    },
+    {
+      "timeline": [
+        {
+          "ringId": "adopt",
+          "date": "2026-11-10T00:00:00.000Z",
+          "description": "Documentation generator used by Backstage TechDocs for docs-like-code."
+        }
+      ],
+      "key": "mkdocs",
+      "id": "mkdocs",
+      "title": "MkDocs / TechDocs",
+      "quadrant": "frameworks",
+      "links": [
+        {
+          "url": "https://backstage.io/docs/features/techdocs/",
+          "title": "Learn more"
+        }
+      ]
+    },
+    {
+      "timeline": [
+        {
+          "ringId": "adopt",
+          "date": "2026-11-10T00:00:00.000Z",
+          "description": "Commercial plugins in use: Soundcheck, Insights, RBAC and Skill Exchange."
+        }
+      ],
+      "key": "spotify-portal-plugins",
+      "id": "spotify-portal-plugins",
+      "title": "Spotify Portal Plugins",
+      "quadrant": "frameworks",
+      "links": [
+        {
+          "url": "https://backstage.spotify.com/",
+          "title": "Learn more"
+        }
+      ]
+    },
+    {
+      "timeline": [
+        {
+          "ringId": "adopt",
+          "date": "2026-11-10T00:00:00.000Z",
+          "description": "Instrumentation for backend traces and metrics."
+        }
+      ],
+      "key": "opentelemetry",
+      "id": "opentelemetry",
+      "title": "OpenTelemetry",
+      "quadrant": "frameworks",
+      "links": [
+        {
+          "url": "https://opentelemetry.io/",
+          "title": "Learn more"
+        }
+      ]
+    },
+    {
+      "timeline": [
+        {
+          "ringId": "trial",
+          "date": "2026-11-10T00:00:00.000Z",
+          "description": "Backstage MCP actions backend exposes catalog and portal actions to AI tooling."
+        }
+      ],
+      "key": "mcp",
+      "id": "mcp",
+      "title": "Model Context Protocol",
+      "quadrant": "frameworks",
+      "links": [
+        {
+          "url": "https://modelcontextprotocol.io/",
+          "title": "Learn more"
+        }
+      ]
+    },
+    {
+      "timeline": [
+        {
+          "ringId": "adopt",
+          "date": "2026-11-10T00:00:00.000Z",
+          "description": "Required format for commit messages and PR titles, enforced by pre-commit and CI."
+        }
+      ],
+      "key": "conventional-commits",
+      "id": "conventional-commits",
+      "title": "Conventional Commits",
+      "quadrant": "process",
+      "links": [
+        {
+          "url": "https://www.conventionalcommits.org/",
+          "title": "Learn more"
+        }
+      ]
+    },
+    {
+      "timeline": [
+        {
+          "ringId": "adopt",
+          "date": "2026-11-10T00:00:00.000Z",
+          "description": "Significant decisions are recorded under docs/adr."
+        }
+      ],
+      "key": "adrs",
+      "id": "adrs",
+      "title": "Architecture Decision Records",
+      "quadrant": "process",
+      "links": [
+        {
+          "url": "https://adr.github.io/",
+          "title": "Learn more"
+        }
+      ]
+    },
+    {
+      "timeline": [
+        {
+          "ringId": "adopt",
+          "date": "2026-11-10T00:00:00.000Z",
+          "description": "Git hooks for JSON/YAML checks, secret detection, tflint and commit message linting."
+        }
+      ],
+      "key": "pre-commit",
+      "id": "pre-commit",
+      "title": "pre-commit",
+      "quadrant": "process",
+      "links": [
+        {
+          "url": "https://pre-commit.com/",
+          "title": "Learn more"
+        }
+      ]
+    },
+    {
+      "timeline": [
+        {
+          "ringId": "adopt",
+          "date": "2026-11-10T00:00:00.000Z",
+          "description": "Monthly automated updates for GitHub Actions, Terraform and Docker images."
+        }
+      ],
+      "key": "dependabot",
+      "id": "dependabot",
+      "title": "Dependabot",
+      "quadrant": "process",
+      "links": [
+        {
+          "url": "https://docs.github.com/en/code-security/dependabot",
+          "title": "Learn more"
+        }
+      ]
+    },
+    {
+      "timeline": [
+        {
+          "ringId": "adopt",
+          "date": "2026-11-10T00:00:00.000Z",
+          "description": "Backstage database, hosted on Cloud SQL."
+        }
+      ],
+      "key": "postgresql",
+      "id": "postgresql",
+      "title": "PostgreSQL",
+      "quadrant": "infrastructure",
+      "links": [
+        {
+          "url": "https://www.postgresql.org/",
+          "title": "Learn more"
+        }
+      ]
+    },
+    {
+      "timeline": [
+        {
+          "ringId": "adopt",
+          "date": "2026-11-10T00:00:00.000Z",
+          "description": "Managed PostgreSQL for dev and prod, accessed via the Cloud SQL Auth Proxy."
+        }
+      ],
+      "key": "cloud-sql",
+      "id": "cloud-sql",
+      "title": "Cloud SQL",
+      "quadrant": "infrastructure",
+      "links": [
+        {
+          "url": "https://cloud.google.com/sql",
+          "title": "Learn more"
+        }
+      ]
+    },
+    {
+      "timeline": [
+        {
+          "ringId": "adopt",
+          "date": "2026-11-10T00:00:00.000Z",
+          "description": "Container orchestration for Backstage deployments (HPA, VPA, PDB, Gateway API routes)."
+        }
+      ],
+      "key": "kubernetes",
+      "id": "kubernetes",
+      "title": "Kubernetes",
+      "quadrant": "infrastructure",
+      "links": [
+        {
+          "url": "https://kubernetes.io/",
+          "title": "Learn more"
+        }
+      ]
+    },
+    {
+      "timeline": [
+        {
+          "ringId": "adopt",
+          "date": "2026-11-10T00:00:00.000Z",
+          "description": "Pull request automation for Terraform plan and apply."
+        }
+      ],
+      "key": "atlantis",
+      "id": "atlantis",
+      "title": "Atlantis",
+      "quadrant": "infrastructure",
+      "links": [
+        {
+          "url": "https://www.runatlantis.io/",
+          "title": "Learn more"
+        }
+      ]
+    },
+    {
+      "timeline": [
+        {
+          "ringId": "adopt",
+          "date": "2026-11-10T00:00:00.000Z",
+          "description": "Builds the Backstage application image without a Dockerfile."
+        }
+      ],
+      "key": "cloud-buildpacks",
+      "id": "cloud-buildpacks",
+      "title": "Google Cloud Buildpacks",
+      "quadrant": "infrastructure",
+      "links": [
+        {
+          "url": "https://github.com/GoogleCloudPlatform/buildpacks",
+          "title": "Learn more"
+        }
+      ]
+    },
+    {
+      "timeline": [
+        {
+          "ringId": "adopt",
+          "date": "2026-11-10T00:00:00.000Z",
+          "description": "Image build and publish tool used in the GitHub Actions build."
+        }
+      ],
+      "key": "werf",
+      "id": "werf",
+      "title": "werf",
+      "quadrant": "infrastructure",
+      "links": [
+        {
+          "url": "https://werf.io/",
+          "title": "Learn more"
+        }
+      ]
+    },
+    {
+      "timeline": [
+        {
+          "ringId": "adopt",
+          "date": "2026-11-10T00:00:00.000Z",
+          "description": "Package manager for Kubernetes manifests under deployment/."
+        }
+      ],
+      "key": "kpt",
+      "id": "kpt",
+      "title": "kpt",
+      "quadrant": "infrastructure",
+      "links": [
+        {
+          "url": "https://kpt.dev/",
+          "title": "Learn more"
+        }
+      ]
+    },
+    {
+      "timeline": [
+        {
+          "ringId": "trial",
+          "date": "2026-11-10T00:00:00.000Z",
+          "description": "Preferred node capacity for Backstage to reduce cost (ADR 0008)."
+        }
+      ],
+      "key": "gke-spot",
+      "id": "gke-spot",
+      "title": "GKE Spot VMs",
+      "quadrant": "infrastructure",
+      "links": [
+        {
+          "url": "https://cloud.google.com/kubernetes-engine/docs/concepts/spot-vms",
+          "title": "Learn more"
+        }
+      ]
+    },
+    {
+      "timeline": [
+        {
+          "ringId": "adopt",
+          "date": "2026-11-10T00:00:00.000Z",
+          "description": "HTTPRoute, health check and backend policies route traffic to Backstage."
+        }
+      ],
+      "key": "gateway-api",
+      "id": "gateway-api",
+      "title": "Kubernetes Gateway API",
+      "quadrant": "infrastructure",
+      "links": [
+        {
+          "url": "https://gateway-api.sigs.k8s.io/",
+          "title": "Learn more"
+        }
+      ]
+    },
+    {
+      "timeline": [
+        {
+          "ringId": "adopt",
+          "date": "2026-11-10T00:00:00.000Z",
+          "description": "Source of local development secrets, read through the op CLI."
+        }
+      ],
+      "key": "1password",
+      "id": "1password",
+      "title": "1Password",
+      "quadrant": "infrastructure",
+      "links": [
+        {
+          "url": "https://developer.1password.com/docs/cli/",
+          "title": "Learn more"
+        }
+      ]
+    },
+    {
+      "timeline": [
+        {
+          "ringId": "adopt",
+          "date": "2026-11-10T00:00:00.000Z",
+          "description": "Tool version and task runner for local development and CI."
+        }
+      ],
+      "key": "mise",
+      "id": "mise",
+      "title": "mise",
+      "quadrant": "infrastructure",
+      "links": [
+        {
+          "url": "https://mise.jdx.dev/",
+          "title": "Learn more"
+        }
+      ]
+    },
+    {
+      "timeline": [
+        {
+          "ringId": "adopt",
+          "date": "2026-11-10T00:00:00.000Z",
+          "description": "Metrics collection for Backstage via monitoring.yaml."
+        }
+      ],
+      "key": "prometheus",
+      "id": "prometheus",
+      "title": "Prometheus",
+      "quadrant": "infrastructure",
+      "links": [
+        {
+          "url": "https://prometheus.io/",
+          "title": "Learn more"
+        }
+      ]
+    },
+    {
+      "timeline": [
+        {
+          "ringId": "adopt",
+          "date": "2026-11-10T00:00:00.000Z",
+          "description": "Vulnerability scanning; accepted findings tracked in .trivyignore."
+        }
+      ],
+      "key": "trivy",
+      "id": "trivy",
+      "title": "Trivy",
+      "quadrant": "infrastructure",
+      "links": [
+        {
+          "url": "https://trivy.dev/",
+          "title": "Learn more"
+        }
+      ]
+    },
+    {
+      "timeline": [
+        {
+          "ringId": "adopt",
+          "date": "2026-11-10T00:00:00.000Z",
+          "description": "Package manager (Yarn 4 workspaces) for the Backstage monorepo."
+        }
+      ],
+      "key": "yarn",
+      "id": "yarn",
+      "title": "Yarn",
+      "quadrant": "infrastructure",
+      "links": [
+        {
+          "url": "https://yarnpkg.com/",
+          "title": "Learn more"
+        }
+      ]
+    },
+    {
+      "timeline": [
+        {
+          "ringId": "adopt",
+          "date": "2026-11-10T00:00:00.000Z",
+          "description": "Packaging and dependency management for Python packages from the python-package template."
+        }
+      ],
+      "key": "poetry",
+      "id": "poetry",
+      "title": "Poetry",
+      "quadrant": "frameworks",
+      "links": [
+        {
+          "url": "https://python-poetry.org/",
+          "title": "Learn more"
+        }
+      ]
+    },
+    {
+      "timeline": [
+        {
+          "ringId": "adopt",
+          "date": "2026-11-10T00:00:00.000Z",
+          "description": "Python linter and formatter; the python-package template enables all rule categories."
+        }
+      ],
+      "key": "ruff",
+      "id": "ruff",
+      "title": "Ruff",
+      "quadrant": "frameworks",
+      "links": [
+        {
+          "url": "https://docs.astral.sh/ruff/",
+          "title": "Learn more"
+        }
+      ]
+    },
+    {
+      "timeline": [
+        {
+          "ringId": "adopt",
+          "date": "2026-11-10T00:00:00.000Z",
+          "description": "Static type checker for Python packages."
+        }
+      ],
+      "key": "pyright",
+      "id": "pyright",
+      "title": "Pyright",
+      "quadrant": "frameworks",
+      "links": [
+        {
+          "url": "https://microsoft.github.io/pyright/",
+          "title": "Learn more"
+        }
+      ]
+    },
+    {
+      "timeline": [
+        {
+          "ringId": "adopt",
+          "date": "2026-11-10T00:00:00.000Z",
+          "description": "Test framework for Python packages."
+        }
+      ],
+      "key": "pytest",
+      "id": "pytest",
+      "title": "pytest",
+      "quadrant": "frameworks",
+      "links": [
+        {
+          "url": "https://docs.pytest.org/",
+          "title": "Learn more"
+        }
+      ]
+    },
+    {
+      "timeline": [
+        {
+          "ringId": "adopt",
+          "date": "2026-11-10T00:00:00.000Z",
+          "description": "YAML linting in CI for every software template."
+        }
+      ],
+      "key": "yamllint",
+      "id": "yamllint",
+      "title": "yamllint",
+      "quadrant": "frameworks",
+      "links": [
+        {
+          "url": "https://yamllint.readthedocs.io/",
+          "title": "Learn more"
+        }
+      ]
+    },
+    {
+      "timeline": [
+        {
+          "ringId": "adopt",
+          "date": "2026-11-10T00:00:00.000Z",
+          "description": "Formatter for YAML, Markdown and JSON, checked in CI."
+        }
+      ],
+      "key": "prettier",
+      "id": "prettier",
+      "title": "Prettier",
+      "quadrant": "frameworks",
+      "links": [
+        {
+          "url": "https://prettier.io/",
+          "title": "Learn more"
+        }
+      ]
+    },
+    {
+      "timeline": [
+        {
+          "ringId": "adopt",
+          "date": "2026-11-10T00:00:00.000Z",
+          "description": "Terraform linter run in CI for Terraform templates."
+        }
+      ],
+      "key": "tflint",
+      "id": "tflint",
+      "title": "TFLint",
+      "quadrant": "infrastructure",
+      "links": [
+        {
+          "url": "https://github.com/terraform-linters/tflint",
+          "title": "Learn more"
+        }
+      ]
+    },
+    {
+      "timeline": [
+        {
+          "ringId": "adopt",
+          "date": "2026-11-10T00:00:00.000Z",
+          "description": "Generates Terraform module documentation, checked in CI."
+        }
+      ],
+      "key": "terraform-docs",
+      "id": "terraform-docs",
+      "title": "terraform-docs",
+      "quadrant": "infrastructure",
+      "links": [
+        {
+          "url": "https://terraform-docs.io/",
+          "title": "Learn more"
+        }
+      ]
+    },
+    {
+      "timeline": [
+        {
+          "ringId": "trial",
+          "date": "2026-11-10T00:00:00.000Z",
+          "description": "Wrapper for sharing one Terraform module across dev and prod; has its own template."
+        }
+      ],
+      "key": "terragrunt",
+      "id": "terragrunt",
+      "title": "Terragrunt",
+      "quadrant": "infrastructure",
+      "links": [
+        {
+          "url": "https://terragrunt.gruntwork.io/",
+          "title": "Learn more"
+        }
+      ]
+    },
+    {
+      "timeline": [
+        {
+          "ringId": "adopt",
+          "date": "2026-11-10T00:00:00.000Z",
+          "description": "Serverless container hosting, deployed with Terraform (including MediaWiki)."
+        }
+      ],
+      "key": "cloud-run",
+      "id": "cloud-run",
+      "title": "Google Cloud Run",
+      "quadrant": "infrastructure",
+      "links": [
+        {
+          "url": "https://cloud.google.com/run",
+          "title": "Learn more"
+        }
+      ]
+    },
+    {
+      "timeline": [
+        {
+          "ringId": "adopt",
+          "date": "2026-11-10T00:00:00.000Z",
+          "description": "Provisions certificates for internal and external Gateway endpoints via DNS authorization."
+        }
+      ],
+      "key": "gcp-certificate-manager",
+      "id": "gcp-certificate-manager",
+      "title": "GCP Certificate Manager",
+      "quadrant": "infrastructure",
+      "links": [
+        {
+          "url": "https://cloud.google.com/certificate-manager",
+          "title": "Learn more"
+        }
+      ]
+    },
+    {
+      "timeline": [
+        {
+          "ringId": "adopt",
+          "date": "2026-11-10T00:00:00.000Z",
+          "description": "Keyless GitHub Actions authentication to GCP."
+        }
+      ],
+      "key": "workload-identity-federation",
+      "id": "workload-identity-federation",
+      "title": "Workload Identity Federation",
+      "quadrant": "infrastructure",
+      "links": [
+        {
+          "url": "https://cloud.google.com/iam/docs/workload-identity-federation",
+          "title": "Learn more"
+        }
+      ]
+    },
+    {
+      "timeline": [
+        {
+          "ringId": "adopt",
+          "date": "2026-11-10T00:00:00.000Z",
+          "description": "Package manager for scientific software on HPC; packages are added via the SCISOFT template."
+        }
+      ],
+      "key": "spack",
+      "id": "spack",
+      "title": "Spack",
+      "quadrant": "infrastructure",
+      "links": [
+        {
+          "url": "https://spack.io/",
+          "title": "Learn more"
+        }
+      ]
+    },
+    {
+      "timeline": [
+        {
+          "ringId": "adopt",
+          "date": "2026-11-10T00:00:00.000Z",
+          "description": "Incident management, wired up to services through the add-pagerduty template."
+        }
+      ],
+      "key": "pagerduty",
+      "id": "pagerduty",
+      "title": "PagerDuty",
+      "quadrant": "infrastructure",
+      "links": [
+        {
+          "url": "https://www.pagerduty.com/",
+          "title": "Learn more"
+        }
+      ]
+    },
+    {
+      "timeline": [
+        {
+          "ringId": "assess",
+          "date": "2026-11-10T00:00:00.000Z",
+          "description": "Secondary cloud provider; accounts added via the add-aws-account template."
+        }
+      ],
+      "key": "aws",
+      "id": "aws",
+      "title": "Amazon Web Services",
+      "quadrant": "infrastructure",
+      "links": [
+        {
+          "url": "https://aws.amazon.com/",
+          "title": "Learn more"
+        }
+      ]
+    },
+    {
+      "timeline": [
+        {
+          "ringId": "adopt",
+          "date": "2026-11-10T00:00:00.000Z",
+          "description": "IT service management; also backs ITIL change management."
+        }
+      ],
+      "key": "servicenow",
+      "id": "servicenow",
+      "title": "ServiceNow",
+      "quadrant": "infrastructure",
+      "links": [
+        {
+          "url": "https://www.servicenow.com/",
+          "title": "Learn more"
+        }
+      ]
     }
   ],
   "quadrants": [

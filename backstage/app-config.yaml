@@ -26,7 +26,7 @@ app:
           height: 300        # cap the card height
           maxDepth: 1        # fewer nodes for groups with many relations
           zoom: enable-on-click   # stops the graph capturing scroll
-          
+
 organization:
   name: Broad Institute
 
@@ -152,5 +152,9 @@ costInsights:
   engineerCost: 200000
 mcpActions:
   name: 'Broad Institute Engineering Portal (Backstage)' # defaults to "backstage"
-  description: 'Tools for managing your software catalog, creating new services from templates, and exploring your developer portal' # optional
-  namespacedToolNames: true
+  description: >-
+    Tools for the Broad Institute engineering portal. Browse and search the software catalog
+    (components, APIs, systems, domains, resources, teams, and AI resources such as skills and rules),
+    register or validate catalog entries, scaffold repositories, infrastructure, and Kubernetes or cloud
+    changes from templates, and review Soundcheck compliance for components and teams.
+  namespacedToolNames: false
