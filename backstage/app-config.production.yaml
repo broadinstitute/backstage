@@ -42,6 +42,7 @@ backend:
   reading:
     allow:
       - host: 'raw.githubusercontent.com'
+      - host: 'developers.nutanix.com'
 
   # config options: https://node-postgres.com/api/client
   database:
