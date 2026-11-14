@@ -167,6 +167,15 @@ catalog:
         schedule:
           frequency: PT60M
           timeout: PT15M
+      catalog-infoDirectoryDiscoveryPuppet:
+        organization: 'broadinstitute'
+        catalogPath: '/catalog-info/*.yaml'
+        filters:
+          branch: 'staging'
+          repository: 'bits-puppet'
+        schedule:
+          frequency: PT60M
+          timeout: PT15M
       importDSP:
         organization: 'broadinstitute' # string
         catalogPath: '/foundation.yaml' # string
