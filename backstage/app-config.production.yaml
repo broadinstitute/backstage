@@ -42,6 +42,7 @@ backend:
   reading:
     allow:
       - host: 'raw.githubusercontent.com'
+      - host: 'developers.nutanix.com'
 
   # config options: https://node-postgres.com/api/client
   database:
@@ -165,8 +166,17 @@ catalog:
           branch: 'main'
           repository: '.*'
         schedule:
-          frequency: PT360M
-          timeout: PT3M
+          frequency: PT60M
+          timeout: PT15M
+      catalog-infoDirectoryDiscoveryPuppet:
+        organization: 'broadinstitute'
+        catalogPath: '/catalog-info/*.yaml'
+        filters:
+          branch: 'staging'
+          repository: 'bits-puppet'
+        schedule:
+          frequency: PT60M
+          timeout: PT15M
       importDSP:
         organization: 'broadinstitute' # string
         catalogPath: '/foundation.yaml' # string
